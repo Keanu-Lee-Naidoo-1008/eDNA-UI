@@ -1,0 +1,11 @@
+﻿
+<h2>LinkComputersToGroups</h2>
+
+@*CODESC: Display MVC SiteMap*@
+<script type="text/javascript">
+    $("#MVCSiteMap").show();
+    if ('@HttpContext.Current.Session["UpdateManagerGroupComputer"]' == 'True')
+    {
+        GetComputersLinkedToGroupsList();
+    }
+</script>

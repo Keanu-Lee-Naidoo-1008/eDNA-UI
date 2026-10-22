@@ -1,0 +1,43 @@
+@model IEnumerable<eDNA.WebPortal.Models.CUser>
+
+<table class="table table-hover table-condensed" id="tblForensicRecipientResults">
+    <thead>
+        <tr>
+            <th>eDNA ID</th>
+            <th>Name</th>
+            <th>ID number</th>
+            <th>Email</th>
+            <th>Select</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model ?? Enumerable.Empty<eDNA.WebPortal.Models.CUser>())
+        {
+            <tr class="@(user.ForensicRecipientEligible ? "" : "text-muted")">
+                <td>@user.UserId</td>
+                <td>@user.Name @user.SurName</td>
+                <td>@user.IDNumber</td>
+                <td>@user.Email</td>
+                <td>
+                    @if (user.ForensicRecipientEligible)
+                    {
+                        <button type="button" class="btn btn-xs btn-primary forensic-recipient-select"
+                                data-user-id="@user.UserId"
+                                data-user-name="@((user.Name + " " + user.SurName).Trim())"
+                                data-user-email="@user.Email">
+                            Select
+                        </button>
+                    }
+                    else
+                    {
+                        <span title="@user.ForensicRecipientIneligibilityReason">Not eligible</span>
+                    }
+                </td>
+            </tr>
+        }
+        @if (Model == null || !Model.Any())
+        {
+            <tr><td colspan="5" class="text-muted">No users matched the search.</td></tr>
+        }
+    </tbody>
+</table>

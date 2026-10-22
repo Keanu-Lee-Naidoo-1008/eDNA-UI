@@ -1,0 +1,99 @@
+@model eDNA.CommonData.Classes.CData_TransversalAccount
+@{
+   ViewBag.Title = "Transversal Account Details";
+}
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery.tablesorter.min.js"></script>
+<script src="~/Scripts/Enrolment/TransversalManagementAndEnrolment.js"></script>
+<div class="panel-body-details">
+   <div class="form-horizontal">
+      <div class="row">
+         <div class="col-md-1" style="width:200px">
+         </div>
+         <div id="dvTransversalDetails" class="col-md-7" style="border-style:double;width:760px;">
+               @Html.Partial("_TransversalAccountFields", Model)
+            </div>         
+
+         <div id="dvTransversalActions" class="col-md-2" style="width:20%;display:none">
+            <div class="list-group">
+               <center>
+                  <div class="list-group-item" style="background-color:steelblue">
+                     <h4 style="height:10px">
+                        <font color="white">Transversal Actions</font>
+                     </h4>
+                  </div>
+               </center>
+               <a id="aSuspend" href="#" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Suspend Transversal Account"><span class="glyphicon glyphicon-thumbs-down"></span> Suspend</a>
+               <a id="aUnsuspend" href="#" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Un-Suspend Transversal Account"><span class="glyphicon glyphicon-thumbs-up"></span> Un-suspend</a>
+               <a id="aRelinquishN" href="javascript:OpeneDNAIDPopup('RN')" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Relinquish (Normal) Transversal Account"><span class="glyphicon  glyphicon-export"></span> Relinquish (Normal)</a>
+               <a id="aRelinquishF" href="javascript:OpeneDNAIDPopup('RF')" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Relinquish (Force) Transversal Account"><span class="glyphicon glyphicon-new-window"></span> Relinquish (Force)</a>
+               <a id="aReturnN" href="#" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Return (Normal) Transversal Account"><span class="glyphicon glyphicon-retweet"></span> Return (Normal)</a>
+               <a id="aReturnF" href="#" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Return (Force) Transversal Account"><span class="glyphicon glyphicon-random"></span> Return (Force)</a>
+               <a id="aTransfer" href="javascript:OpeneDNAIDPopup('T')" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Transfer Transversal Account"><span class="glyphicon glyphicon-transfer"></span> Transfer</a>
+               <a id="aPPassword" href="#" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Return (Force) Transversal Account"><span class="glyphicon glyphicon-star-empty"></span> Provision Password</a>
+               <a id="aCPassword" href="#" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Transfer Transversal Account"><span class="glyphicon glyphicon-star"></span> Create Password</a>
+               <a href="#" class="list-group-item" data-placement="bottom" data-toggle="tooltip"></a>
+            </div>
+         </div>        
+      </div>
+   </div>
+</div>
+
+<div class="panel-footer">
+   <table>
+      <tr>
+         <td>
+            <a href="javascript:BackToTransversalManage()" class="btn btn-primary" data-toggle="tooltip" title="Redirect to Transversal List" style="width:150px"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
+         </td>
+         <td width="40px"></td>
+         <td>
+            <a href="javascript:DeleteTransversal('TM')" class="btn btn-primary" data-toggle="tooltip" title="Do NRS Transaction" style="width:150px"><span class="glyphicon glyphicon-hand-up"></span> Sign and Delete</a>
+         </td>
+         <td width="40px"></td>
+         <td>
+            <a href="javascript:UpdateTransversal('TM')" class="btn btn-primary" data-toggle="tooltip" title="Do NRS Transaction" style="width:150px"><span class="glyphicon glyphicon-hand-up"></span> Sign and Update</a>
+         </td>
+      </tr>
+   </table>
+</div>
+
+@*CODESC: Hide url display in bottom left on mouse over*@
+<script type="text/javascript">
+   $(document).ready(function () {    
+      $("#MVCSiteMap").show();
+      $("#dvClose").hide();
+      //GetTransversalDetails(m_TransversalAccountID);
+   });  
+
+   //CODESC: Hide the Transversal details controls according to the Transversal Type.
+   var SelectedTransversalID = $('#TransversalID').val();
+   if (SelectedTransversalID == 1) {
+
+      document.getElementById("dvBASInstallID").style.display = "";
+      document.getElementById("dvIsController").style.display = "";
+
+      document.getElementById("dvMainframeID").style.display = "none";
+      document.getElementById("dvPassportAppUser").style.display = "none";
+      document.getElementById("dvControlDUser").style.display = "none";
+   }
+   else if (SelectedTransversalID == 2) {
+
+      document.getElementById("dvMainframeID").style.display = "";
+      document.getElementById("dvIsController").style.display = "";
+      document.getElementById("dvControlDUser").style.display = "";
+
+      document.getElementById("dvBASInstallID").style.display = "none";
+      document.getElementById("dvPassportAppUser").style.display = "none";
+   }
+   else if (SelectedTransversalID == 3) {
+
+      document.getElementById("dvIsController").style.display = "";
+      document.getElementById("dvPassportAppUser").style.display = "";
+
+      document.getElementById("dvMainframeID").style.display = "none";
+      document.getElementById("dvControlDUser").style.display = "none";
+      document.getElementById("dvBASInstallID").style.display = "none";
+   }  
+</script>

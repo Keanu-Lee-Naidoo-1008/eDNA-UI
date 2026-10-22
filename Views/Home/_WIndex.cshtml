@@ -1,0 +1,152 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+}
+@model List<eDNA.WebPortal.Models.CMenuData>
+
+<div class="dashboard">
+<style>
+    label.wheel_icon {
+        border: ridge;
+        border-color: white;
+        background-color: transparent;
+        overflow:hidden;
+    }
+</style>
+    @if (Model != null && Model.Count != 0)
+    {
+        //CODESC: Define the size of the menu circles
+        var l_intDiscSize = 0;
+
+        if (Model.Count <= 3)
+        {
+            l_intDiscSize = 130;
+        }
+        else if (Model.Count > 3 && Model.Count < 7)
+        {
+            l_intDiscSize = 110;
+        }
+        else if (Model.Count >= 7 && Model.Count < 10)
+        {
+            l_intDiscSize = 100;
+        }
+        else if (Model.Count >9)
+        {
+            l_intDiscSize = 80;
+        }
+
+        <div class="selector">
+            @Html.ValidationSummary(true)
+            <div class="submit-button-wrapper">
+                <fieldset style="background-position:center">
+                    @foreach (var l_Menu in ((ViewBag.MenuList as List<eDNA.CommonData.Classes.CData_Menu>) ?? new List<eDNA.CommonData.Classes.CData_Menu>()))
+                {
+                        <ul title="@l_Menu.Caption: @l_Menu.ToolTip" style="background-position:center;background-repeat:no-repeat">
+                            <li onclick="Redirect('@l_Menu.MenuID', '@l_Menu.MVC_View')" id=@l_Menu.MenuID>
+                                <input id=@l_Menu.ControllerName type="checkbox">
+                                <label for=@l_Menu.ControllerName id=@l_Menu.ControllerName style="width:@(l_intDiscSize)px;height:@(l_intDiscSize)px; border-radius:@(l_intDiscSize/2)px" class="wheel_icon">
+                                    <img src="~/Content/Images/MenuIcons/@l_Menu.IconName" width=@l_intDiscSize height=@l_intDiscSize />
+                                </label>
+                            </li>
+                        </ul>
+                    }
+                    <button data-toggle="tooltip" data-placement="top" title="Click to Toggle The Menu"
+                            style="background-repeat:no-repeat;background-color:transparent;background-position:center;border:ridge;position:center;border-color:white;background-image: url('~/Content/Images/eDNA_logo.jpg');
+                            height:200px;width:200px;top:0px"></button>
+                </fieldset>
+            </div>
+        </div>
+
+        <div class="pull-right col-md-3">
+            <div class="list-group-item" style="background-color:steelblue">
+                <center>
+                    <h4 style="width:250px;text-align:center">
+                        <font color="white">Menu</font>
+                    </h4>
+                </center>
+            </div>
+            <div class="list-group">
+                @foreach (var l_Menu in ((ViewBag.MenuList as List<eDNA.CommonData.Classes.CData_Menu>) ?? new List<eDNA.CommonData.Classes.CData_Menu>()))
+                {
+                    <a href="javascript:Redirect('@l_Menu.MenuID','@l_Menu.MVC_View')" class="list-group-item" id=@l_Menu.MenuID data-toggle="tooltip" data-placement="left" title="@l_Menu.ToolTip">
+                        <div>
+                            <label style="cursor:pointer">
+                                <img src="~/Content/Images/MenuIcons/@l_Menu.IconName" width="30" height="30" />
+                                @l_Menu.Caption
+                            </label>
+                        </div>
+                    </a>
+                }
+                <a href="#" class="list-group-item" data-placement="bottom" data-toggle="tooltip"></a>
+            </div>
+        </div>
+    }
+</div>
+
+@*CODESC: Script for the Wheel menu with rotate functionality*@
+<script type="text/javascript">
+    var nbOptions = 8;
+    var angleStart = -360;
+
+    // jquery rotate animation
+    function rotate(li, d) {
+        $({ d: angleStart }).animate({ d: d }, {
+            step: function (now) {
+                $(li)
+                    .css({ transform: 'rotate(' + now + 'deg)' })
+                    .find('label')
+                    .css({ transform: 'rotate(' + (-now) + 'deg)' });
+            }, duration: 0
+        });
+    }
+
+    //CODESC: Script for the Wheel menu with rotate functionality. show / hide the options
+    function toggleOptions(s) {
+        $(s).toggleClass('open');
+        var li = $(s).find('li');
+        var deg = $(s).hasClass('half') ? 180 / (li.length - 1) : 360 / li.length;
+        for (var i = 0; i < li.length; i++) {
+            var d = $(s).hasClass('half') ? (i * deg) - 90 : i * deg;
+            $(s).hasClass('open') ? rotate(li[i], d) : rotate(li[i], angleStart);
+        }
+    }
+    $('.selector button').click(function (e) {
+        toggleOptions($(this).parent());
+    });
+    setTimeout(function () { toggleOptions('.selector'); }, 100);
+</script>
+
+@*CODESC: Redirect to the specific MVC form/page according to the user menu selection.*@
+@*<script type="text/javascript">
+    function Redirect(p_iMenuID, p_strMVCView,p_strMenuCaption) {
+        if (p_strMVCView != 'None') {
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                traditional: true,
+                url: "/eDNA.WebPortal/Home/RedirectToSelectedPage",
+                data: JSON.stringify({ 'p_iMenuID': p_iMenuID, 'p_strMVCView': p_strMVCView, 'p_strMenuCaption': p_strMenuCaption }),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    ShowBusyProcessing();
+                    location = data;
+                }
+            });
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                traditional: true,
+                url: "/eDNA.WebPortal/Base/HandleMessage",
+                data: JSON.stringify({ 'p_strMessage': '1' + ';16' + ';' + p_iMenuID, 'p_strOption': '64', 'p_strMenuCaption': p_strMenuCaption }),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    //CODESC: Display busy process.
+                    ShowBusyProcessing();
+                    //CODESC: Process WebSocket Request function with the passing values process.
+                    ProcessWebSocketRequest(data, m_CurrentController);
+                }
+            });
+        }
+    }
+</script>*@

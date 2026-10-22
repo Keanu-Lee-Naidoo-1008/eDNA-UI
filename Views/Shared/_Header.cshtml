@@ -1,0 +1,127 @@
+﻿
+<nav class="navbar navbar-fixed-top ed-topbar">
+    <link rel="shortcut icon" href="~/Content/Images/favicon.ico" />
+    <div class="ed-brand">
+        <img src="~/Content/Images/eDNA.png" alt="eDNA" />
+        <span class="ed-page-title">@ViewBag.CurrentView</span>
+    </div>
+    <div class="ed-topbar-actions">
+        <div id="dvCDFinger" class="pull-right" style="display:none">
+            <a href="javascript:ChangeDefaultFinger()" data-toggle="tooltip" data-placement="bottom" title="Override default finger" id="lnkDefaultFinger" class="ed-topbar-link">
+                <span class="glyphicon glyphicon-hand-up"></span>
+                <span class="ed-link-text">Override Default Finger</span>
+            </a>
+        </div>
+        @*<div class="pull-right">
+               <a id="ApplicationLog" href="javascript:DisplayApplicationLog()" style="color:blue;" data-toggle="tooltip" data-placement="bottom" title="Open eDNA Logs"><span class="glyphicon glyphicon-book"></span> eDNA Logs</a>
+               &nbsp;
+            </div>*@
+        <div id="dvSupport" class="btn-group pull-right" style="display:none">
+            <div>
+                <a class="btn dropdown-header dropdown-toggle ed-topbar-link" data-toggle="dropdown" data-placement="bottom" title="Help and Support" href="#" aria-haspopup="true">
+                    <span class="glyphicon glyphicon-phone-alt"></span>
+                    <span class="ed-link-text">Help &amp; Support</span> <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                    <li>
+                        <a href="javascript:LogSupportCall()" data-placement="bottom" title="Log a support call" class="list-group-item" id="lnkLogacall"><span class="glyphicon glyphicon-earphone"></span> Log a Support Call</a>
+                    </li>
+                    <li>
+                        <a href="javascript:Help()" data-placement="bottom" title="Self help videos" class="list-group-item" id="lnkHelperVideos"><span class="glyphicon glyphicon-facetime-video"></span> Helper Videos</a>
+                    </li>
+                    <li>
+                        @*<a href="javascript:myFunction()" data-placement="bottom" class="list-group-item" id="lnkScreenshot" style="color:blue;font-size:medium;width:220px"><span class="glyphicon glyphicon-camera"></span> Capture Screen Shot</a>*@
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="dvHeaderMenu" class="btn-group pull-right" style="display:none">
+            <div>
+                <a class="btn dropdown-header dropdown-toggle ed-topbar-link" data-toggle="dropdown" data-placement="bottom" title="User configurations" href="#" aria-haspopup="true">
+                    <span class="glyphicon glyphicon-user"></span>
+                    <span class="ed-link-text">@HttpContext.Current.Session["eDNAUserName"]</span> <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu">
+                    <li>
+                        <a href="javascript:MyProfile()" data-placement="bottom" title="User profile" class="list-group-item" id="lnkMyProfile"><span class="glyphicon glyphicon-user"></span> MyProfile</a>
+                    </li>
+                    <li>
+                        <a href="javascript:DoLogout()" data-placement="bottom" title="Logout" class="list-group-item" id="lnkLogoutUser"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+@*CODESC: Handles logout message.*@
+<script type="text/javascript">
+    function MyProfile() {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            traditional: true,
+            url: "UserProfile",
+            data: JSON.stringify({ '': '' }),
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                //CODESC: Display busy process.
+                ShowBusyProcessing();
+                location = data;
+            },
+            error: function (data) {
+                m_Logger.appendError(data);
+            }
+        });
+        //CODESC: Display busy process.
+        HideBusyProcessing();
+    }
+</script>
+
+@*CODESC: Handles logout message.*@
+<script type="text/javascript">
+    function LogSupportCall() {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            traditional: true,
+            url: "LogASupportCall",
+            data: JSON.stringify({ '': '' }),
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                //CODESC: Display busy process.
+                ShowBusyProcessing();
+                location = data;
+            },
+            error: function (data) {
+                m_Logger.appendError(data);
+            }
+        });
+        //CODESC: Display busy process.
+        HideBusyProcessing();
+    }
+</script>
+
+@*CODESC: Handles logout message.*@
+<script type="text/javascript">
+    function Help() {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            traditional: true,
+            url: "Help",
+            data: JSON.stringify({ '': '' }),
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                //CODESC: Display busy process.
+                ShowBusyProcessing();
+                location = data;
+            },
+            error: function (data) {
+                m_Logger.appendError(data);
+            }
+        });
+        //CODESC: Display busy process.
+        HideBusyProcessing();
+    }
+</script>

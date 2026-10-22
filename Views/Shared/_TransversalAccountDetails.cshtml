@@ -1,0 +1,21 @@
+@model eDNA.CommonData.Classes.CData_TransversalAccount
+
+<!-- Edit a Transversal Input Event Modal Pop up Window -->
+<div class="modal fade" id="mdTransversalDetails" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" data-placement="center" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h4 id="Icon_Information"><img src="~/Content/Images/Information.png" width="45" height="40" />&nbsp;<Label>Transversal Details</Label></h4>
+         </div>
+         <div class="modal-body">
+            @Html.Partial("_TransversalAccountFields", Model, new ViewDataDictionary(ViewData) { { "TransversalFieldMode", "Modal" } })
+            <br />
+         </div>
+         <div class="modal-footer">
+            <img src="~/Content/Images/eDNA_logo.jpg" class="pull-left" height="45" />
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            @*<button type="button" id="btnUpdateMTransversal" class="btn btn-default" data-toggle="tooltip" title="Add Transversal to the list" data-placement="bottom">Update</button>*@
+         </div>
+      </div>
+   </div>
+</div>

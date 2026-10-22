@@ -1,0 +1,46 @@
+﻿
+<center><h2>UpdateManager Installpack/File Uploader</h2></center>
+
+@using (Html.BeginForm("SaveUploadedFile", "UpdateManager",
+                                          FormMethod.Post,
+                                          new { enctype = "multipart/form-data" }))
+{
+    <table class="table borderless table-responsive">
+        <tbody>
+            <tr>
+                <td></td>
+                <td>
+                    <label for="file">File to Upload:</label>
+                </td><td>
+                </td>
+                <td>
+                    <input type="file" name="file" id="file" /><br><br><br>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table border='1' width='100%'>
+            <tr>
+                <td></td>
+                <td class="centerBtn">
+                    <input type="submit" value="Upload File" />
+                </td>
+            </tr>
+        <tr></tr>
+    </table>
+    <p><strong>Tag: @TempData["Tag"]</strong></p>
+    @*<label>Results:</label> @ViewBag.Message*@
+
+
+    <br><br>
+    @ViewBag.Message
+}
+
+@*CODESC: Display MVC SiteMap*@
+<script type="text/javascript">
+    $("#MVCSiteMap").show();
+    if ('@HttpContext.Current.Session["UpdateManagerInstallpack"]' == 'True')
+    {
+        GetUploadedInstallpackList();
+    }
+</script>

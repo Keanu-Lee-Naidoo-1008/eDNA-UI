@@ -1,0 +1,788 @@
+@model eDNA.WebPortal.Models.CTransversalAccountData
+@{
+    List<eDNA.CommonData.Classes.CData_TransversalAccount> l_lstTransversalAccounts =
+        ViewBag.TransversalAccounts as List<eDNA.CommonData.Classes.CData_TransversalAccount>
+        ?? new List<eDNA.CommonData.Classes.CData_TransversalAccount>();
+
+}
+
+@if ((int)(ViewBag.ReturnToEnrolmentUserID ?? 0) > 0)
+{
+    <div class="alert alert-info">
+        Reviewing transversal accounts for enrolment user <strong>@ViewBag.ReturnToEnrolmentUserID</strong>.
+        Use <strong>Continue</strong> when no changes are pending, or <strong>Sign and Save</strong> to save account changes.
+
+    </div>
+}
+<div class="panel-body">
+    <div class="row">
+        <div id="dvColorLegend" class="col-md-1" style="width:17%;">
+            <label style="background-color:transparent;height:50px;color:transparent">Color Legend</label>
+            <div class="list-group" id="dvColorLegend1" style="display:none">
+                <center>
+                    <label class="list-group-item" style="background-color:steelblue;color:white;font-size:18px;font-weight:200;">Color Legend</label>
+                </center>
+                <label class="list-group-item-legend">
+                    <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="color-legend-normal" width="22" height="22" />
+                    &nbsp;Normal
+                </label>
+                <label class="list-group-item-legend">
+                    <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="color-legend-suspended" width="22" height="22" />
+                    &nbsp;Suspended
+                </label>
+                <label class="list-group-item-legend">
+                    <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="color-legend-pre-relinquished-owner" width="22" height="22" />
+                    &nbsp;PreRelinquished - Owner
+                </label>
+                <label class="list-group-item-legend">
+                    <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="color-legend-pre-relinquished-other-user" width="22" height="22" />
+                    &nbsp;PreRelinquished - Other User
+                </label>
+                <label class="list-group-item-legend">
+                    <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="color-legend-relinquished-owner" width="22" height="22" />
+                    &nbsp;Relinquished - Owner
+                </label>
+                <label class="list-group-item-legend">
+                    <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="color-legend-relinquished-other-user" width="22" height="22" />
+                    &nbsp;Relinquished - Other User
+                </label>
+                <label class="list-group-item-legend">
+                    <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="color-legend-relinquished-transfer-owner" width="22" height="22" />
+                    &nbsp;RelinquishedTransfered - Owner
+                </label>
+                <label class="list-group-item-legend">
+                    <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="color-legend-relinquished-transfer-other-user" width="24" height="22" />
+                    &nbsp;RelinquishedTransfered - Other User
+                </label>
+                <label class="list-group-item-legend">
+                    <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="color-legend-pre-returned-owner" width="22" height="22" />
+                    &nbsp;PreReturn - Owner
+                </label>
+                <label class="list-group-item-legend">
+                    <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="color-legend-returned" width="22" height="22" />
+                    &nbsp;Returned
+                </label>
+                <label class="list-group-item-legend">
+                    <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="color-legend-pre-transfer" width="22" height="22" />
+                    &nbsp;PreTransfer
+                </label>
+                <label class="list-group-item-legend">
+                    <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="color-legend-default" width="22" height="22" />
+                    &nbsp;Default
+                </label>
+            </div>
+        </div>
+        <form class="form-inline">
+            <div class="col-md-1" style="width:15%">
+                <h4 class="pull-left">Transversal Management</h4>
+            </div>
+            <div id="dvTManagementType" class="form-group">
+                @Html.DropDownList("EnrolmentTypes", (ViewData["EnrolmentTypes"] as List<SelectListItem>) ?? new List<SelectListItem>(), new { @class = "form-control", style = "height:35px;width:100%", @Title = "Select Enrolment Type" })
+            </div>
+            <div class="form-group">
+                @Html.DropDownList("SearchTypes", (ViewData["SearchTypes"] as List<SelectListItem>) ?? new List<SelectListItem>(), new { @class = "form-control", style = "height:35px;width:100%", @Title = "Select Search Type" })
+            </div>
+            @Html.TextBoxFor(model => model.TransversalSystemUserID, new { @class = "form-control", placeholder = "Enter search value", tabindex = 1, autocomplete = "off", style = "width:10%;height:35px", @Title = "Enter search value" })
+            @Html.ValidationMessageFor(model => model.TransversalSystemUserID)
+            <a href="javascript:SearchTransversal('/eDNA.WebPortal/TransversalManagement/GetTransversals')" class="btn btn-primary" data-toggle="tooltip" title="Search Transversal User" style="width:9%"><span class="glyphicon glyphicon-search"></span> Search</a>
+            <a href="javascript:ClearAllSearchSessionValues('All')" class="btn btn-primary" data-toggle="tooltip" title="Clear" style="width:9%"><span class="glyphicon glyphicon-refresh"></span> Clear</a>
+        </form>
+        <div class="col-md-1" style="width:20.2%">
+            <label style="color:transparent"></label>
+        </div>
+        <div class="form-group">
+            <div id="dvTransversalList" class="col-md-8" style="display:none;width:65%;overflow-y:auto;height:500px">
+                <div class="col-md-1" style="float: left; display: inline; width: auto; word-break: break-all; word-wrap: break-word;">
+
+                    <h4> <span class="pull-right"> @ViewBag.Firstname @ViewBag.LastName Transaversal Account(s) :  </span> </h4>
+                </div>
+                <table class="table scroll" id="tblMTransversals">
+                    <thead style="background-color:steelblue;color:white;">
+                        <tr>
+                            <th>Account ID<span class="pull-right glyphicon glyphicon-sort"></span></th>
+                            <th>Transversal Type<span class="pull-right glyphicon glyphicon-sort"></span></th>
+                            <th>Mainframe ID<span class="pull-right glyphicon glyphicon-sort"></span></th>
+                            <th>InstallID<span class="pull-right glyphicon glyphicon-sort"></span></th>
+                            <th>PassportApp<span class="pull-right glyphicon glyphicon-sort"></span></th>
+                            <th>Controller<span class="pull-right glyphicon glyphicon-sort"></span></th>
+                            <th>Control-D User<span class="pull-right glyphicon glyphicon-sort"></span></th>
+                            @*<th>FTP User<span class="pull-right glyphicon glyphicon-sort"></span></th>*@
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var TransversalAccount in l_lstTransversalAccounts)
+                        {
+                            if (TransversalAccount == null)
+                            {
+                                continue;
+                            }
+
+                            if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.Normal)
+                            {
+                                <tr class="color-legend-normal">
+                                    <td>@TransversalAccount.TransversalSystemUserID</td>
+                                    <td>@TransversalAccount.TransversalID</td>
+                                    <td>@TransversalAccount.TransversalParentUser</td>
+                                    <td>@TransversalAccount.InstallDescription</td>
+                                    <td>@TransversalAccount.IsPassportAppUser</td>
+                                    <td>@TransversalAccount.IsController</td>
+                                    <td>@TransversalAccount.IsControlDUser</td>
+                                    @*<td>@TransversalAccount.IsFTPUser</td>*@
+                                    <td><input type='checkbox' id="chkTSelect" name="chkTSelect" value='true' data-toggle="tooltip" title="Select"></td>
+                                </tr>
+                            }
+                            else if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.Suspended)
+                            {
+                                <tr class="color-legend-suspended">
+                                    <td>@TransversalAccount.TransversalSystemUserID</td>
+                                    <td>@TransversalAccount.TransversalID</td>
+                                    <td>@TransversalAccount.TransversalParentUser</td>
+                                    <td>@TransversalAccount.InstallDescription</td>
+                                    <td>@TransversalAccount.IsPassportAppUser</td>
+                                    <td>@TransversalAccount.IsController</td>
+                                    <td>@TransversalAccount.IsControlDUser</td>
+                                    @*<td>@TransversalAccount.IsFTPUser</td>*@
+                                    <td><input type='checkbox' id="chkTSelect" name="chkTSelect" value='true' data-toggle="tooltip" title="Select"></td>
+                                </tr>
+                            }
+                            if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.PreRelinquish)
+                            {
+                                <tr class="color-legend-pre-relinquished-owner">
+                                    <td>@TransversalAccount.TransversalSystemUserID</td>
+                                    <td>@TransversalAccount.TransversalID</td>
+                                    <td>@TransversalAccount.TransversalParentUser</td>
+                                    <td>@TransversalAccount.InstallDescription</td>
+                                    <td>@TransversalAccount.IsPassportAppUser</td>
+                                    <td>@TransversalAccount.IsController</td>
+                                    <td>@TransversalAccount.IsControlDUser</td>
+                                    @*<td>@TransversalAccount.IsFTPUser</td>*@
+                                    <td><input type='checkbox' id="chkTSelect" name="chkTSelect" value='true' data-toggle="tooltip" title="Select"></td>
+                                </tr>
+                            }
+                            else if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.Relinquished)
+                            {
+                                <tr class="color-legend-relinquished-owner">
+                                    <td>@TransversalAccount.TransversalSystemUserID</td>
+                                    <td>@TransversalAccount.TransversalID</td>
+                                    <td>@TransversalAccount.TransversalParentUser</td>
+                                    <td>@TransversalAccount.InstallDescription</td>
+                                    <td>@TransversalAccount.IsPassportAppUser</td>
+                                    <td>@TransversalAccount.IsController</td>
+                                    <td>@TransversalAccount.IsControlDUser</td>
+                                    @*<td>@TransversalAccount.IsFTPUser</td>*@
+                                    <td><input type='checkbox' id="chkTSelect" name="chkTSelect" value='true' data-toggle="tooltip" title="Select"></td>
+                                </tr>
+                            }
+                            else if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.Relinquished_Transferred)
+                            {
+                                <tr class="color-legend-relinquished-transfer-owner">
+                                    <td>@TransversalAccount.TransversalSystemUserID</td>
+                                    <td>@TransversalAccount.TransversalID</td>
+                                    <td>@TransversalAccount.TransversalParentUser</td>
+                                    <td>@TransversalAccount.InstallDescription</td>
+                                    <td>@TransversalAccount.IsPassportAppUser</td>
+                                    <td>@TransversalAccount.IsController</td>
+                                    <td>@TransversalAccount.IsControlDUser</td>
+                                    @*<td>@TransversalAccount.IsFTPUser</td>*@
+                                    <td><input type='checkbox' id="chkTSelect" name="chkTSelect" value='true' data-toggle="tooltip" title="Select"></td>
+                                </tr>
+                            }
+                            else if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.PreReturned)
+                            {
+                                <tr class="color-legend-pre-returned-owner">
+                                    <td>@TransversalAccount.TransversalSystemUserID</td>
+                                    <td>@TransversalAccount.TransversalID</td>
+                                    <td>@TransversalAccount.TransversalParentUser</td>
+                                    <td>@TransversalAccount.InstallDescription</td>
+                                    <td>@TransversalAccount.IsPassportAppUser</td>
+                                    <td>@TransversalAccount.IsController</td>
+                                    <td>@TransversalAccount.IsControlDUser</td>
+                                    @*<td>@TransversalAccount.IsFTPUser</td>*@
+                                    <td><input type='checkbox' id="chkTSelect" name="chkTSelect" value='true' data-toggle="tooltip" title="Select"></td>
+                                </tr>
+                            }
+                            else if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.Returned)
+                            {
+                                <tr class="color-legend-returned">
+                                    <td>@TransversalAccount.TransversalSystemUserID</td>
+                                    <td>@TransversalAccount.TransversalID</td>
+                                    <td>@TransversalAccount.TransversalParentUser</td>
+                                    <td>@TransversalAccount.InstallDescription</td>
+                                    <td>@TransversalAccount.IsPassportAppUser</td>
+                                    <td>@TransversalAccount.IsController</td>
+                                    <td>@TransversalAccount.IsControlDUser</td>
+                                    @*<td>@TransversalAccount.IsFTPUser</td>*@
+                                    <td><input type='checkbox' id="chkTSelect" name="chkTSelect" value='true' data-toggle="tooltip" title="Select"></td>
+                                </tr>
+                            }
+                            else if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.PreTransferred)
+                            {
+                                <tr class="color-legend-pre-transfer">
+                                    <td>@TransversalAccount.TransversalSystemUserID</td>
+                                    <td>@TransversalAccount.TransversalID</td>
+                                    <td>@TransversalAccount.TransversalParentUser</td>
+                                    <td>@TransversalAccount.InstallDescription</td>
+                                    <td>@TransversalAccount.IsPassportAppUser</td>
+                                    <td>@TransversalAccount.IsController</td>
+                                    <td>@TransversalAccount.IsControlDUser</td>
+                                    @*<td>@TransversalAccount.IsFTPUser</td>*@
+                                    <td><input type='checkbox' id="chkTSelect" name="chkTSelect" value='true' data-toggle="tooltip" title="Select"></td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                    <tfoot style="background-color:steelblue;color:white">
+                        <tr style="font-size:medium">
+                            <td class="text-center" colspan="8">Transversal List</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <div id="dvTransversalActions" class="col-md-2" style="width:15%;display:none">
+                <div class="list-group">
+                    <center>
+                        <label class="list-group-item" style="background-color:steelblue;color:white;font-size:18px;font-weight:200;">Transversal Functions</label>
+                    </center>
+                    <a href="javascript:OpenTransversalMPopup()" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Add new transversal to this eDNA User"><span class="glyphicon glyphicon-plus"></span> Add New Transversal </a>
+                    @*<a href="javascript:ClearTransversals('TM')" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Clear All New Transversals"><span class="glyphicon glyphicon-trash" style="color:red"></span> Clear All New Transversals </a>*@
+                    <div>
+                        <center>
+                            <label class="list-group-item" style="background-color:steelblue;color:white;font-size:18px;font-weight:200;">Transversal Actions</label>
+                        </center>
+                        <a id="aSuspend" href="javascript:Suspend()" class="list-group-item-legend" style="color:blue" data-placement="bottom" data-toggle="tooltip" title="Suspend Selected Transversal Account"><span class="glyphicon glyphicon-thumbs-down"></span> Suspend</a>
+                        <a id="aUnsuspend" href="javascript:UnSuspend()" class="list-group-item-legend" style="color:blue" data-placement="bottom" data-toggle="tooltip" title="Un-Suspend Selected Transversal Account"><span class="glyphicon glyphicon-thumbs-up"></span> Un-suspend</a>
+                        <a id="aRelinquishN" href="javascript:OpeneDNAIDPopup('RN')" style="color:blue" class="list-group-item-legend" data-placement="bottom" data-toggle="tooltip" title="Relinquish (Normal) Selected Transversal Account"><span class="glyphicon  glyphicon-new-window"></span> Relinquish (Normal)</a>
+                        <a id="aRelinquishF" href="javascript:OpeneDNAIDPopup('RF')" style="color:blue" class="list-group-item-legend" data-placement="bottom" data-toggle="tooltip" title="Relinquish (Force) Selected Transversal Account"><span class="glyphicon glyphicon-export"></span> Relinquish (Force)</a>
+                        <a id="aReturnN" href="javascript:Return('RF')" class="list-group-item-legend" style="color:blue" data-placement="bottom" data-toggle="tooltip" title="Return (Normal) Selected Transversal Account"><span class="glyphicon glyphicon-retweet"></span> Return (Normal)</a>
+                        <a id="aReturnF" href="javascript:Return('RN')" class="list-group-item-legend" style="color:blue" data-placement="bottom" data-toggle="tooltip" title="Return (Force) Selected Transversal Account"><span class="glyphicon glyphicon-random"></span> Return (Force)</a>
+                        <a id="aTransfer" href="javascript:OpeneDNAIDPopup('T')" style="color:blue" class="list-group-item-legend" data-placement="bottom" data-toggle="tooltip" title="Transfer Selected Transversal Account"><span class="glyphicon glyphicon-transfer"></span> Transfer</a>
+                        <a id="aPPassword" href="javascript:PPassword()" class="list-group-item-legend" style="color:blue" data-placement="bottom" data-toggle="tooltip" title="Provision Password For Selected Transversal Account"><span class="glyphicon glyphicon-star-empty"></span> Provision Password</a>
+                        <a id="aRemove" href="javascript:TransversalDelete('Remove')" class="list-group-item-legend" style="color:blue" data-placement="bottom" data-toggle="tooltip" title="Delete Selected Transversal Account"><span class="glyphicon glyphicon-trash" style="color:red"></span> Remove</a>
+                        <a href="#" class="list-group-item-legend" data-placement="bottom" data-toggle="tooltip"></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Select Transversal Input Event Modal Pop up Window -->
+            <div class="modal fade" id="mdTransversalsMModalPopUp" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" data-placement="center" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 id="Icon_Information">
+                                <img src="~/Content/Images/Information.png" width="45" height="40" />&nbsp;<Label>Transversal Details</Label>
+                            </h4>
+                        </div>
+                        @using (Html.BeginForm("", "", FormMethod.Post, new { id = "TransversalData" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <div class="modal-body">
+                                <Label>Please Select a Transversal.</Label>
+                                <br />
+                                <br />
+                                @Html.Partial("_TransversalAccountFields", Model, new ViewDataDictionary(ViewData) { { "TransversalFieldMode", "Add" } })
+                            </div>
+                        }
+                        <div class="modal-footer">
+                            <img src="~/Content/Images/eDNA_logo.jpg" class="pull-left" height="45" />
+                            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="ResetTransversalControls()">Cancel</button>
+                            <button type="button" id="btnAddMTransversal" class="btn btn-default" data-toggle="tooltip" title="Add Transversal to the list" data-placement="bottom">Add Transversal</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input eDNA UserID for the Transversal Modal Pop up Window -->
+            <div class="modal fade" id="mdeDNAIDPopup" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" data-placement="center" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 id="Icon_Information"><img src="~/Content/Images/Information.png" width="45" height="40" />&nbsp;<Label>Transversal Account Action</Label></h4>
+                        </div>
+                        <div class="modal-body">
+                            <Label ID="lblTMMessage"></Label>
+                            <br />
+                            <center>
+                                <Label>Action: </Label>&nbsp;
+                                <Label id="lblTransversalAction"></Label>&nbsp;
+                            </center>
+                            <br />
+                            <center>
+                                <Label>eDNA ID</Label>&nbsp;
+                                <input id="txteDNAID" type="text" placeholder="Enter eDNA UserID" maxlength="4" onkeydown="return ValidateNumber(event);">
+                            </center>
+                            <br />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" id="btnTransversalOK" class="btn btn-default" data-dismiss="modal" data-toggle="tooltip" title="Enter eDNA ID to continue the process" data-placement="bottom">Ok</button>
+                            <img src="~/Content/Images/eDNA_logo.jpg" class="pull-left" height="45" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer pull-right" id="dvSave" style="display:none">
+        <table>
+            <tr style="box-shadow: 15px 15px 15px 5px whitesmoke;border: 1px">
+                <td>
+                    <a href="javascript:ClearTransversals('TM')" class="btn btn-primary" data-toggle="tooltip" title="Clear All New Transversals" style="width:140px"><span class="glyphicon glyphicon-circle-arrow-left"></span>Cancel</a>
+                </td>
+                <td width="70px"></td>
+                <td>
+                    <button id="btnTransversalPrimary" type="button" onclick="TransversalPrimaryAction()" class="btn btn-primary" disabled>Checking changes...</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+@*CODESC: Form Load Events*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#MVCSiteMap").show();
+        $("#tblMTransversals").tablesorter();
+        //localStorage.setItem("m_isTransversalUpdate", 'False');
+
+        //CODESC: Disable the search froup if Enrolment type value is 0.
+        if ($("#EnrolmentTypes").val() > 0) {
+            $("#dvSearchGroup :input").attr("disabled", false);
+        }
+        else {
+            $("#dvSearchGroup :input").attr("disabled", true);
+        }
+        if ('@HttpContext.Current.Session["isTransversalFormLoad"]' == 'True') {
+            $('#dvColorLegend1').hide();
+            $('#dvTransversalList').hide();
+            $('#dvTransversalActions').hide();
+            $('#dvSave').hide();
+          }
+        if (localStorage.getItem("m_isTransversalUpdate")== 'True') {
+            Notify("Transversal Management" + "<br>", "Transversal Created/Updated Successfully!!");
+
+            localStorage.setItem("m_isTransversalUpdate", 'False');
+        }
+    });
+    //CODESC: Transversal type selected index changed event
+    $('Select#TransversalID').change(function () {
+        var TransversalID = $('#TransversalID').val();
+        document.getElementById("lnkRest").style.display = "";
+        TransversalDDSelection(TransversalID, '');
+    });
+    if (localStorage.getItem("isSearchTransversal") == 'Search') {
+        $('#dvColorLegend1').show();
+        $('#dvTransversalList').show();
+        $('#dvTransversalActions').show();
+        $('#dvSave').show();
+    }
+    else {
+        $('#dvColorLegend1').hide();
+        $('#dvTransversalList').hide();
+        $('#dvTransversalActions').hide();
+        $('#dvSave').hide();
+    }
+</script>
+
+@*CODESC: Search type selected index changed event*@
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#SearchTypes").change(function () {
+            //HideTransversalList();
+            //ClearAllSearchSessionValues('Search', $("#SearchTypes").val());
+        });
+    })
+</script>
+
+@*CODESC: Add transversal details to the Transversal table, add the values to the Transversal session object and close the pop up window.*@
+<script type="text/javascript">
+    $("#btnAddMTransversal").click(function () {
+        var frmTransversalManage = $("#TransversalData");
+        if (frmTransversalManage.valid()) {
+            var l_txtTUserID = document.getElementById('TransversalSysUserID');
+            var l_txtMainframeID = document.getElementById('TransversalParentUser');
+            var l_BasInstalID = "";
+            var chkPassportAppUser;
+            var chkIsController;
+            var chkControlDUser;
+            var chkFTPUser;
+            var l_ddlBasInstalID = document.getElementById("InstallID");
+
+            if (l_ddlBasInstalID.options[l_ddlBasInstalID.selectedIndex].value != "") {
+                l_BasInstalID = $("#InstallID option:selected").text();
+            }
+
+            if (document.getElementById('IsController').checked) {
+                chkIsController = 'True';
+            }
+            else {
+                chkIsController = 'False';
+            }
+
+            if (document.getElementById('IsControlDUser').checked) {
+                chkControlDUser = 'True';
+            }
+            else {
+                chkControlDUser = 'False';
+            }
+
+            if (document.getElementById('IsPassportAppUser').checked) {
+                chkPassportAppUser = 'True';
+            }
+            else {
+                chkPassportAppUser = 'False';
+            }
+            var TransversalData = {
+                 UserID: '@ViewBag.UserID',
+                FirstName: '@ViewBag.Firstname',
+                Lastname: '@ViewBag.Lastname',
+                TransversalID: $('#TransversalID').val(),
+                TransversalSystemUserID: l_txtTUserID.value,
+                TransversalParentUser: l_txtMainframeID.value,
+                InstallID: $('#InstallID').val(),
+                IsPassportAppUser: chkPassportAppUser,
+                IsController: chkIsController,
+                IsControlDUser: chkControlDUser
+            };
+
+            //CODESC: Call controller and pass the Transversal Account data.
+            $.ajax({
+                url: "/eDNA.WebPortal/TransversalManagement/AddTransversalToSession",
+                data: TransversalData,
+                type: "POST",
+                success: function (p_ResponseTransversals) {
+                    if (p_ResponseTransversals != null) {
+                    }
+                }
+            });
+            $('#tblMTransversals').append(
+                '<tr style="text-align:left"><td>' +
+                l_txtTUserID.value + '<\/td><td>' +
+                $("#TransversalID option:selected").text() + '<\/td><td>' +
+                l_txtMainframeID.value + '<\/td><td>' +
+                l_BasInstalID + '<\/td><td>' +
+                chkPassportAppUser + '<\/td><td>' +
+                chkIsController + '<\/td><td>' +
+                chkControlDUser + '<\/td><td>' +
+                '<a href="#" onclick="RemoveTransversal(this)" data-toggle="tooltip" title="Remove this transversal account" style="color:blue"><span class="glyphicon glyphicon-remove"></span> Delete</a>' + '<\/td></tr>');
+
+            // CODESC: Close the Modal pop up, clear the entered values and unbind the click event
+            $('#mdTransversalsMModalPopUp').modal('toggle');
+            ResetTransversalControls();
+            NotifyTransversal();
+        }
+    });
+</script>
+
+@*CODESC: Search type selected index changed event*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#EnrolmentTypes").change(function () {
+            if ($("#EnrolmentTypes").val() > 0) {
+                $("#dvSearchGroup :input").attr("disabled", false);
+                document.getElementById("SearchTypes").focus();
+            }
+            else {
+                $("#dvSearchGroup :input").attr("disabled", true);
+                //ClearAllSearchSessionValues('All', '');
+            }
+        });
+
+        $("#SearchTypes").change(function () {
+            if ($("#SearchTypes").val() > 0) {
+                document.getElementById("TransversalSystemUserID").focus();
+            }
+        });
+    })
+</script>
+
+@*CODESC: Dynamically display the Enrolment Type, search type and search value in the respective control*@
+<script type="text/javascript">
+   var l_EnrolmentTypes = 'Convert.ToString(@HttpContext.Current.Session["p_strTEnrolmentType"])';
+   var l_SearchType = 'Convert.ToString(@HttpContext.Current.Session["p_strTSearchType"])';
+   var l_SearchValue = 'Convert.ToString(@HttpContext.Current.Session["p_strTSearchValue"])';
+
+   l_SearchType = l_SearchType.substring(l_SearchType.indexOf("(", 0));
+   l_SearchValue = l_SearchValue.substring(l_SearchValue.indexOf("(", 0));
+   l_EnrolmentTypes = l_EnrolmentTypes.substring(l_EnrolmentTypes.indexOf("(", 0));
+
+   l_SearchType = l_SearchType.substring(1, l_SearchType.indexOf(')'));
+   l_SearchValue = l_SearchValue.substring(1, l_SearchValue.indexOf(')'));
+   l_EnrolmentTypes = l_EnrolmentTypes.substring(1, l_EnrolmentTypes.indexOf(')'));
+
+   if (l_SearchValue != "") {
+      $('#TransversalSystemUserID').val(l_SearchValue);
+   }
+   if (l_SearchType != "") {
+      $('#SearchTypes').val(l_SearchType);
+   }
+   //if (l_SearchType == "2") {
+   //   $('#dvTransversalFunctions').hide();
+   //}
+   if (l_EnrolmentTypes != "") {
+      $('#EnrolmentTypes').val(l_EnrolmentTypes);
+   }
+</script>
+
+@*CODESC: Hide/Display Transversal fields dynamically on form load and on Search()*@
+<script type="text/javascript">
+   if ('@HttpContext.Current.Session["TeDNAUserID"]' != "") {
+      //$("#dvTransversalList").show();
+      $("#dvColorLegend").show();
+      if (l_SearchType == "1") {
+         $('#dvTransversalFunctions').show();
+      }
+   }
+</script>
+
+@*CODESC: Search on Enter key press event.*@
+<script type="text/javascript">
+    $("#TransversalSystemUserID").on("keydown", function (event) {
+        if (event.which == 13)
+            SearchTransversal();
+    });
+</script>
+
+@*CODESC: Clear search results.*@
+<script type="text/javascript">
+    function ClearAllSearchSessionValues(p_ClearType, p_strSearchType) {
+        localStorage.setItem("isSearchTransversal", 'Clear');
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            traditional: true,
+            url: '/eDNA.WebPortal/TransversalManagement/ClearAllSearchSessionValues',
+            data: JSON.stringify({ 'p_ClearType': p_ClearType, 'p_strSearchType': p_strSearchType }),
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                location = data;
+            },
+        });
+        HideBusyProcessing();
+    }
+</script>
+
+@*CODESC: Clear the TransversalAccountList_After session values.*@
+<script type="text/javascript">
+    function ClearTransversals(p_TransversalFunctionType) {
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            traditional: true,
+            url: '/eDNA.WebPortal/TransversalManagement/ClearTransversals',
+            data: JSON.stringify({ 'p_strTransversalActionType': p_TransversalFunctionType }),
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                //Check response
+                if (response && response.success == true) {
+                    //ShowBusyProcessing();
+                    location = response.Url;
+                }
+                else {
+                    MessageBox("Transversal Management", "Could not cancel the pending changes. Please retry.", "", m_MessageType.Error);
+                }
+            },
+            error: function () {
+                MessageBox("Transversal Management", "Could not cancel the pending changes. Please retry.", "", m_MessageType.Error);
+            }
+        });
+    }
+</script>
+
+@*CODESC: Enable check event in checkbox in modal pop up*@
+<script type="text/javascript">
+    $(".modal input:checkbox,.modal label").on("click", function (e) {
+        e.stopImmediatePropagation();
+        var element = (e.currentTarget.htmlFor !== undefined) ? e.currentTarget.htmlFor : e.currentTarget;
+        var checked = (element.checked) ? false : true;
+        element.checked = (checked) ? false : checked.toString();
+    });
+</script>
+
+@*CODESC: Get the Transversal type of the current row on check box changed event.*@
+<script type="text/javascript">
+    var l_SelectedTransversal = '';
+    var l_UnSelectedTransversal = '';
+    $("#tblMTransversals input:checkbox").on('change', function (e) {
+        if ($(this).is(":checked")) {
+            $(e.target).closest("td").siblings("td"),
+                l_SelectedTransversal = ($(e.target).closest("td").siblings("td")[0].innerHTML);
+            m_arTransversalType.push(l_SelectedTransversal);
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                traditional: true,
+                url: "/eDNA.WebPortal/TransversalManagement/PrepareTranversalList",
+                data: JSON.stringify({ 'p_strTransversalType': l_SelectedTransversal }),
+                contentType: "application/json; charset=utf-8",
+                success: function (p_ResponseTransversals) {
+                    if (p_ResponseTransversals != null) {
+                    }
+                }
+            });
+        }
+        else {
+            $(e.target).closest("td").siblings("td"),
+                l_UnSelectedTransversal = ($(e.target).closest("td").siblings("td")[0].innerHTML);
+            m_arTransversalType.splice(m_arTransversalType.indexOf(l_UnSelectedTransversal), 1);
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                traditional: true,
+                url: "/eDNA.WebPortal/TransversalManagement/RemoveTranversalFromList",
+                data: JSON.stringify({ 'p_strTransversalType': l_UnSelectedTransversal }),
+                contentType: "application/json; charset=utf-8",
+                success: function (p_ResponseTransversals) {
+                    if (p_ResponseTransversals != null) {
+                    }
+                }
+            });
+        }
+    });
+
+</script>
+
+@*CODESC: Remove selected transversal from the Transversal list*@
+<script type="text/javascript">
+    function RemoveTransversal(row) {
+
+        //CODESC: Get the clicked row index
+        var l_intRowIndex = row.parentNode.parentNode.rowIndex;
+
+        //CODESC: Get the table control
+        var l_tblTransversal = document.getElementById('tblMTransversals');
+
+        //CODESC: Get the clicked row of column values
+        var l_strRowValue = l_tblTransversal.rows[l_intRowIndex].innerHTML;
+
+        //CODESC: Split the values into a list by '</td>'
+        var l_lstTValues = l_strRowValue.split('</td>');
+
+        //CODESC: Separate the TransversalUserID and TransversalTypeID
+        var l_strTransversalUserID = l_lstTValues[0].substring(4, l_lstTValues[0].length);
+        var l_strTransversalType = l_lstTValues[1].substring(4, l_lstTValues[1].length);
+
+        //CODESC: Remove deleted row of table from the session variable TransversalAccountList_After
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            traditional: true,
+            url: "/eDNA.WebPortal/TransversalManagement/RemoveTransversalFromSession",
+            data: JSON.stringify({ 'p_strTransversalUserID': l_strTransversalUserID, 'p_strTransversalTypeID': l_strTransversalType }),
+            contentType: "application/json; charset=utf-8",
+            success: function (p_ResponseTransversals) {
+                if (p_ResponseTransversals != null) {
+                }
+            }
+        });
+
+        //CODESC: Remove the deleted row from the table
+        document.getElementById('tblMTransversals').deleteRow(l_intRowIndex);
+    }
+</script>
+
+@*CODESC: Validate Transversal Before the any action.*@
+<script type="text/javascript">
+    var l_txteDNAID = document.getElementById("txteDNAID");
+    var l_lblTransversalAction = document.getElementById("lblTransversalAction");
+    $("#btnTransversalOK").click(function () {
+        if (l_txteDNAID.value != "") {
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                traditional: true,
+                url: "/eDNA.WebPortal/TransversalManagement/ValidateTranversalList",
+                data: JSON.stringify({ 'p_strActionType': l_lblTransversalAction.innerHTML }),
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    if (response.success == true) {
+                        if (response.ReponseData != null && response.ReponseData != "") {
+                            var l_lstResponseData = response.ReponseData.split(',');
+                            var l_strErrorTList = "";
+                            for (i = 0; i < l_lstResponseData.length; i++) {
+                                if (l_strErrorTList == "") {
+                                    l_strErrorTList = l_lstResponseData[i] + '\r\n';
+                                }
+                                else {
+                                    l_strErrorTList = l_strErrorTList + l_lstResponseData[i] + '\r\n';
+                                }
+                            }
+
+                            MessageBox("Tranversal Management", "The following transversal(s) can not be " + l_lblTransversalAction.innerHTML, l_strErrorTList + '\r\n' + "Un-select the specific transversal and process again", m_MessageType.Error);
+                        }
+                        else {
+                            //ToDo: NRS Transaction.
+                        }
+                    }
+                }
+            });
+        }
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var recipient = @((int)(ViewBag.EnrolmentSearchUserID ?? 0));
+        if (recipient > 0) {
+            $('#EnrolmentTypes').val('2');
+            $('#SearchTypes').val('2');
+            $('#TransversalSystemUserID').val(recipient);
+            localStorage.setItem('p_TransversalFunctionType', 'TM');
+            SearchTransversal();
+        }
+    });
+</script>
+<script type="text/javascript">
+    var transversalActionPending = false;
+    var transversalStateVersion = 0;
+    function RefreshTransversalPrimary() {
+        var version = ++transversalStateVersion;
+        $.ajax({
+            url: '@Url.Action("GetPrimaryAction", "TransversalManagement")',
+            type: 'GET', cache: false, timeout: 15000,
+            success: function (state) {
+                if (version !== transversalStateVersion || transversalActionPending) return;
+                $('#btnTransversalPrimary').text(state.Label).prop('disabled', !state.Ready);
+            },
+            error: function () {
+                if (version !== transversalStateVersion || transversalActionPending) return;
+                $('#btnTransversalPrimary').text('Retry').prop('disabled', false);
+            }
+        });
+    }
+    function TransversalPrimaryAction() {
+        if (transversalActionPending) return;
+        transversalActionPending = true;
+        ++transversalStateVersion;
+        $('#btnTransversalPrimary').prop('disabled', true);
+        $.ajax({
+            url: '@Url.Action("GetPrimaryAction", "TransversalManagement")',
+            type: 'GET', cache: false, timeout: 15000,
+            success: function (state) {
+                if (!state.Ready) {
+                    MessageBox('Transversal Management', 'Search for the user before continuing.', '', m_MessageType.Information);
+                } else if (state.Changed) {
+                    TransversalAccount_Manage('TM');
+                } else {
+                    location = state.Url;
+                }
+            },
+            error: function () {
+                MessageBox('Transversal Management', 'Could not check pending changes. Please try again.', '', m_MessageType.Error);
+            },
+            complete: function () {
+                transversalActionPending = false;
+                RefreshTransversalPrimary();
+            }
+        });
+    }
+    $(document).ready(RefreshTransversalPrimary);
+    $(document).ajaxComplete(function (event, xhr, settings) {
+        if (settings.url.indexOf('/TransversalManagement/') >= 0 &&
+            settings.url.indexOf('GetPrimaryAction') < 0) RefreshTransversalPrimary();
+    });
+</script>

@@ -1,0 +1,48 @@
+@{
+    ViewBag.Title = "Preparing forensic report";
+    int jobId = Convert.ToInt32(ViewBag.JobID);
+    bool signed = Convert.ToBoolean(ViewBag.WaitForSigned);
+    string returnUrl = Convert.ToString(ViewBag.ReturnUrl);
+}
+<div class="panel panel-default"><div class="panel-body">
+    <h3>@(signed ? "Organizational signing" : "Preparing forensic report draft") - job @jobId</h3>
+    <p id="workflowStatus" role="status">Waiting for the reporting worker. This is not a completed signed report yet.</p>
+    <a class="btn btn-default" href="@returnUrl">Return while processing continues</a>
+</div></div>
+<div id="reportReady" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="reportReadyTitle" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog"><div class="modal-content"><div class="modal-header">
+        <h3 id="reportReadyTitle">@(signed ? "Signed forensic report ready" : "Draft ready - sign now?")</h3>
+    </div><div class="modal-body"><p>@(signed ? "View the PDF in a separate tab, or return without viewing. Either choice returns this tab to the Forensic Audit List." : "The draft has been generated. Would you like to review it and approve signing now? You will review the watermarked draft during signing.")</p></div>
+    <div class="modal-footer">
+        <button id="viewReadyReport" class="btn btn-primary">@(signed ? "View signed report" : "Yes - review and sign")</button>
+        <a class="btn btn-default" href="@returnUrl">@(signed ? "Return to previous view" : "No - go to Audit Reports")</a>
+    </div></div></div>
+</div>
+<script>
+var workflowPoll;
+function ForensicWorkflowStatusChanged() {
+    $.get('@Url.Action("WorkflowStatus")', { jobId: @jobId, signed: @signed.ToString().ToLowerInvariant() })
+        .done(function (state) {
+            HideBusyProcessing();
+            if (state.failed) { $('#workflowStatus').text('Processing needs attention. Check request status for details.'); return; }
+            if (state.ready) { $('#workflowStatus').text('Ready.'); $('#reportReady').modal('show'); return; }
+            $('#workflowStatus').text('Still processing. You can return now; the job continues in the background.');
+            workflowPoll = setTimeout(AuditJobList, 5000);
+        }).fail(function () { HideBusyProcessing(); $('#workflowStatus').text('Status could not be checked. Return to request status; do not submit a duplicate.'); });
+}
+$(function () {
+    localStorage.setItem('eDNAReportType', 'AuditReport');
+    AuditJobList();
+    $('#viewReadyReport').on('click', function () {
+        $('#reportReady').modal('hide');
+        @if (signed) { <text>
+            forensicReturnAfterView = @Html.Raw(System.Web.Helpers.Json.Encode(returnUrl));
+            DownloadForensicReport('@jobId', true);
+        </text> }
+        else { <text>
+            ReviewForensicReport('@jobId');
+        </text> }
+    });
+});
+$(window).on('beforeunload', function () { clearTimeout(workflowPoll); });
+</script>

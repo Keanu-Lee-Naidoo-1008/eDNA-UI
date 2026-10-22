@@ -1,0 +1,85 @@
+﻿@using eDNA.WebPortal.Helpers
+@model eDNA.WebPortal.ViewModel.CReportViewModel
+@{
+    ViewBag.Title = "Headcount Reports";
+}
+@Html.AntiForgeryToken()
+<div class="panel-body-details">
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-md-7" style="width:100%;">
+                <div id="dvHeadcountReports" style="height:81.5vh;background-color:ghostwhite;">
+                    <div class="form-group">
+                        <div class="col-md-1" style="width:40px;">
+                        </div>
+                        <div id="dvHeadcountReportList" class="col-md-3" style="overflow:scroll;width:21%;height:81vh;">
+                            <table id="treeview">
+                                <tr>
+                                    <td>
+                                        @(Html.TreeView(Model.ReportList)
+                                                .EmptyContent("No Reports Found!")
+                                                .Children(m => m.ReportList)
+                                                .HtmlAttributes(new { id = "HeadcountReportsTreeView" })
+                                                .ChildrenHtmlAttributes(new { @class = "subItem" })
+                                                .ItemText(m => m.Description)
+                                                .ItemTemplate(
+                                        @<text>
+                                            @if (item.ParentID != 0)
+                                            {
+                                                if (item.ParentID != 31 || item.ParentID == 1)
+                                                {
+                                                    <a href="javascript:RenderHCReport('@item.ReportName','@item.Description', '102', '620')" onclick="javascript:ShowBusyProcessing()" style="color:blue">
+                                                        @item.Description
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <label style="color:black"> @item.Description</label>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <label style="color:black"> @item.Description </label>
+                                            }
+                                        </text> ) )
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="col-md-9" id="dvReportDetail" style="background-color:ghostwhite;height:81vh;">
+                            @Html.Partial("_ReportTemplate")
+                        </div>
+                        <div id="treecontrol">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*CODESC: Form load*@
+<script type="text/javascript">
+    $(document).ready(function ($) {
+        $("#MVCSiteMap").show();
+        //CODESC: Collapse and Expand the Tree view items
+        MakeTreeviewCollapseAndExpandable();
+    });
+</script>
+
+
+<script type="text/javascript">
+    $(window).on('load', function () {
+        if ('@HttpContext.Current.Session["isHCBIFormLoad"]' == 'True') {
+            GetHCReportList('Headcount', 'false');
+        }
+    })
+</script>
+
+@*CODESC: Highlighted selected item*@
+<script type="text/javascript">
+    $("#HeadcountReportsTreeView a").click(function (e) {
+        $("a").css("backgroundColor", "");
+        $(this).css("backgroundColor", "lightskyblue");
+    });
+</script>

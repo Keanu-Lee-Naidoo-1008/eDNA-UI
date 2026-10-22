@@ -1,0 +1,19 @@
+﻿<div class="ed-statusbar-inner">
+   <div class="messagePanel" title="Connection to the local eDNA capture service">
+      <img id="imgRConnecting" src="~/Content/Images/Robot/Bluelight.png" width="22" height="22" style="display:none" alt="Connecting" />
+      <img id="imgRConnected" src="~/Content/Images/Robot/Greenlight.png" width="22" height="22" style="display:none" alt="Connected" />
+      <img id="imgRConnectionError" src="~/Content/Images/Robot/Redlight.png" width="22" height="22" style="display:none" alt="Connection error" />
+      <!-- Hyper link to trigger modal -->
+      <a id="ApplicationInfo" href="javascript:DisplayUserInfo()">User Information</a>
+   </div>
+   <div class="ed-statusbar-message">
+      <img id="imgInfo" style="display:none" src="~/Content/Images/Information.png" width="27" height="27" alt="Information" />
+      <img id="imgError" style="display:none" src="~/Content/Images/Error.png" width="27" height="27" alt="Error" />
+      <span id="applicationMessage" role="status" aria-live="polite"></span>
+   </div>
+   <div class="ed-statusbar-meta">
+      <span class="ed-version">&copy;@DateTime.Now.Year eDNA &middot; Version @ViewContext.Controller.GetType().Assembly.GetName().Version</span>
+      <div id="clock" class="pull-right">DateTimeNow()</div>
+   </div>
+</div>
+<input type="hidden" id="portNumber" value="5004" />

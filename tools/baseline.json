@@ -1,0 +1,5922 @@
+{
+ "BiometricEnrolment/Index.cshtml": {
+  "ids": [
+   "RequiredFingerprintCount",
+   "imgFinger1",
+   "lblFingerImageQuality1",
+   "cmdClearFinger1",
+   "imgFinger12ndCapture",
+   "lblFingerImageQuality12",
+   "imgFinger2",
+   "lblFingerImageQuality2",
+   "cmdClearFinger2",
+   "imgFinger22ndCapture",
+   "lblFingerImageQuality22",
+   "imgFinger3",
+   "lblFingerImageQuality3",
+   "cmdClearFinger3",
+   "imgFinger32ndCapture",
+   "lblFingerImageQuality32",
+   "imgFinger4",
+   "lblFingerImageQuality4",
+   "cmdClearFinger4",
+   "imgFinger42ndCapture",
+   "lblFingerImageQuality42",
+   "imgFinger5",
+   "lblFingerImageQuality5",
+   "cmdClearFinger5",
+   "imgFinger52ndCapture",
+   "lblFingerImageQuality52",
+   "imgFinger6",
+   "lblFingerImageQuality6",
+   "cmdClearFinger6",
+   "imgFinger62ndCapture",
+   "lblFingerImageQuality62",
+   "imgFinger7",
+   "lblFingerImageQuality7",
+   "cmdClearFinger7",
+   "imgFinger72ndCapture",
+   "lblFingerImageQuality72",
+   "imgFinger8",
+   "lblFingerImageQuality8",
+   "cmdClearFinger8",
+   "imgFinger82ndCapture",
+   "lblFingerImageQuality82",
+   "imgFinger9",
+   "lblFingerImageQuality9",
+   "cmdClearFinger9",
+   "imgFinger92ndCapture",
+   "lblFingerImageQuality92",
+   "imgFinger10",
+   "lblFingerImageQuality10",
+   "cmdClearFinger10",
+   "imgFinger102ndCapture",
+   "lblFingerImageQuality102",
+   "lnkCFinger1",
+   "lnkCFinger2",
+   "lnkCFinger3",
+   "lnkCFinger4",
+   "lnkCFinger5",
+   "lnkCFinger6",
+   "lnkCFinger7",
+   "lnkCFinger8",
+   "lnkCFinger9",
+   "lnkCFinger10",
+   "chkLeftHand",
+   "chkRightHand",
+   "SetDefaultFingerModalPopUp",
+   "Icon_Information",
+   "DefaultFinger",
+   "btnSaveDefault",
+   "FingerNo",
+   "Finger2ndCapture",
+   "DisableLeftHand",
+   "DisableRightHand",
+   "lnkCFace",
+   "FaceNo"
+  ],
+  "idTags": {
+   "RequiredFingerprintCount": [
+    "input"
+   ],
+   "imgFinger1": [
+    "img"
+   ],
+   "lblFingerImageQuality1": [
+    "label"
+   ],
+   "cmdClearFinger1": [
+    "a"
+   ],
+   "imgFinger12ndCapture": [
+    "img"
+   ],
+   "lblFingerImageQuality12": [
+    "label"
+   ],
+   "imgFinger2": [
+    "img"
+   ],
+   "lblFingerImageQuality2": [
+    "label"
+   ],
+   "cmdClearFinger2": [
+    "a"
+   ],
+   "imgFinger22ndCapture": [
+    "img"
+   ],
+   "lblFingerImageQuality22": [
+    "label"
+   ],
+   "imgFinger3": [
+    "img"
+   ],
+   "lblFingerImageQuality3": [
+    "label"
+   ],
+   "cmdClearFinger3": [
+    "a"
+   ],
+   "imgFinger32ndCapture": [
+    "img"
+   ],
+   "lblFingerImageQuality32": [
+    "label"
+   ],
+   "imgFinger4": [
+    "img"
+   ],
+   "lblFingerImageQuality4": [
+    "label"
+   ],
+   "cmdClearFinger4": [
+    "a"
+   ],
+   "imgFinger42ndCapture": [
+    "img"
+   ],
+   "lblFingerImageQuality42": [
+    "label"
+   ],
+   "imgFinger5": [
+    "img"
+   ],
+   "lblFingerImageQuality5": [
+    "label"
+   ],
+   "cmdClearFinger5": [
+    "a"
+   ],
+   "imgFinger52ndCapture": [
+    "img"
+   ],
+   "lblFingerImageQuality52": [
+    "label"
+   ],
+   "imgFinger6": [
+    "img"
+   ],
+   "lblFingerImageQuality6": [
+    "label"
+   ],
+   "cmdClearFinger6": [
+    "a"
+   ],
+   "imgFinger62ndCapture": [
+    "img"
+   ],
+   "lblFingerImageQuality62": [
+    "label"
+   ],
+   "imgFinger7": [
+    "img"
+   ],
+   "lblFingerImageQuality7": [
+    "label"
+   ],
+   "cmdClearFinger7": [
+    "a"
+   ],
+   "imgFinger72ndCapture": [
+    "img"
+   ],
+   "lblFingerImageQuality72": [
+    "label"
+   ],
+   "imgFinger8": [
+    "img"
+   ],
+   "lblFingerImageQuality8": [
+    "label"
+   ],
+   "cmdClearFinger8": [
+    "a"
+   ],
+   "imgFinger82ndCapture": [
+    "img"
+   ],
+   "lblFingerImageQuality82": [
+    "label"
+   ],
+   "imgFinger9": [
+    "img"
+   ],
+   "lblFingerImageQuality9": [
+    "label"
+   ],
+   "cmdClearFinger9": [
+    "a"
+   ],
+   "imgFinger92ndCapture": [
+    "img"
+   ],
+   "lblFingerImageQuality92": [
+    "label"
+   ],
+   "imgFinger10": [
+    "img"
+   ],
+   "lblFingerImageQuality10": [
+    "label"
+   ],
+   "cmdClearFinger10": [
+    "a"
+   ],
+   "imgFinger102ndCapture": [
+    "img"
+   ],
+   "lblFingerImageQuality102": [
+    "label"
+   ],
+   "lnkCFinger1": [
+    "area"
+   ],
+   "lnkCFinger2": [
+    "area"
+   ],
+   "lnkCFinger3": [
+    "area"
+   ],
+   "lnkCFinger4": [
+    "area"
+   ],
+   "lnkCFinger5": [
+    "area"
+   ],
+   "lnkCFinger6": [
+    "area"
+   ],
+   "lnkCFinger7": [
+    "area"
+   ],
+   "lnkCFinger8": [
+    "area"
+   ],
+   "lnkCFinger9": [
+    "area"
+   ],
+   "lnkCFinger10": [
+    "area"
+   ],
+   "chkLeftHand": [
+    "input"
+   ],
+   "chkRightHand": [
+    "input"
+   ],
+   "SetDefaultFingerModalPopUp": [
+    "div"
+   ],
+   "Icon_Information": [
+    "h4"
+   ],
+   "DefaultFinger": [
+    "select"
+   ],
+   "btnSaveDefault": [
+    "button"
+   ],
+   "FingerNo": [
+    "input"
+   ],
+   "Finger2ndCapture": [
+    "input"
+   ],
+   "DisableLeftHand": [
+    "input"
+   ],
+   "DisableRightHand": [
+    "input"
+   ],
+   "lnkCFace": [
+    "button"
+   ],
+   "@(": [
+    "canvas",
+    "div"
+   ],
+   "FaceNo": [
+    "input"
+   ]
+  },
+  "hiddenIds": [
+   "cmdClearFinger1",
+   "cmdClearFinger2",
+   "cmdClearFinger3",
+   "cmdClearFinger4",
+   "cmdClearFinger5",
+   "cmdClearFinger6",
+   "cmdClearFinger7",
+   "cmdClearFinger8",
+   "cmdClearFinger9",
+   "cmdClearFinger10"
+  ],
+  "classes": [
+   "btn",
+   "btn-default",
+   "btn-lg",
+   "btn-primary",
+   "col-md-2",
+   "col-md-3",
+   "col-md-4",
+   "col-md-6",
+   "color-legend-DefaultFinger",
+   "color-legend-NotCaptured",
+   "color-legend-SecondCapture",
+   "color-legend-Verified",
+   "display-legend",
+   "face-capture-button",
+   "face-capture-image",
+   "face-enrolment-header",
+   "face-enrolment-panel",
+   "face-image-card",
+   "face-image-grid",
+   "face-image-number",
+   "face-image-quality",
+   "fade",
+   "form-group",
+   "form-horizontal",
+   "glyphicon",
+   "glyphicon-camera",
+   "glyphicon-hand-up",
+   "glyphicon-ok",
+   "glyphicon-pencil",
+   "glyphicon-refresh",
+   "glyphicon-remove",
+   "glyphicon-user",
+   "img_map",
+   "list-group",
+   "list-group-item",
+   "list-group-item-legend",
+   "modal",
+   "modal-body",
+   "modal-content",
+   "modal-dialog",
+   "modal-footer",
+   "modal-header",
+   "panel-body-details",
+   "panel-footer",
+   "pull-left",
+   "pull-right",
+   "row",
+   "text-center"
+  ],
+  "names": [
+   "CaptureLefthandmap",
+   "CaptureRighthandmap"
+  ],
+  "htmlHelpers": [],
+  "urlActions": [
+   "\"Index\", \"BiometricEnrolment\", new { p_strModality = \"Fingerprint\" }",
+   "\"Index\", \"BiometricEnrolment\", new { p_strModality = \"Facial\" }",
+   "\"Index\", \"UserEnrolment\"",
+   "\"Index\", \"UserEnrolment\"",
+   "\"~/Content/Images/Enrolment/Facial.jpg\"",
+   "\"~/Content/Images/Enrolment/Facial.jpg\"",
+   "\"Index\",\"UserEnrolment\""
+  ],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "javascript:CaptureFinger('Finger1')",
+   "javascript:CaptureFinger('Finger2')",
+   "javascript:CaptureFinger('Finger3')",
+   "javascript:CaptureFinger('Finger4')",
+   "javascript:CaptureFinger('Finger5')",
+   "javascript:CaptureFinger('Finger6')",
+   "javascript:CaptureFinger('Finger7')",
+   "javascript:CaptureFinger('Finger8')",
+   "javascript:CaptureFinger('Finger9')",
+   "javascript:CaptureFinger('Finger10')",
+   "javascript:VerifyAllFinger()",
+   "javascript:SetDefaultFinger()",
+   "javascript:ClearFingerPrints()",
+   "javascript:OverrideFinger()",
+   "javascript:BoimetricSave()",
+   "onclick=CaptureFace('Face')",
+   "javascript:ClearFacePrints()",
+   "javascript:BiometricFacialSave()"
+  ],
+  "dataAttrs": [
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-placement=center",
+   "data-toggle=modal",
+   "data-backdrop=static",
+   "data-keyboard=false",
+   "data-dismiss=modal",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-placeholder-src=@Url.Content(",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip"
+  ],
+  "razorReads": [
+   "ViewBag.Title",
+   "ViewBag.RequiredFingerprintCount",
+   "Session[\"Modality_Type\"]",
+   "ViewBag.RequiredFingerprintCount",
+   "Session[\"Modality_Type\"]",
+   "ViewBag.FingerprintAvailable",
+   "ViewBag.FacialAvailable",
+   "Session[\"Modality_Type\"]"
+  ],
+  "razorControl": [
+   "if (Convert.ToString(HttpContext.Current.Session[\"Modality_Type\"]) == \"FingerPrint\")",
+   "if (Convert.ToString(HttpContext.Current.Session[\"Modality_Type\"]) == \"Selection\")",
+   "if (ViewBag.FingerprintAvailable == true)",
+   "if (ViewBag.FacialAvailable == true)",
+   "if (Convert.ToString(HttpContext.Current.Session[\"Modality_Type\"]) == \"FingerPrint\")",
+   "for (Int32 l_iFaceImage = 1; l_iFaceImage <= 3; l_iFaceImage++)"
+  ],
+  "areas": [
+   "shape=\"circle\" coords=\"18,84,13,90\" alt=\"Finger1\" href=\"javascript:CaptureFinger('Finger1')\" id=\"lnkCFinger1\" data-placement=\"bottom\" data-toggle=\"tooltip\" title=\"Click to Capture Finger1\"",
+   "shape=\"circle\" coords=\"58,42,14,55\" alt=\"Finger2\" href=\"javascript:CaptureFinger('Finger2')\" id=\"lnkCFinger2\" data-placement=\"bottom\" data-toggle=\"tooltip\" title=\"Click to Capture Finger2\"",
+   "shape=\"circle\" coords=\"114,29,15,55\" alt=\"Finger3\" href=\"javascript:CaptureFinger('Finger3')\" id=\"lnkCFinger3\" data-placement=\"bottom\" data-toggle=\"tooltip\" title=\"Click to Capture Finger3\"",
+   "shape=\"circle\" coords=\"175,42.5,14,65\" alt=\"Finger4\" href=\"javascript:CaptureFinger('Finger4')\" id=\"lnkCFinger4\" data-placement=\"bottom\" data-toggle=\"tooltip\" title=\"Click to Capture Finger4\"",
+   "shape=\"circle\" coords=\"230,150,14,125\" alt=\"Finger5\" href=\"javascript:CaptureFinger('Finger5')\" id=\"lnkCFinger5\" data-placement=\"bottom\" data-toggle=\"tooltip\" title=\"Click to Capture Finger5\"",
+   "shape=\"circle\" coords=\"20,150,14,124\" alt=\"Finger6\" href=\"javascript:CaptureFinger('Finger6')\" id=\"lnkCFinger6\" data-placement=\"bottom\" data-toggle=\"tooltip\" title=\"Click to Capture Finger6\"",
+   "shape=\"circle\" coords=\"76,43.5,14,45\" alt=\"Finger7\" href=\"javascript:CaptureFinger('Finger7')\" id=\"lnkCFinger7\" data-placement=\"bottom\" data-toggle=\"tooltip\" title=\"Click to Capture Finger7\"",
+   "shape=\"circle\" coords=\"136.5,30,15,50\" alt=\"Finger8\" href=\"javascript:CaptureFinger('Finger8')\" id=\"lnkCFinger8\" data-placement=\"bottom\" data-toggle=\"tooltip\" title=\"Click to Capture Finger8\"",
+   "shape=\"circle\" coords=\"192,43,14,55\" alt=\"Finger9\" href=\"javascript:CaptureFinger('Finger9')\" id=\"lnkCFinger9\" data-placement=\"bottom\" data-toggle=\"tooltip\" title=\"Click to Capture Finger9\"",
+   "shape=\"circle\" coords=\"232,84,13,83\" alt=\"Finger10\" href=\"javascript:CaptureFinger('Finger10')\" id=\"lnkCFinger10\" data-placement=\"bottom\" data-toggle=\"tooltip\" title=\"Click to Capture Finger10\""
+  ],
+  "forms": [
+   "input#RequiredFingerprintCount[hidden]",
+   "input#chkLeftHand[checkbox]",
+   "input#chkRightHand[checkbox]",
+   "select#DefaultFinger",
+   "button#btnSaveDefault[button]",
+   "input#FingerNo[hidden]",
+   "input#Finger2ndCapture[hidden]",
+   "input#DisableLeftHand[hidden]",
+   "input#DisableRightHand[hidden]",
+   "button#lnkCFace[button]",
+   "input#FaceNo[hidden]"
+  ],
+  "scripts": [
+   "type=\"text/javascript\"| $(document).ready(function () { if ($('#FaceNo').length > 0) { LogFacePreviewTrace('DocumentReady', 'Url=' + window.location.href + ';NavigationType=' + (window.performance && window.performance.navigation ? window.performance.navigation.type : 'Unavailable')); window.addEventListener('beforeunload', function () { if (navigator.sendBeacon) { var l_FormData = new FormData(); l_FormData.append('p_strEvent', 'BeforeUnload'); l_FormData.append('p_strDetails', 'Url=' + window.location.href); navigator.sendBeacon('/eDNA.WebPortal/BiometricEnrolment/LogFacePreviewTrace', l_FormData); } }); } var l_strFacialPreviewImages = sessionStorage.getItem('FacialPreviewImages'); if ($('#FaceNo').length > 0 && l_strFacialPreviewImages != null) { try { BindFaceImages(JSON.parse(l_strFacialPreviewImages)); $('#lnkCFace').prop('disabled', true).attr('aria-disabled', 'true'); } catch (p_Exception) { sessionStorage.removeItem('FacialPreviewImages'); } } //document.getElementById(\"MVCSiteMap\").style.display = \"none\"; $(\"#UserEnromentWizard\").show(); //To disable a link. //$(\"#lnkCFinger1\").hide(); //$('#lnkCFinger1').attr(\"href\", \"javascript: void(0)\"); //$(\"#lnkCFinger6\").hide(); //$('#lnkCFinger6').attr(\"href\", \"javascript: void(0)\"); if (localStorage.getItem(\"m_isUserUpdate\") == 'CrOrUpd') { Notify(\"User Enrolment\" + \"<br>\", \"User details captured successfully. Continue with Biometric Enrolment.\"); } });"
+  ]
+ },
+ "CertificateManagement/Index.cshtml": {
+  "ids": [
+   "mdCertificateModalPopUp",
+   "Icon_Information",
+   "lblCSubject",
+   "lblCSlNo",
+   "lblCValidFrom",
+   "lblCValidTo",
+   "lblCType",
+   "lblCStatus",
+   "mdCEditModalPopUp",
+   "Icon_Information",
+   "CertificateUpdateData",
+   "lblCertificateID",
+   "lblCertificateType",
+   "lblCertificateSlNo",
+   "dd_CertificateStatus"
+  ],
+  "idTags": {
+   "mdCertificateModalPopUp": [
+    "div"
+   ],
+   "Icon_Information": [
+    "h4",
+    "h4"
+   ],
+   "lblCSubject": [
+    "label"
+   ],
+   "lblCSlNo": [
+    "label"
+   ],
+   "lblCValidFrom": [
+    "label"
+   ],
+   "lblCValidTo": [
+    "label"
+   ],
+   "lblCType": [
+    "label"
+   ],
+   "lblCStatus": [
+    "label"
+   ],
+   "mdCEditModalPopUp": [
+    "div"
+   ],
+   "CertificateUpdateData": [
+    "form"
+   ],
+   "lblCertificateID": [
+    "label"
+   ],
+   "lblCertificateType": [
+    "label"
+   ],
+   "lblCertificateSlNo": [
+    "label"
+   ]
+  },
+  "hiddenIds": [],
+  "classes": [
+   "btn",
+   "btn-default",
+   "btn-primary",
+   "col-md-11",
+   "col-md-2",
+   "col-md-6",
+   "col-sm-2",
+   "col-sm-4",
+   "dropdown",
+   "fade",
+   "form-group",
+   "glyphicon",
+   "glyphicon-plus",
+   "glyphicon-search",
+   "list-group",
+   "list-group-item",
+   "modal",
+   "modal-body",
+   "modal-content",
+   "modal-dialog",
+   "modal-footer",
+   "modal-header",
+   "pull-left",
+   "pull-right",
+   "row",
+   "text-danger"
+  ],
+  "names": [],
+  "htmlHelpers": [
+   "DropDownListFor(model => model.CertificateType)",
+   "ValidationMessageFor(model => model.CertificateType)",
+   "DropDownListFor(model => model.Hosting_entity)",
+   "ValidationMessageFor(model => model.Hosting_entity)",
+   "DropDownListFor(model => model.User)",
+   "ValidationMessageFor(model => model.User)",
+   "DropDownListFor(model => model.UserStatus)",
+   "ValidationMessageFor(model => model.UserStatus)",
+   "DropDownListFor(model => model.CertificateStatus)",
+   "ValidationMessageFor(model => model.CertificateStatus)",
+   "HiddenFor(model => model.CertificateID)",
+   "HiddenFor(model => model.CertificatePassword)",
+   "HiddenFor(model => model.CertificateData)",
+   "HiddenFor(model => model.CertificateTypeID)",
+   "HiddenFor(model => model.CertificateType)",
+   "HiddenFor(model => model.Subject)",
+   "HiddenFor(model => model.SerialNumber)",
+   "HiddenFor(model => model.ValidFrom)",
+   "HiddenFor(model => model.ValidTo)",
+   "HiddenFor(model => model.CertificateStatusID)",
+   "HiddenFor(model => model.User)",
+   "HiddenFor(model => model.UserID)",
+   "HiddenFor(model => model.UserStatus)",
+   "DropDownListFor(model => model.CertificateStatus)",
+   "ValidationMessageFor(model => model.CertificateStatus)",
+   "Partial(\"~/Views/Shared/_CertificateList.cshtml\")"
+  ],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "javascript:Certificate_Search()",
+   "onclick=javascript:ShowBusyProcessing();",
+   "javascript:UpdateCertDetails()",
+   "javascript:EntityDetails('Create')"
+  ],
+  "dataAttrs": [
+   "data-placement=center",
+   "data-toggle=modal",
+   "data-backdrop=static",
+   "data-keyboard=false",
+   "data-dismiss=modal",
+   "data-placement=center",
+   "data-toggle=modal",
+   "data-backdrop=static",
+   "data-keyboard=false",
+   "data-dismiss=modal",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip"
+  ],
+  "razorReads": [
+   "@model eDNA.Common.Classes.Certificate.CCertificate_Cert",
+   "ViewBag.Title",
+   "ViewBag.CertificateType",
+   "ViewBag.Entity_Hosting",
+   "ViewBag.User",
+   "ViewBag.UserStatus",
+   "ViewBag.CertificateStatus",
+   "ViewBag.CertificateStatus",
+   "Html.Partial(\"~/Views/Shared/_CertificateList.cshtml\")",
+   "Session[\"isCertificateFormLoad\"]"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [
+   "form#CertificateUpdateData"
+  ],
+  "scripts": [
+   "type=\"text/javascript\"| $(document).ready(function ($) { $(\"#MVCSiteMap\").show(); if ('@HttpContext.Current.Session[\"isCertificateFormLoad\"]' == 'True') { Get_CertificateLookUps(); } });"
+  ]
+ },
+ "Entity/Entity.cshtml": {
+  "ids": [
+   "Entity",
+   "dvAllEntities",
+   "dvAvlEntities",
+   "chkActive",
+   "dvEntityList",
+   "treeview",
+   "EntityTreeView",
+   "treecontrol",
+   "dvEntityDetails",
+   "dvAction"
+  ],
+  "idTags": {
+   "dvAllEntities": [
+    "div"
+   ],
+   "dvAvlEntities": [
+    "div"
+   ],
+   "chkActive": [
+    "input"
+   ],
+   "dvEntityList": [
+    "div"
+   ],
+   "treeview": [
+    "table"
+   ],
+   "treecontrol": [
+    "div"
+   ],
+   "dvEntityDetails": [
+    "div"
+   ],
+   "dvAction": [
+    "div"
+   ]
+  },
+  "hiddenIds": [
+   "dvEntityDetails",
+   "dvAction"
+  ],
+  "classes": [
+   "btn",
+   "btn-primary",
+   "col-md-1",
+   "col-md-2",
+   "col-md-3",
+   "col-md-7",
+   "form-group",
+   "form-horizontal",
+   "form-inline",
+   "glyphicon",
+   "glyphicon-circle-arrow-left",
+   "glyphicon-hand-up",
+   "glyphicon-plus",
+   "list-group",
+   "list-group-item",
+   "panel-body-details",
+   "panel-footer",
+   "pull-right",
+   "row",
+   "subItem"
+  ],
+  "names": [
+   "chkActive"
+  ],
+  "htmlHelpers": [
+   "AntiForgeryToken()",
+   "Partial(\"_EntityDetails\")"
+  ],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "javascript:PopulateEntityDetails(@item.EntityID)",
+   "javascript:EntityDetails('Create')",
+   "javascript:HideEntityDetails()",
+   "javascript:CreateEntity()"
+  ],
+  "dataAttrs": [
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip"
+  ],
+  "razorReads": [
+   "@using eDNA.WebPortal.Helpers",
+   "@model eDNA.WebPortal.ViewModel.CEntityViewModel",
+   "ViewBag.Title",
+   "Html.Partial(\"_EntityDetails\")",
+   "Scripts.Render(\"~/bundles/jqueryval\")",
+   "Session[\"Entity_List\"]",
+   "Session[\"isEntityFormLoad\"]",
+   "Session[\"g_EntityDisplayMode\"]",
+   "Session[\"GetAllEntites\"]"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [
+   "input#chkActive[checkbox]"
+  ],
+  "scripts": [
+   "type=\"text/javascript\"| $(document).ready(function ($) { $(\"#treeview\"); $(\"#MVCSiteMap\").show(); if ('@HttpContext.Current.Session[\"Entity_List\"]' != '') { $(\"#lblInactive\").show(); $(\"#dvAllEntities\").show(); } else { $(\"#lblInactive\").hide(); $(\"#dvAllEntities\").hide(); } if (localStorage.getItem(\"m_isEntityUpdate\") == 'True') { Notify(\"Entity Management\" + \"<br>\", \"Entity Created/Updated Successfully!!\"); localStorage.setItem(\"m_isEntityUpdate\", 'False'); } });",
+   "type=\"text/javascript\"| $(document).ready(function () { $(window).on(\"load\", function () { if ('@HttpContext.Current.Session[\"isEntityFormLoad\"]' == 'True') { GetEntityList('Entity', 'false'); } }); });",
+   "type=\"text/javascript\"| if (m_EntityDisplayMode == 'None') { $(\"#dvEntityDetails\").hide(); $(\"#dvAction\").hide(); $(\"#tdEI\").hide(); $(\"#tdEA\").hide(); } if ('@HttpContext.Current.Session[\"g_EntityDisplayMode\"]' == 'Select') { $(\"#dvEntityDetails\").show(); $(\"#dvAction\").show(); $(\"#tdEI\").show(); $(\"#tdEA\").show(); $(\"#MVCSiteMap\").show(); }",
+   "type=\"text/javascript\"| $(document).ready(function () { $(\"#MVCSiteMap\").show(); MakeTreeviewCollapseAndExpandable(); });",
+   "type=\"text/javascript\"| $(\"#chkActive\").change(function () { if (this.checked) { GetEntityList('Entity', 'true'); } else { GetEntityList('Entity', 'false'); } });",
+   "type=\"text/javascript\"| var l_GetAllEntites = 'Convert.ToString(@HttpContext.Current.Session[\"GetAllEntites\"])'; l_GetAllEntites = l_GetAllEntites.split(\"Convert.ToString(\"); if (l_GetAllEntites[1] == \"True)\") { document.getElementById(\"chkActive\").checked = true; }",
+   "type=\"text/javascript\"| $(\"#EntityTreeView a\").click(function (e) { $(\"a\").css(\"backgroundColor\", \"\"); $(this).css(\"backgroundColor\", \"white\"); });"
+  ]
+ },
+ "FaceEnrolment/Index.cshtml": {
+  "ids": [
+   "imgFace",
+   "lblFaceImageQuality1",
+   "cmdClearFace",
+   "imgFace12ndCapture",
+   "lblFaceImageQuality12",
+   "lnkCFace",
+   "FaceNo",
+   "Face2ndCapture"
+  ],
+  "idTags": {
+   "imgFace": [
+    "img"
+   ],
+   "lblFaceImageQuality1": [
+    "label"
+   ],
+   "cmdClearFace": [
+    "a"
+   ],
+   "imgFace12ndCapture": [
+    "img"
+   ],
+   "lblFaceImageQuality12": [
+    "label"
+   ],
+   "lnkCFace": [
+    "area"
+   ],
+   "FaceNo": [
+    "input"
+   ],
+   "Face2ndCapture": [
+    "input"
+   ]
+  },
+  "hiddenIds": [
+   "cmdClearFace"
+  ],
+  "classes": [
+   "btn",
+   "btn-primary",
+   "col-md-2",
+   "col-md-3",
+   "col-md-6",
+   "color-legend-NotCaptured",
+   "color-legend-SecondCapture",
+   "color-legend-Verified",
+   "display-legend",
+   "form-group",
+   "form-horizontal",
+   "glyphicon",
+   "glyphicon-hand-up",
+   "glyphicon-ok",
+   "glyphicon-refresh",
+   "glyphicon-remove",
+   "img_map",
+   "list-group",
+   "list-group-item",
+   "list-group-item-legend",
+   "panel-body-details",
+   "panel-footer",
+   "pull-right",
+   "row"
+  ],
+  "names": [
+   "CaptureFacemap"
+  ],
+  "htmlHelpers": [],
+  "urlActions": [
+   "\"Index\",\"UserEnrolment\""
+  ],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "javascript:CaptureFace('Face')",
+   "javascript:VerifyAllFace()",
+   "javascript:ClearFacePrints()",
+   "javascript:BoimetricSave()"
+  ],
+  "dataAttrs": [
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip"
+  ],
+  "razorReads": [
+   "ViewBag.Title"
+  ],
+  "razorControl": [],
+  "areas": [
+   "shape=\"circle\" coords=\"18,84,13,90\" alt=\"Face\" href=\"javascript:CaptureFace('Face')\" id=\"lnkCFace\" data-placement=\"bottom\" data-toggle=\"tooltip\" title=\"Click to Capture Face\""
+  ],
+  "forms": [
+   "input#FaceNo[hidden]",
+   "input#Face2ndCapture[hidden]"
+  ],
+  "scripts": [
+   "type=\"text/javascript\"| $(document).ready(function () { //document.getElementById(\"MVCSiteMap\").style.display = \"none\"; $(\"#UserEnromentWizard\").show(); //To disable a link. //$(\"#lnkCFinger1\").hide(); //$('#lnkCFinger1').attr(\"href\", \"javascript: void(0)\"); //$(\"#lnkCFinger6\").hide(); //$('#lnkCFinger6').attr(\"href\", \"javascript: void(0)\"); if (localStorage.getItem(\"m_isUserUpdate\") == 'CrOrUpd') { Notify(\"User Enrolment\" + \"<br>\", \"User details captured successfully. Continue with Biometric Enrolment.\"); } });"
+  ]
+ },
+ "ForensicReports/Forward.cshtml": {
+  "ids": [
+   "forwardSearch",
+   "forwardSearchButton",
+   "forwardRecipients",
+   "forwardForm",
+   "forwardSelection",
+   "forwardConfirmed",
+   "forwardError",
+   "forwardProgress",
+   "forwardSubmit"
+  ],
+  "idTags": {
+   "forwardSearch": [
+    "input"
+   ],
+   "forwardSearchButton": [
+    "button"
+   ],
+   "forwardRecipients": [
+    "div"
+   ],
+   "forwardForm": [
+    "form"
+   ],
+   "forwardSelection": [
+    "div"
+   ],
+   "forwardConfirmed": [
+    "input"
+   ],
+   "forwardError": [
+    "div"
+   ],
+   "forwardProgress": [
+    "p"
+   ],
+   "forwardSubmit": [
+    "button"
+   ]
+  },
+  "hiddenIds": [
+   "forwardError"
+  ],
+  "classes": [
+   "alert",
+   "alert-danger",
+   "alert-info",
+   "btn",
+   "btn-default",
+   "btn-primary",
+   "form-control",
+   "input-group",
+   "input-group-btn",
+   "panel",
+   "panel-body",
+   "panel-default",
+   "panel-heading",
+   "panel-title"
+  ],
+  "names": [],
+  "htmlHelpers": [
+   "AntiForgeryToken()"
+  ],
+  "urlActions": [
+   "\"Index\", \"AuditReport\"",
+   "\"RecipientSearchResults\", new { forwardJobId = jobId }",
+   "\"HandleMessage\", \"Base\"",
+   "\"BuildForwardRequest\""
+  ],
+  "ajaxUrls": [
+   "'@Url.Action(\"HandleMessage\", \"Base\")'",
+   "'@Url.Action(\"BuildForwardRequest\")'"
+  ],
+  "jsCalls": [],
+  "dataAttrs": [],
+  "razorReads": [
+   "ViewBag.Title",
+   "ViewBag.JobID"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [
+   "input#forwardSearch[number]",
+   "button#forwardSearchButton[button]",
+   "form#forwardForm",
+   "input#forwardConfirmed[checkbox]",
+   "button#forwardSubmit[submit]"
+  ],
+  "scripts": [
+   "| var forwardRecipient = 0, forwardBusy = false; function updateForwardButton() { $('#forwardSearch, #forwardSearchButton, #forwardConfirmed, .forensic-recipient-select').prop('disabled', forwardBusy); var biometric = $('#forwardBiometric').val(); $('#forwardSubmit').prop('disabled', forwardBusy || !forwardRecipient || !$('#forwardConfirmed').prop('checked')); } function ForensicForwardFailed(message) { forwardBusy = false; updateForwardButton(); HideBusyProcessing(); $('#forwardProgress').text(''); $('#forwardError').text(message).show(); } function ForensicForwardCompleted() { forwardBusy = true; updateForwardButton(); HideBusyProcessing(); $('#forwardError').hide(); $('#forwardProgress').text('Forwarding completed. The selected recipient can sign in and retrieve the same signed report.'); } function BindForensicRecipients() { $('#forwardRecipients').load('@Url.Action(\"RecipientSearchResults\", new { forwardJobId = jobId })', function (_, status) { HideBusyProcessing(); if (status !== 'success') ForensicForwardFailed('Recipient results could not be loaded. Refresh the job list and try again.'); }); } $('#forwardSearchButton').on('click', function () { var value = $.trim($('#forwardSearch').val()); if (!/^[1-9][0-9]*$/.test(value)) { ForensicForwardFailed('Enter a valid eDNA ID.'); return; } forwardRecipient = 0; $('#forwardConfirmed').prop('checked', false); updateForwardButton(); $('#forwardSelection').text('No recipient selected.'); $('#forwardRecipients').empty(); $('#forwardError').hide(); localStorage.setItem('forensicRecipientSearchPending', 'true'); ShowBusyProcessing(); $.ajax({ type: 'POST', url: '@Url.Action(\"HandleMessage\", \"Base\")', dataType: 'json', data: { p_strMessage: '1;16;eDNAUser;1;' + value, p_strOption: '148' }, success: function (request) { ProcessForensicAuthentication(request); }, error: function () { localStorage.removeItem('forensicRecipientSearchPending'); ForensicForwardFailed('Recipient search could not be started.'); } }); }); $('#forwardRecipients').on('click', '.forensic-recipient-select', function () { forwardRecipient = parseInt($(this).attr('data-user-id'), 10); $('#forwardSelection').text('Selected recipient: ' + forwardRecipient + ' - ' + $(this).attr('data-user-name')); $('#forwardConfirmed').prop('checked', false); updateForwardButton(); }); $('#forwardConfirmed').on('change', updateForwardButton); $('#forwardForm').on('submit', function (event) { event.preventDefault(); updateForwardButton(); if ($('#forwardSubmit').prop('disabled')) return; forwardBusy = true; updateForwardButton(); $('#forwardError').hide(); ShowBusyProcessing(); $('#forwardProgress').text('Complete the biometric prompt in the Authentication Application. Access has not yet been granted.'); $.ajax({ type: 'POST', url: '@Url.Action(\"BuildForwardRequest\")', data: { __RequestVerificationToken: $(this).find('[name=__RequestVerificationToken]').val(), jobId: @jobId, recipientUserId: forwardRecipient, confirmed: true }, success: function (request) { ProcessForensicAuthentication(request); }, error: function (response) { ForensicForwardFailed((response.responseJSON || {}).error || 'Forwarding could not be started.'); } }); });"
+  ]
+ },
+ "ForensicReports/Request.cshtml": {
+  "ids": [
+   "frmForensicReportRequest",
+   "cmdSelectForensicRecipient",
+   "forensicRecipientHelp",
+   "forensicRecipientSummary",
+   "forensicRequestError",
+   "cmdSubmitForensicReport",
+   "mdForensicRecipient",
+   "forensicRecipientTitle",
+   "forensicRecipientSearchType",
+   "forensicRecipientSearchValue",
+   "cmdSearchForensicRecipient",
+   "forensicRecipientSearchError",
+   "forensicRecipientSearchResults"
+  ],
+  "idTags": {
+   "frmForensicReportRequest": [
+    "form"
+   ],
+   "cmdSelectForensicRecipient": [
+    "button"
+   ],
+   "forensicRecipientHelp": [
+    "p"
+   ],
+   "forensicRecipientSummary": [
+    "div"
+   ],
+   "forensicRequestError": [
+    "div"
+   ],
+   "cmdSubmitForensicReport": [
+    "button"
+   ],
+   "mdForensicRecipient": [
+    "div"
+   ],
+   "forensicRecipientTitle": [
+    "h4"
+   ],
+   "forensicRecipientSearchType": [
+    "select"
+   ],
+   "forensicRecipientSearchValue": [
+    "input"
+   ],
+   "cmdSearchForensicRecipient": [
+    "button"
+   ],
+   "forensicRecipientSearchError": [
+    "div"
+   ],
+   "forensicRecipientSearchResults": [
+    "div"
+   ]
+  },
+  "hiddenIds": [
+   "forensicRecipientSummary",
+   "forensicRequestError",
+   "forensicRecipientSearchError"
+  ],
+  "classes": [
+   "alert",
+   "alert-danger",
+   "alert-info",
+   "alert-success",
+   "btn",
+   "btn-block",
+   "btn-default",
+   "btn-primary",
+   "close",
+   "col-sm-2",
+   "col-sm-4",
+   "col-sm-6",
+   "fade",
+   "forensic-audit-id",
+   "forensic-request-actions",
+   "forensic-request-page",
+   "forensic-request-panel",
+   "form-control",
+   "form-group",
+   "glyphicon",
+   "glyphicon-chevron-left",
+   "glyphicon-lock",
+   "glyphicon-search",
+   "help-block",
+   "input-group",
+   "input-group-btn",
+   "modal",
+   "modal-body",
+   "modal-content",
+   "modal-dialog",
+   "modal-footer",
+   "modal-header",
+   "modal-lg",
+   "modal-title",
+   "panel",
+   "panel-body",
+   "panel-body-details",
+   "panel-default",
+   "panel-heading",
+   "panel-title",
+   "required",
+   "row",
+   "text-danger",
+   "text-muted"
+  ],
+  "names": [],
+  "htmlHelpers": [
+   "AntiForgeryToken()",
+   "HiddenFor(model => model.AuditID)",
+   "Hidden(\"returnToDetail\")",
+   "LabelFor(model => model.RecipientUserID)",
+   "TextBoxFor(model => model.RecipientUserID)",
+   "ValidationMessageFor(model => model.RecipientUserID)"
+  ],
+  "urlActions": [
+   "\"Index\", \"SystemReports\"",
+   "\"BuildSignedRequest\", \"ForensicReports\"",
+   "\"RecipientSearchResults\", \"ForensicReports\""
+  ],
+  "ajaxUrls": [
+   "\"@Url.Action(\"",
+   "\"/eDNA.WebPortal/Base/HandleMessage\""
+  ],
+  "jsCalls": [],
+  "dataAttrs": [
+   "data-toggle=modal",
+   "data-target=#mdForensicRecipient",
+   "data-backdrop=static",
+   "data-dismiss=modal",
+   "data-dismiss=modal"
+  ],
+  "razorReads": [
+   "@model eDNA.WebPortal.Models.CForensicReportRequest",
+   "@using Lawtrust.Common",
+   "ViewBag.Title",
+   "ViewBag.PreviewOnly",
+   "ViewBag.ReturnToDetail",
+   "ViewBag.PreviewOnly"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [
+   "form#frmForensicReportRequest",
+   "button#cmdSelectForensicRecipient[button]",
+   "button#cmdSubmitForensicReport[submit]",
+   "select#forensicRecipientSearchType",
+   "input#forensicRecipientSearchValue[text]",
+   "button#cmdSearchForensicRecipient[button]"
+  ],
+  "scripts": [
+   "type=\"text/javascript\"| $(function () { $(\"#MVCSiteMap\").show(); $(\"#cmdSearchForensicRecipient\").on(\"click\", SearchForensicRecipient); $(\"#forensicRecipientSearchResults\").on(\"click\", \".forensic-recipient-select\", function () { SelectForensicRecipient( parseInt($(this).attr(\"data-user-id\"), 10), $(this).attr(\"data-user-name\"), $(this).attr(\"data-user-email\")); }); $(\"#forensicRecipientSearchValue\").on(\"keydown\", function (event) { if (event.which === 13) { event.preventDefault(); SearchForensicRecipient(); } }); $(\"#frmForensicReportRequest\").on(\"submit\", function (event) { event.preventDefault(); var form = $(this); if (typeof form.valid === \"function\" && !form.valid()) { return; } var errorPanel = $(\"#forensicRequestError\"); errorPanel.hide().text(\"\"); $(\"#cmdSubmitForensicReport\").prop(\"disabled\", true); ShowBusyProcessing(); localStorage.setItem(\"eDNAReportType\", \"ForensicReport\"); $.ajax({ type: \"POST\", url: \"@Url.Action(\"BuildSignedRequest\", \"ForensicReports\")\", data: form.serialize(), success: function (authenticationRequest) { ProcessForensicAuthentication(authenticationRequest); }, error: function (response) { var message = \"The forensic report request could not be created.\"; var errorResponse = response.responseJSON; if (!errorResponse && response.responseText) { try { errorResponse = JSON.parse(response.responseText); } catch (ignore) { } } if (errorResponse && errorResponse.error) { message = errorResponse.error; } errorPanel.text(message).show(); $(\"#cmdSubmitForensicReport\").prop(\"disabled\", false); HideBusyProcessing(); } }); }); }); function SearchForensicRecipient() { var searchType = $(\"#forensicRecipientSearchType\").val(); var searchValue = $.trim($(\"#forensicRecipientSearchValue\").val()); var errorPanel = $(\"#forensicRecipientSearchError\"); errorPanel.hide().text(\"\"); if (!searchValue) { errorPanel.text(\"Enter a search value.\").show(); return; } if (searchType === \"1\" && !/^\\d+$/.test(searchValue)) { errorPanel.text(\"The eDNA ID must be a number.\").show(); return; } localStorage.setItem(\"forensicRecipientSearchPending\", \"true\"); ShowBusyProcessing(); $.ajax({ type: \"POST\", dataType: \"json\", traditional: true, url: \"/eDNA.WebPortal/Base/HandleMessage\", data: JSON.stringify({ p_strMessage: \"1;16;eDNAUser;\" + searchType + \";\" + searchValue, p_strOption: \"148\" }), contentType: \"application/json; charset=utf-8\", success: function (authenticationRequest) { ProcessForensicAuthentication(authenticationRequest); }, error: function () { localStorage.removeItem(\"forensicRecipientSearchPending\"); errorPanel.text(\"The recipient search could not be started.\").show(); HideBusyProcessing(); } }); } function BindForensicRecipients() { $(\"#forensicRecipientSearchResults\").load( \"@Url.Action(\"RecipientSearchResults\", \"ForensicReports\")\", function (responseText, status) { HideBusyProcessing(); if (status !== \"success\") { $(\"#forensicRecipientSearchError\") .text(\"The recipient search results could not be loaded.\").show(); } }); } function SelectForensicRecipient(userId, name, email) { var recipient = $(\"#RecipientUserID\").val(userId); // The portal layout does not always load jQuery Validation. if (typeof recipient.valid === \"function\") { recipient.valid(); } $(\"#forensicRecipientSummary\") .text(\"Selected: eDNA ID \" + userId + \" - \" + name + \" (\" + email + \")\") .show(); $(\"#mdForensicRecipient\").modal(\"hide\"); }"
+  ]
+ },
+ "ForensicReports/Review.cshtml": {
+  "ids": [
+   "cmdLoadForensicDraft"
+  ],
+  "idTags": {
+   "cmdLoadForensicDraft": [
+    "button"
+   ]
+  },
+  "hiddenIds": [],
+  "classes": [
+   "alert",
+   "alert-warning",
+   "btn",
+   "btn-default",
+   "btn-primary",
+   "panel",
+   "panel-body",
+   "panel-default",
+   "panel-heading",
+   "panel-title"
+  ],
+  "names": [],
+  "htmlHelpers": [],
+  "urlActions": [
+   "\"Index\", \"AuditReport\""
+  ],
+  "ajaxUrls": [
+   "'/eDNA.WebPortal/Base/HandleMessage'"
+  ],
+  "jsCalls": [],
+  "dataAttrs": [],
+  "razorReads": [
+   "ViewBag.Title",
+   "ViewBag.JobID",
+   "ViewBag.ReviewMessage",
+   "ViewBag.ReviewMessage"
+  ],
+  "razorControl": [
+   "if (ViewBag.ReviewMessage != null)"
+  ],
+  "areas": [],
+  "forms": [
+   "button#cmdLoadForensicDraft"
+  ],
+  "scripts": [
+   "| $(function () { $('#cmdLoadForensicDraft').on('click', function () { localStorage.setItem('forensicDraftJobID', '@jobId'); ShowBusyProcessing(); $.ajax({ type: 'POST', dataType: 'json', traditional: true, url: '/eDNA.WebPortal/Base/HandleMessage', data: JSON.stringify({ p_strMessage: '1;16;@jobId', p_strOption: '193' }), contentType: 'application/json; charset=utf-8', success: function (request) { ProcessWebSocketRequest(request, m_CurrentController); }, error: function () { HideBusyProcessing(); Notify('Forensic draft', 'The draft could not be requested.'); } }); }); });"
+  ]
+ },
+ "ForensicReports/ReviewPrepared.cshtml": {
+  "ids": [
+   "forensicReview",
+   "frmApproveForensicDraft",
+   "approvalHeading",
+   "reviewConfirmed",
+   "approveForensicDraft",
+   "approvalRequirements"
+  ],
+  "idTags": {
+   "forensicReview": [
+    "div"
+   ],
+   "approvalHeading": [
+    "h4"
+   ],
+   "reviewConfirmed": [
+    "input"
+   ],
+   "approveForensicDraft": [
+    "button"
+   ],
+   "approvalRequirements": [
+    "p"
+   ]
+  },
+  "hiddenIds": [],
+  "classes": [
+   "alert",
+   "alert-warning",
+   "approval-actions",
+   "approval-panel",
+   "btn",
+   "btn-default",
+   "btn-info",
+   "btn-lg",
+   "btn-primary",
+   "glyphicon",
+   "glyphicon-lock",
+   "panel",
+   "panel-body",
+   "panel-default",
+   "panel-heading",
+   "panel-title",
+   "review-confirmation"
+  ],
+  "names": [],
+  "htmlHelpers": [
+   "AntiForgeryToken()"
+  ],
+  "urlActions": [
+   "\"DraftPdfPrepared\", new { jobId = jobId }",
+   "\"Index\", \"AuditReport\"",
+   "\"BuildDraftApproval\""
+  ],
+  "ajaxUrls": [
+   "'@Url.Action(\"BuildDraftApproval\")'"
+  ],
+  "jsCalls": [],
+  "dataAttrs": [],
+  "razorReads": [
+   "ViewBag.Title",
+   "ViewBag.JobID",
+   "ViewBag.DraftSha256"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [
+   "input#reviewConfirmed[checkbox]",
+   "button#approveForensicDraft[submit]"
+  ],
+  "scripts": [
+   "| function updateForensicApprovalAvailability() { var confirmed = $('#reviewConfirmed').prop('checked'); var ready = confirmed; $('#approveForensicDraft').prop('disabled', !ready); $('#approvalRequirements').text(ready ? 'Ready: click Approve with Authentication Application to continue.' : 'Tick the review confirmation to enable approval.'); } $('#reviewConfirmed').on('change', updateForensicApprovalAvailability); updateForensicApprovalAvailability(); $('#frmApproveForensicDraft').on('submit', function (event) { event.preventDefault(); updateForensicApprovalAvailability(); if ($('#approveForensicDraft').prop('disabled')) return; ShowBusyProcessing(); $.ajax({ type: 'POST', url: '@Url.Action(\"BuildDraftApproval\")', data: { __RequestVerificationToken: $(this).find('[name=__RequestVerificationToken]').val(), jobId: @jobId, draftSha256: '@sha256', reviewConfirmed: $('#reviewConfirmed').prop('checked') }, success: function (request) { localStorage.setItem('forensicApprovalJobID', '@jobId'); ProcessForensicAuthentication(request); }, error: function (response) { HideBusyProcessing(); Notify('Forensic report approval', (response.responseJSON || {}).error || 'Approval could not be started.'); } }); });"
+  ]
+ },
+ "ForensicReports/TransactionDetail.cshtml": {
+  "ids": [],
+  "idTags": {},
+  "hiddenIds": [],
+  "classes": [
+   "btn",
+   "btn-default",
+   "btn-info",
+   "btn-primary",
+   "panel",
+   "panel-body",
+   "panel-default",
+   "panel-heading",
+   "panel-title"
+  ],
+  "names": [],
+  "htmlHelpers": [],
+  "urlActions": [
+   "\"Request\", new { auditId, generate = true, preview = true, returnToDetail = true }",
+   "\"Request\", new { auditId, generate = true, returnToDetail = true }",
+   "\"Index\", \"SystemReports\"",
+   "\"~/Reports/ReportTemplate.aspx\""
+  ],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [],
+  "razorReads": [
+   "ViewBag.Title",
+   "ViewBag.AuditID"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [],
+  "scripts": []
+ },
+ "ForensicReports/WaitForReport.cshtml": {
+  "ids": [
+   "workflowStatus",
+   "reportReady",
+   "reportReadyTitle",
+   "viewReadyReport"
+  ],
+  "idTags": {
+   "workflowStatus": [
+    "p"
+   ],
+   "reportReady": [
+    "div"
+   ],
+   "reportReadyTitle": [
+    "h3"
+   ],
+   "viewReadyReport": [
+    "button"
+   ]
+  },
+  "hiddenIds": [],
+  "classes": [
+   "btn",
+   "btn-default",
+   "btn-primary",
+   "fade",
+   "modal",
+   "modal-body",
+   "modal-content",
+   "modal-dialog",
+   "modal-footer",
+   "modal-header",
+   "panel",
+   "panel-body",
+   "panel-default"
+  ],
+  "names": [],
+  "htmlHelpers": [
+   "Raw(System.Web.Helpers.Json.Encode(returnUrl)"
+  ],
+  "urlActions": [
+   "\"WorkflowStatus\""
+  ],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [
+   "data-backdrop=static",
+   "data-keyboard=false"
+  ],
+  "razorReads": [
+   "ViewBag.Title",
+   "ViewBag.JobID",
+   "ViewBag.WaitForSigned",
+   "ViewBag.ReturnUrl"
+  ],
+  "razorControl": [
+   "if (signed) { <text>"
+  ],
+  "areas": [],
+  "forms": [
+   "button#viewReadyReport"
+  ],
+  "scripts": [
+   "| var workflowPoll; function ForensicWorkflowStatusChanged() { $.get('@Url.Action(\"WorkflowStatus\")', { jobId: @jobId, signed: @signed.ToString().ToLowerInvariant() }) .done(function (state) { HideBusyProcessing(); if (state.failed) { $('#workflowStatus').text('Processing needs attention. Check request status for details.'); return; } if (state.ready) { $('#workflowStatus').text('Ready.'); $('#reportReady').modal('show'); return; } $('#workflowStatus').text('Still processing. You can return now; the job continues in the background.'); workflowPoll = setTimeout(AuditJobList, 5000); }).fail(function () { HideBusyProcessing(); $('#workflowStatus').text('Status could not be checked. Return to request status; do not submit a duplicate.'); }); } $(function () { localStorage.setItem('eDNAReportType', 'AuditReport'); AuditJobList(); $('#viewReadyReport').on('click', function () { $('#reportReady').modal('hide'); @if (signed) { <text> forensicReturnAfterView = @Html.Raw(System.Web.Helpers.Json.Encode(returnUrl)); DownloadForensicReport('@jobId', true); </text> } else { <text> ReviewForensicReport('@jobId'); </text> } }); }); $(window).on('beforeunload', function () { clearTimeout(workflowPoll); });"
+  ]
+ },
+ "ForensicReports/_RecipientSearchResults.cshtml": {
+  "ids": [
+   "tblForensicRecipientResults"
+  ],
+  "idTags": {
+   "tblForensicRecipientResults": [
+    "table"
+   ],
+   "@user.UserId": [
+    "button"
+   ]
+  },
+  "hiddenIds": [],
+  "classes": [
+   "?",
+   "btn",
+   "btn-primary",
+   "btn-xs",
+   "forensic-recipient-select",
+   "table",
+   "table-condensed",
+   "table-hover",
+   "text-muted"
+  ],
+  "names": [
+   "@((user.Name + "
+  ],
+  "htmlHelpers": [],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [
+   "data-user-id=@user.UserId",
+   "data-user-name=@((user.Name + ",
+   "data-user-email=@user.Email"
+  ],
+  "razorReads": [
+   "@model IEnumerable<eDNA.WebPortal.Models.CUser>"
+  ],
+  "razorControl": [
+   "foreach (var user in Model ?? Enumerable.Empty<eDNA.WebPortal.Models.CUser>())",
+   "if (user.ForensicRecipientEligible)",
+   "if (Model == null || !Model.Any())"
+  ],
+  "areas": [],
+  "forms": [
+   "button#@user.UserId[button]"
+  ],
+  "scripts": []
+ },
+ "Headcount/Index.cshtml": {
+  "ids": [
+   "dvHeadcountReports",
+   "dvHeadcountReportList",
+   "treeview",
+   "HeadcountReportsTreeView",
+   "dvReportDetail",
+   "treecontrol"
+  ],
+  "idTags": {
+   "dvHeadcountReports": [
+    "div"
+   ],
+   "dvHeadcountReportList": [
+    "div"
+   ],
+   "treeview": [
+    "table"
+   ],
+   "dvReportDetail": [
+    "div"
+   ],
+   "treecontrol": [
+    "div"
+   ]
+  },
+  "hiddenIds": [],
+  "classes": [
+   "col-md-1",
+   "col-md-3",
+   "col-md-7",
+   "col-md-9",
+   "form-group",
+   "form-horizontal",
+   "panel-body-details",
+   "row",
+   "subItem"
+  ],
+  "names": [],
+  "htmlHelpers": [
+   "AntiForgeryToken()",
+   "Partial(\"_ReportTemplate\")"
+  ],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "javascript:RenderHCReport('@item.ReportName','@item.Description', '102', '620')",
+   "onclick=javascript:ShowBusyProcessing()"
+  ],
+  "dataAttrs": [],
+  "razorReads": [
+   "@using eDNA.WebPortal.Helpers",
+   "@model eDNA.WebPortal.ViewModel.CReportViewModel",
+   "ViewBag.Title",
+   "Html.Partial(\"_ReportTemplate\")",
+   "Session[\"isHCBIFormLoad\"]"
+  ],
+  "razorControl": [
+   "if (item.ParentID != 0)"
+  ],
+  "areas": [],
+  "forms": [],
+  "scripts": [
+   "type=\"text/javascript\"| $(document).ready(function ($) { $(\"#MVCSiteMap\").show(); //CODESC: Collapse and Expand the Tree view items MakeTreeviewCollapseAndExpandable(); });",
+   "type=\"text/javascript\"| $(window).on('load', function () { if ('@HttpContext.Current.Session[\"isHCBIFormLoad\"]' == 'True') { GetHCReportList('Headcount', 'false'); } })",
+   "type=\"text/javascript\"| $(\"#HeadcountReportsTreeView a\").click(function (e) { $(\"a\").css(\"backgroundColor\", \"\"); $(this).css(\"backgroundColor\", \"lightskyblue\"); });"
+  ]
+ },
+ "Help/Index.cshtml": {
+  "ids": [],
+  "idTags": {},
+  "hiddenIds": [],
+  "classes": [
+   "col-md-4",
+   "form-horizontal",
+   "panel-body",
+   "panel-heading",
+   "row"
+  ],
+  "names": [],
+  "htmlHelpers": [],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [],
+  "razorReads": [
+   "ViewBag.Title"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [],
+  "scripts": [
+   "src=\"~/Scripts/jquery-3.1.1.min.js\"|",
+   "type=\"text/javascript\"| $(document).ready(function () { $(\"#MVCSiteMap\").show(); });"
+  ]
+ },
+ "Home/Index.cshtml": {
+  "ids": [
+   "dvWmenu",
+   "dvGmenu",
+   "dvLmenu"
+  ],
+  "idTags": {
+   "dvWmenu": [
+    "div"
+   ],
+   "dvGmenu": [
+    "div"
+   ],
+   "dvLmenu": [
+    "div"
+   ]
+  },
+  "hiddenIds": [
+   "dvWmenu",
+   "dvGmenu",
+   "dvLmenu"
+  ],
+  "classes": [
+   "btn",
+   "btn-default",
+   "content-wrapper",
+   "glyphicon",
+   "glyphicon-bell",
+   "text-right"
+  ],
+  "names": [],
+  "htmlHelpers": [
+   "Partial(\"_WIndex\")",
+   "Partial(\"_GIndex\")",
+   "Partial(\"_LIndex\")"
+  ],
+  "urlActions": [],
+  "ajaxUrls": [
+   "\"/eDNA.WebPortal/Base/HandleMessage\"",
+   "\"/eDNA.WebPortal/Home/RedirectToSelectedPage\"",
+   "\"/eDNA.WebPortal/Base/HandleMessage\""
+  ],
+  "jsCalls": [
+   "onclick=ForensicReportNotifications_Request()"
+  ],
+  "dataAttrs": [],
+  "razorReads": [
+   "ViewBag.Title",
+   "@model List<eDNA.WebPortal.Models.CMenuData>",
+   "Html.Partial(\"_WIndex\")",
+   "Html.Partial(\"_GIndex\")",
+   "Html.Partial(\"_LIndex\")",
+   "Session[\"UserPreference\"]"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [],
+  "scripts": [
+   "type=\"text/javascript\"| var MenuSelection = '@Convert.ToString(HttpContext.Current.Session[\"UserPreference\"])'; if (MenuSelection == 'Wheel') { document.getElementById(\"dvWmenu\").style.display = \"\"; } if (MenuSelection == 'Grid') { document.getElementById(\"dvGmenu\").style.display = \"\"; } if (MenuSelection == 'Classic') { document.getElementById(\"dvLmenu\").style.display = \"\"; }",
+   "type=\"text/javascript\"| $(document).ready(function () { localStorage.setItem(\"isSearchTransversal\", ''); localStorage.setItem(\"m_isUserUpdate\", ''); // Notification metadata uses the signed-in session without biometric verification. // Start it only from the button, // since this view is loaded again whenever a menu or submenu is opened. });",
+   "type=\"text/javascript\"| function ForensicReportNotifications_Request() { ShowBusyProcessing('Checking report notifications', 'Looking for reports allocated to your eDNA user.'); $.ajax({ type: \"POST\", dataType: \"json\", traditional: true, url: \"/eDNA.WebPortal/Base/HandleMessage\", data: JSON.stringify({ p_strMessage: \"1;16\", p_strOption: \"191\" }), contentType: \"application/json; charset=utf-8\", success: function (authenticationRequest) { ProcessWebSocketRequest(authenticationRequest, m_CurrentController); }, error: function () { HideBusyProcessing(); Notify('Report notifications', 'Could not check notifications. Please try again.', 'error'); } }); }",
+   "type=\"text/javascript\"| function Redirect(p_iMenuID, p_strMVCView, p_strMenuCaption) { // Display the busy indicator before any request is sent so every menu // selection gives immediate feedback while its destination is resolved. ShowBusyProcessing(); if (p_strMVCView != 'None') { $.ajax({ type: \"POST\", dataType: \"json\", traditional: true, url: \"/eDNA.WebPortal/Home/RedirectToSelectedPage\", data: JSON.stringify({ 'p_iMenuID': p_iMenuID, 'p_strMVCView': p_strMVCView, 'p_strMenuCaption': p_strMenuCaption }), contentType: \"application/json; charset=utf-8\", success: function (data) { location = data; }, error: function () { HideBusyProcessing(); } }); } else { $.ajax({ type: \"POST\", dataType: \"json\", traditional: true, url: \"/eDNA.WebPortal/Base/HandleMessage\", data: JSON.stringify({ 'p_strMessage': '1' + ';16' + ';' + p_iMenuID, 'p_strOption': '64', 'p_strJSonData': p_strMenuCaption }), contentType: \"application/json; charset=utf-8\", success: function (data) { //CODESC: Process WebSocket Request function with the passing values process. ProcessWebSocketRequest(data, m_CurrentController); }, error: function () { HideBusyProcessing(); } }); } }"
+  ]
+ },
+ "Home/_GIndex.cshtml": {
+  "ids": [],
+  "idTags": {},
+  "hiddenIds": [],
+  "classes": [
+   "caption",
+   "col-md-1",
+   "col-md-3",
+   "col-md-7",
+   "col-sm-2",
+   "dashboard",
+   "form-group",
+   "list-group",
+   "list-group-item",
+   "pull-right",
+   "row",
+   "thumbnail"
+  ],
+  "names": [],
+  "htmlHelpers": [],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "javascript:Redirect('@l_Menu.MenuID','@l_Menu.MVC_View','@l_Menu.Caption')",
+   "javascript:Redirect('@l_Menu.MenuID','@l_Menu.MVC_View','@l_Menu.Caption')"
+  ],
+  "dataAttrs": [
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-placement=left",
+   "data-placement=bottom",
+   "data-toggle=tooltip"
+  ],
+  "razorReads": [
+   "ViewBag.Title",
+   "@model List<eDNA.WebPortal.Models.CMenuData>",
+   "ViewBag.MenuList",
+   "ViewBag.MenuList"
+  ],
+  "razorControl": [
+   "if (Model != null && Model.Count != 0)",
+   "if (Model.Count > 3 && Model.Count < 7)",
+   "if (Model.Count >= 7 && Model.Count < 10)",
+   "if (Model.Count > 9)",
+   "foreach (var l_Menu in ((ViewBag.MenuList as List<eDNA.CommonData.Classes.CData_Menu>) ?? new List<eDNA.CommonData.Classes.CData_Menu>()))",
+   "foreach (var l_Menu in ((ViewBag.MenuList as List<eDNA.CommonData.Classes.CData_Menu>) ?? new List<eDNA.CommonData.Classes.CData_Menu>()))"
+  ],
+  "areas": [],
+  "forms": [],
+  "scripts": []
+ },
+ "Home/_LIndex.cshtml": {
+  "ids": [],
+  "idTags": {},
+  "hiddenIds": [],
+  "classes": [
+   "caret",
+   "caret-right",
+   "collapse",
+   "container",
+   "dropdown",
+   "dropdown-menu",
+   "dropdown-submenu",
+   "dropdown-toggle",
+   "nav",
+   "navbar",
+   "navbar-collapse",
+   "navbar-default",
+   "navbar-inverse",
+   "navbar-nav",
+   "submenu-toggle"
+  ],
+  "names": [],
+  "htmlHelpers": [],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "javascript:Redirect('@l_Menu.MenuID','@l_Menu.MVC_View')",
+   "javascript:Redirect('@l_Menu.MenuID','@l_Menu.MVC_View')"
+  ],
+  "dataAttrs": [
+   "data-toggle=dropdown",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip"
+  ],
+  "razorReads": [
+   "ViewBag.Title",
+   "ViewBag.MenuTable"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [],
+  "scripts": [
+   "type=\"text/javascript\"| $(document).ready(function () { $('.dropdown-submenu a.submenu-toggle').on(\"click\", function (e) { console.log(\"toggle\"); $(this).next('ul').toggle(); e.stopPropagation(); e.preventDefault(); }); });"
+  ]
+ },
+ "Home/_WIndex.cshtml": {
+  "ids": [],
+  "idTags": {},
+  "hiddenIds": [],
+  "classes": [
+   "col-md-3",
+   "dashboard",
+   "list-group",
+   "list-group-item",
+   "pull-right",
+   "selector",
+   "submit-button-wrapper",
+   "wheel_icon"
+  ],
+  "names": [],
+  "htmlHelpers": [
+   "ValidationSummary(true)"
+  ],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "onclick=Redirect('@l_Menu.MenuID', '@l_Menu.MVC_View')",
+   "javascript:Redirect('@l_Menu.MenuID','@l_Menu.MVC_View')"
+  ],
+  "dataAttrs": [
+   "data-toggle=tooltip",
+   "data-placement=top",
+   "data-toggle=tooltip",
+   "data-placement=left",
+   "data-placement=bottom",
+   "data-toggle=tooltip"
+  ],
+  "razorReads": [
+   "ViewBag.Title",
+   "@model List<eDNA.WebPortal.Models.CMenuData>",
+   "ViewBag.MenuList",
+   "ViewBag.MenuList"
+  ],
+  "razorControl": [
+   "if (Model != null && Model.Count != 0)",
+   "if (Model.Count > 3 && Model.Count < 7)",
+   "if (Model.Count >= 7 && Model.Count < 10)",
+   "if (Model.Count >9)",
+   "foreach (var l_Menu in ((ViewBag.MenuList as List<eDNA.CommonData.Classes.CData_Menu>) ?? new List<eDNA.CommonData.Classes.CData_Menu>()))",
+   "foreach (var l_Menu in ((ViewBag.MenuList as List<eDNA.CommonData.Classes.CData_Menu>) ?? new List<eDNA.CommonData.Classes.CData_Menu>()))"
+  ],
+  "areas": [],
+  "forms": [],
+  "scripts": [
+   "type=\"text/javascript\"| var nbOptions = 8; var angleStart = -360; // jquery rotate animation function rotate(li, d) { $({ d: angleStart }).animate({ d: d }, { step: function (now) { $(li) .css({ transform: 'rotate(' + now + 'deg)' }) .find('label') .css({ transform: 'rotate(' + (-now) + 'deg)' }); }, duration: 0 }); } //CODESC: Script for the Wheel menu with rotate functionality. show / hide the options function toggleOptions(s) { $(s).toggleClass('open'); var li = $(s).find('li'); var deg = $(s).hasClass('half') ? 180 / (li.length - 1) : 360 / li.length; for (var i = 0; i < li.length; i++) { var d = $(s).hasClass('half') ? (i * deg) - 90 : i * deg; $(s).hasClass('open') ? rotate(li[i], d) : rotate(li[i], angleStart); } } $('.selector button').click(function (e) { toggleOptions($(this).parent()); }); setTimeout(function () { toggleOptions('.selector'); }, 100);"
+  ]
+ },
+ "Logon/Index.cshtml": {
+  "ids": [
+   "mrqWelCome",
+   "lnkAuthenticateUser",
+   "lblNoBiometrics",
+   "lnkFingerprintLogon",
+   "lnkFaceLogon"
+  ],
+  "idTags": {
+   "mrqWelCome": [
+    "marquee"
+   ],
+   "lnkAuthenticateUser": [
+    "td"
+   ],
+   "lblNoBiometrics": [
+    "div"
+   ],
+   "lnkFingerprintLogon": [
+    "a"
+   ],
+   "lnkFaceLogon": [
+    "a"
+   ]
+  },
+  "hiddenIds": [
+   "lnkAuthenticateUser",
+   "lblNoBiometrics"
+  ],
+  "classes": [
+   "biometric-logon-link",
+   "biometric-logon-message",
+   "glyphicon",
+   "glyphicon-hand-up",
+   "glyphicon-log-in",
+   "glyphicon-user",
+   "logon-div"
+  ],
+  "names": [],
+  "htmlHelpers": [],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [
+   "data-logon-action=@((Int32)enum_Actions.LogonFinger)",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-logon-action=@((Int32)enum_Actions.LogonFace)",
+   "data-toggle=tooltip",
+   "data-placement=bottom"
+  ],
+  "razorReads": [
+   "@using eDNA.Common.Enumerables",
+   "ViewBag.Title"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [],
+  "scripts": [
+   "type=\"text/javascript\"| $(document).ready(function () { $(\"#dvClose\").hide(); });"
+  ]
+ },
+ "PKIEnrolment/Index.cshtml": {
+  "ids": [
+   "frmPkiEnrolment",
+   "PkiUserID",
+   "PkiDestination",
+   "PkiModePermission",
+   "PkiTiming",
+   "PkiMemoryComplete",
+   "PkiWizardProgress",
+   "PkiWizardTitle",
+   "PkiWizardHelp",
+   "PkiCardSelection",
+   "PkiSelectedCardSerial",
+   "PkiSelectedOfficer",
+   "PkiWizardBusy",
+   "PkiWizardMessage",
+   "btnPkiNext",
+   "PkiWizardExit",
+   "PkiRecovery",
+   "PkiRecoverySummary",
+   "PkiOperationID",
+   "PkiSavedOperationID",
+   "btnRenewPki",
+   "btnCompletePkiRecipient",
+   "PkiInstallationDialog",
+   "PkiInstallationTitle",
+   "PkiInstallationMessage",
+   "PkiConfirmDialog",
+   "PkiConfirmTitle",
+   "PkiConfirmMessage",
+   "PkiConfirmContinue",
+   "PkiConfirmCancel"
+  ],
+  "idTags": {
+   "PkiUserID": [
+    "input"
+   ],
+   "PkiDestination": [
+    "fieldset"
+   ],
+   "PkiModePermission": [
+    "p"
+   ],
+   "PkiTiming": [
+    "div"
+   ],
+   "PkiMemoryComplete": [
+    "div"
+   ],
+   "PkiWizardProgress": [
+    "p"
+   ],
+   "PkiWizardTitle": [
+    "h2"
+   ],
+   "PkiWizardHelp": [
+    "p"
+   ],
+   "PkiCardSelection": [
+    "div"
+   ],
+   "PkiSelectedCardSerial": [
+    "span"
+   ],
+   "PkiSelectedOfficer": [
+    "span"
+   ],
+   "PkiWizardBusy": [
+    "div"
+   ],
+   "PkiWizardMessage": [
+    "div"
+   ],
+   "btnPkiNext": [
+    "button"
+   ],
+   "PkiWizardExit": [
+    "a"
+   ],
+   "PkiRecovery": [
+    "details"
+   ],
+   "PkiRecoverySummary": [
+    "summary"
+   ],
+   "PkiOperationID": [
+    "span"
+   ],
+   "PkiSavedOperationID": [
+    "input"
+   ],
+   "btnRenewPki": [
+    "button"
+   ],
+   "btnCompletePkiRecipient": [
+    "button"
+   ],
+   "PkiInstallationDialog": [
+    "div"
+   ],
+   "PkiInstallationTitle": [
+    "h3"
+   ],
+   "PkiInstallationMessage": [
+    "p"
+   ],
+   "PkiConfirmDialog": [
+    "div"
+   ],
+   "PkiConfirmTitle": [
+    "h3"
+   ],
+   "PkiConfirmMessage": [
+    "p"
+   ],
+   "PkiConfirmContinue": [
+    "button"
+   ],
+   "PkiConfirmCancel": [
+    "button"
+   ]
+  },
+  "hiddenIds": [
+   "PkiMemoryComplete",
+   "PkiCardSelection",
+   "PkiWizardBusy",
+   "PkiInstallationDialog",
+   "PkiConfirmDialog"
+  ],
+  "classes": [
+   "alert",
+   "alert-info",
+   "alert-success",
+   "btn",
+   "btn-default",
+   "btn-lg",
+   "btn-primary",
+   "form-control",
+   "panel",
+   "panel-body",
+   "panel-default",
+   "pki-mode",
+   "pki-recovery",
+   "pki-steps",
+   "pki-wizard",
+   "text-center",
+   "text-muted"
+  ],
+  "names": [
+   "PkiMemoryMode",
+   "PkiMemoryMode"
+  ],
+  "htmlHelpers": [
+   "AntiForgeryToken()",
+   "ValidationSummary(true)",
+   "TextArea(\"txtPKIProcessStatus\")"
+  ],
+  "urlActions": [
+   "\"Index\", \"UserEnrolment\"",
+   "\"Index\", \"SmartcardManagement\"",
+   "\"~/Content/Images/ajax_loader_blue_512.gif\"",
+   "\"Index\", \"UserEnrolment\"",
+   "\"~/Content/Images/ajax_loader_blue_512.gif\""
+  ],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "onsubmit=return false;",
+   "onclick=PkiEnrolment_StartNewTest()",
+   "onclick=PkiEnrolment_Next()",
+   "onclick=return !PkiEnrolment_Busy();",
+   "onclick=return !PkiEnrolment_Busy();",
+   "onclick=PkiEnrolment_Renew()",
+   "onclick=PkiEnrolment_CompleteRecipient()",
+   "onkeydown=if(event.key==='Escape'){PkiEnrolment_ConfirmAnswer(false);} if(event.key==='Tab'){event.preventDefault(); document.getElementById(document.activeElement.id==='PkiConfirmCancel'?'PkiConfirmContinue':'PkiConfirmCancel').focus();}",
+   "onclick=PkiEnrolment_ConfirmAnswer(true)",
+   "onclick=PkiEnrolment_ConfirmAnswer(false)"
+  ],
+  "dataAttrs": [],
+  "razorReads": [
+   "ViewBag.Title",
+   "@model eDNA.CommonData.Classes.CData_User",
+   "ViewBag.UseExistingBiometrics",
+   "ViewBag.SavedBiometricCount",
+   "ViewBag.PkiOperationID",
+   "ViewBag.PkiOperationID",
+   "ViewBag.PkiStatus",
+   "ViewBag.UseExistingBiometrics"
+  ],
+  "razorControl": [
+   "if (ViewBag.UseExistingBiometrics == true && Model != null)",
+   "foreach (var step in new[] { \"Check cards\", \"Authorize officer\", \"Certificate\", \"Sign files\", \"Install card\", \"Verify recipient\", \"Activate\" })",
+   "if (ViewBag.UseExistingBiometrics != true)"
+  ],
+  "areas": [],
+  "forms": [
+   "input#PkiUserID[hidden]",
+   "button#btnPkiNext[button]",
+   "input#PkiSavedOperationID[text]",
+   "button#btnRenewPki[button]",
+   "button#btnCompletePkiRecipient[button]",
+   "button#PkiConfirmContinue[button]",
+   "button#PkiConfirmCancel[button]"
+  ],
+  "scripts": [
+   "type=\"text/javascript\"| $(document).ready(function () { //CODESC: Hide MVC SiteMap/Breadcrumb and display Enrolment div to not allow user clicks in the Sitemap while busy with enrolment process. $(\"#UserEnromentWizard\").show(); PkiEnrolment_InitWizard(); @if (ViewBag.UseExistingBiometrics != true) { <text>Notify(\"User Enrolment\" + \"<br>\", \"Transversal enrolment completed successfully. Continue with PKI Enrolment.\");</text> } });"
+  ]
+ },
+ "PkiLocalWorkflow/Index.cshtml": {
+  "ids": [
+   "pki-resume",
+   "resume",
+   "result",
+   "status-title",
+   "status-detail",
+   "receipt",
+   "queue",
+   "certificate",
+   "hash"
+  ],
+  "idTags": {
+   "pki-resume": [
+    "form"
+   ],
+   "resume": [
+    "button"
+   ],
+   "result": [
+    "section"
+   ],
+   "status-title": [
+    "h2"
+   ],
+   "status-detail": [
+    "p"
+   ],
+   "receipt": [
+    "dl"
+   ],
+   "queue": [
+    "dd"
+   ],
+   "certificate": [
+    "dd"
+   ],
+   "hash": [
+    "dd"
+   ]
+  },
+  "hiddenIds": [],
+  "classes": [
+   "eyebrow",
+   "intro",
+   "scope"
+  ],
+  "names": [
+   "viewport"
+  ],
+  "htmlHelpers": [
+   "AntiForgeryToken()"
+  ],
+  "urlActions": [
+   "\"~/Content/PkiLocalWorkflow.css\"",
+   "\"~/Scripts/Enrolment/PkiLocalWorkflow.js\"",
+   "\"Resume\"",
+   "\"Result\""
+  ],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [
+   "data-result-url=@Url.Action("
+  ],
+  "razorReads": [
+   "ViewBag.Unavailable",
+   "ViewBag.UserId",
+   "ViewBag.Operation"
+  ],
+  "razorControl": [
+   "if (unavailable)"
+  ],
+  "areas": [],
+  "forms": [
+   "form#pki-resume",
+   "button#resume[submit]"
+  ],
+  "scripts": [
+   "src=\"@Url.Content(\"~/Scripts/Enrolment/PkiLocalWorkflow.js\")\" defer|"
+  ]
+ },
+ "Reports/AuditReports.cshtml": {
+  "ids": [
+   "frmAuditData",
+   "dvAuditRootTabs",
+   "spnAuditHeader",
+   "lblTimer",
+   "timespan",
+   "lblSwitch",
+   "lblStitch",
+   "auditAutoRefresh",
+   "lnkRefreshList",
+   "lnkShowFilter",
+   "spnFilter",
+   "dvAuditReportsStatus",
+   "tblAdvancedFilter",
+   "SearchReportType",
+   "dtAuditFilterSDateTime",
+   "txtAuditFilterSDateTime1",
+   "dtAuditFilterEDateTime",
+   "txtAuditFilterEDateTime1",
+   "txtJobUserID1",
+   "txtJobTransversalUserName1",
+   "auditJobListContainer",
+   "mdUserPopUp",
+   "Icon_Information",
+   "tdEUser",
+   "rdeDNAUser",
+   "tdTUser",
+   "rdTUser",
+   "trTUser",
+   "txtTSearchValue",
+   "treDNAUser",
+   "txtSearchValue",
+   "dveDNAUsers",
+   "dveTransversalUsers",
+   "lblErrorMessage",
+   "btnSelectUser"
+  ],
+  "idTags": {
+   "frmAuditData": [
+    "form"
+   ],
+   "dvAuditRootTabs": [
+    "div"
+   ],
+   "spnAuditHeader": [
+    "span"
+   ],
+   "lblTimer": [
+    "label"
+   ],
+   "timespan": [
+    "span"
+   ],
+   "lblSwitch": [
+    "label"
+   ],
+   "lblStitch": [
+    "label"
+   ],
+   "auditAutoRefresh": [
+    "input"
+   ],
+   "lnkRefreshList": [
+    "a"
+   ],
+   "lnkShowFilter": [
+    "a"
+   ],
+   "spnFilter": [
+    "span"
+   ],
+   "dvAuditReportsStatus": [
+    "div"
+   ],
+   "tblAdvancedFilter": [
+    "table"
+   ],
+   "dtAuditFilterSDateTime": [
+    "div"
+   ],
+   "txtAuditFilterSDateTime1": [
+    "input"
+   ],
+   "dtAuditFilterEDateTime": [
+    "div"
+   ],
+   "txtAuditFilterEDateTime1": [
+    "input"
+   ],
+   "txtJobUserID1": [
+    "input"
+   ],
+   "txtJobTransversalUserName1": [
+    "input"
+   ],
+   "auditJobListContainer": [
+    "div"
+   ],
+   "mdUserPopUp": [
+    "div"
+   ],
+   "Icon_Information": [
+    "h4"
+   ],
+   "tdEUser": [
+    "td"
+   ],
+   "rdeDNAUser": [
+    "input"
+   ],
+   "tdTUser": [
+    "td"
+   ],
+   "rdTUser": [
+    "input"
+   ],
+   "trTUser": [
+    "tr"
+   ],
+   "txtTSearchValue": [
+    "input"
+   ],
+   "treDNAUser": [
+    "tr"
+   ],
+   "txtSearchValue": [
+    "input"
+   ],
+   "dveDNAUsers": [
+    "div"
+   ],
+   "dveTransversalUsers": [
+    "div"
+   ],
+   "lblErrorMessage": [
+    "label"
+   ],
+   "btnSelectUser": [
+    "button"
+   ]
+  },
+  "hiddenIds": [
+   "lblTimer",
+   "lblSwitch",
+   "lblStitch",
+   "lnkRefreshList",
+   "lnkShowFilter",
+   "tblAdvancedFilter",
+   "trTUser",
+   "treDNAUser"
+  ],
+  "classes": [
+   "alert",
+   "alert-warning",
+   "btn",
+   "btn-default",
+   "col-md-3",
+   "col-md-7",
+   "dropdown",
+   "fade",
+   "form-control",
+   "form-group",
+   "form-horizontal",
+   "glyphicon",
+   "glyphicon-filter",
+   "glyphicon-refresh",
+   "glyphicon-search",
+   "glyphicon-th",
+   "header",
+   "input-group-addon",
+   "modal",
+   "modal-body",
+   "modal-content",
+   "modal-dialog",
+   "modal-footer",
+   "modal-header",
+   "off",
+   "on",
+   "panel-body-details",
+   "pull-left",
+   "round",
+   "row",
+   "scroll",
+   "slider",
+   "switch",
+   "table",
+   "table-hover"
+  ],
+  "names": [
+   "rdUserOption",
+   "rdUserOption"
+  ],
+  "htmlHelpers": [
+   "DropDownListFor(model => model.eDNAReportData.ReportType)",
+   "DropDownListFor(model => model.eDNAReportData.Status)",
+   "Partial(\"_ReportAuditJobList\")",
+   "DropDownList(\"SearchType1\")",
+   "DropDownList(\"SearchType\")",
+   "Partial(\"_eDNAUsers\")",
+   "Partial(\"_TransversalUsers\")"
+  ],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "onclick=javascript:RefreshAuditStatusHeader()",
+   "onclick=SwitchOn()",
+   "javascript:AuditJobList()",
+   "onclick=javascript:ShowBusyProcessing()",
+   "javascript:ShowFilter()",
+   "javascript:FilterAuditJobList()",
+   "onclick=javascript:ShowBusyProcessing()",
+   "javascript:ResetAuditFilter()",
+   "onclick=javascript:ShowBusyProcessing()",
+   "javascript:SearcheDNABIUser('Reports')",
+   "javascript:ClearUserTable()",
+   "javascript:SearcheDNABIUser('Reports')",
+   "javascript:ClearUserTable()",
+   "onclick=ClearUserTable()",
+   "onclick=GetUserID()"
+  ],
+  "dataAttrs": [
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-placement=center",
+   "data-toggle=modal",
+   "data-backdrop=static",
+   "data-keyboard=false",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-dismiss=modal",
+   "data-toggle=tooltip",
+   "data-placement=bottom"
+  ],
+  "razorReads": [
+   "@model eDNA.WebPortal.ViewModel.CReportViewModel",
+   "ViewBag.Title",
+   "ViewBag.AuditReportTypes",
+   "ViewBag.ReportStatus",
+   "Html.Partial(\"_ReportAuditJobList\")",
+   "ViewData[\"SearchTypes1\"]",
+   "ViewData[\"SearchTypes\"]",
+   "Html.Partial(\"_eDNAUsers\")",
+   "Html.Partial(\"_TransversalUsers\")",
+   "Scripts.Render(\"~/bundles/jqueryval\")",
+   "Session[\"IsAuditReportFormLoad\"]"
+  ],
+  "razorControl": [
+   "if (TempData[\"ForensicTrackingMessage\"] != null)"
+  ],
+  "areas": [],
+  "forms": [
+   "form#frmAuditData",
+   "input#auditAutoRefresh[checkbox]",
+   "input#txtAuditFilterSDateTime1[text]",
+   "input#txtAuditFilterEDateTime1[text]",
+   "input#txtJobUserID1[text]",
+   "input#txtJobTransversalUserName1[text]",
+   "input#rdeDNAUser[radio]",
+   "input#rdTUser[radio]",
+   "input#txtTSearchValue[text]",
+   "input#txtSearchValue[text]",
+   "button#btnSelectUser[button]"
+  ],
+  "scripts": [
+   "type=\"text/javascript\"| $(document).ready(function ($) { // Always open with polling off, including restored browser form state. $('#auditAutoRefresh').prop('checked', false); $(\"#dvAuditRootTabs\").tabs(); $(\"#MVCSiteMap\").show(); $(\"#dveDNAUsers\").hide(); $(\"#tblUserList\").tablesorter(); });",
+   "type=\"text/javascript\"| $(window).on('load', function () { localStorage.setItem('eDNAReportType', 'AuditReport'); ShowBusyProcessing(); if ('@HttpContext.Current.Session[\"IsAuditReportFormLoad\"]' == 'True') { GetReport_LookUps('AuditReport'); } else { RefreshAuditStatusHeader(); } })",
+   "type=\"text/javascript\"| function LoadAuditReportLookups() { $.post('/eDNA.WebPortal/AuditReport/GetAuditReports', { inPlace: true }, function (response) { if (!response || !Array.isArray(response.reportTypes) || !Array.isArray(response.statuses)) { HideBusyProcessing(); Notify('Audit Reports', 'Report criteria could not be loaded. Reopen Audit Reports to retry.', 'error'); return; } function bindOptions(selector, placeholder, items) { var control = $(selector).empty(); control.append($('<option/>').val('').text(placeholder)); $.each(items, function (_, item) { control.append($('<option/>').val(item.value).text(item.text)); }); } bindOptions('#SearchReportType', '[-- Report Type--]', response.reportTypes); bindOptions('#eDNAReportData_Status', '[--Status--]', response.statuses); RefreshAuditStatusHeader(); }).fail(function () { HideBusyProcessing(); Notify('Audit Reports', 'Report criteria could not be loaded. Reopen Audit Reports to retry.', 'error'); }); } function RefreshAuditStatusHeader() { ShowBusyProcessing(); $(\"#lnkRefreshList, #lblStitch, #lblSwitch, #lnkShowFilter\").show(); $(\"#tblAdvancedFilter\").hide(); AuditJobList(); SwitchOn(); }",
+   "type=\"text/javascript\"| function FilterAuditJobTableByCellText(p_Select, p_CellClass) { var l_SelectedValue = p_Select.value; var l_SelectedText = $(p_Select).find('option:selected').text().trim(); if (!l_SelectedValue || l_SelectedValue === 'ReportType' || l_SelectedValue === 'Status') { $('#tblAuditJobList tbody tr').show(); return; } $('#tblAuditJobList tbody tr').each(function () { var l_CellText = $(this).find('td.' + p_CellClass).text().trim(); $(this).toggle(l_CellText === l_SelectedText); }); } function FilterTableOnType() { var l_ddlSelectedType = document.getElementById('ReportTypes'); FilterAuditJobTableByCellText(l_ddlSelectedType, 'ReportType'); }",
+   "type=\"text/javascript\"| function FilterTableOnStatus() { var l_ddlStatus = document.getElementById('Status'); FilterAuditJobTableByCellText(l_ddlStatus, 'Status'); }",
+   "type=\"text/javascript\"| function FilterTableOnUserID() { var l_txtJobUserID = document.getElementById('txtJobUserID'); if (l_txtJobUserID.value == '') { $(\"#auditJobListContainer\").load(\"/eDNA.WebPortal/AuditReport/RefreshJobList/\"); } else { $(\"#tblAuditJobList td.UserID:contains('\" + l_txtJobUserID.value + \"')\").parent().show(); $(\"#tblAuditJobList td.UserID:not(:contains('\" + l_txtJobUserID.value + \"'))\").parent().hide(); } }",
+   "type=\"text/javascript\"| function FilterTableTUserName() { var l_txtJobTransversalUserName = document.getElementById('txtJobTransversalUserName'); if (l_txtJobTransversalUserName.value == '') { $(\"#auditJobListContainer\").load(\"/eDNA.WebPortal/AuditReport/RefreshJobList/\"); } else { $(\"#tblAuditJobList td.TUserName:contains('\" + l_txtJobTransversalUserName.value + \"')\").parent().show(); $(\"#tblAuditJobList td.TUserName:not(:contains('\" + l_txtJobTransversalUserName.value + \"'))\").parent().hide(); } }",
+   "type=\"text/javascript\"| function FilterTableOnStartDate() { var l_txtJobStartDate = document.getElementById('txtJobStartDate'); if (l_txtJobStartDate.value == '') { $(\"#auditJobListContainer\").load(\"/eDNA.WebPortal/AuditReport/RefreshJobList/\"); } else { $(\"#tblAuditJobList td.StartDate:contains('\" + l_txtJobStartDate.value + \"')\").parent().show(); $(\"#tblAuditJobList td.StartDate:not(:contains('\" + l_txtJobStartDate.value + \"'))\").parent().hide(); } }",
+   "type=\"text/javascript\"| function FilterTableOnEndDate() { var l_txtJobEndDate = document.getElementById('txtJobEndDate'); if (l_txtJobEndDate.value == '') { $(\"#auditJobListContainer\").load(\"/eDNA.WebPortal/AuditReport/RefreshJobList/\"); } else { $(\"#tblAuditJobList td.EndDate:contains('\" + l_txtJobEndDate.value + \"')\").parent().show(); $(\"#tblAuditJobList td.EndDate:not(:contains('\" + l_txtJobEndDate.value + \"'))\").parent().hide(); } }",
+   "type=\"text/javascript\"| var l_CountTime; var l_TimeOut, l_TimeLeft; var l_color = 'green'; var l_clMagenta = 'magenta'; var l_clOrangered = 'orangered'; var l_clRed = 'red'; var l_clGrey = 'grey'; var l_clBlue = 'blue'; //CODESC: SwitchOn/Off Timer function SwitchOn() { if ($('#auditAutoRefresh').prop('checked')) { m_AutoRefresh = \"On\"; $(\"#lblTimer\").show(); l_CountTime = 15; ResetTimer(); } else { $(\"#lblTimer\").hide(); m_AutoRefresh = \"\"; PauseTimer(); } } //CODESC: Update display Time value function UpdateDisplay(p_Color) { document.getElementById('timespan').innerHTML = l_TimeLeft; document.getElementById('timespan').style.color = p_Color; } //CODESC: Start Countdown function CountDown() { UpdateDisplay(l_clBlue); if (l_TimeLeft >= 0) { if (l_TimeLeft > 5 && l_TimeLeft < 10) { UpdateDisplay(l_clMagenta); } if (l_TimeLeft > 10 && l_TimeLeft < 15) { UpdateDisplay(l_clOrangered); } if (l_TimeLeft > 15 && l_TimeLeft < 20) { UpdateDisplay(l_clRed); } if (l_TimeLeft > 20 && l_TimeLeft < 25) { UpdateDisplay(l_clGrey); } if (l_TimeLeft > 25 && l_TimeLeft < 30) { UpdateDisplay(l_clBlue); } } if (l_TimeLeft === 0) { // time is up if (m_AutoRefresh == \"On\") { // Do not interrupt an active biometric transaction with background polling. if (!forensicReviewPending && !forensicRetrievalPending && !$('#divLoading').is(':visible')) AuditJobList(); } ResetTimer(); } else { l_TimeLeft--; l_TimeOut = setTimeout(CountDown, 1000); } } //CODESC: Pauses Countdown function PauseTimer() { clearTimeout(l_TimeOut); } //CODESC: Reset Countdown function ResetTimer() { PauseTimer(); l_TimeLeft = l_CountTime; UpdateDisplay(l_clBlue); CountDown(); }",
+   "type=\"text/javascript\"| $(function () { $('#dtAuditFilterSDateTime').datetimepicker({ sideBySide: true, showClose: true, format: 'YYYY-MM-DD HH:mm:00', }); $('#dtAuditFilterEDateTime').datetimepicker({ sideBySide: true, showClose: true, useCurrent: false, format: 'YYYY-MM-DD HH:mm:00', }); $(\"#dtAuditFilterSDateTime\").on(\"dp.change\", function (e) { $('#dtAuditFilterEDateTime').data(\"DateTimePicker\").minDate(e.date); $('#dtAuditFilterSDateTime').data(\"DateTimePicker\").hide(); }); $(\"#dtAuditFilterEDateTime\").on(\"dp.change\", function (e) { $('#dtAuditFilterSDateTime').data(\"DateTimePicker\").maxDate(e.date); $('#dtAuditFilterEDateTime').data(\"DateTimePicker\").hide(); }); });",
+   "type=\"text/javascript\"| function ShowFilter() { if (document.getElementById('spnFilter').title != \"Close Advanced Filter\") { $(\"#tblAdvancedFilter\").show(); document.getElementById('spnFilter').title = \"Close Advanced Filter\"; } else { ResetAuditFilter(); $(\"#tblAdvancedFilter\").hide(); document.getElementById('spnFilter').innerHTML = \"AdvancedFilter\"; document.getElementById('spnFilter').title = \"Show Advanced Filter\"; } }"
+  ]
+ },
+ "Reports/SystemReports.cshtml": {
+  "ids": [
+   "reportBrowser",
+   "eDNAReportCategories",
+   "dvReportDetail"
+  ],
+  "idTags": {
+   "reportBrowser": [
+    "div"
+   ],
+   "eDNAReportCategories": [
+    "div"
+   ],
+   "@l_strCategoryID": [
+    "ul"
+   ],
+   "dvReportDetail": [
+    "main"
+   ]
+  },
+  "hiddenIds": [],
+  "classes": [
+   "?",
+   "glyphicon",
+   "glyphicon-file",
+   "glyphicon-folder-open",
+   "panel-body-details",
+   "report-browser",
+   "report-browser-heading",
+   "report-browser-sidebar",
+   "report-browser-viewer",
+   "report-categories",
+   "report-category",
+   "report-category-count",
+   "report-category-icon",
+   "report-category-list",
+   "report-category-name",
+   "report-category-toggle",
+   "report-list-link",
+   "report-list-message",
+   "report-page"
+  ],
+  "names": [
+   "@l_Report.ReportName"
+  ],
+  "htmlHelpers": [
+   "AntiForgeryToken()",
+   "Partial(\"_ReportTemplate\")",
+   "Raw(System.Web.Helpers.Json.Encode(Convert.ToString(ViewBag.OpenReportName)"
+  ],
+  "urlActions": [
+   "\"GenerateSystemReport\", \"SystemReports\""
+  ],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [
+   "data-render-url=@Url.Action(",
+   "data-display-order=@l_ReportCategory.DisplayOrder",
+   "data-report-name=@l_Report.ReportName",
+   "data-report-description=@l_Report.Description"
+  ],
+  "razorReads": [
+   "@using System",
+   "@using System.Collections.Generic",
+   "@model eDNA.WebPortal.ViewModel.CReportViewModel",
+   "ViewBag.Title",
+   "Session[\"isSysReportFormLoad\"]",
+   "Html.Partial(\"_ReportTemplate\")",
+   "ViewBag.OpenReportName",
+   "Session[\"isSysReportFormLoad\"]"
+  ],
+  "razorControl": [
+   "if (l_ReportCategories.Count == 0)",
+   "if (l_bReportsLoading)",
+   "foreach (var l_Report in l_ReportCategory.ReportList)"
+  ],
+  "areas": [],
+  "forms": [],
+  "scripts": [
+   "type=\"text/javascript\"| $(document).ready(function () { $(\"#MVCSiteMap\").show(); $(\".report-category-toggle\").on(\"click\", function () { var toggle = $(this); var categoryList = $(\"#\" + toggle.attr(\"aria-controls\")); var isExpanded = toggle.attr(\"aria-expanded\") === \"true\"; toggle.attr(\"aria-expanded\", (!isExpanded).toString()); categoryList.toggleClass(\"is-collapsed\", isExpanded); toggle.find(\".report-category-chevron\") .toggleClass(\"glyphicon-chevron-up\", !isExpanded) .toggleClass(\"glyphicon-chevron-down\", isExpanded); }); $(\".report-list-link\").on(\"click\", function (event) { event.preventDefault(); $(\".report-list-link\").removeClass(\"is-active\").removeAttr(\"aria-current\"); $(this).addClass(\"is-active\").attr(\"aria-current\", \"page\"); RenderReport( $(this).attr(\"data-report-name\"), $(this).attr(\"data-report-description\"), 100, 620); }); var openReport = @Html.Raw(System.Web.Helpers.Json.Encode(Convert.ToString(ViewBag.OpenReportName))); if (openReport) { $('.report-list-link').filter(function () { return $(this).attr('data-report-name') === openReport; }).first().trigger('click'); } }); $(window).on(\"load\", function () { if ('@HttpContext.Current.Session[\"isSysReportFormLoad\"]' === 'True') { GetSystemReportList('SysReport'); } });"
+  ]
+ },
+ "Reports/eDNAOnLAN.cshtml": {
+  "ids": [],
+  "idTags": {},
+  "hiddenIds": [],
+  "classes": [],
+  "names": [],
+  "htmlHelpers": [],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [],
+  "razorReads": [
+   "ViewBag.Title"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [],
+  "scripts": [
+   "type=\"text/javascript\"| $(document).ready(function ($) { $(\"#MVCSiteMap\").show(); });"
+  ]
+ },
+ "Shared/DisplayTemplates/CanonicalHelperModel.cshtml": {
+  "ids": [],
+  "idTags": {},
+  "hiddenIds": [],
+  "classes": [],
+  "names": [],
+  "htmlHelpers": [],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [],
+  "razorReads": [
+   "@model MvcSiteMapProvider.Web.Html.Models.CanonicalHelperModel",
+   "@using System.Web.Mvc.Html",
+   "@using MvcSiteMapProvider.Web.Html.Models"
+  ],
+  "razorControl": [
+   "if (Model.CurrentNode != null && !string.IsNullOrEmpty(Model.CurrentNode.CanonicalUrl)) {"
+  ],
+  "areas": [],
+  "forms": [],
+  "scripts": []
+ },
+ "Shared/DisplayTemplates/MenuHelperModel.cshtml": {
+  "ids": [
+   "menu"
+  ],
+  "idTags": {
+   "menu": [
+    "ul"
+   ]
+  },
+  "hiddenIds": [],
+  "classes": [],
+  "names": [],
+  "htmlHelpers": [
+   "DisplayFor(m => node)",
+   "DisplayFor(m => node.Children)"
+  ],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [],
+  "razorReads": [
+   "@model MvcSiteMapProvider.Web.Html.Models.MenuHelperModel",
+   "@using System.Web.Mvc.Html",
+   "@using MvcSiteMapProvider.Web.Html.Models"
+  ],
+  "razorControl": [
+   "foreach (var node in Model.Nodes) {",
+   "if (node.Children.Any()) {"
+  ],
+  "areas": [],
+  "forms": [],
+  "scripts": []
+ },
+ "Shared/DisplayTemplates/MetaRobotsHelperModel.cshtml": {
+  "ids": [],
+  "idTags": {},
+  "hiddenIds": [],
+  "classes": [],
+  "names": [
+   "robots"
+  ],
+  "htmlHelpers": [],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [],
+  "razorReads": [
+   "@model MvcSiteMapProvider.Web.Html.Models.MetaRobotsHelperModel",
+   "@using System.Web.Mvc.Html",
+   "@using MvcSiteMapProvider.Web.Html.Models"
+  ],
+  "razorControl": [
+   "if (Model.CurrentNode != null && !string.IsNullOrEmpty(Model.CurrentNode.MetaRobotsContent)) {"
+  ],
+  "areas": [],
+  "forms": [],
+  "scripts": []
+ },
+ "Shared/DisplayTemplates/SiteMapHelperModel.cshtml": {
+  "ids": [],
+  "idTags": {},
+  "hiddenIds": [],
+  "classes": [
+   "siteMap"
+  ],
+  "names": [],
+  "htmlHelpers": [
+   "DisplayFor(m => node)",
+   "DisplayFor(m => node.Children)"
+  ],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [],
+  "razorReads": [
+   "@model MvcSiteMapProvider.Web.Html.Models.SiteMapHelperModel",
+   "@using System.Web.Mvc.Html",
+   "@using MvcSiteMapProvider.Web.Html.Models"
+  ],
+  "razorControl": [
+   "foreach (var node in Model.Nodes) {",
+   "if (node.Children.Any()) {"
+  ],
+  "areas": [],
+  "forms": [],
+  "scripts": []
+ },
+ "Shared/DisplayTemplates/SiteMapNodeModel.cshtml": {
+  "ids": [],
+  "idTags": {},
+  "hiddenIds": [],
+  "classes": [],
+  "names": [],
+  "htmlHelpers": [],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [],
+  "razorReads": [
+   "@model MvcSiteMapProvider.Web.Html.Models.SiteMapNodeModel",
+   "@using System.Web.Mvc.Html",
+   "@using MvcSiteMapProvider.Web.Html.Models"
+  ],
+  "razorControl": [
+   "if (Model.IsCurrentNode && Model.SourceMetadata[\"HtmlHelper\"].ToString() != \"MvcSiteMapProvider.Web.Html.MenuHelper\") {",
+   "if (Model.IsClickable) {"
+  ],
+  "areas": [],
+  "forms": [],
+  "scripts": []
+ },
+ "Shared/DisplayTemplates/SiteMapNodeModelList.cshtml": {
+  "ids": [],
+  "idTags": {},
+  "hiddenIds": [],
+  "classes": [],
+  "names": [],
+  "htmlHelpers": [
+   "DisplayFor(m => node)",
+   "DisplayFor(m => node.Children)"
+  ],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [],
+  "razorReads": [
+   "@model MvcSiteMapProvider.Web.Html.Models.SiteMapNodeModelList",
+   "@using System.Web.Mvc.Html",
+   "@using MvcSiteMapProvider.Web.Html.Models"
+  ],
+  "razorControl": [
+   "foreach (var node in Model) {",
+   "if (node.Children.Any()) {"
+  ],
+  "areas": [],
+  "forms": [],
+  "scripts": []
+ },
+ "Shared/DisplayTemplates/SiteMapPathHelperModel.cshtml": {
+  "ids": [],
+  "idTags": {},
+  "hiddenIds": [],
+  "classes": [],
+  "names": [],
+  "htmlHelpers": [
+   "DisplayFor(m => node)"
+  ],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [],
+  "razorReads": [
+   "@model MvcSiteMapProvider.Web.Html.Models.SiteMapPathHelperModel",
+   "@using System.Web.Mvc.Html",
+   "@using System.Linq",
+   "@using MvcSiteMapProvider.Web.Html.Models"
+  ],
+  "razorControl": [
+   "foreach (var node in Model) {"
+  ],
+  "areas": [],
+  "forms": [],
+  "scripts": []
+ },
+ "Shared/DisplayTemplates/SiteMapTitleHelperModel.cshtml": {
+  "ids": [],
+  "idTags": {},
+  "hiddenIds": [],
+  "classes": [],
+  "names": [],
+  "htmlHelpers": [],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [],
+  "razorReads": [
+   "@model MvcSiteMapProvider.Web.Html.Models.SiteMapTitleHelperModel",
+   "@using System.Web.Mvc.Html",
+   "@using MvcSiteMapProvider.Web.Html.Models"
+  ],
+  "razorControl": [
+   "if (Model.CurrentNode != null) {@Model.CurrentNode.Title;}"
+  ],
+  "areas": [],
+  "forms": [],
+  "scripts": []
+ },
+ "Shared/Error.cshtml": {
+  "ids": [],
+  "idTags": {},
+  "hiddenIds": [],
+  "classes": [],
+  "names": [
+   "viewport"
+  ],
+  "htmlHelpers": [],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [],
+  "razorReads": [],
+  "razorControl": [],
+  "areas": [],
+  "forms": [],
+  "scripts": []
+ },
+ "Shared/GetUsers2.cshtml": {
+  "ids": [
+   "tblUserList"
+  ],
+  "idTags": {
+   "tblUserList": [
+    "table"
+   ]
+  },
+  "hiddenIds": [],
+  "classes": [
+   "table",
+   "table-hover",
+   "table-responsive",
+   "text-center"
+  ],
+  "names": [],
+  "htmlHelpers": [],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "javascript:GetUserDetails(@item.UserID)"
+  ],
+  "dataAttrs": [
+   "data-toggle=tooltip",
+   "data-placement=bottom"
+  ],
+  "razorReads": [
+   "@model List<eDNA.CommonData.Classes.CData_User>"
+  ],
+  "razorControl": [
+   "if (Model == null || Model.Count == 0)",
+   "foreach (var item in Model ?? new List<eDNA.CommonData.Classes.CData_User>())"
+  ],
+  "areas": [],
+  "forms": [],
+  "scripts": []
+ },
+ "Shared/_AuditReportCriteria.cshtml": {
+  "ids": [
+   "txtAuditeDNAUser",
+   "cmdNRSUSearch",
+   "lblTotaDays",
+   "rdUseDTime",
+   "rdUseQuarter",
+   "dvAuditDateRange",
+   "dtAuditStartDateTime",
+   "txtAuditStartDateTime",
+   "dtAuditEndDateTime",
+   "txtAuditEndDateTime",
+   "dvAuditQuarter",
+   "ddlAuditQuarterYear",
+   "optAuditQuarter1",
+   "optAuditQuarter2",
+   "optAuditQuarter3",
+   "optAuditQuarter4"
+  ],
+  "idTags": {
+   "txtAuditeDNAUser": [
+    "input"
+   ],
+   "cmdNRSUSearch": [
+    "a"
+   ],
+   "lblTotaDays": [
+    "label"
+   ],
+   "rdUseDTime": [
+    "input"
+   ],
+   "rdUseQuarter": [
+    "input"
+   ],
+   "dvAuditDateRange": [
+    "div"
+   ],
+   "dtAuditStartDateTime": [
+    "div"
+   ],
+   "txtAuditStartDateTime": [
+    "input"
+   ],
+   "dtAuditEndDateTime": [
+    "div"
+   ],
+   "txtAuditEndDateTime": [
+    "input"
+   ],
+   "dvAuditQuarter": [
+    "div"
+   ],
+   "optAuditQuarter1": [
+    "input"
+   ],
+   "optAuditQuarter2": [
+    "input"
+   ],
+   "optAuditQuarter3": [
+    "input"
+   ],
+   "optAuditQuarter4": [
+    "input"
+   ]
+  },
+  "hiddenIds": [],
+  "classes": [
+   "col-md-3",
+   "col-sm-4",
+   "col-sm-5",
+   "col-sm-8",
+   "dropdown",
+   "form-control",
+   "form-group",
+   "glyphicon",
+   "glyphicon-calendar",
+   "glyphicon-search",
+   "input-group-addon",
+   "text-danger"
+  ],
+  "names": [
+   "rdAuditOption",
+   "rdAuditOption",
+   "optAuditQuarter",
+   "optAuditQuarter",
+   "optAuditQuarter",
+   "optAuditQuarter"
+  ],
+  "htmlHelpers": [
+   "DropDownListFor(model => model.eDNAReportData.ReportType)",
+   "ValidationMessageFor(model => model.eDNAReportData.ReportType)",
+   "DropDownListFor(model => model.eDNAReportData.TransversalType)",
+   "ValidationMessageFor(model => model.eDNAReportData.TransversalType)",
+   "DropDownListFor(model => model.eDNAReportData.TransversalType)",
+   "ValidationMessageFor(model => model.eDNAReportData.TransversalType)",
+   "DropDownListFor(model => model.eDNAReportData.QuarterYear)",
+   "ValidationMessageFor(model => model.eDNAReportData.QuarterYear)"
+  ],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "javascript:SelectUser('ADT')"
+  ],
+  "dataAttrs": [],
+  "razorReads": [
+   "@model eDNA.WebPortal.ViewModel.CReportViewModel",
+   "ViewBag.Title",
+   "ViewBag.AuditReportTypes",
+   "ViewBag.TransversalTypes",
+   "ViewBag.TransversalTypes",
+   "ViewBag.ReportQuaterYear"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [
+   "input#txtAuditeDNAUser[text]",
+   "input#rdUseDTime[radio]",
+   "input#rdUseQuarter[radio]",
+   "input#txtAuditStartDateTime[text]",
+   "input#txtAuditEndDateTime[text]",
+   "input#optAuditQuarter1[radio]",
+   "input#optAuditQuarter2[radio]",
+   "input#optAuditQuarter3[radio]",
+   "input#optAuditQuarter4[radio]"
+  ],
+  "scripts": []
+ },
+ "Shared/_CertificateList.cshtml": {
+  "ids": [],
+  "idTags": {},
+  "hiddenIds": [],
+  "classes": [
+   "lalign",
+   "table",
+   "table-bordered",
+   "table-hover",
+   "table-responsive",
+   "table-striped"
+  ],
+  "names": [],
+  "htmlHelpers": [
+   "DisplayName(\"Certificate ID\")",
+   "DisplayName(\"Certificate Type\")",
+   "DisplayName(\"Subject\")",
+   "DisplayName(\"Serial Number\")",
+   "DisplayName(\"Valid From\")",
+   "DisplayName(\"Valid To\")",
+   "DisplayName(\"CertificateStatus\")",
+   "DisplayName(\"Action\")"
+  ],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "javascript:DisplayCertificateStatusModal('@dr[",
+   "javascript:Certificate_Get(@dr["
+  ],
+  "dataAttrs": [
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom"
+  ],
+  "razorReads": [
+   "Session[\"Certificate_List\"]",
+   "ViewBag.CertificateData"
+  ],
+  "razorControl": [
+   "if (System.Web.HttpContext.Current.Session[\"Certificate_List\"] != null)",
+   "foreach (System.Data.DataRow dr in ((ViewBag.CertificateData as System.Data.DataTable) ?? new System.Data.DataTable()).Rows)"
+  ],
+  "areas": [],
+  "forms": [],
+  "scripts": []
+ },
+ "Shared/_EntityDetails.cshtml": {
+  "ids": [
+   "EntityData",
+   "dvEntityInformation",
+   "dvAvlEntities",
+   "dvEntityAttributes",
+   "dvAvlEntities"
+  ],
+  "idTags": {
+   "EntityData": [
+    "form"
+   ],
+   "dvEntityInformation": [
+    "div"
+   ],
+   "dvAvlEntities": [
+    "div",
+    "div"
+   ],
+   "dvEntityAttributes": [
+    "div"
+   ]
+  },
+  "hiddenIds": [],
+  "classes": [
+   "col-md-3",
+   "col-sm-4",
+   "col-sm-7",
+   "dropdown",
+   "form-control",
+   "form-group",
+   "text-danger"
+  ],
+  "names": [],
+  "htmlHelpers": [
+   "TextBoxFor(model => model.EntityData.EntityID)",
+   "TextBoxFor(model => model.EntityData.DateCreated)",
+   "DropDownListFor(model => model.EntityData.ParentID)",
+   "ValidationMessageFor(model => model.EntityData.ParentID)",
+   "TextBoxFor(model => model.EntityData.EntityName)",
+   "ValidationMessageFor(model => model.EntityData.EntityName)",
+   "DropDownListFor(model => model.EntityData.EntityTypeID)",
+   "ValidationMessageFor(model => model.EntityData.EntityTypeID)",
+   "DropDownListFor(model => model.EntityData.ProvinceID)",
+   "ValidationMessageFor(model => model.EntityData.ProvinceID)",
+   "DropDownListFor(model => model.EntityData.DistrictID)",
+   "ValidationMessageFor(model => model.EntityData.DistrictID)",
+   "DropDownListFor(model => model.EntityData.MunicipalityID)",
+   "ValidationMessageFor(model => model.EntityData.MunicipalityID)",
+   "CheckBoxFor(m => m.EntityData.Active)",
+   "TextBoxFor(model => model.EntityData.PostalAddressLine1)",
+   "TextBoxFor(model => model.EntityData.PostalAddressLine2)",
+   "TextBoxFor(model => model.EntityData.PostalAddressLine3)",
+   "TextBoxFor(model => model.EntityData.PhysicalAddressLine1)",
+   "TextBoxFor(model => model.EntityData.PhysicalAddressLine2)",
+   "TextBoxFor(model => model.EntityData.PhysicalAddressLine3)"
+  ],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [],
+  "razorReads": [
+   "@model eDNA.WebPortal.ViewModel.CEntityViewModel",
+   "ViewBag.Parent",
+   "ViewBag.EntityType",
+   "ViewBag.Province",
+   "ViewBag.District",
+   "ViewBag.Municipalities"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [
+   "form#EntityData"
+  ],
+  "scripts": []
+ },
+ "Shared/_Footer.cshtml": {
+  "ids": [
+   "imgRConnecting",
+   "imgRConnected",
+   "imgRConnectionError",
+   "ApplicationInfo",
+   "imgInfo",
+   "imgError",
+   "applicationMessage",
+   "clock",
+   "portNumber"
+  ],
+  "idTags": {
+   "imgRConnecting": [
+    "img"
+   ],
+   "imgRConnected": [
+    "img"
+   ],
+   "imgRConnectionError": [
+    "img"
+   ],
+   "ApplicationInfo": [
+    "a"
+   ],
+   "imgInfo": [
+    "img"
+   ],
+   "imgError": [
+    "img"
+   ],
+   "applicationMessage": [
+    "span"
+   ],
+   "clock": [
+    "div"
+   ],
+   "portNumber": [
+    "input"
+   ]
+  },
+  "hiddenIds": [
+   "imgRConnecting",
+   "imgRConnected",
+   "imgRConnectionError",
+   "imgInfo",
+   "imgError"
+  ],
+  "classes": [
+   "messagePanel",
+   "pull-left",
+   "pull-right"
+  ],
+  "names": [],
+  "htmlHelpers": [],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "javascript:DisplayUserInfo()"
+  ],
+  "dataAttrs": [],
+  "razorReads": [],
+  "razorControl": [],
+  "areas": [],
+  "forms": [
+   "input#portNumber[hidden]"
+  ],
+  "scripts": []
+ },
+ "Shared/_GetTransaversalTable.cshtml": {
+  "ids": [
+   "dvTransversalList",
+   "tblMTransversals",
+   "chkTSelect",
+   "chkTSelect",
+   "chkTSelect",
+   "chkTSelect",
+   "chkTSelect",
+   "chkTSelect",
+   "chkTSelect",
+   "chkTSelect"
+  ],
+  "idTags": {
+   "dvTransversalList": [
+    "div"
+   ],
+   "tblMTransversals": [
+    "table"
+   ],
+   "chkTSelect": [
+    "input",
+    "input",
+    "input",
+    "input",
+    "input",
+    "input",
+    "input",
+    "input"
+   ]
+  },
+  "hiddenIds": [
+   "dvTransversalList"
+  ],
+  "classes": [
+   "col-md-1",
+   "col-md-8",
+   "color-legend-normal",
+   "color-legend-pre-relinquished-owner",
+   "color-legend-pre-returned-owner",
+   "color-legend-pre-transfer",
+   "color-legend-relinquished-owner",
+   "color-legend-relinquished-transfer-owner",
+   "color-legend-returned",
+   "color-legend-suspended",
+   "glyphicon",
+   "glyphicon-sort",
+   "pull-right",
+   "scroll",
+   "table",
+   "text-center"
+  ],
+  "names": [
+   "chkTSelect",
+   "chkTSelect",
+   "chkTSelect",
+   "chkTSelect",
+   "chkTSelect",
+   "chkTSelect",
+   "chkTSelect",
+   "chkTSelect"
+  ],
+  "htmlHelpers": [],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip"
+  ],
+  "razorReads": [
+   "@model IEnumerable<eDNA.CommonData.Classes.CData_TransversalAccount>",
+   "ViewBag.Firstname",
+   "ViewBag.LastName"
+  ],
+  "razorControl": [
+   "foreach (var TransversalAccount in l_lstTransversalAccounts)",
+   "if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.Suspended)",
+   "if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.Relinquished)",
+   "if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.Relinquished_Transferred)",
+   "if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.PreReturned)",
+   "if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.Returned)",
+   "if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.PreTransferred)"
+  ],
+  "areas": [],
+  "forms": [
+   "input#chkTSelect[checkbox]",
+   "input#chkTSelect[checkbox]",
+   "input#chkTSelect[checkbox]",
+   "input#chkTSelect[checkbox]",
+   "input#chkTSelect[checkbox]",
+   "input#chkTSelect[checkbox]",
+   "input#chkTSelect[checkbox]",
+   "input#chkTSelect[checkbox]"
+  ],
+  "scripts": []
+ },
+ "Shared/_GetUsers.cshtml": {
+  "ids": [
+   "tblUserList"
+  ],
+  "idTags": {
+   "tblUserList": [
+    "table"
+   ]
+  },
+  "hiddenIds": [
+   "tblUserList"
+  ],
+  "classes": [
+   "col-xs-2",
+   "col-xs-3",
+   "glyphicon",
+   "glyphicon-sort",
+   "pull-right",
+   "table",
+   "table-fixed",
+   "table-hover",
+   "text-center"
+  ],
+  "names": [],
+  "htmlHelpers": [],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [],
+  "razorReads": [
+   "@model List<eDNA.CommonData.Classes.CData_User>"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [],
+  "scripts": []
+ },
+ "Shared/_Header.cshtml": {
+  "ids": [
+   "dvCDFinger",
+   "lnkDefaultFinger",
+   "dvHeaderMenu",
+   "lnkMyProfile",
+   "lnkLogoutUser",
+   "dvSupport",
+   "lnkLogacall",
+   "lnkHelperVideos"
+  ],
+  "idTags": {
+   "dvCDFinger": [
+    "div"
+   ],
+   "lnkDefaultFinger": [
+    "a"
+   ],
+   "dvHeaderMenu": [
+    "div"
+   ],
+   "lnkMyProfile": [
+    "a"
+   ],
+   "lnkLogoutUser": [
+    "a"
+   ],
+   "dvSupport": [
+    "div"
+   ],
+   "lnkLogacall": [
+    "a"
+   ],
+   "lnkHelperVideos": [
+    "a"
+   ]
+  },
+  "hiddenIds": [
+   "dvCDFinger",
+   "dvHeaderMenu",
+   "dvSupport"
+  ],
+  "classes": [
+   "btn",
+   "btn-group",
+   "caret",
+   "dropdown-header",
+   "dropdown-menu",
+   "dropdown-toggle",
+   "glyphicon",
+   "glyphicon-earphone",
+   "glyphicon-facetime-video",
+   "glyphicon-hand-up",
+   "glyphicon-log-out",
+   "glyphicon-phone-alt",
+   "glyphicon-user",
+   "list-group-item",
+   "navbar",
+   "navbar-fixed-top",
+   "pull-right"
+  ],
+  "names": [],
+  "htmlHelpers": [],
+  "urlActions": [],
+  "ajaxUrls": [
+   "\"UserProfile\"",
+   "\"LogASupportCall\"",
+   "\"Help\""
+  ],
+  "jsCalls": [
+   "javascript:ChangeDefaultFinger()",
+   "javascript:MyProfile()",
+   "javascript:DoLogout()",
+   "javascript:LogSupportCall()",
+   "javascript:Help()"
+  ],
+  "dataAttrs": [
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=dropdown",
+   "data-placement=bottom",
+   "data-placement=bottom",
+   "data-placement=bottom",
+   "data-toggle=dropdown",
+   "data-placement=bottom",
+   "data-placement=bottom",
+   "data-placement=bottom"
+  ],
+  "razorReads": [
+   "ViewBag.CurrentView",
+   "Session[\"eDNAUserName\"]"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [],
+  "scripts": [
+   "type=\"text/javascript\"| function MyProfile() { $.ajax({ type: \"POST\", dataType: \"json\", traditional: true, url: \"UserProfile\", data: JSON.stringify({ '': '' }), contentType: \"application/json; charset=utf-8\", success: function (data) { //CODESC: Display busy process. ShowBusyProcessing(); location = data; }, error: function (data) { m_Logger.appendError(data); } }); //CODESC: Display busy process. HideBusyProcessing(); }",
+   "type=\"text/javascript\"| function LogSupportCall() { $.ajax({ type: \"POST\", dataType: \"json\", traditional: true, url: \"LogASupportCall\", data: JSON.stringify({ '': '' }), contentType: \"application/json; charset=utf-8\", success: function (data) { //CODESC: Display busy process. ShowBusyProcessing(); location = data; }, error: function (data) { m_Logger.appendError(data); } }); //CODESC: Display busy process. HideBusyProcessing(); }",
+   "type=\"text/javascript\"| function Help() { $.ajax({ type: \"POST\", dataType: \"json\", traditional: true, url: \"Help\", data: JSON.stringify({ '': '' }), contentType: \"application/json; charset=utf-8\", success: function (data) { //CODESC: Display busy process. ShowBusyProcessing(); location = data; }, error: function (data) { m_Logger.appendError(data); } }); //CODESC: Display busy process. HideBusyProcessing(); }"
+  ]
+ },
+ "Shared/_MasterLayout.cshtml": {
+  "ids": [
+   "mdMenuSelector",
+   "lblLastLoginDateTime",
+   "btnWheel",
+   "btnGrid",
+   "btnClassic",
+   "cmdMenuClose",
+   "mdUserInfo",
+   "lblLastLoginDateTime",
+   "lbleDNAID",
+   "lblUserName",
+   "lblSCSerialNo",
+   "lblSCApplet",
+   "lblCertSerial",
+   "mdMessageBox",
+   "Icon_Error",
+   "Icon_Warning",
+   "Icon_Question",
+   "Icon_Information",
+   "lblMessageHeader",
+   "lblMessage",
+   "lblMessageBody",
+   "mdSessionTimeOut",
+   "Icon_Warning",
+   "lblSessionTimer",
+   "timespan",
+   "cmdSessionTimeout",
+   "cmdSessionContinue",
+   "divLoading",
+   "ednaBusyTitle",
+   "ednaBusyMessage",
+   "mdChangeDefaultFinger",
+   "Icon_Information",
+   "lnkFinger1",
+   "lnkFinger2",
+   "lnkFinger3",
+   "lnkFinger4",
+   "lnkFinger5",
+   "lnkFinger6",
+   "lnkFinger7",
+   "lnkFinger8",
+   "lnkFinger9",
+   "lnkFinger10",
+   "btnOverrideDF",
+   "mdUserAttribute",
+   "Icon_Information",
+   "lblUAMessage",
+   "lblUADescription",
+   "txtUAttribute",
+   "lblErrorMessage",
+   "btnUAInputModalCancel",
+   "btnUAInputModalOK",
+   "mdeDNALogs",
+   "lblLastLoginDateTime",
+   "mdReportErrorPopUp",
+   "Icon_Information",
+   "lblRPTErrorJobID",
+   "txtRPTErrorDetails",
+   "lblRPTErrorCopied",
+   "MVCSiteMap",
+   "dvClose",
+   "UserEnromentWizard",
+   "lblUserEnrolment"
+  ],
+  "idTags": {
+   "mdMenuSelector": [
+    "div"
+   ],
+   "lblLastLoginDateTime": [
+    "label",
+    "label",
+    "label"
+   ],
+   "btnWheel": [
+    "button"
+   ],
+   "btnGrid": [
+    "button"
+   ],
+   "btnClassic": [
+    "button"
+   ],
+   "cmdMenuClose": [
+    "button"
+   ],
+   "mdUserInfo": [
+    "div"
+   ],
+   "lbleDNAID": [
+    "label"
+   ],
+   "lblUserName": [
+    "label"
+   ],
+   "lblSCSerialNo": [
+    "label"
+   ],
+   "lblSCApplet": [
+    "label"
+   ],
+   "lblCertSerial": [
+    "label"
+   ],
+   "mdMessageBox": [
+    "div"
+   ],
+   "Icon_Error": [
+    "h4"
+   ],
+   "Icon_Warning": [
+    "h4",
+    "h4"
+   ],
+   "Icon_Question": [
+    "h4"
+   ],
+   "Icon_Information": [
+    "h4",
+    "h4",
+    "h4",
+    "h4"
+   ],
+   "lblMessageHeader": [
+    "label"
+   ],
+   "lblMessage": [
+    "label"
+   ],
+   "lblMessageBody": [
+    "label"
+   ],
+   "mdSessionTimeOut": [
+    "div"
+   ],
+   "lblSessionTimer": [
+    "label"
+   ],
+   "timespan": [
+    "span"
+   ],
+   "cmdSessionTimeout": [
+    "button"
+   ],
+   "cmdSessionContinue": [
+    "button"
+   ],
+   "divLoading": [
+    "div"
+   ],
+   "ednaBusyTitle": [
+    "h3"
+   ],
+   "ednaBusyMessage": [
+    "p"
+   ],
+   "mdChangeDefaultFinger": [
+    "div"
+   ],
+   "lnkFinger1": [
+    "area"
+   ],
+   "lnkFinger2": [
+    "area"
+   ],
+   "lnkFinger3": [
+    "area"
+   ],
+   "lnkFinger4": [
+    "area"
+   ],
+   "lnkFinger5": [
+    "area"
+   ],
+   "lnkFinger6": [
+    "area"
+   ],
+   "lnkFinger7": [
+    "area"
+   ],
+   "lnkFinger8": [
+    "area"
+   ],
+   "lnkFinger9": [
+    "area"
+   ],
+   "lnkFinger10": [
+    "area"
+   ],
+   "btnOverrideDF": [
+    "button"
+   ],
+   "mdUserAttribute": [
+    "div"
+   ],
+   "lblUAMessage": [
+    "label"
+   ],
+   "lblUADescription": [
+    "label"
+   ],
+   "txtUAttribute": [
+    "input"
+   ],
+   "lblErrorMessage": [
+    "label"
+   ],
+   "btnUAInputModalCancel": [
+    "button"
+   ],
+   "btnUAInputModalOK": [
+    "button"
+   ],
+   "mdeDNALogs": [
+    "div"
+   ],
+   "mdReportErrorPopUp": [
+    "div"
+   ],
+   "lblRPTErrorJobID": [
+    "label"
+   ],
+   "txtRPTErrorDetails": [
+    "textarea"
+   ],
+   "lblRPTErrorCopied": [
+    "label"
+   ],
+   "MVCSiteMap": [
+    "div"
+   ],
+   "dvClose": [
+    "div"
+   ],
+   "UserEnromentWizard": [
+    "div"
+   ],
+   "lblUserEnrolment": [
+    "label"
+   ]
+  },
+  "hiddenIds": [
+   "cmdMenuClose",
+   "divLoading",
+   "lblRPTErrorCopied",
+   "MVCSiteMap",
+   "UserEnromentWizard"
+  ],
+  "classes": [
+   "SpecialEffects",
+   "active",
+   "breadcrumb",
+   "btn",
+   "btn-default",
+   "btn-primary",
+   "col-md-3",
+   "col-sm-2",
+   "col-sm-4",
+   "color-legend-DefaultFinger",
+   "color-legend-EnrolledFinger",
+   "content-wrapper",
+   "display-legend",
+   "edna-busy-spinner",
+   "fade",
+   "float-left",
+   "glyphicon",
+   "glyphicon-copy",
+   "glyphicon-ok",
+   "glyphicon-remove",
+   "img_map",
+   "modal",
+   "modal-body",
+   "modal-content",
+   "modal-dialog",
+   "modal-footer",
+   "modal-header",
+   "nav",
+   "nav-tabs",
+   "pull-left",
+   "pull-right",
+   "thumbnail",
+   "wraptocenter"
+  ],
+  "names": [
+   "viewport",
+   "Lefthandmap",
+   "Righthandmap"
+  ],
+  "htmlHelpers": [
+   "Partial(\"_Header\")",
+   "MvcSiteMap()",
+   "Partial(\"_Footer\")"
+  ],
+  "urlActions": [
+   "\"EnrolmentKeepAlive\", \"Base\"",
+   "\"Index\", \"Home\""
+  ],
+  "ajaxUrls": [
+   "'@Url.Action(\"EnrolmentKeepAlive\", \"Base\")'",
+   "\"/eDNA.WebPortal/Logon/GetUserFingerIndexes\"",
+   "\"/eDNA.WebPortal/Base/HandleMessage\""
+  ],
+  "jsCalls": [
+   "onclick=javascript:CopyToClipboard()",
+   "onclick=javascript:ShowBusyProcessing()"
+  ],
+  "dataAttrs": [
+   "data-placement=center",
+   "data-toggle=modal",
+   "data-backdrop=static",
+   "data-keyboard=false",
+   "data-dismiss=modal",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-dismiss=modal",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-dismiss=modal",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-dismiss=modal",
+   "data-toggle=tooltip",
+   "data-placement=center",
+   "data-toggle=modal",
+   "data-backdrop=static",
+   "data-keyboard=false",
+   "data-dismiss=modal",
+   "data-toggle=tooltip",
+   "data-placement=center",
+   "data-toggle=modal",
+   "data-backdrop=static",
+   "data-keyboard=false",
+   "data-dismiss=modal",
+   "data-toggle=tooltip",
+   "data-placement=center",
+   "data-toggle=modal",
+   "data-backdrop=static",
+   "data-keyboard=false",
+   "data-dismiss=modal",
+   "data-toggle=tooltip",
+   "data-dismiss=modal",
+   "data-toggle=tooltip",
+   "data-placement=center",
+   "data-toggle=modal",
+   "data-backdrop=static",
+   "data-keyboard=false",
+   "data-dismiss=modal",
+   "data-toggle=tooltip",
+   "data-dismiss=modal",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-placement=center",
+   "data-toggle=modal",
+   "data-backdrop=static",
+   "data-keyboard=false",
+   "data-dismiss=modal",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-placement=center",
+   "data-toggle=modal",
+   "data-backdrop=static",
+   "data-keyboard=false",
+   "data-toggle=tab",
+   "data-toggle=tab",
+   "data-toggle=tab",
+   "data-dismiss=modal",
+   "data-toggle=tooltip",
+   "data-placement=center",
+   "data-toggle=modal",
+   "data-backdrop=static",
+   "data-keyboard=false",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-dismiss=modal",
+   "data-toggle=tooltip",
+   "data-placement=bottom"
+  ],
+  "razorReads": [
+   "Session[\"CurrentController\"]",
+   "ViewBag.ReturnToEnrolmentUserID",
+   "ViewBag.Title",
+   "Styles.Render(\"~/Content/css\")",
+   "Scripts.Render(\"~/bundles/modernizr\")",
+   "Scripts.Render(\"~/bundles/jquery\")",
+   "Scripts.Render(\"~/bundles/bootstrap\")",
+   "Html.Partial(\"_Header\")",
+   "Session[\"LastLoginDateTime\"]",
+   "Session[\"eDNAUserID\"]",
+   "Session[\"eDNAUserName\"]",
+   "Session[\"eDNAUserSCSl\"]",
+   "Session[\"eDNAUserSCApplet\"]",
+   "Session[\"eDNAUserCertSl\"]",
+   "Session[\"lblEnrolmentHeading\"]",
+   "RenderBody()",
+   "Html.Partial(\"_Footer\")",
+   "RenderSection(\"scripts\", required: false)"
+  ],
+  "razorControl": [
+   "if (String.Equals(System.Configuration.ConfigurationManager.AppSettings[\"PkiMemoryOnly\"], \"true\", StringComparison.OrdinalIgnoreCase))"
+  ],
+  "areas": [
+   "shape=\"circle\" coords=\"18,84,13,90\" alt=\"Finger1\" href=\"#\" id=\"lnkFinger1\"",
+   "shape=\"circle\" coords=\"58,42,14,55\" alt=\"Finger2\" href=\"#\" id=\"lnkFinger2\"",
+   "shape=\"circle\" coords=\"113,29,15,55\" alt=\"Finger3\" href=\"#\" id=\"lnkFinger3\"",
+   "shape=\"circle\" coords=\"175,42.5,14,65\" alt=\"Finger4\" href=\"#\" id=\"lnkFinger4\"",
+   "shape=\"circle\" coords=\"230,150,14,125\" alt=\"Finger5\" href=\"#\" id=\"lnkFinger5\"",
+   "shape=\"circle\" coords=\"20,150,14,124\" alt=\"Finger6\" href=\"#\" id=\"lnkFinger6\"",
+   "shape=\"circle\" coords=\"76,43.5,14,45\" alt=\"Finger7\" href=\"#\" id=\"lnkFinger7\"",
+   "shape=\"circle\" coords=\"137,30,15,50\" alt=\"Finger8\" href=\"#\" id=\"lnkFinger8\"",
+   "shape=\"circle\" coords=\"193,43,14,55\" alt=\"Finger9\" href=\"#\" id=\"lnkFinger9\"",
+   "shape=\"circle\" coords=\"234,84,13,83\" alt=\"Finger10\" href=\"#\" id=\"lnkFinger10\""
+  ],
+  "forms": [
+   "button#btnWheel[button]",
+   "button#btnGrid[button]",
+   "button#btnClassic[button]",
+   "button#cmdMenuClose[button]",
+   "button#cmdSessionTimeout[button]",
+   "button#cmdSessionContinue[button]",
+   "button#btnOverrideDF[button]",
+   "input#txtUAttribute[text]",
+   "button#btnUAInputModalCancel[button]",
+   "button#btnUAInputModalOK[button]",
+   "textarea#txtRPTErrorDetails"
+  ],
+  "scripts": [
+   "type=\"text/javascript\"| window.onload = function () { InitializeWebSocketClient('@l_strCurrentController'); //CODESC: Hide controls dynamically var l_CurrentController = '@l_strCurrentController'; if ((l_CurrentController == 'logon') || (l_CurrentController == 'Logon')){ $(\"#dvHeaderMenu\").hide(); $(\"#dvSupport\").hide(); $(\"#dvCDFinger\").show(); } else{ $(\"#dvCDFinger\").hide(); $(\"#dvHeaderMenu\").show(); $(\"#dvSupport\").show(); } if (l_CurrentController !='Home'){ $(\"#eDNACarousel\").hide(); } };",
+   "type=\"text/javascript\"| //CODESC: Get the current controller from session. var l_CurrentController = '@l_strCurrentController'; var m_EnrolmentTimeoutPaused = @(l_blEnrolmentPage ? \"true\" : \"false\"); var m_EnrolmentKeepAlivePending = false; function KeepEnrolmentSessionAlive() { if (!m_EnrolmentTimeoutPaused || m_EnrolmentKeepAlivePending) return; m_EnrolmentKeepAlivePending = true; $.ajax({ url: '@Url.Action(\"EnrolmentKeepAlive\", \"Base\")', type: 'GET', dataType: 'json', cache: false, timeout: 15000, complete: function () { m_EnrolmentKeepAlivePending = false; } }); } if (m_EnrolmentTimeoutPaused) { $(document).ready(KeepEnrolmentSessionAlive); window.addEventListener('pageshow', KeepEnrolmentSessionAlive); } //CODESC: Calculate the time interval. m_TimeInterval = setInterval('SessionWarning()', 60000); function SessionWarning() { if (m_EnrolmentTimeoutPaused) { KeepEnrolmentSessionAlive(); return; } m_SessionTimeOut--; if (m_SessionTimeOut <= 1) { if ((l_CurrentController == 'logon') || (l_CurrentController == 'Logon')) { } else { SessionTimeout(); } } }",
+   "src=\"~/Scripts/jquery.maphilight.js\"|",
+   "type=\"text/javascript\"| document.getElementById(\"Icon_Error\").style.display = \"none\"; document.getElementById(\"Icon_Warning\").style.display = \"none\"; document.getElementById(\"Icon_Question\").style.display = \"none\"; document.getElementById(\"Icon_Information\").style.display = \"none\"; //document.getElementById(\"UserEnromentWizard\").style.display = \"none\";",
+   "type=\"text/javascript\"| function ChangeDefaultFinger() { var l_arFingerIndexes = []; $.ajax({ type: \"POST\", dataType: \"json\", traditional: true, url: \"/eDNA.WebPortal/Logon/GetUserFingerIndexes\", data: JSON.stringify({ \"\": \"\" }), contentType: \"application/json; charset=utf-8\", success: function (l_strFingerIndexes) { if (l_strFingerIndexes != null && l_strFingerIndexes != \"\") { l_arFingerIndexes = l_strFingerIndexes.split(','); //CODESC: Highlight Registered and Default Finger. HighlightRegisteredFingers(l_arFingerIndexes); } }, error: function (data) { m_Logger.appendError(data); } }); $('#mdChangeDefaultFinger').modal('show'); //CODESC: Change Default Finger Color only if one the Registered finger is clicked. $(\"#lnkFinger1\").click(function () { if ($.inArray('1', l_arFingerIndexes) != -1) { l_arFingerIndexes[0] = 1; HighlightRegisteredFingers(l_arFingerIndexes) } }); $(\"#lnkFinger2\").click(function () { if ($.inArray('2', l_arFingerIndexes) != -1) { l_arFingerIndexes[0] = 2; HighlightRegisteredFingers(l_arFingerIndexes) } }); $(\"#lnkFinger3\").click(function () { if ($.inArray('3', l_arFingerIndexes) != -1) { l_arFingerIndexes[0] = 3; HighlightRegisteredFingers(l_arFingerIndexes) } }); $(\"#lnkFinger4\").click(function () { if ($.inArray('4', l_arFingerIndexes) != -1) { l_arFingerIndexes[0] = 4; HighlightRegisteredFingers(l_arFingerIndexes) } }); $(\"#lnkFinger5\").click(function () { if ($.inArray('5', l_arFingerIndexes) != -1) { l_arFingerIndexes[0] = 5; HighlightRegisteredFingers(l_arFingerIndexes) } }); $(\"#lnkFinger6\").click(function () { if ($.inArray('6', l_arFingerIndexes) != -1) { l_arFingerIndexes[0] = 6; HighlightRegisteredFingers(l_arFingerIndexes) } }); $(\"#lnkFinger7\").click(function () { if ($.inArray('7', l_arFingerIndexes) != -1) { l_arFingerIndexes[0] = 7; HighlightRegisteredFingers(l_arFingerIndexes) } }); $(\"#lnkFinger8\").click(function () { if ($.inArray('8', l_arFingerIndexes) != -1) { l_arFingerIndexes[0] = 8; HighlightRegisteredFingers(l_arFingerIndexes) } }); $(\"#lnkFinger9\").click(function () { if ($.inArray('9', l_arFingerIndexes) != -1) { l_arFingerIndexes[0] = 9; HighlightRegisteredFingers(l_arFingerIndexes) } }); $(\"#lnkFinger10\").click(function () { if ($.inArray('10', l_arFingerIndexes) != -1) { l_arFingerIndexes[0] = 10; HighlightRegisteredFingers(l_arFingerIndexes) } }); $(\"#btnOverrideDF\").click(function () { //Show Busy Processing ShowBusyProcessing(); l_iDefaultFinger = l_arFingerIndexes[0]; if (l_iDefaultFinger != null && l_iDefaultFinger != \"\") { $.ajax({ type: \"POST\", dataType: \"json\", traditional: true, url: \"/eDNA.WebPortal/Base/HandleMessage\", data: JSON.stringify({ 'p_strMessage': '1' + ';16', 'p_strOption': '25', \"p_strJSonData\": l_iDefaultFinger }), contentType: \"application/json; charset=utf-8\", success: function (data) { //CODESC: Display busy process. ShowBusyProcessing(); //CODESC: Process WebSocket Request function with the passing values process. ProcessWebSocketRequest(data, m_CurrentController); } }); } }); }",
+   "type=\"text/javascript\"| function HighlightRegisteredFingers(l_arFingerIndexes) { $(function () { $('.img_map').maphilight({ fillColor: '53EA1A', strokeColor: '000000', fillOpacity: 0.7 }); //CODESC: Re-set finger selection ResetFingers(); var l_RegisteredFingerStyle = $('#id').data('maphilight') || {}; l_RegisteredFingerStyle.alwaysOn = !l_RegisteredFingerStyle.alwaysOn; //CODESC: Loop through the registered fringers and chnage the area color accordingly //CODESC: Set the Default finger area color accordingly. for (i = 0; i < l_arFingerIndexes.length; i++) { var l_DefaultFingerStyle = $('#id').data('maphilight') || {}; l_DefaultFingerStyle.alwaysOn = true; l_DefaultFingerStyle.fillColor = 'FF1800'; l_DefaultFingerStyle.strokeColor = '1116FF'; if (l_arFingerIndexes[i] == 1) { if (l_arFingerIndexes[0] == 1) { $('#lnkFinger1').data('maphilight', l_DefaultFingerStyle).trigger('alwaysOn.maphilight'); } else { $('#lnkFinger1').data('maphilight', l_RegisteredFingerStyle).trigger('alwaysOn.maphilight'); } } if (l_arFingerIndexes[i] == 2) { if (l_arFingerIndexes[0] == 2) { $('#lnkFinger2').data('maphilight', l_DefaultFingerStyle).trigger('alwaysOn.maphilight'); } else { $('#lnkFinger2').data('maphilight', l_RegisteredFingerStyle).trigger('alwaysOn.maphilight'); } } if (l_arFingerIndexes[i] == 3) { if (l_arFingerIndexes[0] == 3) { $('#lnkFinger3').data('maphilight', l_DefaultFingerStyle).trigger('alwaysOn.maphilight'); } else { $('#lnkFinger3').data('maphilight', l_RegisteredFingerStyle).trigger('alwaysOn.maphilight'); } } if (l_arFingerIndexes[i] == 4) { if (l_arFingerIndexes[0] == 4) { $('#lnkFinger4').data('maphilight', l_DefaultFingerStyle).trigger('alwaysOn.maphilight'); } else { $('#lnkFinger4').data('maphilight', l_RegisteredFingerStyle).trigger('alwaysOn.maphilight'); } } if (l_arFingerIndexes[i] == 5) { if (l_arFingerIndexes[0] == 5) { $('#lnkFinger5').data('maphilight', l_DefaultFingerStyle).trigger('alwaysOn.maphilight'); } else { $('#lnkFinger5').data('maphilight', l_RegisteredFingerStyle).trigger('alwaysOn.maphilight'); } } if (l_arFingerIndexes[i] == 6) { if (l_arFingerIndexes[0] == 6) { $('#lnkFinger6').data('maphilight', l_DefaultFingerStyle).trigger('alwaysOn.maphilight'); } else { $('#lnkFinger6').data('maphilight', l_RegisteredFingerStyle).trigger('alwaysOn.maphilight'); } } if (l_arFingerIndexes[i] == 7) { if (l_arFingerIndexes[0] == 7) { $('#lnkFinger7').data('maphilight', l_DefaultFingerStyle).trigger('alwaysOn.maphilight'); } else { $('#lnkFinger7').data('maphilight', l_RegisteredFingerStyle).trigger('alwaysOn.maphilight'); } } if (l_arFingerIndexes[i] == 8) { if (l_arFingerIndexes[0] == 8) { $('#lnkFinger8').data('maphilight', l_DefaultFingerStyle).trigger('alwaysOn.maphilight'); } else { $('#lnkFinger8').data('maphilight', l_RegisteredFingerStyle).trigger('alwaysOn.maphilight'); } } if (l_arFingerIndexes[i] == 9) { if (l_arFingerIndexes[0] == 9) { $('#lnkFinger9').data('maphilight', l_DefaultFingerStyle).trigger('alwaysOn.maphilight'); } else { $('#lnkFinger9').data('maphilight', l_RegisteredFingerStyle).trigger('alwaysOn.maphilight'); } } if (l_arFingerIndexes[i] == 10) { if (l_arFingerIndexes[0] == 10) { $('#lnkFinger10').data('maphilight', l_DefaultFingerStyle).trigger('alwaysOn.maphilight'); } else { $('#lnkFinger10').data('maphilight', l_RegisteredFingerStyle).trigger('alwaysOn.maphilight'); } } } }); }",
+   "type=\"text/javascript\"| function ResetFingers() { $('#lnkFinger1').data('maphilight', 'None').trigger('alwaysOn.maphilight'); $('#lnkFinger2').data('maphilight', 'None').trigger('alwaysOn.maphilight'); $('#lnkFinger3').data('maphilight', 'None').trigger('alwaysOn.maphilight'); $('#lnkFinger4').data('maphilight', 'None').trigger('alwaysOn.maphilight'); $('#lnkFinger5').data('maphilight', 'None').trigger('alwaysOn.maphilight'); $('#lnkFinger6').data('maphilight', 'None').trigger('alwaysOn.maphilight'); $('#lnkFinger7').data('maphilight', 'None').trigger('alwaysOn.maphilight'); $('#lnkFinger8').data('maphilight', 'None').trigger('alwaysOn.maphilight'); $('#lnkFinger9').data('maphilight', 'None').trigger('alwaysOn.maphilight'); $('#lnkFinger10').data('maphilight', 'None').trigger('alwaysOn.maphilight'); }",
+   "type=\"text/javascript\"| function DisplayApplicationLog() { $('#mdeDNALogs').modal('show'); var fileDisplayArea = document.getElementById('lsteDNALogs'); function readTextFile(file) { var rawFile = new XMLHttpRequest(); rawFile.open(\"GET\", file, true); rawFile.onreadystatechange = function () { if (rawFile.readyState === 4) { if (rawFile.status === 200 || rawFile.status == 0) { var allText = rawFile.responseText; fileDisplayArea.innerText = allText } } } rawFile.send(null); } readTextFile(\"file:///C:/eDNA/logs/HelloWorld.txt\"); }",
+   "type=\"text/javascript\"| function SessionTimeout() { if (m_EnrolmentTimeoutPaused) return; SwitchOnSessionTimer(); $('#mdSessionTimeOut').modal('show'); $(\"#cmdSessionTimeout\").click(function () { m_SessionTimeOut = ''; DoLogout(); $(this).unbind(); }); //CODESC: Re-intialize the SessionTimeOut,if user clicks the Continue button. $(\"#cmdSessionContinue\").click(function () { m_SessionTimeOut = m_SessionContinue + 1; PauseSessionTimer(); }); }",
+   "type=\"text/javascript\"| var l_CountTime; var l_TimeOut, l_TimeLeft; var l_color = 'green'; var l_clMagenta = 'magenta'; var l_clOrangered = 'orangered'; var l_clRed = 'red'; var l_clGrey = 'grey'; var l_clBlue = 'blue'; //CODESC: SwitchOn/Off Timer function SwitchOnSessionTimer() { //CODESC: l_CountTime in seconds l_CountTime = 60; ResetSessionTimer(); } //CODESC: Update display Time value function UpdateSessionDisplay(p_Color) { document.getElementById('timespan').innerHTML = l_TimeLeft; document.getElementById('timespan').style.color = p_Color; } //CODESC: Start Countdown and chnage the timer value color accordingly. function CountDownSessionTimeOut() { if (m_EnrolmentTimeoutPaused) { PauseSessionTimer(); return; } UpdateSessionDisplay(l_clBlue); if (l_TimeLeft >= 0) { if (l_TimeLeft > 55 && l_TimeLeft < 60) { UpdateSessionDisplay(l_clRed); } if (l_TimeLeft > 45 && l_TimeLeft < 50) { UpdateSessionDisplay(l_clOrangered); } if (l_TimeLeft > 35 && l_TimeLeft < 40) { UpdateSessionDisplay(l_clMagenta); } if (l_TimeLeft > 25 && l_TimeLeft < 30) { UpdateSessionDisplay(l_clBlue); } if (l_TimeLeft > 20 && l_TimeLeft < 25) { UpdateSessionDisplay(l_clGrey); } if (l_TimeLeft > 15 && l_TimeLeft < 20) { UpdateSessionDisplay(l_clRed); } if (l_TimeLeft > 10 && l_TimeLeft < 15) { UpdateSessionDisplay(l_clOrangered); } if (l_TimeLeft > 5 && l_TimeLeft < 10) { UpdateSessionDisplay(l_clMagenta); } } if (l_TimeLeft === 1) { DoLogout('True'); } else { l_TimeLeft--; l_TimeOut = setTimeout(CountDownSessionTimeOut, 1000); } } //CODESC: Pauses Countdown function PauseSessionTimer() { clearTimeout(l_TimeOut); } //CODESC: Reset Countdown function ResetSessionTimer() { PauseSessionTimer(); l_TimeLeft = l_CountTime; UpdateSessionDisplay(l_clBlue); CountDownSessionTimeOut(); }"
+  ]
+ },
+ "Shared/_NRSReportCriteria.cshtml": {
+  "ids": [
+   "txtNRSeDNAUser",
+   "cmdNRSUSearch",
+   "lblTotaDays",
+   "rdUseDTime",
+   "rdUseQuarter",
+   "dvDateRange",
+   "dtStartDateTime",
+   "txtStartDateTime",
+   "dtEndDateTime",
+   "txtEndDateTime",
+   "dvQuarter",
+   "ddlNRSQuarterYear",
+   "optQuarter1",
+   "optQuarter2",
+   "optQuarter3",
+   "optQuarter4"
+  ],
+  "idTags": {
+   "txtNRSeDNAUser": [
+    "input"
+   ],
+   "cmdNRSUSearch": [
+    "a"
+   ],
+   "lblTotaDays": [
+    "label"
+   ],
+   "rdUseDTime": [
+    "input"
+   ],
+   "rdUseQuarter": [
+    "input"
+   ],
+   "dvDateRange": [
+    "div"
+   ],
+   "dtStartDateTime": [
+    "div"
+   ],
+   "txtStartDateTime": [
+    "input"
+   ],
+   "dtEndDateTime": [
+    "div"
+   ],
+   "txtEndDateTime": [
+    "input"
+   ],
+   "dvQuarter": [
+    "div"
+   ],
+   "optQuarter1": [
+    "input"
+   ],
+   "optQuarter2": [
+    "input"
+   ],
+   "optQuarter3": [
+    "input"
+   ],
+   "optQuarter4": [
+    "input"
+   ]
+  },
+  "hiddenIds": [],
+  "classes": [
+   "col-md-3",
+   "col-sm-4",
+   "col-sm-5",
+   "col-sm-8",
+   "dropdown",
+   "form-control",
+   "form-group",
+   "glyphicon",
+   "glyphicon-calendar",
+   "glyphicon-search",
+   "input-group-addon",
+   "text-danger"
+  ],
+  "names": [
+   "rdNRSOption",
+   "rdNRSOption",
+   "optQuarter",
+   "optQuarter",
+   "optQuarter",
+   "optQuarter"
+  ],
+  "htmlHelpers": [
+   "DropDownListFor(model => model.eDNAReportData.ReportType)",
+   "ValidationMessageFor(model => model.eDNAReportData.ReportType)",
+   "DropDownListFor(model => model.eDNAReportData.TransversalType)",
+   "ValidationMessageFor(model => model.eDNAReportData.TransversalType)",
+   "DropDownListFor(model => model.eDNAReportData.TransversalType)",
+   "ValidationMessageFor(model => model.eDNAReportData.TransversalType)",
+   "DropDownListFor(model => model.eDNAReportData.TransversalType)",
+   "ValidationMessageFor(model => model.eDNAReportData.TransversalType)",
+   "DropDownListFor(model => model.eDNAReportData.QuarterYear)",
+   "ValidationMessageFor(model => model.eDNAReportData.QuarterYear)"
+  ],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "javascript:SelectUser('NRS')"
+  ],
+  "dataAttrs": [],
+  "razorReads": [
+   "@model eDNA.WebPortal.ViewModel.CReportViewModel",
+   "ViewBag.Title",
+   "ViewBag.NRSReportTypes",
+   "ViewBag.TransversalTypes",
+   "ViewBag.TransversalTypes",
+   "ViewBag.TransversalTypes",
+   "ViewBag.ReportQuaterYear"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [
+   "input#txtNRSeDNAUser[text]",
+   "input#rdUseDTime[radio]",
+   "input#rdUseQuarter[radio]",
+   "input#txtStartDateTime[text]",
+   "input#txtEndDateTime[text]",
+   "input#optQuarter1[radio]",
+   "input#optQuarter2[radio]",
+   "input#optQuarter3[radio]",
+   "input#optQuarter4[radio]"
+  ],
+  "scripts": []
+ },
+ "Shared/_ReportAuditJobList.cshtml": {
+  "ids": [
+   "tblAuditJobList",
+   "txtJobStartDate",
+   "txtJobEndDate",
+   "txtJobUserID",
+   "txtJobTransversalUserName"
+  ],
+  "idTags": {
+   "tblAuditJobList": [
+    "table"
+   ],
+   "txtJobStartDate": [
+    "input"
+   ],
+   "txtJobEndDate": [
+    "input"
+   ],
+   "txtJobUserID": [
+    "input"
+   ],
+   "txtJobTransversalUserName": [
+    "input"
+   ]
+  },
+  "hiddenIds": [],
+  "classes": [
+   "EndDate",
+   "ReportType",
+   "StartDate",
+   "Status",
+   "TUserName",
+   "UserID",
+   "btn",
+   "btn-link",
+   "btn-xs",
+   "form-control",
+   "glyphicon",
+   "glyphicon-download",
+   "glyphicon-eye-open",
+   "glyphicon-open-file",
+   "glyphicon-remove",
+   "glyphicon-repeat",
+   "header",
+   "lalign",
+   "table",
+   "table-hover",
+   "text-center",
+   "text-muted"
+  ],
+  "names": [],
+  "htmlHelpers": [
+   "DropDownList(\"ReportTypes\")",
+   "DropDownList(\"Status\")"
+  ],
+  "urlActions": [
+   "\"Review\", \"ForensicReports\", new { jobId = ReportJob.ReportJobID }",
+   "\"Forward\", \"ForensicReports\", new { jobId = ReportJob.ReportJobID }"
+  ],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "onchange=FilterTableOnType()",
+   "onchange=FilterTableOnStartDate();",
+   "onpaste=this.onchange();",
+   "onkeyup=this.onchange();",
+   "onchange=FilterTableOnEndDate();",
+   "onpaste=this.onchange();",
+   "onkeyup=this.onchange();",
+   "onchange=FilterTableOnUserID();",
+   "onpaste=this.onchange();",
+   "onkeyup=this.onchange();",
+   "onchange=FilterTableTUserName();",
+   "onpaste=this.onchange();",
+   "onkeyup=this.onchange();",
+   "onchange=FilterTableOnStatus()",
+   "onclick=javascript:ShowError('@ReportJob.ReportJobID','@ReportJob.Error')",
+   "onclick=javascript:DeleteReport('@ReportJob.ReportJobID','@ReportJob.ReportGroupTypeID')",
+   "onclick=javascript:ReSubmitJob('@ReportJob.ReportJobID','@ReportJob.ReportGroupTypeID')",
+   "onclick=ReviewForensicReport('@ReportJob.ReportJobID'); return false;",
+   "onclick=DownloadForensicReport('@ReportJob.ReportJobID', true); return false;",
+   "onclick=DownloadForensicReport('@ReportJob.ReportJobID'); return false;",
+   "onclick=DownloadReport('@ReportJob.ReportJobID','@ReportJob.FileName','@ReportJob.ReportGroupTypeID'); return false;",
+   "onclick=javascript:DeleteReport('@ReportJob.ReportJobID','@ReportJob.ReportGroupTypeID')",
+   "onclick=javascript:DeleteReport('@ReportJob.ReportJobID','@ReportJob.ReportGroupTypeID')"
+  ],
+  "dataAttrs": [
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom"
+  ],
+  "razorReads": [
+   "@model eDNA.WebPortal.ViewModel.CReportViewModel",
+   "ViewData[\"ReportTypes\"]",
+   "ViewData[\"Status\"]",
+   "ViewBag.JobList"
+  ],
+  "razorControl": [
+   "foreach (var ReportJob in ((ViewBag.JobList as List<eDNA.WebPortal.Models.CReportJobInfoData>) ?? new List<eDNA.WebPortal.Models.CReportJobInfoData>()))",
+   "if (ReportJob.CanManage)",
+   "if (ReportJob.CanReviewDraft)",
+   "if ((ReportJob.StatusID == 3 || ReportJob.StatusID == 6)",
+   "if (ReportJob.StatusID == 6 && ReportJob.CanManage)",
+   "if ((ReportJob.StatusID == 1 || ReportJob.StatusID == 2 || ReportJob.StatusID == 4)"
+  ],
+  "areas": [],
+  "forms": [
+   "input#txtJobStartDate[text]",
+   "input#txtJobEndDate[text]",
+   "input#txtJobUserID[text]",
+   "input#txtJobTransversalUserName[text]"
+  ],
+  "scripts": []
+ },
+ "Shared/_ReportTemplate.cshtml": {
+  "ids": [
+   "frmReport"
+  ],
+  "idTags": {
+   "frmReport": [
+    "iframe"
+   ]
+  },
+  "hiddenIds": [],
+  "classes": [
+   "glyphicon",
+   "glyphicon-stats",
+   "report-frame",
+   "report-frame-container",
+   "report-frame-heading",
+   "report-frame-loading",
+   "report-frame-spinner",
+   "report-viewer-empty"
+  ],
+  "names": [],
+  "htmlHelpers": [],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "onload=ReportViewerLoaded(this)"
+  ],
+  "dataAttrs": [],
+  "razorReads": [
+   "@using System",
+   "@model eDNA.WebPortal.ViewModel.CReportViewModel"
+  ],
+  "razorControl": [
+   "if (Model.ReportInfo == null || String.IsNullOrWhiteSpace(Model.ReportInfo.ReportURL))"
+  ],
+  "areas": [],
+  "forms": [],
+  "scripts": []
+ },
+ "Shared/_TransversalAccountDetails.cshtml": {
+  "ids": [
+   "mdTransversalDetails",
+   "Icon_Information"
+  ],
+  "idTags": {
+   "mdTransversalDetails": [
+    "div"
+   ],
+   "Icon_Information": [
+    "h4"
+   ]
+  },
+  "hiddenIds": [],
+  "classes": [
+   "btn",
+   "btn-default",
+   "fade",
+   "modal",
+   "modal-body",
+   "modal-content",
+   "modal-dialog",
+   "modal-footer",
+   "modal-header",
+   "pull-left"
+  ],
+  "names": [],
+  "htmlHelpers": [
+   "Partial(\"_TransversalAccountFields\")"
+  ],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [
+   "data-placement=center",
+   "data-toggle=modal",
+   "data-backdrop=static",
+   "data-keyboard=false",
+   "data-dismiss=modal"
+  ],
+  "razorReads": [
+   "@model eDNA.CommonData.Classes.CData_TransversalAccount",
+   "Html.Partial(\"_TransversalAccountFields\", Model, new ViewDataDictionary(ViewData)"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [],
+  "scripts": []
+ },
+ "Shared/_TransversalAccountFields.cshtml": {
+  "ids": [
+   "lnkRest"
+  ],
+  "idTags": {
+   "lnkRest": [
+    "a"
+   ],
+   "@(edit ? ": [
+    "div",
+    "div",
+    "div",
+    "div",
+    "div"
+   ]
+  },
+  "hiddenIds": [],
+  "classes": [
+   "col-sm-4",
+   "col-sm-7",
+   "dropdown",
+   "form-control",
+   "form-group",
+   "glyphicon",
+   "glyphicon-refresh",
+   "text-danger"
+  ],
+  "names": [],
+  "htmlHelpers": [
+   "DropDownListFor(model => model.TransversalID)",
+   "ValidationMessageFor(model => model.TransversalID)",
+   "TextBoxFor(model => model.TransversalSystemUserID)",
+   "ValidationMessageFor(model => model.TransversalSystemUserID)",
+   "TextBoxFor(model => model.TransversalParentUser)",
+   "ValidationMessageFor(model => model.TransversalParentUser)",
+   "DropDownListFor(model => model.InstallID)",
+   "ValidationMessageFor(model => model.InstallID)",
+   "CheckBoxFor(model => model.IsPassportAppUser)",
+   "CheckBoxFor(model => model.IsController)",
+   "CheckBoxFor(model => model.IsControlDUser)"
+  ],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "javascript:ResetTransversalControls()"
+  ],
+  "dataAttrs": [
+   "data-toggle=tooltip"
+  ],
+  "razorReads": [
+   "@model eDNA.CommonData.Classes.CData_TransversalAccount",
+   "ViewData[\"TransversalFieldMode\"]",
+   "ViewBag.Transversals",
+   "ViewBag.InstallIDs"
+  ],
+  "razorControl": [
+   "if (add)"
+  ],
+  "areas": [],
+  "forms": [],
+  "scripts": []
+ },
+ "Shared/_TransversalManagement.cshtml": {
+  "ids": [
+   "dvColorLegend",
+   "dvColorLegend1",
+   "dvTManagementType",
+   "dvTransversalList",
+   "tblMTransversals",
+   "chkTSelect",
+   "chkTSelect",
+   "chkTSelect",
+   "chkTSelect",
+   "chkTSelect",
+   "chkTSelect",
+   "chkTSelect",
+   "chkTSelect",
+   "dvTransversalActions",
+   "aSuspend",
+   "aUnsuspend",
+   "aRelinquishN",
+   "aRelinquishF",
+   "aReturnN",
+   "aReturnF",
+   "aTransfer",
+   "aPPassword",
+   "aRemove",
+   "mdTransversalsMModalPopUp",
+   "Icon_Information",
+   "TransversalData",
+   "btnAddMTransversal",
+   "mdeDNAIDPopup",
+   "Icon_Information",
+   "lblTMMessage",
+   "lblTransversalAction",
+   "txteDNAID",
+   "btnTransversalOK",
+   "dvSave",
+   "btnTransversalPrimary"
+  ],
+  "idTags": {
+   "dvColorLegend": [
+    "div"
+   ],
+   "dvColorLegend1": [
+    "div"
+   ],
+   "dvTManagementType": [
+    "div"
+   ],
+   "dvTransversalList": [
+    "div"
+   ],
+   "tblMTransversals": [
+    "table"
+   ],
+   "chkTSelect": [
+    "input",
+    "input",
+    "input",
+    "input",
+    "input",
+    "input",
+    "input",
+    "input"
+   ],
+   "dvTransversalActions": [
+    "div"
+   ],
+   "aSuspend": [
+    "a"
+   ],
+   "aUnsuspend": [
+    "a"
+   ],
+   "aRelinquishN": [
+    "a"
+   ],
+   "aRelinquishF": [
+    "a"
+   ],
+   "aReturnN": [
+    "a"
+   ],
+   "aReturnF": [
+    "a"
+   ],
+   "aTransfer": [
+    "a"
+   ],
+   "aPPassword": [
+    "a"
+   ],
+   "aRemove": [
+    "a"
+   ],
+   "mdTransversalsMModalPopUp": [
+    "div"
+   ],
+   "Icon_Information": [
+    "h4",
+    "h4"
+   ],
+   "btnAddMTransversal": [
+    "button"
+   ],
+   "mdeDNAIDPopup": [
+    "div"
+   ],
+   "lblTMMessage": [
+    "label"
+   ],
+   "lblTransversalAction": [
+    "label"
+   ],
+   "txteDNAID": [
+    "input"
+   ],
+   "btnTransversalOK": [
+    "button"
+   ],
+   "dvSave": [
+    "div"
+   ],
+   "btnTransversalPrimary": [
+    "button"
+   ]
+  },
+  "hiddenIds": [
+   "dvColorLegend1",
+   "dvTransversalList",
+   "dvTransversalActions",
+   "dvSave"
+  ],
+  "classes": [
+   "alert",
+   "alert-info",
+   "btn",
+   "btn-default",
+   "btn-primary",
+   "col-md-1",
+   "col-md-2",
+   "col-md-8",
+   "color-legend-default",
+   "color-legend-normal",
+   "color-legend-pre-relinquished-other-user",
+   "color-legend-pre-relinquished-owner",
+   "color-legend-pre-returned-owner",
+   "color-legend-pre-transfer",
+   "color-legend-relinquished-other-user",
+   "color-legend-relinquished-owner",
+   "color-legend-relinquished-transfer-other-user",
+   "color-legend-relinquished-transfer-owner",
+   "color-legend-returned",
+   "color-legend-suspended",
+   "fade",
+   "form-control",
+   "form-group",
+   "form-inline",
+   "glyphicon",
+   "glyphicon-circle-arrow-left",
+   "glyphicon-export",
+   "glyphicon-new-window",
+   "glyphicon-plus",
+   "glyphicon-random",
+   "glyphicon-refresh",
+   "glyphicon-remove",
+   "glyphicon-retweet",
+   "glyphicon-search",
+   "glyphicon-sort",
+   "glyphicon-star-empty",
+   "glyphicon-thumbs-down",
+   "glyphicon-thumbs-up",
+   "glyphicon-transfer",
+   "glyphicon-trash",
+   "list-group",
+   "list-group-item",
+   "list-group-item-legend",
+   "modal",
+   "modal-body",
+   "modal-content",
+   "modal-dialog",
+   "modal-footer",
+   "modal-header",
+   "panel-body",
+   "panel-footer",
+   "pull-left",
+   "pull-right",
+   "row",
+   "scroll",
+   "table",
+   "text-center",
+   "text-danger"
+  ],
+  "names": [
+   "chkTSelect",
+   "chkTSelect",
+   "chkTSelect",
+   "chkTSelect",
+   "chkTSelect",
+   "chkTSelect",
+   "chkTSelect",
+   "chkTSelect"
+  ],
+  "htmlHelpers": [
+   "DropDownList(\"EnrolmentTypes\")",
+   "DropDownList(\"SearchTypes\")",
+   "TextBoxFor(model => model.TransversalSystemUserID)",
+   "ValidationMessageFor(model => model.TransversalSystemUserID)",
+   "AntiForgeryToken()",
+   "ValidationSummary(true)",
+   "Partial(\"_TransversalAccountFields\")"
+  ],
+  "urlActions": [
+   "\"GetPrimaryAction\", \"TransversalManagement\"",
+   "\"GetPrimaryAction\", \"TransversalManagement\""
+  ],
+  "ajaxUrls": [
+   "\"/eDNA.WebPortal/TransversalManagement/AddTransversalToSession\"",
+   "'/eDNA.WebPortal/TransversalManagement/ClearAllSearchSessionValues'",
+   "'/eDNA.WebPortal/TransversalManagement/ClearTransversals'",
+   "\"/eDNA.WebPortal/TransversalManagement/PrepareTranversalList\"",
+   "\"/eDNA.WebPortal/TransversalManagement/RemoveTranversalFromList\"",
+   "\"/eDNA.WebPortal/TransversalManagement/RemoveTransversalFromSession\"",
+   "\"/eDNA.WebPortal/TransversalManagement/ValidateTranversalList\"",
+   "'@Url.Action(\"GetPrimaryAction\", \"TransversalManagement\")'",
+   "'@Url.Action(\"GetPrimaryAction\", \"TransversalManagement\")'"
+  ],
+  "jsCalls": [
+   "javascript:SearchTransversal('/eDNA.WebPortal/TransversalManagement/GetTransversals')",
+   "javascript:ClearAllSearchSessionValues('All')",
+   "javascript:OpenTransversalMPopup()",
+   "javascript:Suspend()",
+   "javascript:UnSuspend()",
+   "javascript:OpeneDNAIDPopup('RN')",
+   "javascript:OpeneDNAIDPopup('RF')",
+   "javascript:Return('RF')",
+   "javascript:Return('RN')",
+   "javascript:OpeneDNAIDPopup('T')",
+   "javascript:PPassword()",
+   "javascript:TransversalDelete('Remove')",
+   "onclick=ResetTransversalControls()",
+   "onkeydown=return ValidateNumber(event);",
+   "javascript:ClearTransversals('TM')",
+   "onclick=TransversalPrimaryAction()",
+   "onclick=RemoveTransversal(this)"
+  ],
+  "dataAttrs": [
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=center",
+   "data-toggle=modal",
+   "data-backdrop=static",
+   "data-keyboard=false",
+   "data-dismiss=modal",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-placement=center",
+   "data-toggle=modal",
+   "data-backdrop=static",
+   "data-keyboard=false",
+   "data-dismiss=modal",
+   "data-dismiss=modal",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip"
+  ],
+  "razorReads": [
+   "@model eDNA.WebPortal.Models.CTransversalAccountData",
+   "ViewBag.TransversalAccounts",
+   "ViewBag.ReturnToEnrolmentUserID",
+   "ViewBag.ReturnToEnrolmentUserID",
+   "ViewData[\"EnrolmentTypes\"]",
+   "ViewData[\"SearchTypes\"]",
+   "ViewBag.Firstname",
+   "ViewBag.LastName",
+   "Html.Partial(\"_TransversalAccountFields\", Model, new ViewDataDictionary(ViewData)",
+   "Session[\"isTransversalFormLoad\"]",
+   "ViewBag.UserID",
+   "ViewBag.Firstname",
+   "ViewBag.Lastname",
+   "Session[\"p_strTEnrolmentType\"]",
+   "Session[\"p_strTSearchType\"]",
+   "Session[\"p_strTSearchValue\"]",
+   "Session[\"TeDNAUserID\"]",
+   "ViewBag.EnrolmentSearchUserID"
+  ],
+  "razorControl": [
+   "if ((int)(ViewBag.ReturnToEnrolmentUserID ?? 0) > 0)",
+   "foreach (var TransversalAccount in l_lstTransversalAccounts)",
+   "if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.Suspended)",
+   "if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.Relinquished)",
+   "if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.Relinquished_Transferred)",
+   "if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.PreReturned)",
+   "if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.Returned)",
+   "if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.PreTransferred)",
+   "if (state.Changed) {"
+  ],
+  "areas": [],
+  "forms": [
+   "input#chkTSelect[checkbox]",
+   "input#chkTSelect[checkbox]",
+   "input#chkTSelect[checkbox]",
+   "input#chkTSelect[checkbox]",
+   "input#chkTSelect[checkbox]",
+   "input#chkTSelect[checkbox]",
+   "input#chkTSelect[checkbox]",
+   "input#chkTSelect[checkbox]",
+   "button#btnAddMTransversal[button]",
+   "input#txteDNAID[text]",
+   "button#btnTransversalOK[button]",
+   "button#btnTransversalPrimary[button]"
+  ],
+  "scripts": [
+   "type=\"text/javascript\"| $(document).ready(function () { $(\"#MVCSiteMap\").show(); $(\"#tblMTransversals\").tablesorter(); //localStorage.setItem(\"m_isTransversalUpdate\", 'False'); //CODESC: Disable the search froup if Enrolment type value is 0. if ($(\"#EnrolmentTypes\").val() > 0) { $(\"#dvSearchGroup :input\").attr(\"disabled\", false); } else { $(\"#dvSearchGroup :input\").attr(\"disabled\", true); } if ('@HttpContext.Current.Session[\"isTransversalFormLoad\"]' == 'True') { $('#dvColorLegend1').hide(); $('#dvTransversalList').hide(); $('#dvTransversalActions').hide(); $('#dvSave').hide(); } if (localStorage.getItem(\"m_isTransversalUpdate\")== 'True') { Notify(\"Transversal Management\" + \"<br>\", \"Transversal Created/Updated Successfully!!\"); localStorage.setItem(\"m_isTransversalUpdate\", 'False'); } }); //CODESC: Transversal type selected index changed event $('Select#TransversalID').change(function () { var TransversalID = $('#TransversalID').val(); document.getElementById(\"lnkRest\").style.display = \"\"; TransversalDDSelection(TransversalID, ''); }); if (localStorage.getItem(\"isSearchTransversal\") == 'Search') { $('#dvColorLegend1').show(); $('#dvTransversalList').show(); $('#dvTransversalActions').show(); $('#dvSave').show(); } else { $('#dvColorLegend1').hide(); $('#dvTransversalList').hide(); $('#dvTransversalActions').hide(); $('#dvSave').hide(); }",
+   "type=\"text/javascript\"| $(document).ready(function () { $(\"#SearchTypes\").change(function () { //HideTransversalList(); //ClearAllSearchSessionValues('Search', $(\"#SearchTypes\").val()); }); })",
+   "type=\"text/javascript\"| $(\"#btnAddMTransversal\").click(function () { var frmTransversalManage = $(\"#TransversalData\"); if (frmTransversalManage.valid()) { var l_txtTUserID = document.getElementById('TransversalSysUserID'); var l_txtMainframeID = document.getElementById('TransversalParentUser'); var l_BasInstalID = \"\"; var chkPassportAppUser; var chkIsController; var chkControlDUser; var chkFTPUser; var l_ddlBasInstalID = document.getElementById(\"InstallID\"); if (l_ddlBasInstalID.options[l_ddlBasInstalID.selectedIndex].value != \"\") { l_BasInstalID = $(\"#InstallID option:selected\").text(); } if (document.getElementById('IsController').checked) { chkIsController = 'True'; } else { chkIsController = 'False'; } if (document.getElementById('IsControlDUser').checked) { chkControlDUser = 'True'; } else { chkControlDUser = 'False'; } if (document.getElementById('IsPassportAppUser').checked) { chkPassportAppUser = 'True'; } else { chkPassportAppUser = 'False'; } var TransversalData = { UserID: '@ViewBag.UserID', FirstName: '@ViewBag.Firstname', Lastname: '@ViewBag.Lastname', TransversalID: $('#TransversalID').val(), TransversalSystemUserID: l_txtTUserID.value, TransversalParentUser: l_txtMainframeID.value, InstallID: $('#InstallID').val(), IsPassportAppUser: chkPassportAppUser, IsController: chkIsController, IsControlDUser: chkControlDUser }; //CODESC: Call controller and pass the Transversal Account data. $.ajax({ url: \"/eDNA.WebPortal/TransversalManagement/AddTransversalToSession\", data: TransversalData, type: \"POST\", success: function (p_ResponseTransversals) { if (p_ResponseTransversals != null) { } } }); $('#tblMTransversals').append( '<tr style=\"text-align:left\"><td>' + l_txtTUserID.value + '<\\/td><td>' + $(\"#TransversalID option:selected\").text() + '<\\/td><td>' + l_txtMainframeID.value + '<\\/td><td>' + l_BasInstalID + '<\\/td><td>' + chkPassportAppUser + '<\\/td><td>' + chkIsController + '<\\/td><td>' + chkControlDUser + '<\\/td><td>' + '<a href=\"#\" onclick=\"RemoveTransversal(this)\" data-toggle=\"tooltip\" title=\"Remove this transversal account\" style=\"color:blue\"><span class=\"glyphicon glyphicon-remove\"></span> Delete</a>' + '<\\/td></tr>'); // CODESC: Close the Modal pop up, clear the entered values and unbind the click event $('#mdTransversalsMModalPopUp').modal('toggle'); ResetTransversalControls(); NotifyTransversal(); } });",
+   "type=\"text/javascript\"| $(document).ready(function () { $(\"#EnrolmentTypes\").change(function () { if ($(\"#EnrolmentTypes\").val() > 0) { $(\"#dvSearchGroup :input\").attr(\"disabled\", false); document.getElementById(\"SearchTypes\").focus(); } else { $(\"#dvSearchGroup :input\").attr(\"disabled\", true); //ClearAllSearchSessionValues('All', ''); } }); $(\"#SearchTypes\").change(function () { if ($(\"#SearchTypes\").val() > 0) { document.getElementById(\"TransversalSystemUserID\").focus(); } }); })",
+   "type=\"text/javascript\"| var l_EnrolmentTypes = 'Convert.ToString(@HttpContext.Current.Session[\"p_strTEnrolmentType\"])'; var l_SearchType = 'Convert.ToString(@HttpContext.Current.Session[\"p_strTSearchType\"])'; var l_SearchValue = 'Convert.ToString(@HttpContext.Current.Session[\"p_strTSearchValue\"])'; l_SearchType = l_SearchType.substring(l_SearchType.indexOf(\"(\", 0)); l_SearchValue = l_SearchValue.substring(l_SearchValue.indexOf(\"(\", 0)); l_EnrolmentTypes = l_EnrolmentTypes.substring(l_EnrolmentTypes.indexOf(\"(\", 0)); l_SearchType = l_SearchType.substring(1, l_SearchType.indexOf(')')); l_SearchValue = l_SearchValue.substring(1, l_SearchValue.indexOf(')')); l_EnrolmentTypes = l_EnrolmentTypes.substring(1, l_EnrolmentTypes.indexOf(')')); if (l_SearchValue != \"\") { $('#TransversalSystemUserID').val(l_SearchValue); } if (l_SearchType != \"\") { $('#SearchTypes').val(l_SearchType); } //if (l_SearchType == \"2\") { // $('#dvTransversalFunctions').hide(); //} if (l_EnrolmentTypes != \"\") { $('#EnrolmentTypes').val(l_EnrolmentTypes); }",
+   "type=\"text/javascript\"| if ('@HttpContext.Current.Session[\"TeDNAUserID\"]' != \"\") { //$(\"#dvTransversalList\").show(); $(\"#dvColorLegend\").show(); if (l_SearchType == \"1\") { $('#dvTransversalFunctions').show(); } }",
+   "type=\"text/javascript\"| $(\"#TransversalSystemUserID\").on(\"keydown\", function (event) { if (event.which == 13) SearchTransversal(); });",
+   "type=\"text/javascript\"| function ClearAllSearchSessionValues(p_ClearType, p_strSearchType) { localStorage.setItem(\"isSearchTransversal\", 'Clear'); $.ajax({ type: \"POST\", dataType: \"json\", traditional: true, url: '/eDNA.WebPortal/TransversalManagement/ClearAllSearchSessionValues', data: JSON.stringify({ 'p_ClearType': p_ClearType, 'p_strSearchType': p_strSearchType }), contentType: \"application/json; charset=utf-8\", success: function (data) { location = data; }, }); HideBusyProcessing(); }",
+   "type=\"text/javascript\"| function ClearTransversals(p_TransversalFunctionType) { $.ajax({ type: \"POST\", dataType: \"json\", traditional: true, url: '/eDNA.WebPortal/TransversalManagement/ClearTransversals', data: JSON.stringify({ 'p_strTransversalActionType': p_TransversalFunctionType }), contentType: \"application/json; charset=utf-8\", success: function (response) { //Check response if (response && response.success == true) { //ShowBusyProcessing(); location = response.Url; } else { MessageBox(\"Transversal Management\", \"Could not cancel the pending changes. Please retry.\", \"\", m_MessageType.Error); } }, error: function () { MessageBox(\"Transversal Management\", \"Could not cancel the pending changes. Please retry.\", \"\", m_MessageType.Error); } }); }",
+   "type=\"text/javascript\"| $(\".modal input:checkbox,.modal label\").on(\"click\", function (e) { e.stopImmediatePropagation(); var element = (e.currentTarget.htmlFor !== undefined) ? e.currentTarget.htmlFor : e.currentTarget; var checked = (element.checked) ? false : true; element.checked = (checked) ? false : checked.toString(); });",
+   "type=\"text/javascript\"| var l_SelectedTransversal = ''; var l_UnSelectedTransversal = ''; $(\"#tblMTransversals input:checkbox\").on('change', function (e) { if ($(this).is(\":checked\")) { $(e.target).closest(\"td\").siblings(\"td\"), l_SelectedTransversal = ($(e.target).closest(\"td\").siblings(\"td\")[0].innerHTML); m_arTransversalType.push(l_SelectedTransversal); $.ajax({ type: \"POST\", dataType: \"json\", traditional: true, url: \"/eDNA.WebPortal/TransversalManagement/PrepareTranversalList\", data: JSON.stringify({ 'p_strTransversalType': l_SelectedTransversal }), contentType: \"application/json; charset=utf-8\", success: function (p_ResponseTransversals) { if (p_ResponseTransversals != null) { } } }); } else { $(e.target).closest(\"td\").siblings(\"td\"), l_UnSelectedTransversal = ($(e.target).closest(\"td\").siblings(\"td\")[0].innerHTML); m_arTransversalType.splice(m_arTransversalType.indexOf(l_UnSelectedTransversal), 1); $.ajax({ type: \"POST\", dataType: \"json\", traditional: true, url: \"/eDNA.WebPortal/TransversalManagement/RemoveTranversalFromList\", data: JSON.stringify({ 'p_strTransversalType': l_UnSelectedTransversal }), contentType: \"application/json; charset=utf-8\", success: function (p_ResponseTransversals) { if (p_ResponseTransversals != null) { } } }); } });",
+   "type=\"text/javascript\"| function RemoveTransversal(row) { //CODESC: Get the clicked row index var l_intRowIndex = row.parentNode.parentNode.rowIndex; //CODESC: Get the table control var l_tblTransversal = document.getElementById('tblMTransversals'); //CODESC: Get the clicked row of column values var l_strRowValue = l_tblTransversal.rows[l_intRowIndex].innerHTML; //CODESC: Split the values into a list by '</td>' var l_lstTValues = l_strRowValue.split('</td>'); //CODESC: Separate the TransversalUserID and TransversalTypeID var l_strTransversalUserID = l_lstTValues[0].substring(4, l_lstTValues[0].length); var l_strTransversalType = l_lstTValues[1].substring(4, l_lstTValues[1].length); //CODESC: Remove deleted row of table from the session variable TransversalAccountList_After $.ajax({ type: \"POST\", dataType: \"json\", traditional: true, url: \"/eDNA.WebPortal/TransversalManagement/RemoveTransversalFromSession\", data: JSON.stringify({ 'p_strTransversalUserID': l_strTransversalUserID, 'p_strTransversalTypeID': l_strTransversalType }), contentType: \"application/json; charset=utf-8\", success: function (p_ResponseTransversals) { if (p_ResponseTransversals != null) { } } }); //CODESC: Remove the deleted row from the table document.getElementById('tblMTransversals').deleteRow(l_intRowIndex); }",
+   "type=\"text/javascript\"| var l_txteDNAID = document.getElementById(\"txteDNAID\"); var l_lblTransversalAction = document.getElementById(\"lblTransversalAction\"); $(\"#btnTransversalOK\").click(function () { if (l_txteDNAID.value != \"\") { $.ajax({ type: \"POST\", dataType: \"json\", traditional: true, url: \"/eDNA.WebPortal/TransversalManagement/ValidateTranversalList\", data: JSON.stringify({ 'p_strActionType': l_lblTransversalAction.innerHTML }), contentType: \"application/json; charset=utf-8\", success: function (response) { if (response.success == true) { if (response.ReponseData != null && response.ReponseData != \"\") { var l_lstResponseData = response.ReponseData.split(','); var l_strErrorTList = \"\"; for (i = 0; i < l_lstResponseData.length; i++) { if (l_strErrorTList == \"\") { l_strErrorTList = l_lstResponseData[i] + '\\r\\n'; } else { l_strErrorTList = l_strErrorTList + l_lstResponseData[i] + '\\r\\n'; } } MessageBox(\"Tranversal Management\", \"The following transversal(s) can not be \" + l_lblTransversalAction.innerHTML, l_strErrorTList + '\\r\\n' + \"Un-select the specific transversal and process again\", m_MessageType.Error); } else { //ToDo: NRS Transaction. } } } }); } });",
+   "type=\"text/javascript\"| $(document).ready(function () { var recipient = @((int)(ViewBag.EnrolmentSearchUserID ?? 0)); if (recipient > 0) { $('#EnrolmentTypes').val('2'); $('#SearchTypes').val('2'); $('#TransversalSystemUserID').val(recipient); localStorage.setItem('p_TransversalFunctionType', 'TM'); SearchTransversal(); } });",
+   "type=\"text/javascript\"| var transversalActionPending = false; var transversalStateVersion = 0; function RefreshTransversalPrimary() { var version = ++transversalStateVersion; $.ajax({ url: '@Url.Action(\"GetPrimaryAction\", \"TransversalManagement\")', type: 'GET', cache: false, timeout: 15000, success: function (state) { if (version !== transversalStateVersion || transversalActionPending) return; $('#btnTransversalPrimary').text(state.Label).prop('disabled', !state.Ready); }, error: function () { if (version !== transversalStateVersion || transversalActionPending) return; $('#btnTransversalPrimary').text('Retry').prop('disabled', false); } }); } function TransversalPrimaryAction() { if (transversalActionPending) return; transversalActionPending = true; ++transversalStateVersion; $('#btnTransversalPrimary').prop('disabled', true); $.ajax({ url: '@Url.Action(\"GetPrimaryAction\", \"TransversalManagement\")', type: 'GET', cache: false, timeout: 15000, success: function (state) { if (!state.Ready) { MessageBox('Transversal Management', 'Search for the user before continuing.', '', m_MessageType.Information); } else if (state.Changed) { TransversalAccount_Manage('TM'); } else { location = state.Url; } }, error: function () { MessageBox('Transversal Management', 'Could not check pending changes. Please try again.', '', m_MessageType.Error); }, complete: function () { transversalActionPending = false; RefreshTransversalPrimary(); } }); } $(document).ready(RefreshTransversalPrimary); $(document).ajaxComplete(function (event, xhr, settings) { if (settings.url.indexOf('/TransversalManagement/') >= 0 && settings.url.indexOf('GetPrimaryAction') < 0) RefreshTransversalPrimary(); });"
+  ]
+ },
+ "Shared/_TransversalUsers.cshtml": {
+  "ids": [
+   "tblTUserList",
+   "optTSelect"
+  ],
+  "idTags": {
+   "tblTUserList": [
+    "table"
+   ],
+   "optTSelect": [
+    "input"
+   ]
+  },
+  "hiddenIds": [],
+  "classes": [
+   "lalign",
+   "scroll",
+   "table",
+   "table-hover"
+  ],
+  "names": [
+   "optTSelect"
+  ],
+  "htmlHelpers": [],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "onchange=GetSeletedUser('@TUser.Name')"
+  ],
+  "dataAttrs": [],
+  "razorReads": [
+   "ViewBag.TUsers"
+  ],
+  "razorControl": [
+   "foreach (var TUser in ((ViewBag.TUsers as List<eDNA.WebPortal.Models.CTransversalUser>) ?? new List<eDNA.WebPortal.Models.CTransversalUser>()))"
+  ],
+  "areas": [],
+  "forms": [
+   "input#optTSelect[radio]"
+  ],
+  "scripts": []
+ },
+ "Shared/_UserDetails.cshtml": {
+  "ids": [
+   "dvUserInformation",
+   "lnkChangeStatus",
+   "dvUserAttributes"
+  ],
+  "idTags": {
+   "dvUserInformation": [
+    "div"
+   ],
+   "lnkChangeStatus": [
+    "a"
+   ],
+   "dvUserAttributes": [
+    "div"
+   ]
+  },
+  "hiddenIds": [],
+  "classes": [
+   "col-md-1",
+   "col-md-4",
+   "col-md-5",
+   "col-sm-1",
+   "col-sm-2",
+   "col-sm-4",
+   "col-sm-7",
+   "dropdown",
+   "field-validation-error",
+   "form-control",
+   "form-group",
+   "form-horizontal",
+   "input-validation-error",
+   "panel-body-details",
+   "row",
+   "text-danger"
+  ],
+  "names": [],
+  "htmlHelpers": [
+   "ValidationSummary(true)",
+   "TextBoxFor(model => model.UserID)",
+   "TextBoxFor(model => model.DateCreated)",
+   "DropDownListFor(model => model.EntityID)",
+   "ValidationMessageFor(model => model.EntityID)",
+   "TextBoxFor(model => model.FirstName)",
+   "ValidationMessageFor(model => model.FirstName)",
+   "TextBoxFor(model => model.Surname)",
+   "ValidationMessageFor(model => model.Surname)",
+   "CheckBoxFor(m => m.IsPassport)",
+   "TextBoxFor(model => model.IDNumber)",
+   "ValidationMessageFor(model => model.IDNumber)",
+   "TextBoxFor(model => model.UserStatus)",
+   "DropDownList(item.UserAttributeName)",
+   "TextBox(item.UserAttributeName)",
+   "Raw(Json.Encode(item.Regex)"
+  ],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "javascript:DisplayStatus()"
+  ],
+  "dataAttrs": [
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-valmsg-for=@item.UserAttributeName",
+   "data-valmsg-replace=true",
+   "data-valmsg-for=@item.UserAttributeName",
+   "data-valmsg-replace=true"
+  ],
+  "razorReads": [
+   "@model eDNA.CommonData.Classes.CData_User",
+   "ViewBag.Entity",
+   "ViewData[\"ShowStatusChange\"]"
+  ],
+  "razorControl": [
+   "if ((bool)(ViewData[\"ShowStatusChange\"] ?? false))",
+   "foreach (var item in (Model.User_Attributes ?? new List<eDNA.CommonData.Classes.CData_User_Attribute>()))",
+   "if (item.UserAttributeControlID == 2)"
+  ],
+  "areas": [],
+  "forms": [],
+  "scripts": [
+   "type=\"text/javascript\"| $('#@item.UserAttributeName').attr({ 'data-val' : true, 'data-val-required' : '@item.UserAttributeType is Required' }); $(document).ready(function () { $('#@item.UserAttributeName').val('@item.UserAttribute'); });",
+   "type=\"text/javascript\"| var l_strRegexPattern = @Html.Raw(Json.Encode(item.Regex)); $('#@item.UserAttributeName').attr({ 'data-val': true, 'data-val-regex': '@item.UserAttributeType is not valid', 'data-val-regex-pattern': l_strRegexPattern, 'data-val-required' : '@item.UserAttributeType is Required' });"
+  ]
+ },
+ "Shared/_eDNAUsers.cshtml": {
+  "ids": [
+   "tblUserList",
+   "optSelect"
+  ],
+  "idTags": {
+   "tblUserList": [
+    "table"
+   ],
+   "optSelect": [
+    "input"
+   ]
+  },
+  "hiddenIds": [],
+  "classes": [
+   "lalign",
+   "scroll",
+   "table",
+   "table-hover"
+  ],
+  "names": [
+   "optSelect"
+  ],
+  "htmlHelpers": [],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "onchange=GetSeletedUser(@eDNAUser.UserId)"
+  ],
+  "dataAttrs": [],
+  "razorReads": [
+   "ViewBag.eDNAUsers"
+  ],
+  "razorControl": [
+   "foreach (var eDNAUser in ((ViewBag.eDNAUsers as List<eDNA.WebPortal.Models.CUser>) ?? new List<eDNA.WebPortal.Models.CUser>()))"
+  ],
+  "areas": [],
+  "forms": [
+   "input#optSelect[radio]"
+  ],
+  "scripts": []
+ },
+ "SmartCardManagement/Index.cshtml": {
+  "ids": [
+   "frmSmartCardManagement",
+   "dvColorLegend1",
+   "lblNotInCMS",
+   "lblNotWarehoused",
+   "lblWarehoused",
+   "lblAllocated",
+   "lblAssigned",
+   "lblTerminated",
+   "dvAdd",
+   "SerialNumber",
+   "dvBulk",
+   "files",
+   "chkBulkImport",
+   "lblBulkImport",
+   "chkGetStatus",
+   "lblGetStatus",
+   "mdWareHouseModalPopUp",
+   "Icon_Information",
+   "btnWareHouse",
+   "mdSCActionConfirmation",
+   "Icon_Warning",
+   "lblSCMessageHeader",
+   "lblSCMessage",
+   "lnkDownload",
+   "btnSCWareHouseYes",
+   "mdAllocateModalPopUp",
+   "Icon_Information",
+   "lblMessage",
+   "txtAllocateToeDNAID",
+   "btnAllocate",
+   "lblSCSerial",
+   "lblSCAppletVersion",
+   "lblSCStatus",
+   "lblSCWUser",
+   "lblSCWDate",
+   "lblSCAUser",
+   "lblSCADate",
+   "lblSCTOUser",
+   "lblSCTODate",
+   "lblSCTEUser",
+   "lblSCTEDate",
+   "lblTotal",
+   "lblErrorTotal",
+   "lblDuplicateTotal"
+  ],
+  "idTags": {
+   "frmSmartCardManagement": [
+    "div"
+   ],
+   "dvColorLegend1": [
+    "div"
+   ],
+   "lblNotInCMS": [
+    "label"
+   ],
+   "lblNotWarehoused": [
+    "label"
+   ],
+   "lblWarehoused": [
+    "label"
+   ],
+   "lblAllocated": [
+    "label"
+   ],
+   "lblAssigned": [
+    "label"
+   ],
+   "lblTerminated": [
+    "label"
+   ],
+   "dvAdd": [
+    "div"
+   ],
+   "dvBulk": [
+    "div"
+   ],
+   "files": [
+    "input"
+   ],
+   "chkBulkImport": [
+    "input"
+   ],
+   "lblBulkImport": [
+    "label"
+   ],
+   "chkGetStatus": [
+    "input"
+   ],
+   "lblGetStatus": [
+    "label"
+   ],
+   "mdWareHouseModalPopUp": [
+    "div"
+   ],
+   "Icon_Information": [
+    "h4",
+    "h4"
+   ],
+   "btnWareHouse": [
+    "button"
+   ],
+   "mdSCActionConfirmation": [
+    "div"
+   ],
+   "Icon_Warning": [
+    "h4"
+   ],
+   "lblSCMessageHeader": [
+    "label"
+   ],
+   "lblSCMessage": [
+    "label"
+   ],
+   "lnkDownload": [
+    "a"
+   ],
+   "btnSCWareHouseYes": [
+    "button"
+   ],
+   "mdAllocateModalPopUp": [
+    "div"
+   ],
+   "lblMessage": [
+    "label"
+   ],
+   "txtAllocateToeDNAID": [
+    "input"
+   ],
+   "btnAllocate": [
+    "button"
+   ],
+   "lblSCSerial": [
+    "label"
+   ],
+   "lblSCAppletVersion": [
+    "label"
+   ],
+   "lblSCStatus": [
+    "label"
+   ],
+   "lblSCWUser": [
+    "label"
+   ],
+   "lblSCWDate": [
+    "label"
+   ],
+   "lblSCAUser": [
+    "label"
+   ],
+   "lblSCADate": [
+    "label"
+   ],
+   "lblSCTOUser": [
+    "label"
+   ],
+   "lblSCTODate": [
+    "label"
+   ],
+   "lblSCTEUser": [
+    "label"
+   ],
+   "lblSCTEDate": [
+    "label"
+   ],
+   "lblTotal": [
+    "label"
+   ],
+   "lblErrorTotal": [
+    "label"
+   ],
+   "lblDuplicateTotal": [
+    "label"
+   ]
+  },
+  "hiddenIds": [],
+  "classes": [
+   "btn",
+   "btn-default",
+   "col-md-1",
+   "col-md-2",
+   "col-md-3",
+   "col-sm-1",
+   "col-sm-4",
+   "col-sm-8",
+   "color-legend-Allocated",
+   "color-legend-Assigned",
+   "color-legend-NotInCMS",
+   "color-legend-NotWarehoused",
+   "color-legend-Terminated",
+   "color-legend-Warehoused",
+   "display-legend",
+   "dropdown",
+   "editor-field",
+   "fade",
+   "form-control",
+   "form-group",
+   "form-inline",
+   "glyphicon",
+   "glyphicon-barcode",
+   "glyphicon-download-alt",
+   "glyphicon-duplicate",
+   "glyphicon-filter",
+   "glyphicon-plus",
+   "glyphicon-remove",
+   "glyphicon-save",
+   "glyphicon-saved",
+   "glyphicon-share",
+   "glyphicon-share-alt",
+   "glyphicon-transfer",
+   "glyphicon-trash",
+   "input-group",
+   "list-group",
+   "list-group-item",
+   "list-group-item-legend",
+   "modal",
+   "modal-body",
+   "modal-content",
+   "modal-dialog",
+   "modal-footer",
+   "modal-header",
+   "panel-body",
+   "pull-left",
+   "pull-right",
+   "row",
+   "text-danger"
+  ],
+  "names": [
+   "files[]",
+   "chkBulkImport",
+   "chkGetStatus"
+  ],
+  "htmlHelpers": [
+   "AntiForgeryToken()",
+   "ValidationSummary()",
+   "TextBoxFor(model => model.SerialNumber)",
+   "ListBox(\"lstSmartcardSLNos\")",
+   "DropDownListFor(model => model.AppletVersionID)",
+   "ValidationMessageFor(model => model.AppletVersionID)"
+  ],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "javascript:BindListBox()",
+   "onkeydown=return ValidateNumber(event);",
+   "javascript:SignAndProcess('WC')",
+   "javascript:SignAndProcess('AC')",
+   "javascript:SignAndProcess('RWC')",
+   "javascript:SignAndProcess('TER')",
+   "javascript:QuerySmartCard()",
+   "javascript:CheckDuplicateSCs()",
+   "javascript:RemoveDuplicateSCs()",
+   "javascript:RemoveInvalidSmartCards()",
+   "javascript:RemoveSelectedItems()",
+   "javascript:ClearListBox()"
+  ],
+  "dataAttrs": [
+   "data-placement=right",
+   "data-toggle=tooltip",
+   "data-placement=center",
+   "data-toggle=modal",
+   "data-backdrop=static",
+   "data-keyboard=false",
+   "data-dismiss=modal",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-placement=center",
+   "data-toggle=modal",
+   "data-backdrop=static",
+   "data-keyboard=false",
+   "data-toggle=tooltip",
+   "data-dismiss=modal",
+   "data-toggle=tooltip",
+   "data-dismiss=modal",
+   "data-toggle=tooltip",
+   "data-placement=center",
+   "data-toggle=modal",
+   "data-backdrop=static",
+   "data-keyboard=false",
+   "data-dismiss=modal",
+   "data-toggle=tooltip",
+   "data-dismiss=modal",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip"
+  ],
+  "razorReads": [
+   "@model eDNA.WebPortal.Models.CSmartCardData",
+   "ViewBag.Title",
+   "ViewBag.AppletVersions",
+   "Session[\"isSmartCardFormLoad\"]"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [
+   "input#files[file]",
+   "input#chkBulkImport[checkbox]",
+   "input#chkGetStatus[checkbox]",
+   "button#btnWareHouse[button]",
+   "button#btnSCWareHouseYes[button]",
+   "input#txtAllocateToeDNAID[text]",
+   "button#btnAllocate[button]"
+  ],
+  "scripts": [
+   "type=\"text/javascript\"| $(document).ready(function ($) { //CODESC: Hide bulk import controls on form load $(\"#dvBulk\").hide(); $(\"#dvImport\").hide(); $(\"#lblGetStatus\").hide(); $(\"#chkGetStatus\").hide(); $(\"#lblGetStatus\").hide(); $(\"#divLoading\").hide(); $(\"#MVCSiteMap\").show(); });",
+   "type=\"text/javascript\"| $(window).on('load', function () { //CODESC: Get Smartcard lookups from data base. if ('@HttpContext.Current.Session[\"isSmartCardFormLoad\"]' == 'True') { GetSmartcardLookUps(''); } })",
+   "type=\"text/javascript\"| var l_lstSmartcardSLNos; var l_lblTotalCount; l_lstSmartcardSLNos = document.getElementById('lstSmartcardSLNos'); l_lblTotalCount = document.getElementById('lblTotal'); $(document).ready(function () { if (isAPIAvailable()) { $('#files').bind('change', UploadCSVFile); } }); // CODESC: for the various File API support. function isAPIAvailable() { if (window.File && window.FileReader && window.FileList && window.Blob) { // CODESC: Great success! All the File APIs are supported. return true; } } // CODESC: Read and populate the CSV content to the list box. function UploadCSVFile(evt) { var l_files = evt.target.files; var l_file = l_files[0]; m_SCImportFileName = l_file.name; var l_Filereader = new FileReader(); l_Filereader.readAsText(l_file); l_Filereader.onload = function (event) { var l_Split = event.target.result; var l_str_array = l_Split.split(','); for (var loop = 0; loop < l_str_array.length; loop++) { var tempOpt = new Option(l_str_array[loop], l_str_array[loop]); l_lstSmartcardSLNos.options.add(tempOpt); } l_lblTotalCount.innerText = \"Total - \" + l_lstSmartcardSLNos.childElementCount; m_WebMessageLogger.UserMessage(\"eDNA Message:- \" + l_lstSmartcardSLNos.childElementCount + \" - \" + \" Smartcards Imported Successfully\", 'Black'); //CODESC: Display Get status controls $(\"#chkGetStatus\").show(); $(\"#lblGetStatus\").show(); }; m_WebMessageLogger.appendError(\"Unable to read \" + l_file.fileName); }",
+   "type=\"text/javascript\"| document.getElementById('lstSmartcardSLNos').onchange = function () { ClearSCInformation(); if (this.selectedOptions.length === 1) QuerySmartCard(); };",
+   "type=\"text/javascript\"| $('#SerialNumber').keypress(function (event) { var keycode = (event.keyCode ? event.keyCode : event.which); if (keycode == '13') { event.preventDefault(); BindListBox(); } });"
+  ]
+ },
+ "SystemStatus/Index.cshtml": {
+  "ids": [],
+  "idTags": {},
+  "hiddenIds": [],
+  "classes": [
+   "col-md-10",
+   "col-md-2",
+   "gray-tooltip",
+   "list-group",
+   "list-group-item",
+   "panel-body",
+   "panel-heading",
+   "row"
+  ],
+  "names": [],
+  "htmlHelpers": [],
+  "urlActions": [
+   "\"Index\", \"UnderConstruction\"",
+   "\"Index\", \"UnderConstruction\"",
+   "\"Index\", \"UnderConstruction\"",
+   "\"Index\", \"UnderConstruction\""
+  ],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [
+   "data-toggle=tooltip",
+   "data-placement=left",
+   "data-toggle=tooltip",
+   "data-placement=left",
+   "data-toggle=tooltip",
+   "data-placement=left",
+   "data-toggle=tooltip",
+   "data-placement=left"
+  ],
+  "razorReads": [
+   "ViewBag.Title"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [],
+  "scripts": [
+   "src=\"~/Scripts/jquery-3.1.1.min.js\"|"
+  ]
+ },
+ "TransversalAccountDetail/Index.cshtml": {
+  "ids": [
+   "dvTransversalDetails",
+   "dvTransversalActions",
+   "aSuspend",
+   "aUnsuspend",
+   "aRelinquishN",
+   "aRelinquishF",
+   "aReturnN",
+   "aReturnF",
+   "aTransfer",
+   "aPPassword",
+   "aCPassword"
+  ],
+  "idTags": {
+   "dvTransversalDetails": [
+    "div"
+   ],
+   "dvTransversalActions": [
+    "div"
+   ],
+   "aSuspend": [
+    "a"
+   ],
+   "aUnsuspend": [
+    "a"
+   ],
+   "aRelinquishN": [
+    "a"
+   ],
+   "aRelinquishF": [
+    "a"
+   ],
+   "aReturnN": [
+    "a"
+   ],
+   "aReturnF": [
+    "a"
+   ],
+   "aTransfer": [
+    "a"
+   ],
+   "aPPassword": [
+    "a"
+   ],
+   "aCPassword": [
+    "a"
+   ]
+  },
+  "hiddenIds": [
+   "dvTransversalActions"
+  ],
+  "classes": [
+   "btn",
+   "btn-primary",
+   "col-md-1",
+   "col-md-2",
+   "col-md-7",
+   "form-horizontal",
+   "glyphicon",
+   "glyphicon-export",
+   "glyphicon-hand-up",
+   "glyphicon-new-window",
+   "glyphicon-random",
+   "glyphicon-remove",
+   "glyphicon-retweet",
+   "glyphicon-star",
+   "glyphicon-star-empty",
+   "glyphicon-thumbs-down",
+   "glyphicon-thumbs-up",
+   "glyphicon-transfer",
+   "list-group",
+   "list-group-item",
+   "panel-body-details",
+   "panel-footer",
+   "row"
+  ],
+  "names": [],
+  "htmlHelpers": [
+   "AntiForgeryToken()",
+   "ValidationSummary(true)",
+   "Partial(\"_TransversalAccountFields\")"
+  ],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "javascript:OpeneDNAIDPopup('RN')",
+   "javascript:OpeneDNAIDPopup('RF')",
+   "javascript:OpeneDNAIDPopup('T')",
+   "javascript:BackToTransversalManage()",
+   "javascript:DeleteTransversal('TM')",
+   "javascript:UpdateTransversal('TM')"
+  ],
+  "dataAttrs": [
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip"
+  ],
+  "razorReads": [
+   "@model eDNA.CommonData.Classes.CData_TransversalAccount",
+   "ViewBag.Title",
+   "Html.Partial(\"_TransversalAccountFields\", Model)"
+  ],
+  "razorControl": [
+   "if (SelectedTransversalID == 2) {",
+   "if (SelectedTransversalID == 3) {"
+  ],
+  "areas": [],
+  "forms": [],
+  "scripts": [
+   "src=\"~/Scripts/jquery-3.1.1.min.js\"|",
+   "src=\"~/Scripts/jquery.tablesorter.min.js\"|",
+   "src=\"~/Scripts/Enrolment/TransversalManagementAndEnrolment.js\"|",
+   "type=\"text/javascript\"| $(document).ready(function () { $(\"#MVCSiteMap\").show(); $(\"#dvClose\").hide(); //GetTransversalDetails(m_TransversalAccountID); }); //CODESC: Hide the Transversal details controls according to the Transversal Type. var SelectedTransversalID = $('#TransversalID').val(); if (SelectedTransversalID == 1) { document.getElementById(\"dvBASInstallID\").style.display = \"\"; document.getElementById(\"dvIsController\").style.display = \"\"; document.getElementById(\"dvMainframeID\").style.display = \"none\"; document.getElementById(\"dvPassportAppUser\").style.display = \"none\"; document.getElementById(\"dvControlDUser\").style.display = \"none\"; } else if (SelectedTransversalID == 2) { document.getElementById(\"dvMainframeID\").style.display = \"\"; document.getElementById(\"dvIsController\").style.display = \"\"; document.getElementById(\"dvControlDUser\").style.display = \"\"; document.getElementById(\"dvBASInstallID\").style.display = \"none\"; document.getElementById(\"dvPassportAppUser\").style.display = \"none\"; } else if (SelectedTransversalID == 3) { document.getElementById(\"dvIsController\").style.display = \"\"; document.getElementById(\"dvPassportAppUser\").style.display = \"\"; document.getElementById(\"dvMainframeID\").style.display = \"none\"; document.getElementById(\"dvControlDUser\").style.display = \"none\"; document.getElementById(\"dvBASInstallID\").style.display = \"none\"; }"
+  ]
+ },
+ "TransversalManagement/Index.cshtml": {
+  "ids": [],
+  "idTags": {},
+  "hiddenIds": [],
+  "classes": [],
+  "names": [],
+  "htmlHelpers": [
+   "Partial(\"_TransversalManagement\")"
+  ],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [],
+  "razorReads": [
+   "@model eDNA.WebPortal.Models.CTransversalAccountData",
+   "ViewBag.Title",
+   "Html.Partial(\"_TransversalManagement\", Model)",
+   "Scripts.Render(\"~/bundles/jqueryval\")"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [],
+  "scripts": []
+ },
+ "UnderConstruction/Index.cshtml": {
+  "ids": [],
+  "idTags": {},
+  "hiddenIds": [],
+  "classes": [
+   "col-md-4",
+   "form-horizontal",
+   "panel-body",
+   "panel-heading",
+   "row"
+  ],
+  "names": [],
+  "htmlHelpers": [],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [],
+  "razorReads": [
+   "ViewBag.Title"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [],
+  "scripts": [
+   "type=\"text/javascript\"| $(document).ready(function () { $(\"#MVCSiteMap\").show(); });"
+  ]
+ },
+ "UpdateManager/ComputerInfo.cshtml": {
+  "ids": [],
+  "idTags": {},
+  "hiddenIds": [],
+  "classes": [
+   "table",
+   "table-bordered",
+   "table-hover",
+   "table-responsive"
+  ],
+  "names": [],
+  "htmlHelpers": [],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [],
+  "razorReads": [
+   "@model List<eDNA.CommonData.Classes.CData_ComputerInfo>"
+  ],
+  "razorControl": [
+   "if (Model != null && Model.Count > 0)"
+  ],
+  "areas": [],
+  "forms": [],
+  "scripts": [
+   "type=\"text/javascript\"| $(\"#MVCSiteMap\").show();"
+  ]
+ },
+ "UpdateManager/Index.cshtml": {
+  "ids": [],
+  "idTags": {},
+  "hiddenIds": [],
+  "classes": [
+   "glyphicon",
+   "glyphicon-import",
+   "list-group",
+   "list-group-item"
+  ],
+  "names": [],
+  "htmlHelpers": [],
+  "urlActions": [
+   "\"UploadFile\", \"UnderConstruction\"",
+   "\"UpdateGroups\", \"UnderConstruction\"",
+   "\"LinkFileToGroups\", \"UnderConstruction\"",
+   "\"LinkComputersToGroups\", \"UnderConstruction\""
+  ],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip"
+  ],
+  "razorReads": [
+   "ViewBag.Title"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [],
+  "scripts": [
+   "type=\"text/javascript\"| $(document).ready(function ($) { $(\"#MVCSiteMap\").show(); });"
+  ]
+ },
+ "UpdateManager/LinkComputersToGroups.cshtml": {
+  "ids": [],
+  "idTags": {},
+  "hiddenIds": [],
+  "classes": [],
+  "names": [],
+  "htmlHelpers": [],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [],
+  "razorReads": [
+   "Session[\"UpdateManagerGroupComputer\"]"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [],
+  "scripts": [
+   "type=\"text/javascript\"| $(\"#MVCSiteMap\").show(); if ('@HttpContext.Current.Session[\"UpdateManagerGroupComputer\"]' == 'True') { GetComputersLinkedToGroupsList(); }"
+  ]
+ },
+ "UpdateManager/LinkFileToGroups.cshtml": {
+  "ids": [],
+  "idTags": {},
+  "hiddenIds": [],
+  "classes": [],
+  "names": [],
+  "htmlHelpers": [],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [],
+  "razorReads": [],
+  "razorControl": [],
+  "areas": [],
+  "forms": [],
+  "scripts": [
+   "type=\"text/javascript\"| $(\"#MVCSiteMap\").show();"
+  ]
+ },
+ "UpdateManager/UpdateGroups.cshtml": {
+  "ids": [],
+  "idTags": {},
+  "hiddenIds": [],
+  "classes": [],
+  "names": [],
+  "htmlHelpers": [],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [],
+  "razorReads": [
+   "Session[\"UpdateManagerGroup\"]"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [],
+  "scripts": [
+   "type=\"text/javascript\"| $(\"#MVCSiteMap\").show(); if ('@HttpContext.Current.Session[\"UpdateManagerGroup\"]' == 'True') { GetUpdateManagerGroupList(); }"
+  ]
+ },
+ "UpdateManager/UploadFile.cshtml": {
+  "ids": [
+   "file"
+  ],
+  "idTags": {
+   "file": [
+    "input"
+   ]
+  },
+  "hiddenIds": [],
+  "classes": [
+   "borderless",
+   "centerBtn",
+   "table",
+   "table-responsive"
+  ],
+  "names": [
+   "file"
+  ],
+  "htmlHelpers": [],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [],
+  "razorReads": [
+   "ViewBag.Message",
+   "Session[\"UpdateManagerInstallpack\"]"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [
+   "input#file[file]"
+  ],
+  "scripts": [
+   "type=\"text/javascript\"| $(\"#MVCSiteMap\").show(); if ('@HttpContext.Current.Session[\"UpdateManagerInstallpack\"]' == 'True') { GetUploadedInstallpackList(); }"
+  ]
+ },
+ "User/MyProfile.cshtml": {
+  "ids": [],
+  "idTags": {},
+  "hiddenIds": [],
+  "classes": [
+   "col-md-10",
+   "col-md-2",
+   "glyphicon",
+   "glyphicon-edit",
+   "glyphicon-hand-up",
+   "glyphicon-info-sign",
+   "glyphicon-registration-mark",
+   "gray-tooltip",
+   "list-group",
+   "list-group-item",
+   "panel-body",
+   "row"
+  ],
+  "names": [],
+  "htmlHelpers": [],
+  "urlActions": [
+   "\"Index\", \"UnderConstruction\"",
+   "\"Index\", \"UnderConstruction\""
+  ],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "javascript:ChangeDefaultFinger()",
+   "javascript:OverrideMenuStyle()"
+  ],
+  "dataAttrs": [
+   "data-toggle=tooltip",
+   "data-placement=left",
+   "data-toggle=tooltip",
+   "data-placement=left",
+   "data-toggle=tooltip",
+   "data-placement=left",
+   "data-toggle=tooltip",
+   "data-placement=left"
+  ],
+  "razorReads": [
+   "ViewBag.Title"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [],
+  "scripts": [
+   "type=\"text/javascript\"| $(document).ready(function () { $(\"#MVCSiteMap\").show(); $(\"#cmdMenuClose\").show(); });",
+   "type=\"text/javascript\"| function OverrideMenuStyle() { MenuSelector(); MenuSelector(); $('#mdMenuSelector').modal('show'); $(\"#btnWheel\").click(function () { //CODESC: Display busy process. ShowBusyProcessing(); OverrideMenuPreference(\"Wheel\"); $(this).unbind(); }); $(\"#btnGrid\").click(function () { //CODESC: Display busy process. ShowBusyProcessing(); OverrideMenuPreference(\"Grid\"); $(this).unbind(); }); $(\"#btnClassic\").click(function () { //CODESC: Display busy process. ShowBusyProcessing(); OverrideMenuPreference(\"Classic\"); $(this).unbind(); }); }"
+  ]
+ },
+ "UserDetails/Index.cshtml": {
+  "ids": [
+   "UserData",
+   "UserStatuses",
+   "Icon_Information",
+   "dvStatusChangeReason",
+   "lblUSTErrorMessage",
+   "btnCancelStatus",
+   "btnSaveStatus"
+  ],
+  "idTags": {
+   "UserStatuses": [
+    "div"
+   ],
+   "Icon_Information": [
+    "h4"
+   ],
+   "dvStatusChangeReason": [
+    "div"
+   ],
+   "lblUSTErrorMessage": [
+    "label"
+   ],
+   "btnCancelStatus": [
+    "button"
+   ],
+   "btnSaveStatus": [
+    "button"
+   ]
+  },
+  "hiddenIds": [
+   "dvStatusChangeReason"
+  ],
+  "classes": [
+   "btn",
+   "btn-default",
+   "btn-primary",
+   "col-md-3",
+   "dropdown",
+   "fade",
+   "glyphicon",
+   "glyphicon-circle-arrow-left",
+   "glyphicon-hand-up",
+   "modal",
+   "modal-body",
+   "modal-content",
+   "modal-dialog",
+   "modal-footer",
+   "modal-header",
+   "panel-footer",
+   "pull-left",
+   "pull-right"
+  ],
+  "names": [],
+  "htmlHelpers": [
+   "AntiForgeryToken()",
+   "Partial(\"_UserDetails\")",
+   "DropDownList(\"ddlStatuses\")",
+   "DropDownList(\"ddlSTChangeReason\")",
+   "TextArea(\"txtStatusChangeReason\")"
+  ],
+  "urlActions": [
+   "\"Index\",\"UserManagement\""
+  ],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "onclick=javascript:ShowBusyProcessing();",
+   "javascript:CreateUser('UM')",
+   "onclick=javascript:ShowBusyProcessing();"
+  ],
+  "dataAttrs": [
+   "data-placement=center",
+   "data-toggle=modal",
+   "data-backdrop=static",
+   "data-keyboard=false",
+   "data-dismiss=modal",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip"
+  ],
+  "razorReads": [
+   "@model eDNA.CommonData.Classes.CData_User",
+   "ViewBag.Title",
+   "Html.Partial(\"_UserDetails\", Model, new ViewDataDictionary(ViewData)",
+   "ViewBag.Status",
+   "ViewBag.STChangeReason",
+   "Scripts.Render(\"~/bundles/jqueryval\")"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [
+   "button#btnCancelStatus[button]",
+   "button#btnSaveStatus[button]"
+  ],
+  "scripts": [
+   "type=\"text/javascript\"| $(document).ready(function () { GetUserLookUps(); //CODESC: Set IsStatusUpdate item to null/empty string. localStorage.setItem('IsStatusUpdate', \"\"); document.getElementById(\"dvClose\").style.display = \"none\"; if (document.getElementById(\"UserID\").value == 0) { document.getElementById(\"lnkChangeStatus\").style.display = \"none\"; } else { $('#dvUserInformation').addClass('watermarkLight'); $(\"#dvUserInformation :input\").prop(\"readonly\", true); $('#EntityID').attr('disabled', true); $('#IsPassport').attr('disabled', true); } $(\"#MVCSiteMap\").show(); });"
+  ]
+ },
+ "UserEnrolment/Index.cshtml": {
+  "ids": [
+   "dvUserList",
+   "tblEUserList"
+  ],
+  "idTags": {
+   "dvUserList": [
+    "div"
+   ],
+   "tblEUserList": [
+    "table"
+   ]
+  },
+  "hiddenIds": [
+   "tblEUserList"
+  ],
+  "classes": [
+   "btn",
+   "btn-primary",
+   "col-md-1",
+   "col-md-7",
+   "col-xs-2",
+   "col-xs-3",
+   "col-xs-4",
+   "dropdown-btn",
+   "form-control",
+   "form-group",
+   "form-inline",
+   "glyphicon",
+   "glyphicon-plus",
+   "glyphicon-search",
+   "glyphicon-sort",
+   "lalign",
+   "panel-body",
+   "pull-right",
+   "row",
+   "table",
+   "table-fixed",
+   "table-hover",
+   "text-center"
+  ],
+  "names": [],
+  "htmlHelpers": [
+   "DropDownListFor(m => m.Type)",
+   "TextBoxFor(m => m.Value)",
+   "ValidationMessageFor(m => m.Value)"
+  ],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "onkeydown=return ValidateSearchValue(event);",
+   "javascript:SearchUser('UE')",
+   "javascript:GetNewUserLookUps('UE')",
+   "onclick=javascript: ShowBusyProcessing()",
+   "javascript:GetUserDetails(@eDNAUser.UserID)"
+  ],
+  "dataAttrs": [
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip",
+   "data-placement=bottom"
+  ],
+  "razorReads": [
+   "@model eDNA.WebPortal.Models.SearchObject",
+   "ViewBag.Title",
+   "ViewBag.SearchTypes",
+   "ViewBag.eDNAUsers",
+   "Session[\"p_strUSearchType\"]",
+   "Session[\"p_strUSearchValue\"]"
+  ],
+  "razorControl": [
+   "foreach (var eDNAUser in ((ViewBag.eDNAUsers as List<eDNA.CommonData.Classes.CData_User>) ?? new List<eDNA.CommonData.Classes.CData_User>()))"
+  ],
+  "areas": [],
+  "forms": [],
+  "scripts": [
+   "type=\"text/javascript\"| $(document).ready(function () { $(\"#tblEUserList\").tablesorter(); $(\"#MVCSiteMap\").show(); document.getElementById(\"Value\").focus(); if (l_SearchValue != '') { if (l_SearchType == '2') { $('#tblEUserList').show(); } } //Sindile: GetUserLookUps() triggers a redirect back to this same page if (sessionStorage.getItem(\"UserLookUpsLoaded\") !== \"true\") { GetUserLookUps(); sessionStorage.setItem(\"UserLookUpsLoaded\", \"true\"); } });",
+   "type=\"text/javascript\"| $(\"#Value\").on(\"keydown\", function (event) { if (event.which == 13) SearchUser('UE'); }); //CODESC: Clear search value if SearchType index changed. $(\"#Type\").change(function () { $('#Value').val(''); });",
+   "type=\"text/javascript\"| var l_SearchType = 'Convert.ToString(@HttpContext.Current.Session[\"p_strUSearchType\"])'; var l_SearchValue = 'Convert.ToString(@HttpContext.Current.Session[\"p_strUSearchValue\"])'; l_SearchType = l_SearchType.substring(l_SearchType.indexOf(\"(\", 0)); l_SearchValue = l_SearchValue.substring(l_SearchValue.indexOf(\"(\", 0)); l_SearchType = l_SearchType.substring(1, l_SearchType.indexOf(')')); l_SearchValue = l_SearchValue.substring(1, l_SearchValue.indexOf(')')); if (l_SearchValue != \"\") { $('#Value').val(l_SearchValue); $('#Type').val(l_SearchType); }",
+   "type=\"text/javascript\"| //var p_strSearchType = document.getElementById(\"Type\").value; function ValidateSearchValue(e) { var p_strSearchType = $('#Type :selected').text(); var p_strSearchValue = $(\"#Value\").val(); if (p_strSearchType == 'eDNA ID') { //if (p_strSearchValue.length >3) { // return false; //} //else { return ValidateNumber(event); //} } if (p_strSearchType == 'Identification Number') { return ValidateNumber(event); //if (p_strSearchValue.length > 16) { // return false; //} } if (p_strSearchType == 'Surname') { return ValidateSurnameText(event); } }"
+  ]
+ },
+ "UserEnrolmentDetails/Index.cshtml": {
+  "ids": [
+   "ContinueToPki",
+   "UserData",
+   "btnIssueNewSmartcard",
+   "btnContinueToBiometrics",
+   "SavedBiometricCheckStatus"
+  ],
+  "idTags": {
+   "ContinueToPki": [
+    "input"
+   ],
+   "btnIssueNewSmartcard": [
+    "button"
+   ],
+   "btnContinueToBiometrics": [
+    "button"
+   ],
+   "SavedBiometricCheckStatus": [
+    "span"
+   ]
+  },
+  "hiddenIds": [
+   "btnIssueNewSmartcard"
+  ],
+  "classes": [
+   "btn",
+   "btn-primary",
+   "glyphicon",
+   "glyphicon-circle-arrow-right",
+   "glyphicon-credit-card",
+   "glyphicon-remove",
+   "panel-footer",
+   "pull-right",
+   "text-muted"
+  ],
+  "names": [],
+  "htmlHelpers": [
+   "AntiForgeryToken()",
+   "Partial(\"_UserDetails\")"
+  ],
+  "urlActions": [
+   "\"Index\", \"UserEnrolment\""
+  ],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "onclick=javascript:ShowBusyProcessing()",
+   "onclick=IssueNewSmartcard()",
+   "onclick=CreateUser('UE')"
+  ],
+  "dataAttrs": [
+   "data-toggle=tooltip",
+   "data-toggle=tooltip"
+  ],
+  "razorReads": [
+   "@model eDNA.CommonData.Classes.CData_User",
+   "ViewBag.Title",
+   "ViewBag.ContinueToPki",
+   "Html.Partial(\"_UserDetails\", Model)",
+   "Scripts.Render(\"~/bundles/jqueryval\")"
+  ],
+  "razorControl": [
+   "if (Model != null && Model.UserID > 0 && !Model.IsSuspended)",
+   "if (Model != null && Model.UserID > 0 && !Model.IsSuspended)"
+  ],
+  "areas": [],
+  "forms": [
+   "input#ContinueToPki[hidden]",
+   "button#btnIssueNewSmartcard[button]",
+   "button#btnContinueToBiometrics[button]"
+  ],
+  "scripts": [
+   "type=\"text/javascript\"| $(document).ready(function () { $('#UserEnromentWizard').show(); });"
+  ]
+ },
+ "UserManagement/Index.cshtml": {
+  "ids": [
+   "dvUserListContainer",
+   "dvDummyUserList",
+   "UserDetailsPlaceHolder"
+  ],
+  "idTags": {
+   "dvUserListContainer": [
+    "div"
+   ],
+   "dvDummyUserList": [
+    "div"
+   ],
+   "UserDetailsPlaceHolder": [
+    "div"
+   ]
+  },
+  "hiddenIds": [],
+  "classes": [
+   "btn",
+   "btn-primary",
+   "col-md-1",
+   "col-md-3",
+   "col-md-6",
+   "dropdown-btn",
+   "form-control",
+   "form-group",
+   "form-inline",
+   "glyphicon",
+   "glyphicon-import",
+   "glyphicon-plus",
+   "glyphicon-search",
+   "glyphicon-trash",
+   "list-group",
+   "list-group-item",
+   "panel-body",
+   "pull-right",
+   "row",
+   "scroll",
+   "table",
+   "table-hover",
+   "text-center"
+  ],
+  "names": [],
+  "htmlHelpers": [
+   "DropDownListFor(m => m.Type)",
+   "TextBoxFor(m => m.Value)",
+   "ValidationMessageFor(m => m.Value)"
+  ],
+  "urlActions": [
+   "\"Index\", \"UserManagementBulkImport\""
+  ],
+  "ajaxUrls": [
+   "'/eDNA.WebPortal/UserManagement/ClearSearchResults'"
+  ],
+  "jsCalls": [
+   "onkeydown=return ValidateSearchValue(event);",
+   "javascript:SearchUser('UM')",
+   "onclick=ClearSearchResult()",
+   "javascript:GetNewUserLookUps('UM')",
+   "onclick=javascript: ShowBusyProcessing()",
+   "javascript:ClearSearchResult()",
+   "onclick=javascript:ShowBusyProcessing()"
+  ],
+  "dataAttrs": [
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-placement=bottom",
+   "data-toggle=tooltip"
+  ],
+  "razorReads": [
+   "@model eDNA.WebPortal.Models.SearchObject",
+   "ViewBag.Title",
+   "ViewBag.SearchTypes",
+   "Session[\"p_strUSearchType\"]",
+   "Session[\"p_strUSearchValue\"]"
+  ],
+  "razorControl": [],
+  "areas": [],
+  "forms": [],
+  "scripts": [
+   "type=\"text/javascript\"| $(document).ready(function ($) { //CODESC: Hide bulk import controls on form load $(\"#dvBulkUserImport\").hide(); $(\"#tblUserList\").tablesorter(); $(\"#MVCSiteMap\").show(); //CODESC: Set IsStatusUpdate item to null/empty string. localStorage.setItem('IsStatusUpdate', \"\"); if (l_SearchValue != '') { if (l_SearchType == '2') { $('#dvUserList').show(); $('#tblUserList').show(); $('#dvDummyUserList').hide(); } } });",
+   "type=\"text/javascript\"| $(window).on('load', function () { if (localStorage.getItem(\"m_isUserUpdate\") == 'CrOrUpd') { Notify(\"User Management\" + \"<br>\", \"User Created/Updated Successfully!!\"); localStorage.setItem(\"m_isUserUpdate\", 'False'); } })",
+   "type=\"text/javascript\"| $(\"#Value\").on(\"keydown\", function (event) { if (event.which == 13) SearchUser('UM'); }); //CODESC: Clear search value if SearchType index changed. $(\"#Type\").change(function () { $('#Value').val(''); });",
+   "type=\"text/javascript\"| var l_SearchType = 'Convert.ToString(@HttpContext.Current.Session[\"p_strUSearchType\"])'; var l_SearchValue = 'Convert.ToString(@HttpContext.Current.Session[\"p_strUSearchValue\"])'; l_SearchType = l_SearchType.substring(l_SearchType.indexOf(\"(\", 0)); l_SearchValue = l_SearchValue.substring(l_SearchValue.indexOf(\"(\", 0)); l_SearchType = l_SearchType.substring(1, l_SearchType.indexOf(')')); l_SearchValue = l_SearchValue.substring(1, l_SearchValue.indexOf(')')); if (l_SearchValue != \"\") { $('#Value').val(l_SearchValue); $('#Type').val(l_SearchType); }",
+   "type=\"text/javascript\"| function ClearSearchResult() { $.ajax({ url: '/eDNA.WebPortal/UserManagement/ClearSearchResults', type: \"POST\", success: function (data) { location = data; }, }); HideBusyProcessing(); }",
+   "type=\"text/javascript\"| function ValidateSearchValue(e) { var p_strSearchType = $('#Type :selected').text(); var p_strSearchValue = $(\"#Value\").val(); if (p_strSearchType == 'eDNA ID') { return ValidateNumber(event); } if (p_strSearchType == 'Identification Number') { return ValidateNumber(event); } if (p_strSearchType == 'Surname') { return ValidateSurnameText(event); } }",
+   "type=\"text/javascript\"| var l_lstSmartcardSLNos; var l_lblTotalCount; l_lstSmartcardSLNos = document.getElementById('lstSmartcardSLNos'); l_lblTotalCount = document.getElementById('lblTotal'); $(document).ready(function () { if (isAPIAvailable()) { $('#files').bind('change', UploadCSVFile); } }); // CODESC: for the various File API support. function isAPIAvailable() { if (window.File && window.FileReader && window.FileList && window.Blob) { // CODESC: Great success! All the File APIs are supported. return true; } } // CODESC: Read and populate the CSV content to the list box. function UploadCSVFile(evt) { var l_files = evt.target.files; var l_file = l_files[0]; m_SCImportFileName = l_file.name; var l_Filereader = new FileReader(); l_Filereader.readAsText(l_file); l_Filereader.onload = function (event) { var l_Split = event.target.result; var l_str_array = l_Split.split(','); for (var loop = 0; loop < l_str_array.length; loop++) { var tempOpt = new Option(l_str_array[loop], l_str_array[loop]); l_lstSmartcardSLNos.options.add(tempOpt); } l_lblTotalCount.innerText = \"Total - \" + l_lstSmartcardSLNos.childElementCount; //MessageBox(\"Bulk Import\", l_lstSmartcardSLNos.childElementCount + \" - \" + \" Smartcards Imported Successfully\", m_MessageType.Information); m_WebMessageLogger.UserMessage(\"eDNA Message:- \" + l_lstSmartcardSLNos.childElementCount + \" - \" + \" Smartcards Imported Successfully\", 'Black'); //CODESC: Display Get status controls $(\"#chkGetStatus\").show(); $(\"#lblGetStatus\").show(); }; m_WebMessageLogger.appendError(\"Unable to read \" + l_file.fileName); }"
+  ]
+ },
+ "UserManagementBulkImport/Index.cshtml": {
+  "ids": [
+   "files",
+   "dvBulkImportUsers",
+   "tblImportUserList",
+   "dvUserImportAction"
+  ],
+  "idTags": {
+   "files": [
+    "input"
+   ],
+   "dvBulkImportUsers": [
+    "div"
+   ],
+   "tblImportUserList": [
+    "table"
+   ],
+   "dvUserImportAction": [
+    "div"
+   ]
+  },
+  "hiddenIds": [
+   "dvBulkImportUsers",
+   "dvUserImportAction"
+  ],
+  "classes": [
+   "btn",
+   "btn-primary",
+   "col-md-1",
+   "col-md-2",
+   "col-md-6",
+   "col-xs-2",
+   "col-xs-3",
+   "col-xs-4",
+   "form-group",
+   "glyphicon",
+   "glyphicon-circle-arrow-left",
+   "glyphicon-hand-up",
+   "glyphicon-sort",
+   "glyphicon-trash",
+   "lalign",
+   "panel-body",
+   "panel-footer",
+   "pull-left",
+   "pull-right",
+   "table",
+   "table-fixed-import",
+   "table-hover",
+   "text-center"
+  ],
+  "names": [
+   "files[]"
+  ],
+  "htmlHelpers": [],
+  "urlActions": [
+   "\"Index\",\"UserManagement\""
+  ],
+  "ajaxUrls": [],
+  "jsCalls": [
+   "javascript:ClearImportedList()",
+   "onclick=javascript:ShowBusyProcessing();",
+   "javascript:ImportUser('UM')",
+   "onclick=javascript:ShowBusyProcessing();"
+  ],
+  "dataAttrs": [
+   "data-placement=bottom",
+   "data-toggle=tooltip",
+   "data-toggle=tooltip"
+  ],
+  "razorReads": [
+   "ViewBag.Title",
+   "ViewBag.eDNAUsers"
+  ],
+  "razorControl": [
+   "foreach (var eDNAUser in ((ViewBag.eDNAUsers as List<eDNA.CommonData.Classes.CData_User>) ?? new List<eDNA.CommonData.Classes.CData_User>()))"
+  ],
+  "areas": [],
+  "forms": [
+   "input#files[file]"
+  ],
+  "scripts": [
+   "type=\"text/javascript\"| $(document).ready(function ($) { document.getElementById(\"dvClose\").style.display = \"none\"; $(\"#tblImportUserList\").tablesorter(); $(\"#MVCSiteMap\").show(); if (localStorage.getItem(\"m_isUserUpdate\") == 'CrOrUpd') { Notify(\"User Management\" + \"<br>\", \"User Created/Updated Successfully!!\"); localStorage.setItem(\"m_isUserUpdate\", 'False'); } });",
+   "type=\"text/javascript\"| $(document).ready(function () { if (isAPIAvailable()) { $('#files').bind('change', UploadCSVFile); } }); // CODESC: for the various File API support. function isAPIAvailable() { if (window.File && window.FileReader && window.FileList && window.Blob) { // CODESC: Great success! All the File APIs are supported. return true; } } // CODESC: Read and populate the CSV content to the list box. function UploadCSVFile(evt) { var l_files = evt.target.files; var l_file = l_files[0]; var l_intTotalUsers = 0; var l_Filereader = new FileReader(); l_Filereader.readAsText(l_file); l_Filereader.onload = function (event) { var l_Split = event.target.result; var l_str_array = l_Split.split(','); l_intTotalUsers = l_str_array.length; for (var loop = 0; loop < l_str_array.length; loop++) { var l_arrUserDetails = l_str_array[loop].split(';'); var l_isPassport = ''; if (l_arrUserDetails[2] == 1) { l_isPassport = 'True' } else { l_isPassport = 'False' } $(\"#dvDummyBulkUserList\").hide(); $(\"#dvBulkImportUsers\").show(); $('#tblImportUserList').append( '<tr style=\"text-align:left\"><td class=\"lalign col-xs-3\" style=\"width:22.5%\">' + l_arrUserDetails[0] + '<\\/td><td class=\"lalign col-xs-3\" style=\"width:22.5%\">' + l_arrUserDetails[1] + '<\\/td><td class=\"lalign col-xs-2\" style=\"width:18%\">' + l_isPassport + '<\\/td><td class=\"lalign col-xs-2\" style=\"width:19%\">' + l_arrUserDetails[3] + '<\\/td><td class=\"lalign col-xs-4\" style=\"width:18%\">' + l_arrUserDetails[4] + '<\\/td></tr>'); $(\"#dvBulkImportUsers\").show(); $(\"#dvUserImportAction\").show(); } m_WebMessageLogger.UserMessage(\"eDNA Message:- \" + l_intTotalUsers + \" \" + \"Users Imported Successfully\", 'Black'); }; m_WebMessageLogger.appendError(\"Unable to read \" + l_file.fileName); }",
+   "type=\"text/javascript\"| function ClearImportedList() { $(\"#files\").val(\"\"); var l_tblImportUserList = document.getElementById(\"tblImportUserList\"); var l_iRowsCount = l_tblImportUserList.rows.length; for (var x = l_iRowsCount - 2; x > 0; x--) { l_tblImportUserList.deleteRow(x); } $(\"#dvBulkImportUsers\").hide(); $(\"#dvUserImportAction\").hide(); m_WebMessageLogger.UserMessage(\"eDNA Message:- UserManagementBulkImport\", 'Black'); }"
+  ]
+ },
+ "_ViewStart.cshtml": {
+  "ids": [],
+  "idTags": {},
+  "hiddenIds": [],
+  "classes": [],
+  "names": [],
+  "htmlHelpers": [],
+  "urlActions": [],
+  "ajaxUrls": [],
+  "jsCalls": [],
+  "dataAttrs": [],
+  "razorReads": [],
+  "razorControl": [],
+  "areas": [],
+  "forms": [],
+  "scripts": []
+ }
+}

@@ -1,0 +1,138 @@
+﻿@model eDNA.WebPortal.Models.SearchObject
+@{
+    ViewBag.Title = "User Enrolment";
+}
+<div class="panel-body ed-page">
+    <div class="ed-page-header">
+        <div>
+            <h2>Search eDNA User</h2>
+            <p>Find an existing user to update their enrolment, or create a new user to start one.</p>
+        </div>
+    </div>
+
+    <div class="ed-card">
+        <div class="ed-card-body">
+            <form class="form-inline ed-searchbar" role="search">
+                <div class="form-group">
+                    @Html.DropDownListFor(m => m.Type, ViewBag.SearchTypes as List<SelectListItem>, new { @class = "dropdown-btn", aria_label = "Search by" })
+                </div>
+                @Html.TextBoxFor(m => m.Value, new { @class = "form-control", placeholder = "Enter Search Value", tabindex = 1, onkeydown = "return ValidateSearchValue(event);", autocomplete = "off", aria_label = "Search value" })
+                @Html.ValidationMessageFor(m => m.Value)
+                <a href="javascript:SearchUser('UE')" class="btn btn-primary" data-toggle="tooltip" title="Search"><span class="glyphicon glyphicon-search"></span> Search</a>
+                <a href="javascript:GetNewUserLookUps('UE')" onclick="javascript: ShowBusyProcessing()" class="btn btn-primary ed-btn-success" data-toggle="tooltip" title="Create New User"><span class="glyphicon glyphicon-plus"></span> Create New User</a>
+            </form>
+        </div>
+    </div>
+
+    <div id="dvUserList" class="ed-card" style="overflow-y:auto;">
+        <div class="form-group" style="margin:0">
+            <table class="table table-hover table-fixed" id="tblEUserList" style="display:none;margin:0">
+                <caption class="ed-sr-only">User List</caption>
+                <thead>
+                    <tr>
+                        <th class="col-xs-3" style="width:20%">Name<span class="pull-right glyphicon glyphicon-sort"></span></th>
+                        <th class="col-xs-3" style="width:20%">Surname<span class="pull-right glyphicon glyphicon-sort"></span></th>
+                        <th class="col-xs-2" style="width:18%">ID Number<span class="pull-right glyphicon glyphicon-sort"></span></th>
+                        <th class="col-xs-4" style="width:32%">Entity<span class="pull-right glyphicon glyphicon-sort"></span></th>
+                        <th class="col-xs-2" style="width:10%">eDNA ID<span class="pull-right glyphicon glyphicon-sort"></span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var eDNAUser in ((ViewBag.eDNAUsers as List<eDNA.CommonData.Classes.CData_User>) ?? new List<eDNA.CommonData.Classes.CData_User>()))
+                    {
+                        <tr>
+                            <td class="lalign col-xs-3" style="width:20%">@eDNAUser.FirstName</td>
+                            <td class="lalign col-xs-3" style="width:20%">@eDNAUser.Surname</td>
+                            <td class="lalign col-xs-2" style="width:18%">@eDNAUser.IDNumber</td>
+                            <td class="lalign col-xs-4" style="width:32%">@eDNAUser.Entity</td>
+                            <td class="lalign col-xs-2" style="width:10%">
+                                <a href="javascript:GetUserDetails(@eDNAUser.UserID)" data-toggle="tooltip" title="View user details" data-placement="bottom">@eDNAUser.UserID</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+@*CODESC: Hide url display in bottom left on mouse over*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tblEUserList").tablesorter();
+        $("#MVCSiteMap").show();
+        document.getElementById("Value").focus();
+        if (l_SearchValue != '') {
+            if (l_SearchType == '2') {
+                $('#tblEUserList').show();
+            }
+        }
+
+        //Sindile: GetUserLookUps() triggers a redirect back to this same page
+
+        if (sessionStorage.getItem("UserLookUpsLoaded") !== "true") {
+            GetUserLookUps();
+           sessionStorage.setItem("UserLookUpsLoaded", "true");
+
+        }
+    });
+</script>
+
+@*CODESC: Search user on Enter key press event.*@
+<script type="text/javascript">
+    $("#Value").on("keydown", function (event) {
+        if (event.which == 13)
+            SearchUser('UE');
+    });
+    //CODESC: Clear search value if SearchType index changed.
+    $("#Type").change(function () {
+        $('#Value').val('');
+    });
+</script>
+
+@*CODESC: Dynamically display the search type and value in the respective control*@
+<script type="text/javascript">
+   var l_SearchType = 'Convert.ToString(@HttpContext.Current.Session["p_strUSearchType"])';
+   var l_SearchValue = 'Convert.ToString(@HttpContext.Current.Session["p_strUSearchValue"])';
+
+   l_SearchType = l_SearchType.substring(l_SearchType.indexOf("(", 0));
+   l_SearchValue = l_SearchValue.substring(l_SearchValue.indexOf("(", 0));
+
+   l_SearchType = l_SearchType.substring(1, l_SearchType.indexOf(')'));
+   l_SearchValue = l_SearchValue.substring(1, l_SearchValue.indexOf(')'));
+
+   if (l_SearchValue != "") {
+      $('#Value').val(l_SearchValue);
+      $('#Type').val(l_SearchType);
+   }
+</script>
+
+<script type="text/javascript">
+    //var p_strSearchType = document.getElementById("Type").value;
+
+    function ValidateSearchValue(e) {
+
+        var p_strSearchType = $('#Type :selected').text();
+        var p_strSearchValue = $("#Value").val();
+
+        if (p_strSearchType == 'eDNA ID') {
+            //if (p_strSearchValue.length >3) {
+            //   return false;
+            //}
+            //else {
+            return ValidateNumber(event);
+            //}
+        }
+        if (p_strSearchType == 'Identification Number') {
+            return ValidateNumber(event);
+            //if (p_strSearchValue.length > 16) {
+            //   return false;
+            //}
+        }
+        if (p_strSearchType == 'Surname') {
+            return ValidateSurnameText(event);
+        }
+    }
+
+</script>

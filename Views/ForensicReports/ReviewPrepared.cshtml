@@ -1,0 +1,81 @@
+@{
+    ViewBag.Title = "Review Forensic Report";
+    int jobId = Convert.ToInt32(ViewBag.JobID);
+    string sha256 = Convert.ToString(ViewBag.DraftSha256);
+}
+<style>
+    #forensicReview { margin-bottom: 80px; }
+    #forensicReview .approval-panel { background: #eef6fc; border: 2px solid #337ab7; border-radius: 5px; padding: 18px; margin-bottom: 20px; }
+    #forensicReview .review-confirmation { display: flex; align-items: flex-start; gap: 12px; background: white; padding: 14px; border: 1px solid #94b9d5; border-radius: 4px; cursor: pointer; font-size: 16px; line-height: 1.5; }
+    #forensicReview #reviewConfirmed { position: static; flex: 0 0 22px; width: 22px; height: 22px; margin: 2px 0 0; cursor: pointer; }
+    #forensicReview #reviewConfirmed:focus { outline: 3px solid #337ab7; outline-offset: 3px; }
+    #forensicReview .approval-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 12px; }
+</style>
+<div id="forensicReview" class="panel panel-default">
+    <div class="panel-heading"><h3 class="panel-title">Review forensic evidence report draft</h3></div>
+    <div class="panel-body">
+        <div class="alert alert-warning"><strong>DRAFT - NOT EVIDENCE.</strong> Review every page before approval.</div>
+        <p><a class="btn btn-info btn-lg" target="_blank" rel="noopener noreferrer"
+              href="@Url.Action("DraftPdfPrepared", new { jobId = jobId })">Open watermarked DRAFT preview</a></p>
+        <p>The preview is marked DRAFT on every page, including saved or printed copies.</p>
+        <p>Review every page of the DRAFT preview, then return here to approve. The preview is generated from the exact PDF held on the server, with only a DRAFT watermark added.
+            Your approval authorizes signing of that PDF without the watermark. The clean PDF is available only after signing succeeds.</p>
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmApproveForensicDraft" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="approval-panel" aria-labelledby="approvalHeading">
+            <h4 id="approvalHeading" style="margin-top:0">Next: review the PDF, then approve</h4>
+            <p>1. Open and review the watermarked preview in a separate tab. 2. Return here and tick the confirmation.
+                3. Click <strong>Approve with Authentication Application</strong> and complete the biometric prompt.</p>
+            <label class="review-confirmation" for="reviewConfirmed">
+                <input type="checkbox" id="reviewConfirmed" required />
+                <span>I have reviewed the watermarked DRAFT preview and approve the matching PDF without the DRAFT watermark for organizational signing and release to the selected recipient.</span>
+            </label>
+            <p>Approval will use the same biometric you used to log in.</p>
+            <div class="approval-actions">
+            <button id="approveForensicDraft" type="submit" class="btn btn-primary btn-lg" disabled aria-describedby="approvalRequirements">
+                <span class="glyphicon glyphicon-lock"></span> Approve with Authentication Application
+            </button>
+            <a class="btn btn-default" href="@Url.Action("Index", "AuditReport")">Review later / back to reports</a>
+            </div>
+            <p id="approvalRequirements" role="status" aria-live="polite" style="margin-top:10px">Tick the review confirmation to enable approval.</p>
+            <p style="margin-top:12px;margin-bottom:0">After your biometric approval, the report is queued for organizational signing. It is not a completed signed report yet.</p>
+            </div>
+        }
+        <p style="margin-top:12px"><strong>PDF to be signed SHA-256:</strong> <code style="overflow-wrap:anywhere">@sha256</code></p>
+        <p>Your biometric approval and organizational signing are separate.
+            Development certification is not publicly trusted. A printed copy does not carry a cryptographically verifiable digital signature.</p>
+    </div>
+</div>
+<script>
+function updateForensicApprovalAvailability() {
+    var confirmed = $('#reviewConfirmed').prop('checked');
+    var ready = confirmed;
+    $('#approveForensicDraft').prop('disabled', !ready);
+    $('#approvalRequirements').text(ready
+        ? 'Ready: click Approve with Authentication Application to continue.'
+        : 'Tick the review confirmation to enable approval.');
+}
+$('#reviewConfirmed').on('change', updateForensicApprovalAvailability);
+updateForensicApprovalAvailability();
+$('#frmApproveForensicDraft').on('submit', function (event) {
+    event.preventDefault();
+    updateForensicApprovalAvailability();
+    if ($('#approveForensicDraft').prop('disabled')) return;
+    ShowBusyProcessing();
+    $.ajax({
+        type: 'POST', url: '@Url.Action("BuildDraftApproval")',
+        data: { __RequestVerificationToken: $(this).find('[name=__RequestVerificationToken]').val(),
+                jobId: @jobId, draftSha256: '@sha256',
+                reviewConfirmed: $('#reviewConfirmed').prop('checked') },
+        success: function (request) {
+            localStorage.setItem('forensicApprovalJobID', '@jobId');
+            ProcessForensicAuthentication(request);
+        },
+        error: function (response) {
+            HideBusyProcessing();
+            Notify('Forensic report approval', (response.responseJSON || {}).error || 'Approval could not be started.');
+        }
+    });
+});
+</script>

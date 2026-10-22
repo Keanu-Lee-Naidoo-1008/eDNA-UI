@@ -1,0 +1,111 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+}
+
+@model List<eDNA.WebPortal.Models.CMenuData>
+
+<div class="content-wrapper text-right">
+    <button type="button" class="btn btn-default" onclick="ForensicReportNotifications_Request()"
+            title="Check for completed forensic reports using your current session">
+        <span class="glyphicon glyphicon-bell" aria-hidden="true"></span> Check report notifications
+    </button>
+</div>
+
+<div class="content-wrapper" id="dvWmenu" style="display:none">
+    @Html.Partial("_WIndex");
+</div>
+<div class="content-wrapper" id="dvGmenu" style="display:none">
+    @Html.Partial("_GIndex");
+</div>
+<div class="content-wrapper" id="dvLmenu" style="display:none">
+    @Html.Partial("_LIndex");
+</div>
+
+@*CODESC: Get the UserPreference from session variable.*@
+<script type="text/javascript">
+   var MenuSelection = '@Convert.ToString(HttpContext.Current.Session["UserPreference"])';
+   if (MenuSelection == 'Wheel') {
+       document.getElementById("dvWmenu").style.display = "";
+   }
+    if (MenuSelection == 'Grid') {
+      document.getElementById("dvGmenu").style.display = "";
+    }
+    if (MenuSelection == 'Classic') {
+      document.getElementById("dvLmenu").style.display = "";
+    }
+</script>
+
+@*CODESC: Set localStorage item "isSearchTransversal" to null*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        localStorage.setItem("isSearchTransversal", '');
+        localStorage.setItem("m_isUserUpdate", '');
+        // Notification metadata uses the signed-in session without biometric verification.
+        // Start it only from the button,
+        // since this view is loaded again whenever a menu or submenu is opened.
+    });
+</script>
+
+<script type="text/javascript">
+    function ForensicReportNotifications_Request() {
+        ShowBusyProcessing('Checking report notifications', 'Looking for reports allocated to your eDNA user.');
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            traditional: true,
+            url: "/eDNA.WebPortal/Base/HandleMessage",
+            data: JSON.stringify({ p_strMessage: "1;16", p_strOption: "191" }),
+            contentType: "application/json; charset=utf-8",
+            success: function (authenticationRequest) {
+                ProcessWebSocketRequest(authenticationRequest, m_CurrentController);
+            },
+            error: function () {
+                HideBusyProcessing();
+                Notify('Report notifications', 'Could not check notifications. Please try again.', 'error');
+            }
+        });
+    }
+</script>
+
+@*CODESC: Redirect to the selected page*@
+<script type="text/javascript">
+    function Redirect(p_iMenuID, p_strMVCView, p_strMenuCaption) {
+        // Display the busy indicator before any request is sent so every menu
+        // selection gives immediate feedback while its destination is resolved.
+        ShowBusyProcessing();
+
+        if (p_strMVCView != 'None') {
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                traditional: true,
+                url: "/eDNA.WebPortal/Home/RedirectToSelectedPage",
+                data: JSON.stringify({ 'p_iMenuID': p_iMenuID, 'p_strMVCView': p_strMVCView, 'p_strMenuCaption': p_strMenuCaption }),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    location = data;
+                },
+                error: function () {
+                    HideBusyProcessing();
+                }
+            });
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                traditional: true,
+                url: "/eDNA.WebPortal/Base/HandleMessage",
+                data: JSON.stringify({ 'p_strMessage': '1' + ';16' + ';' + p_iMenuID, 'p_strOption': '64', 'p_strJSonData': p_strMenuCaption }),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    //CODESC: Process WebSocket Request function with the passing values process.
+                    ProcessWebSocketRequest(data, m_CurrentController);
+                },
+                error: function () {
+                    HideBusyProcessing();
+                }
+            });
+        }
+    }
+</script>

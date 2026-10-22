@@ -1,0 +1,150 @@
+﻿@{
+    ViewBag.Title = "User Management - Bulk Import";
+}
+<div class="panel-body">
+    <div class="col-md-1" style="width:20%">
+        <label style="color:transparent">Hello</label>
+    </div>
+    <div class="col-md-6" style="width:60%;overflow-y:auto;">
+        <div>
+            <h4 class="pull-left">Select User File(.csv)</h4>
+            <div class="col-md-2" style="width:65%;">
+                <div style="border: 1px solid #000000;">
+                    <input type="file" accept=".csv" id="files" name="files[]" multiple />
+                </div>
+            </div>
+        </div>
+        <a href="javascript:ClearImportedList()" class="btn btn-primary" data-placement="bottom" data-toggle="tooltip" title="Clear Users List"><span class="glyphicon glyphicon-trash"></span> Clear User List</a>
+        <div id="dvBulkImportUsers" class="form-group" style="display:none">
+            <table class="table table-hover table-fixed-import" id="tblImportUserList">
+                <thead style="background-color:steelblue;color:white;">
+                    <tr>
+                        <th class="col-xs-3" style="width:22.5%">Name<span class="pull-right glyphicon glyphicon-sort"></span></th>
+                        <th class="col-xs-3" style="width:22.5%">Surname<span class="pull-right glyphicon glyphicon-sort"></span></th>
+                        <th class="col-xs-2" style="width:18%">Is Passport<span class="pull-right glyphicon glyphicon-sort"></span></th>
+                        <th class="col-xs-2" style="width:19%">ID Number<span class="pull-right glyphicon glyphicon-sort"></span></th>
+                        <th class="col-xs-4" style="width:18%">Entity<span class="pull-right glyphicon glyphicon-sort"></span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var eDNAUser in ((ViewBag.eDNAUsers as List<eDNA.CommonData.Classes.CData_User>) ?? new List<eDNA.CommonData.Classes.CData_User>()))
+                    {
+                        <tr style="font-size:medium">
+                            <td class="lalign col-xs-3" style="width:22.5%">@eDNAUser.FirstName</td>
+                            <td class="lalign col-xs-3" style="width:22.5%">@eDNAUser.Surname</td>
+                            <td class="lalign col-xs-2" style="width:18%">@eDNAUser.IsPassport</td>
+                            <td class="lalign col-xs-2" style="width:19%">@eDNAUser.IDNumber</td>
+                            <td class="lalign col-xs-4" style="width:18%">@eDNAUser.Entity</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot style="background-color:steelblue;color:white">
+                    <tr style="font-size:medium">
+                        <td class="text-center" colspan="5">User List</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<div id="dvUserImportAction" class="panel-footer pull-right" style="display:none">
+    <table>
+        <tr style="box-shadow: 15px 15px 15px 5px whitesmoke;border: 1px">
+            <td>
+                <a href="@Url.Action("Index","UserManagement")" onclick="javascript:ShowBusyProcessing();" class="btn btn-primary" data-toggle="tooltip" title="Redirect to User Management" style="width:140px"><span class="glyphicon glyphicon-circle-arrow-left"></span>Cancel</a>
+            </td>
+            <td width="70px"></td>
+            <td>
+                <a href="javascript:ImportUser('UM')" onclick="javascript:ShowBusyProcessing();" class="btn btn-primary"><span class="glyphicon glyphicon-hand-up"></span> Sign and Save</a>
+            </td>
+        </tr>
+    </table>
+</div>
+
+@*CODESC: Form load events*@
+<script type="text/javascript">
+    $(document).ready(function ($) {
+        document.getElementById("dvClose").style.display = "none";
+        $("#tblImportUserList").tablesorter();
+        $("#MVCSiteMap").show();
+
+        if (localStorage.getItem("m_isUserUpdate") == 'CrOrUpd') {
+            Notify("User Management" + "<br>", "User Created/Updated Successfully!!");
+            localStorage.setItem("m_isUserUpdate", 'False');
+        }
+    });
+</script>
+
+@*CODESC: Select the .csv file and populate the User List table.*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        if (isAPIAvailable()) {
+            $('#files').bind('change', UploadCSVFile);
+        }
+    });
+
+    // CODESC:  for the various File API support.
+    function isAPIAvailable() {
+        if (window.File && window.FileReader && window.FileList && window.Blob) {
+            // CODESC: Great success! All the File APIs are supported.
+            return true;
+        }
+    }
+
+    // CODESC: Read and populate the CSV content to the list box.
+    function UploadCSVFile(evt) {
+        var l_files = evt.target.files;
+        var l_file = l_files[0];
+        var l_intTotalUsers = 0;
+
+        var l_Filereader = new FileReader();
+        l_Filereader.readAsText(l_file);
+
+        l_Filereader.onload = function (event) {
+            var l_Split = event.target.result;
+            var l_str_array = l_Split.split(',');
+            l_intTotalUsers = l_str_array.length;
+            for (var loop = 0; loop < l_str_array.length; loop++) {
+                var l_arrUserDetails = l_str_array[loop].split(';');
+                var l_isPassport = '';
+                if (l_arrUserDetails[2] == 1) {
+                    l_isPassport = 'True'
+                }
+                else {
+                    l_isPassport = 'False'
+                }
+                $("#dvDummyBulkUserList").hide();
+                $("#dvBulkImportUsers").show();
+
+                $('#tblImportUserList').append(
+                    '<tr style="text-align:left"><td class="lalign col-xs-3" style="width:22.5%">' + l_arrUserDetails[0] +
+                    '<\/td><td class="lalign col-xs-3" style="width:22.5%">' + l_arrUserDetails[1] +
+                    '<\/td><td class="lalign col-xs-2" style="width:18%">' + l_isPassport +
+                    '<\/td><td class="lalign col-xs-2" style="width:19%">' + l_arrUserDetails[3] +
+                    '<\/td><td class="lalign col-xs-4" style="width:18%">' + l_arrUserDetails[4] + '<\/td></tr>');
+
+                $("#dvBulkImportUsers").show();
+                $("#dvUserImportAction").show();
+            }
+            m_WebMessageLogger.UserMessage("eDNA Message:- " + l_intTotalUsers + " " + "Users Imported Successfully", 'Black');
+        };
+        m_WebMessageLogger.appendError("Unable to read " + l_file.fileName);
+    }
+</script>
+
+@*CODESC: Clear User List table*@
+<script type="text/javascript">
+    function ClearImportedList() {
+        $("#files").val("");
+
+        var l_tblImportUserList = document.getElementById("tblImportUserList");
+        var l_iRowsCount = l_tblImportUserList.rows.length;
+        for (var x = l_iRowsCount - 2; x > 0; x--) {
+            l_tblImportUserList.deleteRow(x);
+        }
+
+        $("#dvBulkImportUsers").hide();
+        $("#dvUserImportAction").hide();
+        m_WebMessageLogger.UserMessage("eDNA Message:- UserManagementBulkImport", 'Black');
+    }
+</script>

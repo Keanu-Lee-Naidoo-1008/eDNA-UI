@@ -1,0 +1,236 @@
+@model eDNA.WebPortal.Models.CForensicReportRequest
+@using Lawtrust.Common
+@{
+    ViewBag.Title = "Request Forensic Report";
+}
+
+<div class="panel-body-details forensic-request-page">
+    <div class="panel panel-default forensic-request-panel">
+        <div class="panel-heading">
+            <h3 class="panel-title">@(ViewBag.PreviewOnly == true ? "Prepare forensic draft preview" : "Generate Forensic Evidence Report")</h3>
+        </div>
+        <div class="panel-body">
+            <p class="text-muted">
+                Confirm the selected immutable audit record and recipient, then authenticate
+                the draft request. You will review the generated PDF before separately approving
+                its final signature and release.
+            </p>
+
+            <div class="alert alert-info" role="status">
+                <strong>Selected Audit ID:</strong>
+                <span class="forensic-audit-id">@Model.AuditID.ToString("D")</span>
+            </div>
+
+            <form id="frmForensicReportRequest" autocomplete="off">
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.AuditID)
+                @Html.Hidden("returnToDetail", Convert.ToBoolean(ViewBag.ReturnToDetail) ? "true" : "false")
+
+                <div class="form-group required">
+                    @Html.LabelFor(model => model.RecipientUserID)
+                    <div class="input-group">
+                        @Html.TextBoxFor(model => model.RecipientUserID, new
+                        {
+                            @class = "form-control",
+                            @readonly = "readonly",
+                            aria_describedby = "forensicRecipientHelp"
+                        })
+                        <span class="input-group-btn">
+                            <button id="cmdSelectForensicRecipient" type="button"
+                                    class="btn btn-default" data-toggle="modal"
+                                    data-target="#mdForensicRecipient">
+                                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                Select recipient
+                            </button>
+                        </span>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.RecipientUserID, "", new { @class = "text-danger" })
+                    <p id="forensicRecipientHelp" class="help-block">
+                        The completed report will be available to you as its creator and to this selected eDNA user.
+                        An active eDNA user must be selected. Email is optional.
+                    </p>
+                    <div id="forensicRecipientSummary" class="alert alert-success" style="display:none"></div>
+                </div>
+
+                <p class="help-block">Authentication will use the same biometric you used to log in.</p>
+
+                <div id="forensicRequestError" class="alert alert-danger" role="alert" style="display:none"></div>
+
+                <div class="forensic-request-actions">
+                    <a class="btn btn-default" href="@Url.Action("Index", "SystemReports")">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        Back to reports
+                    </a>
+                    <button id="cmdSubmitForensicReport" type="submit" class="btn btn-primary">
+                        <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                        @(ViewBag.PreviewOnly == true ? "Authenticate and prepare preview" : "Authenticate draft request")
+                    </button>
+                </div>
+
+                <div class="modal fade" id="mdForensicRecipient" tabindex="-1" role="dialog"
+                     aria-labelledby="forensicRecipientTitle" data-backdrop="static">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title" id="forensicRecipientTitle">Select report recipient</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <label for="forensicRecipientSearchType">Search by</label>
+                                        <select id="forensicRecipientSearchType" class="form-control">
+                                            <option value="1">eDNA ID</option>
+                                            <option value="3">Surname</option>
+                                            <option value="2">ID number</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="forensicRecipientSearchValue">Search value</label>
+                                        <input id="forensicRecipientSearchValue" type="text"
+                                               class="form-control" maxlength="100" />
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <label>&nbsp;</label>
+                                        <button id="cmdSearchForensicRecipient" type="button"
+                                                class="btn btn-primary btn-block">Search</button>
+                                    </div>
+                                </div>
+                                <div id="forensicRecipientSearchError" class="alert alert-danger"
+                                     role="alert" style="display:none;margin-top:15px"></div>
+                                <div id="forensicRecipientSearchResults" style="margin-top:15px">
+                                    <p class="text-muted">Search for the recipient by eDNA ID, surname or ID number.</p>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $("#MVCSiteMap").show();
+
+        $("#cmdSearchForensicRecipient").on("click", SearchForensicRecipient);
+        $("#forensicRecipientSearchResults").on("click", ".forensic-recipient-select", function () {
+            SelectForensicRecipient(
+                parseInt($(this).attr("data-user-id"), 10),
+                $(this).attr("data-user-name"),
+                $(this).attr("data-user-email"));
+        });
+        $("#forensicRecipientSearchValue").on("keydown", function (event) {
+            if (event.which === 13) {
+                event.preventDefault();
+                SearchForensicRecipient();
+            }
+        });
+
+        $("#frmForensicReportRequest").on("submit", function (event) {
+            event.preventDefault();
+
+            var form = $(this);
+            if (typeof form.valid === "function" && !form.valid()) {
+                return;
+            }
+
+            var errorPanel = $("#forensicRequestError");
+            errorPanel.hide().text("");
+            $("#cmdSubmitForensicReport").prop("disabled", true);
+            ShowBusyProcessing();
+
+            localStorage.setItem("eDNAReportType", "ForensicReport");
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("BuildSignedRequest", "ForensicReports")",
+                data: form.serialize(),
+                success: function (authenticationRequest) {
+                    ProcessForensicAuthentication(authenticationRequest);
+                },
+                error: function (response) {
+                    var message = "The forensic report request could not be created.";
+                    var errorResponse = response.responseJSON;
+                    if (!errorResponse && response.responseText) {
+                        try { errorResponse = JSON.parse(response.responseText); } catch (ignore) { }
+                    }
+                    if (errorResponse && errorResponse.error) {
+                        message = errorResponse.error;
+                    }
+                    errorPanel.text(message).show();
+                    $("#cmdSubmitForensicReport").prop("disabled", false);
+                    HideBusyProcessing();
+                }
+            });
+        });
+    });
+
+    function SearchForensicRecipient() {
+        var searchType = $("#forensicRecipientSearchType").val();
+        var searchValue = $.trim($("#forensicRecipientSearchValue").val());
+        var errorPanel = $("#forensicRecipientSearchError");
+
+        errorPanel.hide().text("");
+        if (!searchValue) {
+            errorPanel.text("Enter a search value.").show();
+            return;
+        }
+        if (searchType === "1" && !/^\d+$/.test(searchValue)) {
+            errorPanel.text("The eDNA ID must be a number.").show();
+            return;
+        }
+
+        localStorage.setItem("forensicRecipientSearchPending", "true");
+        ShowBusyProcessing();
+        $.ajax({
+            type: "POST",
+            dataType: "json",
+            traditional: true,
+            url: "/eDNA.WebPortal/Base/HandleMessage",
+            data: JSON.stringify({
+                p_strMessage: "1;16;eDNAUser;" + searchType + ";" + searchValue,
+                p_strOption: "148"
+            }),
+            contentType: "application/json; charset=utf-8",
+            success: function (authenticationRequest) {
+                ProcessForensicAuthentication(authenticationRequest);
+            },
+            error: function () {
+                localStorage.removeItem("forensicRecipientSearchPending");
+                errorPanel.text("The recipient search could not be started.").show();
+                HideBusyProcessing();
+            }
+        });
+    }
+
+    function BindForensicRecipients() {
+        $("#forensicRecipientSearchResults").load(
+            "@Url.Action("RecipientSearchResults", "ForensicReports")",
+            function (responseText, status) {
+                HideBusyProcessing();
+                if (status !== "success") {
+                    $("#forensicRecipientSearchError")
+                        .text("The recipient search results could not be loaded.").show();
+                }
+            });
+    }
+
+    function SelectForensicRecipient(userId, name, email) {
+        var recipient = $("#RecipientUserID").val(userId);
+        // The portal layout does not always load jQuery Validation.
+        if (typeof recipient.valid === "function") {
+            recipient.valid();
+        }
+        $("#forensicRecipientSummary")
+            .text("Selected: eDNA ID " + userId + " - " + name + " (" + email + ")")
+            .show();
+        $("#mdForensicRecipient").modal("hide");
+    }
+</script>

@@ -1,0 +1,495 @@
+﻿@model eDNA.WebPortal.ViewModel.CReportViewModel
+@{
+    ViewBag.Title = "Audit Reports";
+}
+<form id="frmAuditData">
+    @if (TempData["ForensicTrackingMessage"] != null)
+    {
+        <div class="alert alert-warning" role="alert">@TempData["ForensicTrackingMessage"]</div>
+    }
+    <div class="panel-body-details">
+        <div class="form-horizontal">
+            <div class="row">
+                <div id="dvAuditRootTabs" class="col-md-7" style="width:100%;">
+                    <div class="form-group">
+                        <ul>
+                            <li>
+                                <a href="#dvAuditReportsStatus" onclick="javascript:RefreshAuditStatusHeader()"><span>Check Request Status</span></a>
+                            </li>
+                            <div class="col-md-3" style="width:18%;">
+                            </div>
+                            <li>
+                                <span id="spnAuditHeader" style="font-size:x-large">Audit Request Status</span>
+                            </li>
+                            <table>
+                                <tr>
+                                    <td style="width:0.5%"></td>
+                                    <td style="width:3%">
+                                        <label id="lblTimer" style="display:none">Refresh In&nbsp;<span id="timespan" style="font-size:x-large"></span>&nbsp; seconds</label>
+                                    </td>
+                                    <td style="width:1.5%">
+                                        <label id="lblSwitch" style="display:none">Auto Refresh <span style="font-size:x-large;"></span></label>
+                                    </td>
+                                    <td style="width:1.5%">
+                                        <label class="switch" id="lblStitch" style="display:none;align-content:center">
+                                            <input id="auditAutoRefresh" type="checkbox" onclick="SwitchOn()">
+                                            <div class="slider round">
+                                                <span class="on" data-toggle="tooltip" title="Switch Off AutoRefresh">ON</span>
+                                                <span class="off" data-toggle="tooltip" title="Switch On AutoRefresh">OFF</span>
+                                            </div>
+                                        </label>
+                                    </td>
+                                    <td style="width:1.5%">
+                                        <a href="javascript:AuditJobList()" id="lnkRefreshList" onclick="javascript:ShowBusyProcessing()" data-toggle="tooltip" title="Refresh the List" data-placement="bottom" style="color:blue;display:none">
+                                            <span style="font-size:large;" class="glyphicon glyphicon-refresh">Refresh</span>
+                                        </a>
+                                    </td>
+                                    <td style="width:3%">
+                                        <a href="javascript:ShowFilter()" id="lnkShowFilter" data-toggle="tooltip" title="Show Advanced Filter" data-placement="bottom" style="color:blue;display:none">
+                                            <span id="spnFilter" style="font-size:large;" class="glyphicon glyphicon-filter">AdvancedFilter</span>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </ul>
+
+                        <div id="dvAuditReportsStatus" style="min-height:542px;width:100%">
+                            <table id="tblAdvancedFilter" class="table table-hover scroll" style="display:none;">
+                                <thead style="background-color:sandybrown;">
+                                    <tr class="header">
+                                        <th style="width:1%"></th>
+                                        <th style="width:9%">
+                                            <label style="color:black;font-size:medium;width:120px;">Search Criteria</label>
+                                        </th>
+                                        <th style="width:12%">
+                                            @Html.DropDownListFor(model => model.eDNAReportData.ReportType, (SelectList)ViewBag.AuditReportTypes, "[-- Report Type--]", new { @class = "dropdown", id = "SearchReportType", style = "height:30px;width:100%" })
+                                        </th>
+                                        <th style="width:14%">
+                                            <div class='input-group date' id='dtAuditFilterSDateTime'>
+                                                <input type="text" id="txtAuditFilterSDateTime1" placeholder="Start Date" style="font-size: 12pt; height:30px; width:100%; " />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-th" style="height:15px;"></span>
+                                                </span>
+                                            </div>
+                                        </th>
+                                        <th style="width:14%">
+                                            <div class='input-group date' id='dtAuditFilterEDateTime'>
+                                                <input type="text" id="txtAuditFilterEDateTime1" placeholder="End Date" style="font-size: 12pt; height:30px; width:100%; " />
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-th"></span>
+                                                </span>
+                                            </div>
+                                        </th>
+                                        <th style="width:5%">
+                                            <input type="text" id="txtJobUserID1" placeholder="UserID" style="font-size: 12pt; height: 30px; width:100%;" />
+                                        </th>
+                                        <th style="width:8%">
+                                            <input type="text" id="txtJobTransversalUserName1" placeholder="T-UserName" style="font-size: 12pt; height: 30px; width:100%;" />
+                                        </th>
+                                        <th style="width:38%">
+                                            @Html.DropDownListFor(model => model.eDNAReportData.Status, (SelectList)ViewBag.ReportStatus, "[--Status--]", new { @class = "dropdown", style = "height:30px;width:25%" })
+                                            &nbsp;
+                                            <a href="javascript:FilterAuditJobList()" onclick="javascript:ShowBusyProcessing()" data-toggle="tooltip" title="Search" data-placement="bottom" style="color:blue;font-size:large">
+                                                Search<span class="glyphicon glyphicon-search"></span>
+                                            </a>
+                                            &nbsp;
+                                            <a href="javascript:ResetAuditFilter()" onclick="javascript:ShowBusyProcessing()" data-toggle="tooltip" title="Clear Filter Values" data-placement="bottom" style="color:blue;font-size:large">
+                                                Reset<span class="glyphicon glyphicon-refresh"></span>
+                                            </a>
+                                        </th>
+                                        <th style="width:10%">
+                                        </th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <div id="auditJobListContainer">@Html.Partial("_ReportAuditJobList")</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Select User Input Event Modal Pop up Window -->
+                <div class="modal fade" id="mdUserPopUp" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" data-placement="center" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+                    <div class="modal-dialog" role="document" style="width:47%">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 id="Icon_Information"><img src="~/Content/Images/Information.png" width="45" height="40" />&nbsp;<Label>Select User</Label></h4>
+                            </div>
+                            <div class="modal-body">
+                                <div style="border-bottom-style:ridge">
+                                    <table>
+                                        <tr>
+                                            <td style="width:350px"></td>
+                                            <td>
+                                                <label style="font-size:large;text-decoration:underline">Search By</label>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table>
+                                        <tr>
+                                            <td style="width:280px"></td>
+                                            <td id="tdEUser">
+                                                <label>
+                                                    <input id="rdeDNAUser" name="rdUserOption" type="radio" value="eDNAUser" /> eDNA User
+                                                </label>
+                                            </td>
+                                            <td style="width:20px"></td>
+                                            <td id="tdTUser">
+                                                <label>
+                                                    <input id="rdTUser" name="rdUserOption" type="radio" value="TUser" /> Transversal User
+                                                </label>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                    <table>
+                                        <tr id="trTUser" style="display:none">
+                                            <td style="width:7%"> &nbsp; </td>
+                                            <td>
+                                                <label>Search Transversal User</label>
+                                            </td>
+                                            <td> &nbsp; </td>
+                                            <td> &nbsp; </td>
+                                            <td>
+                                                <input type="text" id="txtTSearchValue" style="width:150px;" class="form-control" />
+                                            </td>
+                                            <td> &nbsp;</td>
+                                            <td>
+                                                @Html.DropDownList("SearchType1", ViewData["SearchTypes1"] as List<SelectListItem>, new { @class = "form-control", style = "height:35px;width:200px", @Title = "[--Select Type--]" })
+                                            </td>
+                                            <td> &nbsp;</td>
+                                            <td>
+                                                <a href="javascript:SearcheDNABIUser('Reports')" class="btn btn-default" data-toggle="tooltip" title="Search User" style="width:100px;">Search</a>
+                                            </td>
+                                            <td> &nbsp;</td>
+                                            <td>
+                                                <a href="javascript:ClearUserTable()" class="btn btn-default" data-toggle="tooltip" title="Reset">Clear</a>
+                                            </td>
+                                        </tr>
+                                        <tr id="treDNAUser" style="display:none">
+                                            <td style="width:7%"> &nbsp; </td>
+                                            <td>
+                                                <label>Search eDNA User</label>
+                                            </td>
+                                            <td> &nbsp; </td>
+                                            <td> &nbsp; </td>
+                                            <td>
+                                                <input type="text" id="txtSearchValue" style="width:150px;" class="form-control" />
+                                            </td>
+                                            <td> &nbsp;</td>
+                                            <td>
+                                                @Html.DropDownList("SearchType", ViewData["SearchTypes"] as List<SelectListItem>, new { @class = "form-control", style = "height:35px;width:200px", @Title = "[--Select Type--]" })
+                                            </td>
+                                            <td> &nbsp;</td>
+                                            <td>
+                                                <a href="javascript:SearcheDNABIUser('Reports')" class="btn btn-default" data-toggle="tooltip" title="Search User" style="width:100px;">Search</a>
+                                            </td>
+                                            <td> &nbsp;</td>
+                                            <td>
+                                                <a href="javascript:ClearUserTable()" class="btn btn-default" data-toggle="tooltip" title="Reset">Clear</a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <br />
+                                </div>
+                                <div id="dveDNAUsers" style="height:380px;overflow:auto">
+                                    @Html.Partial("_eDNAUsers")
+                                </div>
+                                <div id="dveTransversalUsers" style="height:380px;overflow:auto">
+                                    @Html.Partial("_TransversalUsers")
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <img src="~/Content/Images/eDNA_logo.jpg" class="pull-left" height="45" />
+                                <center>
+                                    <Label ID="lblErrorMessage" style="color:red"></Label>
+                                </center>
+                                <button type="button" class="btn btn-default" data-dismiss="modal" onclick="ClearUserTable()">Cancel</button>
+                                <button type="button" id="btnSelectUser" class="btn btn-default" data-toggle="tooltip" title="Select User" data-placement="bottom" onclick="GetUserID()">OK</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+@*CODESC: Document Ready*@
+<script type="text/javascript">
+    $(document).ready(function ($) {
+        // Always open with polling off, including restored browser form state.
+        $('#auditAutoRefresh').prop('checked', false);
+        $("#dvAuditRootTabs").tabs();
+        $("#MVCSiteMap").show();
+        $("#dveDNAUsers").hide();
+        $("#tblUserList").tablesorter();
+
+});
+</script>
+
+@*CODESC: Form load*@
+<script type="text/javascript">
+    $(window).on('load', function () {
+        localStorage.setItem('eDNAReportType', 'AuditReport');
+        ShowBusyProcessing();
+        if ('@HttpContext.Current.Session["IsAuditReportFormLoad"]' == 'True') {
+            GetReport_LookUps('AuditReport');
+        } else {
+            RefreshAuditStatusHeader();
+        }
+})
+</script>
+
+<script type="text/javascript">
+    function LoadAuditReportLookups() {
+        $.post('/eDNA.WebPortal/AuditReport/GetAuditReports', { inPlace: true }, function (response) {
+            if (!response || !Array.isArray(response.reportTypes) || !Array.isArray(response.statuses)) {
+                HideBusyProcessing();
+                Notify('Audit Reports', 'Report criteria could not be loaded. Reopen Audit Reports to retry.', 'error');
+                return;
+            }
+            function bindOptions(selector, placeholder, items) {
+                var control = $(selector).empty();
+                control.append($('<option/>').val('').text(placeholder));
+                $.each(items, function (_, item) {
+                    control.append($('<option/>').val(item.value).text(item.text));
+                });
+            }
+            bindOptions('#SearchReportType', '[-- Report Type--]', response.reportTypes);
+            bindOptions('#eDNAReportData_Status', '[--Status--]', response.statuses);
+            RefreshAuditStatusHeader();
+        }).fail(function () {
+            HideBusyProcessing();
+            Notify('Audit Reports', 'Report criteria could not be loaded. Reopen Audit Reports to retry.', 'error');
+        });
+    }
+
+    function RefreshAuditStatusHeader() {
+        ShowBusyProcessing();
+        $("#lnkRefreshList, #lblStitch, #lblSwitch, #lnkShowFilter").show();
+        $("#tblAdvancedFilter").hide();
+        AuditJobList();
+        SwitchOn();
+    }
+</script>
+
+@*CODESC: Apply Filter on Report Job ReportType*@
+<script type="text/javascript">
+    function FilterAuditJobTableByCellText(p_Select, p_CellClass) {
+        var l_SelectedValue = p_Select.value;
+        var l_SelectedText = $(p_Select).find('option:selected').text().trim();
+
+        if (!l_SelectedValue || l_SelectedValue === 'ReportType' || l_SelectedValue === 'Status') {
+            $('#tblAuditJobList tbody tr').show();
+            return;
+        }
+
+        $('#tblAuditJobList tbody tr').each(function () {
+            var l_CellText = $(this).find('td.' + p_CellClass).text().trim();
+            $(this).toggle(l_CellText === l_SelectedText);
+        });
+    }
+
+    function FilterTableOnType() {
+        var l_ddlSelectedType = document.getElementById('ReportTypes');
+        FilterAuditJobTableByCellText(l_ddlSelectedType, 'ReportType');
+    }
+</script>
+
+@*CODESC: Apply Filter on Report Job Status*@
+<script type="text/javascript">
+    function FilterTableOnStatus() {
+        var l_ddlStatus = document.getElementById('Status');
+        FilterAuditJobTableByCellText(l_ddlStatus, 'Status');
+    }
+</script>
+
+@*CODESC: Apply Filter on Report Job UserID*@
+<script type="text/javascript">
+    function FilterTableOnUserID() {
+        var l_txtJobUserID = document.getElementById('txtJobUserID');
+
+        if (l_txtJobUserID.value == '') {
+            $("#auditJobListContainer").load("/eDNA.WebPortal/AuditReport/RefreshJobList/");
+        }
+        else {
+            $("#tblAuditJobList td.UserID:contains('" + l_txtJobUserID.value + "')").parent().show();
+            $("#tblAuditJobList td.UserID:not(:contains('" + l_txtJobUserID.value + "'))").parent().hide();
+        }
+    }
+</script>
+
+@*CODESC: Apply Filter on Report Job Transversal UserName*@
+<script type="text/javascript">
+    function FilterTableTUserName() {
+        var l_txtJobTransversalUserName = document.getElementById('txtJobTransversalUserName');
+
+        if (l_txtJobTransversalUserName.value == '') {
+            $("#auditJobListContainer").load("/eDNA.WebPortal/AuditReport/RefreshJobList/");
+        }
+        else {
+            $("#tblAuditJobList td.TUserName:contains('" + l_txtJobTransversalUserName.value + "')").parent().show();
+            $("#tblAuditJobList td.TUserName:not(:contains('" + l_txtJobTransversalUserName.value + "'))").parent().hide();
+        }
+    }
+</script>
+
+@*CODESC: Apply Filter on Report Job StartDate*@
+<script type="text/javascript">
+    function FilterTableOnStartDate() {
+        var l_txtJobStartDate = document.getElementById('txtJobStartDate');
+
+        if (l_txtJobStartDate.value == '') {
+            $("#auditJobListContainer").load("/eDNA.WebPortal/AuditReport/RefreshJobList/");
+        }
+        else {
+            $("#tblAuditJobList td.StartDate:contains('" + l_txtJobStartDate.value + "')").parent().show();
+            $("#tblAuditJobList td.StartDate:not(:contains('" + l_txtJobStartDate.value + "'))").parent().hide();
+        }
+    }
+</script>
+
+@*CODESC: Apply Filter on Report Job EndDate*@
+<script type="text/javascript">
+    function FilterTableOnEndDate() {
+        var l_txtJobEndDate = document.getElementById('txtJobEndDate');
+
+        if (l_txtJobEndDate.value == '') {
+            $("#auditJobListContainer").load("/eDNA.WebPortal/AuditReport/RefreshJobList/");
+        }
+        else {
+            $("#tblAuditJobList td.EndDate:contains('" + l_txtJobEndDate.value + "')").parent().show();
+            $("#tblAuditJobList td.EndDate:not(:contains('" + l_txtJobEndDate.value + "'))").parent().hide();
+        }
+    }
+</script>
+
+@*CODESC: SwitchOn/Off Timer and Countdown for the autorefresh the job list table*@
+<script type="text/javascript">
+    var l_CountTime;
+    var l_TimeOut, l_TimeLeft;
+    var l_color = 'green';
+    var l_clMagenta = 'magenta';
+    var l_clOrangered = 'orangered';
+    var l_clRed = 'red';
+    var l_clGrey = 'grey';
+    var l_clBlue = 'blue';
+
+    //CODESC: SwitchOn/Off Timer
+    function SwitchOn() {
+        if ($('#auditAutoRefresh').prop('checked')) {
+            m_AutoRefresh = "On";
+            $("#lblTimer").show();
+            l_CountTime = 15;
+            ResetTimer();
+        }
+        else {
+            $("#lblTimer").hide();
+            m_AutoRefresh = "";
+            PauseTimer();
+        }
+    }
+
+    //CODESC: Update display Time value
+    function UpdateDisplay(p_Color) {
+        document.getElementById('timespan').innerHTML = l_TimeLeft;
+        document.getElementById('timespan').style.color = p_Color;
+    }
+
+    //CODESC: Start Countdown
+    function CountDown() {
+        UpdateDisplay(l_clBlue);
+        if (l_TimeLeft >= 0) {
+            if (l_TimeLeft > 5 && l_TimeLeft < 10) {
+                UpdateDisplay(l_clMagenta);
+            }
+            if (l_TimeLeft > 10 && l_TimeLeft < 15) {
+                UpdateDisplay(l_clOrangered);
+            }
+            if (l_TimeLeft > 15 && l_TimeLeft < 20) {
+                UpdateDisplay(l_clRed);
+            }
+            if (l_TimeLeft > 20 && l_TimeLeft < 25) {
+                UpdateDisplay(l_clGrey);
+            }
+            if (l_TimeLeft > 25 && l_TimeLeft < 30) {
+                UpdateDisplay(l_clBlue);
+            }
+        }
+        if (l_TimeLeft === 0) {
+            // time is up
+            if (m_AutoRefresh == "On") {
+                // Do not interrupt an active biometric transaction with background polling.
+                if (!forensicReviewPending && !forensicRetrievalPending && !$('#divLoading').is(':visible'))
+                    AuditJobList();
+            }
+            ResetTimer();
+        }
+        else {
+            l_TimeLeft--;
+            l_TimeOut = setTimeout(CountDown, 1000);
+        }
+    }
+
+    //CODESC: Pauses Countdown
+    function PauseTimer() {
+        clearTimeout(l_TimeOut);
+    }
+
+    //CODESC: Reset Countdown
+    function ResetTimer() {
+        PauseTimer();
+        l_TimeLeft = l_CountTime;
+        UpdateDisplay(l_clBlue);
+        CountDown();
+    }
+</script>
+
+@*CODESC: Manage Filter DateTimePicker control*@
+<script type="text/javascript">
+    $(function () {
+        $('#dtAuditFilterSDateTime').datetimepicker({
+            sideBySide: true,
+            showClose: true,
+            format: 'YYYY-MM-DD HH:mm:00',
+
+        });
+        $('#dtAuditFilterEDateTime').datetimepicker({
+            sideBySide: true,
+            showClose: true,
+            useCurrent: false,
+            format: 'YYYY-MM-DD HH:mm:00',
+        });
+        $("#dtAuditFilterSDateTime").on("dp.change", function (e) {
+            $('#dtAuditFilterEDateTime').data("DateTimePicker").minDate(e.date);
+            $('#dtAuditFilterSDateTime').data("DateTimePicker").hide();
+        });
+        $("#dtAuditFilterEDateTime").on("dp.change", function (e) {
+            $('#dtAuditFilterSDateTime').data("DateTimePicker").maxDate(e.date);
+            $('#dtAuditFilterEDateTime').data("DateTimePicker").hide();
+        });
+    });
+
+</script>
+
+@*CODESC: Display and Hide Advanced Filter Panel*@
+<script type="text/javascript">
+    function ShowFilter() {
+        if (document.getElementById('spnFilter').title != "Close Advanced Filter") {
+
+            $("#tblAdvancedFilter").show();
+            document.getElementById('spnFilter').title = "Close Advanced Filter";
+        }
+        else {
+            ResetAuditFilter();
+            $("#tblAdvancedFilter").hide();
+            document.getElementById('spnFilter').innerHTML = "AdvancedFilter";
+            document.getElementById('spnFilter').title = "Show Advanced Filter";
+        }
+    }
+</script>

@@ -1,0 +1,175 @@
+﻿@model  eDNA.Common.Classes.Certificate.CCertificate_Cert
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <label class="col-sm-2" style="color:white;width:120px"></label>
+    &nbsp;
+    <div class="col-md-6" style="border:ridge">
+        <div class="form-group">
+            <center>
+                <p style="width:630px;">
+                    <font size="5">Search Criteria</font>
+                </p>
+            </center>
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <label class="col-sm-2" for="exampleInputEmail1" style="width:230px">Certificate Type</label>
+            <div class="col-sm-4">
+                @Html.DropDownListFor(model => model.CertificateType, (SelectList)ViewBag.CertificateType, "[--Select certificate type--]", new { @class = "dropdown", style = "width:350px" })
+                @Html.ValidationMessageFor(model => model.CertificateType, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <label class="col-sm-2" for="exampleInputEmail1" style="width:230px">Hosting Entity</label>
+            <div class="col-sm-4">
+                @Html.DropDownListFor(model => model.Hosting_entity, (SelectList)ViewBag.Entity_Hosting, "[--Select hosting entity--]", new { @class = "dropdown", style = "width:350px" })
+                @Html.ValidationMessageFor(model => model.Hosting_entity, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <label class="col-sm-2" for="exampleInputEmail1" style="width:230px">User</label>
+            <div class="col-sm-4">
+                @Html.DropDownListFor(model => model.User, (SelectList)ViewBag.User, "[--Select User--]", new { @class = "dropdown", style = "width:350px" })
+                @Html.ValidationMessageFor(model => model.User, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <label class="col-sm-2" for="exampleInputEmail1" style="width:230px">User Status</label>
+            <div class="col-sm-4">
+                @Html.DropDownListFor(model => model.UserStatus, (SelectList)ViewBag.UserStatus, "[--Select User Status--]", new { @class = "dropdown", style = "width:350px" })
+                @Html.ValidationMessageFor(model => model.UserStatus, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        &nbsp;
+        <div class="form-group">
+            <label class="col-sm-2" for="exampleInputEmail1" style="width:230px">Certificate Status</label>
+            <div class="col-sm-4">
+                @Html.DropDownListFor(model => model.CertificateStatus, (SelectList)ViewBag.CertificateStatus, "[--Select Certificate Status--]", new { @class = "dropdown", style = "width:350px" })
+                @Html.ValidationMessageFor(model => model.CertificateStatus, "", new { @class = "text-danger" })
+                <br />
+                &nbsp;
+                <div class="form-group">
+                    <div class="col-sm-4 pull-right">
+                        <a href="javascript:Certificate_Search()" onclick="javascript:ShowBusyProcessing();" class="btn btn-primary" style="width:140px"><span class="glyphicon glyphicon-search"></span> Search</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Certificate Details Modal Pop up Window -->
+        <div class="modal fade" id="mdCertificateModalPopUp" tabindex="-2" role="dialog" aria-labelledby="myModalcertificate" data-placement="center" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog" role="document">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 id="Icon_Information"><img src="~/Content/Images/Information.png" width="45" height="40" />&nbsp;<Label>Certificate Information</Label></h4>
+                        </div>
+                        <div class="modal-body">
+                            <Label>Subject: - </Label>&nbsp;<Label ID="lblCSubject"></Label><br />
+                            <Label>Serial Number: - </Label>&nbsp;<Label ID="lblCSlNo"></Label><br />
+                            <Label>Valid From: - </Label>&nbsp;<Label ID="lblCValidFrom"></Label><br />
+                            <Label>valid To: - </Label>&nbsp;<Label ID="lblCValidTo"></Label><br />
+                            <Label>Certificate Type: - </Label>&nbsp;<Label ID="lblCType"></Label><br />
+                            <Label>Certificate Status: - </Label>&nbsp;<Label ID="lblCStatus"></Label>
+                            <br />
+                            <br />
+                        </div>
+                        <div class="modal-footer">
+                            <img src="~/Content/Images/eDNA_logo.jpg" class="pull-left" height="45" />
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Certificate Update Details Modal Pop up Window -->
+            <div class="modal fade" id="mdCEditModalPopUp" tabindex="-2" role="dialog" aria-labelledby="myModalcertificate" data-placement="center" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 id="Icon_Information"><img src="~/Content/Images/Information.png" width="45" height="40" />&nbsp;<Label>Update Certificate Status</Label></h4>
+                            </div>
+                            <div class="modal-body">
+                                <form id="CertificateUpdateData">
+                                    @Html.HiddenFor(model => model.CertificateID)
+                                    @Html.HiddenFor(model => model.CertificatePassword)
+                                    @Html.HiddenFor(model => model.CertificateData)
+                                    @Html.HiddenFor(model => model.CertificateTypeID)
+                                    @Html.HiddenFor(model => model.CertificateType)
+                                    @Html.HiddenFor(model => model.Subject)
+                                    @Html.HiddenFor(model => model.SerialNumber)
+                                    @Html.HiddenFor(model => model.ValidFrom)
+                                    @Html.HiddenFor(model => model.ValidTo)
+                                    @Html.HiddenFor(model => model.CertificateStatusID)
+                                    @Html.HiddenFor(model => model.User)
+                                    @Html.HiddenFor(model => model.UserID)
+                                    @Html.HiddenFor(model => model.UserStatus)
+                              
+                                    <label class="col-sm-2" for="exampleInputEmail1" style="width:230px">Certificate ID</label>
+                                    <label class="col-sm-2" for="exampleInputEmail1" style="width:230px" id="lblCertificateID">10</label>
+                                    <br />
+                                    <label class="col-sm-2" for="exampleInputEmail1" style="width:230px">Certificate Type</label>
+                                    <label class="col-sm-2" for="exampleInputEmail1" style="width:230px" id="lblCertificateType">10</label>
+                                    <br />
+                                    <label class="col-sm-2" for="exampleInputEmail1" style="width:230px">Serial No</label>
+                                    <label class="col-sm-2" for="exampleInputEmail1" style="width:230px" id="lblCertificateSlNo">10</label>
+                                    <br />
+                                    <label class="col-sm-2" for="exampleInputEmail1" style="width:230px">Certificate Status</label>
+                                    <div class="col-sm-4">
+                                        @Html.DropDownListFor(model => model.CertificateStatus, (SelectList)ViewBag.CertificateStatus, "[--Select Certificate Status--]", new { @class = "dropdown", style = "width:250px", @id="dd_CertificateStatus" })
+                                        @Html.ValidationMessageFor(model => model.CertificateStatus, "", new { @class = "text-danger" })
+                                        <br />
+                                    </div>
+                                    </form>
+                                    <br />
+                                    <br />
+                               </div>
+                            <div class="modal-footer">
+                                <img src="~/Content/Images/eDNA_logo.jpg" class="pull-left" height="45" />
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <a href="javascript:UpdateCertDetails()" class="btn btn-default" style="width:140px"><span></span>Update</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <label class="col-sm-2" style="color:white;width:300px"></label>
+    &nbsp;
+    <div class="col-md-2">
+        <div class="list-group">
+            <center>
+                <div class="list-group-item" style="background-color:steelblue">
+                    <label style="color:white;font-size:medium">Cerficate Actions</label>
+                </div>
+            </center>
+            <a href="javascript:EntityDetails('Create')" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Add a New Certificate"><span class="glyphicon glyphicon-plus"></span> Add New Certificate</a>
+            <a href="#" class="list-group-item" data-placement="bottom" data-toggle="tooltip"></a>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<label class="col-sm-2" style="color:white;width:90px"></label>
+<center>
+    <div class="col-md-11">
+        @Html.Partial("~/Views/Shared/_CertificateList.cshtml")
+    </div>
+</center>
+
+@*CODESC: Hide url display in bottom left on mouse over*@
+<script type="text/javascript">
+   $(document).ready(function ($) {
+       $("#MVCSiteMap").show();
+          if ('@HttpContext.Current.Session["isCertificateFormLoad"]' == 'True') {
+              Get_CertificateLookUps();
+      }
+   });
+</script>

@@ -1,0 +1,29 @@
+﻿
+<table class="table table-hover scroll" id="tblTUserList">
+    <thead style="background-color:steelblue;color:white">
+        <tr>
+            <th>Account ID</th>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>TransversalTypeID</th>
+            <th>Description</th>
+            <th>Select</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var TUser in ((ViewBag.TUsers as List<eDNA.WebPortal.Models.CTransversalUser>) ?? new List<eDNA.WebPortal.Models.CTransversalUser>()))
+            {
+            <tr style="font-size:medium">
+                <td class="lalign" style="width:70px">@TUser.AccountID</td>
+                <td class="lalign" style="width:150px">@TUser.UserId</td>
+                <td class="lalign" style="width:150px">@TUser.Name</td>
+                <td class="lalign" style="width:80px">@TUser.TransversalTypeID</td>
+                <td class="lalign" style="width:80px">@TUser.TransversalDescription</td>
+                <td class="lalign" style="width:40px">
+                    <label><input id="optTSelect" name="optTSelect" type="radio" onchange="GetSeletedUser('@TUser.Name')" /></label>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot style="border-style:groove"></tfoot>
+</table>

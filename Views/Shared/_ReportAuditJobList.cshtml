@@ -1,0 +1,122 @@
+﻿@model eDNA.WebPortal.ViewModel.CReportViewModel
+<div>
+    <p class="text-muted">For signed forensic reports, View and Download retrieve the same PDF through authenticated access. A printed copy does not carry a cryptographically verifiable digital signature.</p>
+    <table class="table table-hover" id="tblAuditJobList">
+        <thead style="background-color:steelblue;">
+            <tr class="header">
+                <th class="" style="width:8%;height:49px;">
+                    <label style="color:white;">Job #</label>
+                </th>
+                <th class="" style="width:16%">
+                    @Html.DropDownList("ReportTypes", ViewData["ReportTypes"] as List<SelectListItem>, new { @class = "form-control", style = "height:30px;", @Title = "Report Type", @onchange = "FilterTableOnType()" })
+                </th>
+                <th class="" style="width:12%">
+                    <input type="text" id="txtJobStartDate" placeholder="StartDate" style="font-size: 12pt; height: 30px; width:100%;color:black" onchange="FilterTableOnStartDate();" onpaste="this.onchange();" onkeyup="this.onchange();">
+                </th>
+                <th class="" style="width:12%">
+                    <input type="text" id="txtJobEndDate" placeholder="EndDate" style="font-size: 12pt; height: 30px; width:100%;color:black" onchange="FilterTableOnEndDate();" onpaste="this.onchange();" onkeyup="this.onchange();">
+                </th>
+                <th class="" style="width:8%">
+                    <input type="text" id="txtJobUserID" placeholder="UserID" style="font-size: 12pt; height: 30px; width:100%;color:black" onchange="FilterTableOnUserID();" onpaste="this.onchange();" onkeyup="this.onchange();">
+                </th>
+                <th class="" style="width:10%">
+                    <input type="text" id="txtJobTransversalUserName" placeholder="T-UserName" style="font-size: 12pt; height: 30px;width:100%;color:black" onchange="FilterTableTUserName();" onpaste="this.onchange();" onkeyup="this.onchange();">
+                </th>
+                <th class="" style="width:13%">
+                    @Html.DropDownList("Status", ViewData["Status"] as List<SelectListItem>, new { @class = "form-control", style = "height:30px;width:70%;", @Title = "Status", @onchange = "FilterTableOnStatus()" })
+                </th>
+                <th class="" style="width:21%;height:49px">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var ReportJob in ((ViewBag.JobList as List<eDNA.WebPortal.Models.CReportJobInfoData>) ?? new List<eDNA.WebPortal.Models.CReportJobInfoData>()))
+            {
+
+                if (@ReportJob.StatusID == 4)
+                {
+                    <tr style="color:red">
+                        <td class="" style="width:8%">@ReportJob.ReportJobID</td>
+                        <td class="ReportType  " style="width:16%">@ReportJob.ReportType</td>
+                        <td class="StartDate  " style="width:12%">@ReportJob.StartDate</td>
+                        <td class="EndDate  " style="width:12%">@ReportJob.EndDate</td>
+                        <td class="UserID  " style="width:8%">@ReportJob.UserID</td>
+                        <td class="TUserName  " style="width:10%">@ReportJob.TransversalUserName</td>
+                        <td class="Status lalign " style="width:15%">
+                            @ReportJob.WorkflowStatus
+                            <a href="#" onclick="javascript:ShowError('@ReportJob.ReportJobID','@ReportJob.Error')" data-toggle="tooltip" title="Show Error details" data-placement="bottom" style="color:blue">
+                                <span class="glyphicon glyphicon-open-file">ShowDetails</span>
+                            </a>
+                        </td>
+                        <td class=" " style="width:18%;">
+                            @if (ReportJob.CanManage)
+                            {
+                                <a href="#" onclick="javascript:DeleteReport('@ReportJob.ReportJobID','@ReportJob.ReportGroupTypeID')" data-toggle="tooltip" title="Delete Job" data-placement="bottom" style="color:red">
+                                    <span class="glyphicon glyphicon-remove">DeleteJob</span>
+                                </a>
+                                <a href="#" onclick="javascript:ReSubmitJob('@ReportJob.ReportJobID','@ReportJob.ReportGroupTypeID')" data-toggle="tooltip" title="Re-submit the Job" data-placement="bottom" style="color:blue">
+                                    <span class="glyphicon glyphicon-repeat">Re-Submit</span>
+                                </a>
+                            }
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td class="" style="width:8%">@ReportJob.ReportJobID</td>
+                        <td class="ReportType  " style="width:16%">@ReportJob.ReportType</td>
+                        <td class="StartDate  " style="width:12%">@ReportJob.StartDate</td>
+                        <td class="EndDate  " style="width:12%">@ReportJob.EndDate</td>
+                        <td class="UserID  " style="width:8%">@ReportJob.UserID</td>
+                        <td class="TUserName  " style="width:10%">@ReportJob.TransversalUserName</td>
+                        <td class="Status  " style="width:13%">@ReportJob.WorkflowStatus</td>
+                        <td class=" " style="width:18%">
+                            @if (ReportJob.CanReviewDraft)
+                            {
+                                <a href="@Url.Action("Review", "ForensicReports", new { jobId = ReportJob.ReportJobID })" onclick="ReviewForensicReport('@ReportJob.ReportJobID'); return false;" data-toggle="tooltip" title="Authenticate and review forensic report draft" data-placement="bottom" style="color:#1f4e79">
+                                    <span class="glyphicon glyphicon-eye-open">Review</span>
+                                </a>
+                            }
+                            @if ((ReportJob.StatusID == 3 || ReportJob.StatusID == 6)
+                                && (!ReportJob.IsDatabaseArtifact || ReportJob.CanDownload))
+                            {
+                                if (ReportJob.IsDatabaseArtifact)
+                                {
+                                    <a class="btn btn-link btn-xs" href="#" onclick="DownloadForensicReport('@ReportJob.ReportJobID', true); return false;" title="Authenticate to view the unchanged signed PDF. The browser viewer can save or print a copy.">View</a>
+                                    <a href="#" onclick="DownloadForensicReport('@ReportJob.ReportJobID'); return false;" data-toggle="tooltip" title="Securely download forensic report" data-placement="bottom" style="color:blue">
+                                        <span class="glyphicon glyphicon-download">Download</span>
+                                    </a>
+                                    <a class="btn btn-link btn-xs" href="@Url.Action("Forward", "ForensicReports", new { jobId = ReportJob.ReportJobID })">Forward</a>
+                                }
+                                else
+                                {
+                                    <a href="#" onclick="DownloadReport('@ReportJob.ReportJobID','@ReportJob.FileName','@ReportJob.ReportGroupTypeID'); return false;" data-toggle="tooltip" title="Download Report" data-placement="bottom" style="color:blue">
+                                        <span class="glyphicon glyphicon-download">Download</span>
+                                    </a>
+                                }
+                            }
+                            @if (ReportJob.StatusID == 6 && ReportJob.CanManage)
+                            {
+                                <a href="#" onclick="javascript:DeleteReport('@ReportJob.ReportJobID','@ReportJob.ReportGroupTypeID')" data-toggle="tooltip" title="Delete Job" data-placement="bottom" style="color:red">
+                                    <span class="glyphicon glyphicon-remove">DeleteJob</span>
+                                </a>
+                            }
+                            @if ((ReportJob.StatusID == 1 || ReportJob.StatusID == 2 || ReportJob.StatusID == 4)
+                                && ReportJob.CanManage)
+                            {
+                                <a href="#" onclick="javascript:DeleteReport('@ReportJob.ReportJobID','@ReportJob.ReportGroupTypeID')" data-toggle="tooltip" title="Delete Job" data-placement="bottom" style="color:red">
+                                    <span class="glyphicon glyphicon-remove">DeleteJob</span>
+                                </a>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+        <tfoot style="background-color:steelblue;color:white">
+            <tr style="font-size:medium">
+                <td class="text-center" colspan="8">Report Job List</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

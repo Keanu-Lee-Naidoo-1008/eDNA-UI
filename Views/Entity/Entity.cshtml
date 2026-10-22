@@ -1,0 +1,177 @@
+﻿@using eDNA.WebPortal.Helpers
+@model eDNA.WebPortal.ViewModel.CEntityViewModel
+@{
+    ViewBag.Title = "EntityManagement";
+}
+
+@using (Ajax.BeginForm("EntityManagement", "Entity", new AjaxOptions(), new { id = "Entity" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="panel-body-details">
+        <div class="form-horizontal">
+            <div class="row">
+                <div class="col-md-7" style="width:82%;">
+                    <div id="dvAllEntities" class="col-md-3" style="width:34%;height:567px;border-style:ridge;border-color:white;">
+                        <div id="dvAvlEntities">
+                            <table>
+                                <tr class="form-inline">
+                                    <td style="width:50%"><label style="font-weight:bold;font-size:x-large">Available Entities</label></td>
+                                    <td style="width:8%;"></td>
+                                    <td style="width:5%;"></td>
+                                    <td style="color:blue;font-size:medium;" class="pull-right" data-placement="bottom" data-toggle="tooltip" title="Get Inactive Entities">
+                                        <input type="checkbox" id="chkActive" name="chkActive" style="font-weight:bold">&nbsp;Show Inactive Entities <label style="font-weight:bold;"></label>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="form-group" style="border-top-style:groove;">
+                            <div class="col-md-1" style="width:80px;">
+                            </div>
+                            <div id="dvEntityList" class="col-md-3" style="overflow:scroll;width:100%;height:518px;">
+                                <table id="treeview">
+                                    <tr>
+                                        <td>
+                                            @(Html.TreeView(Model.EntityList)
+                                                                            .EmptyContent("No Entities have been loaded!")
+                                                                            .Children(m => m.EntityList)
+                                                                            .HtmlAttributes(new { id = "EntityTreeView" })
+                                                                            .ChildrenHtmlAttributes(new { @class = "subItem" })
+                                                                            .ItemText(m => m.EntityName)
+                                                                            .ItemTemplate(
+                                                                        @<text>
+                                                                            <a href="javascript:PopulateEntityDetails(@item.EntityID)" style="font-size:medium;color:blue">
+                                                                                @item.EntityName
+                                                                            </a>
+                                                                        </text> ) )
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div id="treecontrol">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="dvEntityDetails" style="display:none">
+                        @Html.Partial("_EntityDetails")
+                    </div>
+                </div>
+                <div class="col-md-2" style="width:16%">
+                    <div class="list-group">
+                        <center>
+                            <div class="list-group-item" style="background-color:steelblue">
+                                <label style="color:white;font-size:medium">Entity Actions</label>
+                            </div>
+                        </center>
+                        <a href="javascript:EntityDetails('Create')" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Create a New Entity"><span class="glyphicon glyphicon-plus"></span> Create New Entity</a>
+                        <a href="#" class="list-group-item" data-placement="bottom" data-toggle="tooltip"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer pull-right" id="dvAction" style="display:none;">
+        <table>
+            <tr style="box-shadow: 15px 15px 15px 5px whitesmoke; border: 1px">
+                <td>
+                    <a href="javascript:HideEntityDetails()" class="btn btn-primary" data-toggle="tooltip" title="Return to the Entity list" style="width:140px"><span class="glyphicon glyphicon-circle-arrow-left"></span>Cancel</a>
+                </td>
+                <td width="70px"></td>
+                <td>
+                    <a href="javascript:CreateEntity()" class="btn btn-primary" data-toggle="tooltip" title="Sign and Save Entity"><span class="glyphicon glyphicon-hand-up"></span> Sign and Save</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+@*CODESC: View the Entity List Details in a Tree View*@
+<script type="text/javascript">
+   $(document).ready(function ($) {
+
+      $("#treeview");
+      $("#MVCSiteMap").show();
+
+      if ('@HttpContext.Current.Session["Entity_List"]' != '') {
+         $("#lblInactive").show();
+         $("#dvAllEntities").show();
+      }
+      else {
+         $("#lblInactive").hide();
+         $("#dvAllEntities").hide();
+      }
+        if (localStorage.getItem("m_isEntityUpdate") == 'True') {
+            Notify("Entity Management" + "<br>", "Entity Created/Updated Successfully!!");
+            localStorage.setItem("m_isEntityUpdate", 'False');
+      }
+   });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(window).on("load", function () {
+            if ('@HttpContext.Current.Session["isEntityFormLoad"]' == 'True') {
+                GetEntityList('Entity', 'false');
+            }
+        });
+    });
+ 
+</script>
+
+@*CODESC: Hide/Display Entity fields dynamically on form load and on Search()*@
+<script type="text/javascript">
+   if (m_EntityDisplayMode == 'None') {
+      $("#dvEntityDetails").hide();
+      $("#dvAction").hide();
+      $("#tdEI").hide();
+      $("#tdEA").hide();
+   }
+   if ('@HttpContext.Current.Session["g_EntityDisplayMode"]' == 'Select') {
+      $("#dvEntityDetails").show();
+      $("#dvAction").show();
+      $("#tdEI").show();
+      $("#tdEA").show();
+      $("#MVCSiteMap").show();
+   }
+</script>
+
+@*CODESC: Collapse and Expand the Tree view items*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#MVCSiteMap").show();
+        MakeTreeviewCollapseAndExpandable();
+    });
+</script>
+
+@*CODESC: Display Active or Inactive Entities based on the Check box selection*@
+<script type="text/javascript">
+    $("#chkActive").change(function () {
+        if (this.checked) {
+            GetEntityList('Entity', 'true');
+        }
+        else {
+            GetEntityList('Entity', 'false');
+        }
+    });
+</script>
+
+@*CODESC: Dynamically tick the Show Inactive check box*@
+<script type="text/javascript">
+   var l_GetAllEntites = 'Convert.ToString(@HttpContext.Current.Session["GetAllEntites"])';
+   l_GetAllEntites = l_GetAllEntites.split("Convert.ToString(");
+   if (l_GetAllEntites[1] == "True)") {
+      document.getElementById("chkActive").checked = true;
+   }
+</script>
+
+@*CODESC: Highlighted selected entity*@
+<script type="text/javascript">
+    $("#EntityTreeView a").click(function (e) {
+        $("a").css("backgroundColor", "");
+        $(this).css("backgroundColor", "white");
+    });
+</script>

@@ -1,0 +1,82 @@
+@model eDNA.CommonData.Classes.CData_User
+@{
+    ViewBag.Title = "User Details";
+}
+
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "UserData" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Partial("_UserDetails", Model, new ViewDataDictionary(ViewData) { { "ShowStatusChange", true } })
+
+    <!-- User Statuses Input Event Modal Pop up Window -->
+    <div class="modal fade" id="UserStatuses" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" data-placement="center" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="Icon_Information"><img src="~/Content/Images/Information.png" width="45" height="40" />&nbsp;<Label>Select User Status</Label></h4>
+                </div>
+                <div class="modal-body">
+                    <Label class="col-md-3">Status</Label>
+                    @Html.DropDownList("ddlStatuses", (SelectList)ViewBag.Status, "[--Select A Status--]", new { @class = "dropdown", style = "width:60.8%" })
+                    <br />
+                    <Label class="col-md-3">Reason Type</Label>
+                    @Html.DropDownList("ddlSTChangeReason", (SelectList)ViewBag.STChangeReason, "[--Select A Reason--]", new { @class = "dropdown", style = "width:60.8%" })
+                    <br />
+                    <div id="dvStatusChangeReason" style="display:none">
+                        <Label class="col-md-3">Description</Label>
+                        @Html.TextArea("txtStatusChangeReason", null, 5, 46, null)
+                        <br />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <img src="~/Content/Images/eDNA_logo.jpg" class="pull-left" height="45" />
+                    <center>
+                        <Label ID="lblUSTErrorMessage" style="color:red"></Label>
+                    </center>
+                    <button type="button" id="btnCancelStatus" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" id="btnSaveStatus" class="btn btn-default" data-toggle="tooltip" title="Save User Status" data-placement="bottom">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel-footer pull-right">
+        <table>
+            <tr style="box-shadow: 15px 15px 15px 5px whitesmoke;border: 1px">
+                <td>
+                    <a href="@Url.Action("Index","UserManagement")" onclick="javascript:ShowBusyProcessing();" class="btn btn-primary" data-toggle="tooltip" title="Redirect to User Management" style="width:140px"><span class="glyphicon glyphicon-circle-arrow-left"></span>Cancel</a>
+                </td>
+                <td width="70px"></td>
+                <td>
+                    <a href="javascript:CreateUser('UM')" onclick="javascript:ShowBusyProcessing();" class="btn btn-primary"><span class="glyphicon glyphicon-hand-up"></span> Sign and Save</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+@*CODESC: Hide url display in bottom left on mouse over*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        GetUserLookUps();
+        //CODESC: Set IsStatusUpdate item to null/empty string.
+        localStorage.setItem('IsStatusUpdate', "");
+        document.getElementById("dvClose").style.display = "none";
+        if (document.getElementById("UserID").value == 0) {
+            document.getElementById("lnkChangeStatus").style.display = "none";
+        }
+        else {
+            $('#dvUserInformation').addClass('watermarkLight');
+            $("#dvUserInformation :input").prop("readonly", true);
+            $('#EntityID').attr('disabled', true);
+            $('#IsPassport').attr('disabled', true);
+        }
+        $("#MVCSiteMap").show();
+    });
+</script>
+

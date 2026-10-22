@@ -1,0 +1,65 @@
+﻿@{
+   ViewBag.Title = "My Profile";
+}
+
+<div class="panel-body">
+   <div class="row">
+      <div class="col-md-10">
+      </div>
+      <div class="col-md-2">
+         <div class="list-group">
+            <center>
+               <div class="list-group-item" style="background-color:steelblue">
+                  <h4 style="height:10px">
+                     <font color="white">I CAN</font>
+                  </h4>
+               </div>
+            </center>
+            <a href="@Url.Action("Index", "UnderConstruction")" class="list-group-item gray-tooltip" data-toggle="tooltip" data-placement="left" title="Personal Informations"><span class="glyphicon glyphicon-info-sign"></span> View Personal Information</a>
+            @*<a href="#" class="list-group-item gray-tooltip" data-toggle="tooltip" data-placement="left" title="assign smartcards to an enrolment officer"><span class="glyphicon glyphicon-trash"></span> Smartcard Details</a>
+               <a href="#" class="list-group-item gray-tooltip" data-toggle="tooltip" data-placement="left" title="save these smartcard serial to database"><span class="glyphicon glyphicon-trash"></span> Transversal Accounts</a>*@
+            <a href="@Url.Action("Index", "UnderConstruction")" class="list-group-item gray-tooltip" data-toggle="tooltip" data-placement="left" title="My User Profile Roles and Access Rights"><span class="glyphicon glyphicon-registration-mark"></span> View Roles</a>
+            <a href="javascript:ChangeDefaultFinger()" class="list-group-item gray-tooltip" data-toggle="tooltip" data-placement="left" title="Override Default Finger"><span class="glyphicon glyphicon-hand-up"></span> Override Default Finger</a>
+            <a href="javascript:OverrideMenuStyle()" class="list-group-item gray-tooltip" data-toggle="tooltip" data-placement="left" title="Override Default Menu Style"><span class="glyphicon glyphicon-edit"></span> Override Default Menu Style</a>
+         </div>
+      </div>
+   </div>
+</div>
+
+@*CODESC: Hide url display in bottom left on mouse over*@
+<script type="text/javascript">
+      $(document).ready(function () {
+         $("#MVCSiteMap").show();
+         $("#cmdMenuClose").show();
+      });
+   </script>
+
+@*CODESC: Override Menu style according to user selection*@
+<script type="text/javascript">
+   function OverrideMenuStyle() {
+      MenuSelector();
+      MenuSelector();
+      $('#mdMenuSelector').modal('show');
+      $("#btnWheel").click(function () {
+
+         //CODESC: Display busy process.
+         ShowBusyProcessing();
+         OverrideMenuPreference("Wheel");
+         $(this).unbind();
+      });
+      $("#btnGrid").click(function () {
+
+         //CODESC: Display busy process.
+         ShowBusyProcessing();
+         OverrideMenuPreference("Grid");
+         $(this).unbind();
+      });
+      $("#btnClassic").click(function () {
+
+          //CODESC: Display busy process.
+          ShowBusyProcessing();
+          OverrideMenuPreference("Classic");
+          $(this).unbind();
+      });
+   }
+</script>

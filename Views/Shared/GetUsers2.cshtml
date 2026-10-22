@@ -1,0 +1,48 @@
+﻿@model List<eDNA.CommonData.Classes.CData_User>
+
+<div class="table-responsive">
+    <table cellpadding="10" class="table table-hover " id="tblUserList">
+
+        <tr>
+            @*<th class="col-xs-3" style="width:20%">Name<span class="pull-right glyphicon glyphicon-sort"></span></th>
+            <th class="col-xs-3" style="width:20%">Surname<span class="pull-right glyphicon glyphicon-sort"></span></th>
+            <th class="col-xs-2" style="width:18%">ID Number<span class="pull-right glyphicon glyphicon-sort"></span></th>
+            <th class="col-xs-2" style="width:10%">eDNA ID<span class="pull-right glyphicon glyphicon-sort"></span></th>*@
+            <th>First Name</th>
+            <th>Surname</th>
+            <th>ID Number</th>
+            <th>eDNA User ID</th>
+        </tr>
+
+
+        @if (Model == null || Model.Count == 0)
+        {
+            <tbody>
+                <tr>
+                    <td colspan="4">No users to display. Enter search criteria to find a user.</td>
+                </tr>
+            </tbody>
+        }
+        @foreach (var item in Model ?? new List<eDNA.CommonData.Classes.CData_User>())
+        {
+            <tbody>
+                <tr>
+                    <td>@item.FirstName</td>
+                    <td>@item.Surname</td>
+                    <td>@item.IDNumber</td>
+
+                    <td>
+                        <a href="javascript:GetUserDetails(@item.UserID)" data-toggle="tooltip" title="View user details" data-placement="bottom" style="color:blue;">@item.UserID</a>
+                    </td>
+
+                </tr>
+          
+            </tbody>
+        }
+            <tfoot style="background-color:steelblue;color:white">
+                <tr style="font-size:medium">
+                    <td class="text-center" colspan="4">User List</td>
+                </tr>
+            </tfoot>
+    </table>
+ </div>

@@ -1,0 +1,99 @@
+﻿@model eDNA.WebPortal.ViewModel.CEntityViewModel
+<form id="EntityData">
+    <div id="dvEntityInformation" class="col-md-3" style="border-style:ridge;border-color:white;height:567px;width:33%">
+        <div id="dvAvlEntities" style="width:428px;height:40px;">
+            <center>
+                <label style="text-decoration:underline">Entity Information</label>
+            </center>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="exampleInputEmail1">Entity ID</label>
+            <div class="col-sm-7">
+                @Html.TextBoxFor(model => model.EntityData.EntityID, new { @readonly = true, @class = "form-control", placeholder = "Entity ID", autocomplete = "off", style = "width:116%;background:#7B7C7F;font-weight:bold;color:white" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="exampleInputEmail1">Created On</label>
+            <div class="col-sm-7">
+                @Html.TextBoxFor(model => model.EntityData.DateCreated, new { @readonly = true, @class = "form-control", placeholder = "Created", autocomplete = "off", style = "width:116%;background:#7B7C7F;font-weight:bold;color:white" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="exampleInputEmail1">Parent</label>
+            <div class="col-sm-7">
+                @Html.DropDownListFor(model => model.EntityData.ParentID, (SelectList)ViewBag.Parent, "[--Select A Parent--]", new { @class = "dropdown", style = "width:116%" })
+                @Html.ValidationMessageFor(model => model.EntityData.ParentID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="exampleInputEmail1">Entity Name</label>
+            <div class="col-sm-7">
+                @Html.TextBoxFor(model => model.EntityData.EntityName, new { @class = "form-control", placeholder = "EntityName", autocomplete = "off", style = "width:116%" })
+                @Html.ValidationMessageFor(model => model.EntityData.EntityName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="exampleInputEmail1">Entity Type</label>
+            <div class="col-sm-7">
+                @Html.DropDownListFor(model => model.EntityData.EntityTypeID, (SelectList)ViewBag.EntityType, "[--Select An Entity Type--]", new { @class = "dropdown", style = "width:116%" })
+                @Html.ValidationMessageFor(model => model.EntityData.EntityTypeID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="exampleInputEmail1">Province</label>
+            <div class="col-sm-7">
+                @Html.DropDownListFor(model => model.EntityData.ProvinceID, (SelectList)ViewBag.Province, "[--Select A Province--]", new { @class = "dropdown", style = "width:116%" })
+                @Html.ValidationMessageFor(model => model.EntityData.ProvinceID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="exampleInputEmail1">District</label>
+            <div class="col-sm-7">
+                @Html.DropDownListFor(model => model.EntityData.DistrictID, (SelectList)ViewBag.District, "[--Select A District--]", new { @class = "dropdown", style = "width:116%" })
+                @Html.ValidationMessageFor(model => model.EntityData.DistrictID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="exampleInputEmail1">Municipality</label>
+            <div class="col-sm-7">
+                @Html.DropDownListFor(model => model.EntityData.MunicipalityID, (SelectList)ViewBag.Municipalities, "[--Select A Municipality--]", new { @class = "dropdown", style = "width:116%" })
+                @Html.ValidationMessageFor(model => model.EntityData.MunicipalityID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="exampleInputEmail1">Active</label>
+            <div class="col-sm-7">
+                @Html.CheckBoxFor(m => m.EntityData.Active)
+            </div>
+        </div>
+    </div>
+    <div id="dvEntityAttributes" class="col-md-3" style="border-style:ridge;border-color:white;height:567px;width:33%">
+        <div id="dvAvlEntities" style="width:428px;height:40px;">
+            <center>
+                <label style="text-decoration:underline">Entity Attributes</label>
+            </center>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="exampleInputEmail1" style="width:34%">Postal Address</label>
+            <div class="col-sm-7">
+                @Html.TextBoxFor(model => model.EntityData.PostalAddressLine1, new { @class = "form-control", placeholder = "Address Line1", autocomplete = "off", style = "width:116%" })
+                @Html.TextBoxFor(model => model.EntityData.PostalAddressLine2, new { @class = "form-control", placeholder = "Address Line2", autocomplete = "off", style = "width:116%" })
+                @Html.TextBoxFor(model => model.EntityData.PostalAddressLine3, new { @class = "form-control", placeholder = "Address Line3", autocomplete = "off", style = "width:116%" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="exampleInputEmail1" style="width:34%">Physical Address</label>
+            <div class="col-sm-7">
+                @Html.TextBoxFor(model => model.EntityData.PhysicalAddressLine1, new { @class = "form-control", placeholder = "Address Line1", autocomplete = "off", style = "width:116%" })
+                @Html.TextBoxFor(model => model.EntityData.PhysicalAddressLine2, new { @class = "form-control", placeholder = "Address Line2", autocomplete = "off", style = "width:116%" })
+                @Html.TextBoxFor(model => model.EntityData.PhysicalAddressLine3, new { @class = "form-control", placeholder = "Address Line3", autocomplete = "off", style = "width:116%" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4" for="exampleInputEmail1" style="width:34%">Host Entity</label>
+            <div class="col-sm-7">
+                @*@Html.DropDownListFor(model => model.EntityData.HostingEntityID, (SelectList)ViewBag.HostEntity, "[--Select A Host Entity--]", new { @class = "dropdown", style = "width:290px" })*@
+            </div>
+        </div>
+    </div>
+</form>

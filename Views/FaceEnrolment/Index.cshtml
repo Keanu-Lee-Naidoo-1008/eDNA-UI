@@ -1,0 +1,104 @@
+﻿@{
+    ViewBag.Title = "Facial Enrolment Details";
+}
+
+<div class="panel-body-details ed-page">
+    <div class="ed-page-header">
+        <div>
+            <h2>Facial enrolment</h2>
+            <p>Capture the face, verify it, then sign and continue.</p>
+        </div>
+        <ol class="ed-checklist" aria-label="Facial enrolment steps">
+            <li>Capture face</li>
+            <li>Verify captured face</li>
+            <li>Sign and continue</li>
+        </ol>
+    </div>
+
+    <div class="ed-layout-split">
+        <section class="ed-card">
+            <div class="ed-card-header">
+                <h3>Capture Face</h3>
+                <span class="text-muted">Opens the eDNA Facial Capture window</span>
+            </div>
+            <div class="ed-card-body ed-face-capture">
+                <div class="ed-hand">
+                    <div class="ed-hand-image">
+                        <img src="~/Content/Images/Enrolment/Facial.jpg" width="256" height="266" class="img_map" alt="Face outline. Click to capture the face." usemap="#CaptureFacemap" />
+                    </div>
+                </div>
+
+                <div class="ed-capture-slot ed-face-slot">
+                    <a href="#" id="cmdClearFace" class="pull-right" style="display:none;color:red;font-weight:bold" data-placement="bottom" data-toggle="tooltip" title="Clear captured face">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                    <div class="ed-capture-pair">
+                        <span class="ed-capture-slot-label">First capture</span>
+                        <span class="ed-img-frame ed-face-frame"><img id="imgFace" width="65" height="70" alt="Face, first capture" style="border:groove;border-color:white;object-fit:cover;background-repeat: no-repeat" /></span>
+                        <label id="lblFaceImageQuality1">0</label>
+                        <span class="ed-capture-slot-label">Second capture</span>
+                        <span class="ed-img-frame ed-face-frame"><img id="imgFace12ndCapture" width="65" height="70" alt="Face, second capture" style="border:groove;border-color:white;object-fit:cover;background-repeat: no-repeat;background-color:transparent" /></span>
+                        <label id="lblFaceImageQuality12">0</label>
+                    </div>
+                </div>
+
+                <map name="CaptureFacemap">
+                    <area shape="circle" coords="18,84,13,90" alt="Face" href="javascript:CaptureFace('Face')" id="lnkCFace" data-placement="bottom" data-toggle="tooltip" title="Click to Capture Face">
+                </map>
+            </div>
+        </section>
+
+        <aside class="list-group ed-sidepanel">
+            <div class="list-group-item ed-section-title">Exceptions</div>
+
+            <div class="list-group-item ed-section-title">Functions</div>
+            <a href="javascript:VerifyAllFace()" class="list-group-item" data-toggle="tooltip" data-placement="bottom" title="Verify all captured finger"><span class="glyphicon glyphicon-ok"></span> Verify Captured Face</a>
+            <a href="javascript:ClearFacePrints()" class="list-group-item" data-toggle="tooltip" data-placement="bottom" title="Clear all captured finger"><span class="glyphicon glyphicon-refresh"></span> Reset Captured Face</a>
+
+            <div class="list-group-item ed-section-title">Color Legend</div>
+            <div class="ed-legend">
+                <label class="list-group-item-legend">
+                    <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="display-legend color-legend-NotCaptured" width="22" height="22" alt="" />
+                    Not Captured Face
+                </label>
+                @*<label class="list-group-item-legend" style="font-size: 12px;">
+                        <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="display-legend color-legend-EnrolledFinger" width="22" height="22" />
+                        &nbsp;Enrolled Fingers
+                    </label>*@
+                <label class="list-group-item-legend">
+                    <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="display-legend color-legend-SecondCapture" width="22" height="22" alt="" />
+                    Captured Face
+                </label>
+                <label class="list-group-item-legend">
+                    <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="display-legend color-legend-Verified" width="22" height="22" alt="" />
+                    Verified Face
+                </label>
+            </div>
+        </aside>
+    </div>
+</div>
+<div class="panel-footer ed-actionbar">
+    <a href="@Url.Action("Index","UserEnrolment")" class="btn btn-primary ed-btn-secondary" data-toggle="tooltip" title="Cancel the Enrolment Process"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
+    <a href="javascript:BoimetricSave()" class="btn btn-primary" data-toggle="tooltip" title="Continue to Transversal Enrolment"><span class="glyphicon glyphicon-hand-up"></span> Sign And Continue</a>
+</div>
+
+<input type="hidden" id="FaceNo" />
+<input type="hidden" id="Face2ndCapture" />
+
+@*CODESC: Hide MVC SiteMap/Breadcrumb and display Enrolment div to not allow user clicks in the Sitemap while busy with enrolment process.*@
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        //document.getElementById("MVCSiteMap").style.display = "none";
+        $("#UserEnromentWizard").show();
+        //To disable a link.
+        //$("#lnkCFinger1").hide();
+        //$('#lnkCFinger1').attr("href", "javascript: void(0)");
+        //$("#lnkCFinger6").hide();
+        //$('#lnkCFinger6').attr("href", "javascript: void(0)");
+
+        if (localStorage.getItem("m_isUserUpdate") == 'CrOrUpd') {
+            Notify("User Enrolment" + "<br>", "User details captured successfully. Continue with Biometric Enrolment.");
+        }
+    });
+</script>

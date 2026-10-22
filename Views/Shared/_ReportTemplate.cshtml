@@ -1,0 +1,36 @@
+@using System
+@model eDNA.WebPortal.ViewModel.CReportViewModel
+
+@if (Model.ReportInfo == null || String.IsNullOrWhiteSpace(Model.ReportInfo.ReportURL))
+{
+    <div class="report-viewer-empty">
+        <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>
+        <h3>No report selected</h3>
+        <p>Choose a report from a category to view its parameters and results.</p>
+    </div>
+}
+else
+{
+    int l_iReportWidth = Math.Max(1, Math.Min(100, Model.ReportInfo.Width));
+    int l_iReportHeight = Math.Max(300, Math.Min(4000, Model.ReportInfo.Height));
+    string l_strReportTitle = String.IsNullOrWhiteSpace(Model.ReportInfo.ReportDescription)
+        ? Model.ReportInfo.ReportName
+        : Model.ReportInfo.ReportDescription;
+
+    <div class="report-frame-container">
+        <header class="report-frame-heading">
+            <h4>@l_strReportTitle</h4>
+        </header>
+        <div class="report-frame-loading" role="status" aria-live="polite">
+            <span class="report-frame-spinner" aria-hidden="true"></span>
+            <span>Loading report&hellip;</span>
+        </div>
+        <iframe id="frmReport"
+                class="report-frame"
+                title="@l_strReportTitle"
+                src="@Model.ReportInfo.ReportURL"
+                onload="ReportViewerLoaded(this)"
+                style="@String.Format("width:{0}%; height:{1}px;", l_iReportWidth, l_iReportHeight)"
+                scrolling="yes"></iframe>
+    </div>
+}

@@ -1,0 +1,206 @@
+﻿@model eDNA.WebPortal.Models.SearchObject
+@{
+    ViewBag.Title = "User Management";
+}
+<div class="panel-body">
+    <div class="row">
+        <form class="form-inline">
+            <div class="col-md-1" style="width:9.5%">
+            </div>
+            <div class="col-md-1" style="width:12%;">
+                <h4 class="pull-right">Search eDNA User</h4>
+            </div>
+            <div class="form-group">
+                @Html.DropDownListFor(m => m.Type, ViewBag.SearchTypes as List<SelectListItem>, new { @class = "dropdown-btn", style = "width:100%" })
+            </div>
+            @Html.TextBoxFor(m => m.Value, new { @class = "form-control", placeholder = "Enter Search Value", tabindex = 1, onkeydown = "return ValidateSearchValue(event);", autocomplete = "off", style = "width:24.7%;height:35px" })
+            @Html.ValidationMessageFor(m => m.Value)
+            &nbsp;
+            <a href="javascript:SearchUser('UM')" class="btn btn-primary" data-toggle="tooltip" style="width:10%" title="Search"><span class="glyphicon glyphicon-search"></span> Search</a>
+            <button class="btn btn-primary" onclick="ClearSearchResult()" style="width:10%"><span class="glyphicon glyphicon-trash"></span> Clear</button>
+        </form>
+    </div>
+    <div class="col-md-1" style="width:20.2%">
+        <label style="color:transparent">Hello</label>
+    </div>
+    <div id="dvUserListContainer" >
+        
+    </div>
+
+    <div id="dvDummyUserList" class="col-md-6" style="width:60%">
+        <div class="form-group">
+            <h4></h4>
+            <table class="table table-hover scroll">
+                <tfoot style="background-color:steelblue;color:white">
+                    <tr style="font-size:medium">
+                        <td class="text-center" colspan="5">User List</td>
+                    </tr>
+                </tfoot>
+            </table>
+            <div id="UserDetailsPlaceHolder">
+
+            </div>
+        </div>
+    </div>
+    <h4 style="height:8px"></h4>
+    <div class="col-md-3" style="width:250px">
+        <div class="list-group">
+            <center>
+                <div class="list-group-item" style="background-color:steelblue">
+                    <label style="color:white;font-size:medium;">User Actions</label>
+                </div>
+            </center>
+            <a href="javascript:GetNewUserLookUps('UM')" onclick="javascript: ShowBusyProcessing()" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Create a New User"><span class="glyphicon glyphicon-plus"></span> Create New User</a>
+            <a href="@Url.Action("Index", "UserManagementBulkImport")" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Bulk Import New Users"><span class="glyphicon glyphicon-import"></span> Bulk Import New Users</a>
+            <a href="javascript:ClearSearchResult()" onclick="javascript:ShowBusyProcessing()" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Clear Result List"><span class="glyphicon glyphicon-trash"></span> Clear Search Result</a>
+            <a href="#" class="list-group-item" data-placement="bottom" data-toggle="tooltip"></a>
+        </div>
+    </div>
+</div>
+
+@*CODESC: Form load events*@
+<script type="text/javascript">
+    $(document).ready(function ($) {
+        //CODESC: Hide bulk import controls on form load
+        $("#dvBulkUserImport").hide();
+        $("#tblUserList").tablesorter();
+        $("#MVCSiteMap").show();
+        //CODESC: Set IsStatusUpdate item to null/empty string.
+        localStorage.setItem('IsStatusUpdate', "");
+
+        if (l_SearchValue != '') {
+            if (l_SearchType == '2') {
+                $('#dvUserList').show();
+                $('#tblUserList').show();
+
+                $('#dvDummyUserList').hide();
+            }
+        }
+    });
+</script>
+
+@*CODESC: Form load event*@
+<script type="text/javascript">
+    $(window).on('load', function () {
+        if (localStorage.getItem("m_isUserUpdate") == 'CrOrUpd') {
+            Notify("User Management" + "<br>", "User Created/Updated Successfully!!");
+            localStorage.setItem("m_isUserUpdate", 'False');
+        }
+
+    })
+
+ 
+</script>
+
+@*CODESC: Search user on Enter key press event.*@
+<script type="text/javascript">
+    $("#Value").on("keydown", function (event) {
+        if (event.which == 13)
+            SearchUser('UM');
+    });
+    //CODESC: Clear search value if SearchType index changed.
+    $("#Type").change(function () {
+        $('#Value').val('');
+    });
+</script>
+
+@*CODESC: Dynamically display the search type and value in the respective control*@
+<script type="text/javascript">
+   var l_SearchType = 'Convert.ToString(@HttpContext.Current.Session["p_strUSearchType"])';
+   var l_SearchValue = 'Convert.ToString(@HttpContext.Current.Session["p_strUSearchValue"])';
+
+   l_SearchType = l_SearchType.substring(l_SearchType.indexOf("(", 0));
+   l_SearchValue = l_SearchValue.substring(l_SearchValue.indexOf("(", 0));
+
+   l_SearchType = l_SearchType.substring(1, l_SearchType.indexOf(')'));
+   l_SearchValue = l_SearchValue.substring(1, l_SearchValue.indexOf(')'));
+
+   if (l_SearchValue != "") {
+      $('#Value').val(l_SearchValue);
+      $('#Type').val(l_SearchType);
+   }
+</script>
+
+@*CODESC: Clear search results.*@
+<script type="text/javascript">
+    function ClearSearchResult() {
+        $.ajax({
+            url: '/eDNA.WebPortal/UserManagement/ClearSearchResults',
+            type: "POST",
+            success: function (data) {
+                location = data;
+            },
+        });
+        HideBusyProcessing();
+    }
+</script>
+
+@*CODESC: Validate Search Value.*@
+<script type="text/javascript">
+    function ValidateSearchValue(e) {
+        var p_strSearchType = $('#Type :selected').text();
+        var p_strSearchValue = $("#Value").val();
+
+        if (p_strSearchType == 'eDNA ID') {
+            return ValidateNumber(event);
+        }
+        if (p_strSearchType == 'Identification Number') {
+            return ValidateNumber(event);
+        }
+        if (p_strSearchType == 'Surname') {
+            return ValidateSurnameText(event);
+        }
+    }
+</script>
+
+@*CODESC: Select the .csv file and populate the ListBox.*@
+<script type="text/javascript">
+    var l_lstSmartcardSLNos;
+    var l_lblTotalCount;
+
+    l_lstSmartcardSLNos = document.getElementById('lstSmartcardSLNos');
+    l_lblTotalCount = document.getElementById('lblTotal');
+
+    $(document).ready(function () {
+        if (isAPIAvailable()) {
+            $('#files').bind('change', UploadCSVFile);
+        }
+
+    });
+
+    // CODESC:  for the various File API support.
+    function isAPIAvailable() {
+        if (window.File && window.FileReader && window.FileList && window.Blob) {
+            // CODESC: Great success! All the File APIs are supported.
+            return true;
+        }
+    }
+
+    // CODESC: Read and populate the CSV content to the list box.
+    function UploadCSVFile(evt) {
+        var l_files = evt.target.files;
+        var l_file = l_files[0];
+        m_SCImportFileName = l_file.name;
+
+        var l_Filereader = new FileReader();
+        l_Filereader.readAsText(l_file);
+
+        l_Filereader.onload = function (event) {
+            var l_Split = event.target.result;
+            var l_str_array = l_Split.split(',');
+            for (var loop = 0; loop < l_str_array.length; loop++) {
+                var tempOpt = new Option(l_str_array[loop], l_str_array[loop]);
+                l_lstSmartcardSLNos.options.add(tempOpt);
+            }
+            l_lblTotalCount.innerText = "Total - " + l_lstSmartcardSLNos.childElementCount;
+            //MessageBox("Bulk Import", l_lstSmartcardSLNos.childElementCount + " - " + " Smartcards Imported Successfully", m_MessageType.Information);
+
+            m_WebMessageLogger.UserMessage("eDNA Message:- " + l_lstSmartcardSLNos.childElementCount + " - " + " Smartcards Imported Successfully", 'Black');
+
+            //CODESC: Display Get status controls
+            $("#chkGetStatus").show();
+            $("#lblGetStatus").show();
+        };
+        m_WebMessageLogger.appendError("Unable to read " + l_file.fileName);
+    }
+</script>

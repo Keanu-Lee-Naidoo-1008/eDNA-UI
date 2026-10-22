@@ -1,0 +1,375 @@
+﻿@model eDNA.WebPortal.Models.CSmartCardData
+@{
+    ViewBag.Title = "Smartcard Management";
+}
+@Html.AntiForgeryToken()
+@Html.ValidationSummary()
+
+<div class="panel-body" id="frmSmartCardManagement">
+    <div class="row">
+        <label class="col-sm-1" style="color:white;width:1%;"></label>
+        <div class="col-md-1" style="width:17%">
+            <label style="background-color:transparent;height:45px;color:transparent">Color Legend</label>
+            <div class="list-group" id="dvColorLegend1">
+                <center>
+                    <label class="list-group-item" style="background-color:steelblue;color:white;height:45px;font-size:18px;font-weight:200;">Color Legend</label>
+                </center>
+                <label class="list-group-item-legend">
+                    <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="display-legend color-legend-NotInCMS" width="22" height="22" />
+                    Not In CMS
+                    <label style="color:white;width:18px"></label>
+                    <label id="lblNotInCMS"></label>
+                </label>
+                <label class="list-group-item-legend">
+                    <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="display-legend color-legend-NotWarehoused" width="22" height="22" />
+                    Not Warehoused
+                    <label style="color:white;"></label>
+                    <label id="lblNotWarehoused"></label>
+                </label>
+                <label class="list-group-item-legend">
+                    <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="display-legend color-legend-Warehoused" width="22" height="22" />
+                    Warehoused
+                    <label style="color:white;width:28px"></label>
+                    <label id="lblWarehoused"></label>
+                </label>
+                <label class="list-group-item-legend">
+                    <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="display-legend color-legend-Allocated" width="22" height="22" />
+                    Allocated
+                    <label style="color:white;width:48px"></label>
+                    <label id="lblAllocated"></label>
+                </label>
+                <label class="list-group-item-legend">
+                    <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="display-legend color-legend-Assigned" width="22" height="22" />
+                    Assigned
+                    <label style="color:white;width:48px"></label>
+                    <label id="lblAssigned"></label>
+                </label>
+                <label class="list-group-item-legend">
+                    <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="display-legend color-legend-Terminated" width="22" height="22" />
+                    Terminated
+                    <label style="color:white;width:35px"></label>
+                    <label id="lblTerminated"></label>
+                </label>
+            </div>
+        </div>
+        <form class="form-inline">
+            <div class="col-md-1" style="width:0.1%">
+            </div>
+            <h4 class="pull-left">Smartcard Serial#</h4>
+            <div id="dvAdd" class="col-md-1" style="width:24%;">
+                @Html.TextBoxFor(model => model.SerialNumber, new { id = "SerialNumber", @maxlength = 16, @class = "form-control", autocomplete = "off", placeholder = "Serial Number", style = "width:100%" })
+            </div>
+            <div id="dvBulk" class="col-md-1" style="width:24%;">
+                <div style="border: 1px solid #000000;">
+                    <input type="file" accept=".csv" id="files" name="files[]" multiple />
+                </div>
+            </div>
+            <div>
+                <div class="input-group">
+                    <a href="javascript:BindListBox()" data-placement="right" data-toggle="tooltip" title="Add Serial Number to List" style="color:blue"><span class="glyphicon glyphicon-plus"></span> Add Serial Number to List</a>
+                    <div style="color:black">
+                        <input type='checkbox' name="chkBulkImport" id="chkBulkImport" value='true'> <label id="lblBulkImport">Bulk Import Smartcards</label>
+                        &nbsp;
+                        <input type='checkbox' name="chkGetStatus" id="chkGetStatus" value='true'> <label id="lblGetStatus">Get Smartcard Status</label>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="form-group">
+            @*<label class="col-sm-2" style="color:white;width:285px"></label>*@
+            <div class="col-sm-4">
+                <center>
+                    <div class="list-group-item" style="background-color:steelblue">
+                        <h4 style="height:15px">
+                            <font color="white">SmartCard List</font>
+                        </h4>
+                    </div>
+                </center>
+                <div class="editor-field">
+                    @Html.ListBox("lstSmartcardSLNos", new List<SelectListItem>(), new { style = "width:100%; height:460px;" })
+                </div>
+            </div>
+            <!-- Select Applet Version Input Event Modal Pop up Window -->
+            <div class="modal fade" id="mdWareHouseModalPopUp" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" data-placement="center" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 id="Icon_Information"><img src="~/Content/Images/Information.png" width="45" height="40" />&nbsp;<Label>System Information</Label></h4>
+                        </div>
+                        <div class="modal-body">
+                            <Label>Please Select a Applet Version for the Smartcard needs to be warehouse with.</Label>
+                            <br />
+                            <br />
+                            <Label>Applet Versions</Label>&nbsp;
+                            @Html.DropDownListFor(model => model.AppletVersionID, (SelectList)ViewBag.AppletVersions, "[--Select Applet Version--]", new { @class = "dropdown", style = "width:70%" })
+                            @Html.ValidationMessageFor(model => model.AppletVersionID, "", new { @class = "text-danger" })
+                            <br />
+                            <br />
+                            <br />
+                        </div>
+                        <div class="modal-footer">
+                            <img src="~/Content/Images/eDNA_logo.jpg" class="pull-left" height="45" />
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            <button type="button" id="btnWareHouse" class="btn btn-default" data-toggle="tooltip" title="Add the value to the User details" data-placement="bottom">Warehouse</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Smartcard Action Confirmation Modal Pop up Window -->
+            <div class="modal fade" id="mdSCActionConfirmation" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" data-placement="center" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 id="Icon_Warning"><img src="~/Content/Images/Warning.png" width="45" height="40" />&nbsp;<Label>eDNA WebPortal Message</Label></h4>
+                        </div>
+                        <div class="modal-body">
+                            <Label id="lblSCMessageHeader" class="pull-left" style="text-decoration:underline">MessageHeader</Label><br />
+                            <Label ID="lblSCMessage"></Label>
+                            <br />
+                            <a href="#" class="pull-right" id="lnkDownload" style="color:blue" data-toggle="tooltip" title="Download the Error SmartCard List"><span class="glyphicon glyphicon-download-alt"></span> Click Here To Download the Error SmartCard List.</a>
+                            <br />
+                        </div>
+                        <div class="modal-footer">
+                            <img src="~/Content/Images/eDNA_logo.jpg" class="pull-left" height="45" />
+                            <Label style="color:red;font-size:large"> Do You Want To Continue?</Label>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="tooltip" title="Close" style="width:100px">No</button>
+                            <button id="btnSCWareHouseYes" type="button" class="btn btn-default" data-dismiss="modal" data-toggle="tooltip" title="Continue To Warehouse" style="width:100px">Yes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input UserID to Allocate the SmartCard Modal Pop up Window -->
+            <div class="modal fade" id="mdAllocateModalPopUp" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" data-placement="center" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 id="Icon_Information"><img src="~/Content/Images/Information.png" width="45" height="40" />&nbsp;<Label>System Information</Label></h4>
+                        </div>
+                        <div class="modal-body">
+                            <Label ID="lblMessage">Please Enter the eDNA-ID of the enrolment officer to which the Smartcards will be allocated(full user ID).</Label>
+                            <br />
+                            <Label>Enrolment Officer eDNA ID</Label>&nbsp;
+                            <input id="txtAllocateToeDNAID" type="text" placeholder="Enter eDNA UserID" maxlength="10" onkeydown="return ValidateNumber(event);">
+                            <br />
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="tooltip" title="Cancel">Cancel</button>
+                            <button type="button" id="btnAllocate" class="btn btn-default" data-dismiss="modal" data-toggle="tooltip" title="Enter eDNA ID to continue the process" data-placement="bottom">Allocate</button>
+                            <img src="~/Content/Images/eDNA_logo.jpg" class="pull-left" height="45" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2" style="width:20%">
+            <div class="list-group">
+                <center>
+                    <div class="list-group-item" style="background-color:steelblue">
+                        <h4 style="height:10px">
+                            <font color="white">SmartCard Functions</font>
+                        </h4>
+                    </div>
+                </center>
+                <a href="javascript:SignAndProcess('WC')" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Warehouse Cards"><span class="glyphicon glyphicon-save"></span> Sign And Warehouse Smartcards </a>
+                <a href="javascript:SignAndProcess('AC')" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Allocate Cards"><span class="glyphicon glyphicon-saved"></span> Sign And Allocate Smartcards </a>
+                <a href="javascript:SignAndProcess('RWC')" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Re-warehouse Cards"><span class="glyphicon glyphicon-transfer"></span> Sign And Re-warehouse Smartcards </a>
+                <a href="javascript:SignAndProcess('TER')" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Terminate Cards"><span class="glyphicon glyphicon-remove"></span> Sign And Terminate Smartcards </a>
+                <a href="javascript:QuerySmartCard()" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Query Single SC"><span class="glyphicon glyphicon-barcode"></span> Query a Smartcard </a>
+                <a class="list-group-item" data-placement="bottom" data-toggle="tooltip"></a>
+                <center>
+                    <label class="list-group-item" style="background-color:steelblue;color:white;font-size:18px;font-weight:200;">SmartCard Actions</label>
+                </center>
+                <a href="javascript:CheckDuplicateSCs()" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Check duplicate SmartCards"><span class="glyphicon glyphicon-duplicate"></span> Verify Duplicate SmartCards</a>
+                <a href="javascript:RemoveDuplicateSCs()" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Remove duplicate SmartCards"><span class="glyphicon glyphicon-filter"></span> Remove Duplicate SmartCards</a>
+                <a href="javascript:RemoveInvalidSmartCards()" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Remove Invalid SmartCards"><span class="glyphicon glyphicon-share-alt"></span> Remove Error SmartCards</a>
+                <a href="javascript:RemoveSelectedItems()" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Remove Selected SmartCards"><span class="glyphicon glyphicon-share"></span> Remove Selected SmartCards</a>
+                <a href="javascript:ClearListBox()" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Clear all Serial Numbers"><span class="glyphicon glyphicon-trash"></span> Clear All Serial Numbers</a>
+                <a class="list-group-item" data-placement="bottom" data-toggle="tooltip"></a>
+            </div>
+        </div>
+        <div class="col-md-3" style="width:23%">
+            <div class="list-group">
+                <center>
+                    <div class="list-group-item" style="background-color:steelblue">
+                        <h4 style="height:10px">
+                            <font color="white">SmartCard Details</font>
+                        </h4>
+                    </div>
+                </center>
+                <label class="list-group-item" style="height:30px">
+                    SmartCard Serial:
+                    <label style="color:white;width:38px"></label>
+                    <label id="lblSCSerial" style="color:blue;height:10px"></label>
+                </label>
+                <label class="list-group-item" style="height:30px">
+                    Applet Version:
+                    <label style="color:white;width:52px"></label>
+                    <label id="lblSCAppletVersion" style="color:blue;height:10px"></label>
+                </label>
+                <label class="list-group-item" style="height:30px">
+                    Last SmartCard Status:
+                    <label style="color:white;"></label>
+                    <label id="lblSCStatus" style="color:blue;height:10px"></label>
+                </label>
+                <label class="list-group-item" style="height:30px">
+                    Last Warehoused By:
+                    <label style="color:white;width:10px"></label>
+                    <label id="lblSCWUser" style="color:blue;height:10px"></label>
+                </label>
+                <label class="list-group-item" style="height:30px">
+                    Last Warehoused Date:
+                    <label id="lblSCWDate" style="color:blue;height:10px"></label>
+                </label>
+                <label class="list-group-item" style="height:30px">
+                    Last Allocated To:
+                    <label style="color:white;width:30px"></label>
+                    <label id="lblSCAUser" style="color:blue;height:10px"></label>
+                </label>
+                <label class="list-group-item" style="height:30px">
+                    Last Allocated Date:
+                    <label style="color:white;width:18px"></label>
+                    <label id="lblSCADate" style="color:blue;height:10px"></label>
+                </label>
+                <label class="list-group-item" style="height:30px">
+                    Assigned Recipient:
+                    <label style="color:white;width:25px"></label>
+                    <label id="lblSCTOUser" style="color:blue;height:10px"></label>
+                </label>
+                <label class="list-group-item" style="height:30px">
+                    Assigned Date:
+                    <label style="color:white;width:25px"></label>
+                    <label id="lblSCTODate" style="color:blue;height:10px"></label>
+                </label>
+                <label class="list-group-item" style="height:30px">
+                    Last Terminated By:
+                    <label style="color:white;width:15px"></label>
+                    <label id="lblSCTEUser" style="color:blue;height:10px"></label>
+                </label>
+                <label class="list-group-item" style="height:30px">
+                    Last Terminated Date:
+                    <label style="color:white;width:5px"></label>
+                    <label id="lblSCTEDate" style="color:blue;height:10px"></label>
+                </label>
+                <a class="list-group-item" data-placement="bottom" data-toggle="tooltip"></a>
+            </div>
+        </div>
+    </div>
+    <label class="col-sm-1" style="color:white;width:18%"></label>
+    <div class="col-sm-8" style="color:black">
+        <table>
+            <tr>
+                <td>
+                    <label id="lblTotal"></label>
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+                <td>
+                    <label id="lblErrorTotal" style="color:red"></label>
+                </td>
+                <td>
+                    &nbsp;
+                </td>
+                <td>
+                    <label id="lblDuplicateTotal" style="color:red"></label>
+                </td>
+            </tr>
+            <tr></tr>
+        </table>
+    </div>
+</div>
+
+@*CODESC: Form load events*@
+<script type="text/javascript">
+    $(document).ready(function ($) {
+        //CODESC: Hide bulk import controls on form load
+        $("#dvBulk").hide();
+        $("#dvImport").hide();
+        $("#lblGetStatus").hide();
+        $("#chkGetStatus").hide();
+        $("#lblGetStatus").hide();
+        $("#divLoading").hide();
+        $("#MVCSiteMap").show();
+     
+    });
+</script>
+
+@*CODESC: Form load event*@
+<script type="text/javascript">
+    $(window).on('load', function () {
+        //CODESC: Get Smartcard lookups from data base.
+        if ('@HttpContext.Current.Session["isSmartCardFormLoad"]' == 'True') {
+            GetSmartcardLookUps('');
+        }
+    })
+</script>
+
+@*CODESC: Select the .csv file and populate the ListBox.*@
+<script type="text/javascript">
+    var l_lstSmartcardSLNos;
+    var l_lblTotalCount;
+
+    l_lstSmartcardSLNos = document.getElementById('lstSmartcardSLNos');
+    l_lblTotalCount = document.getElementById('lblTotal');
+
+    $(document).ready(function () {
+        if (isAPIAvailable()) {
+            $('#files').bind('change', UploadCSVFile);
+        }
+    });
+
+    // CODESC:  for the various File API support.
+    function isAPIAvailable() {
+        if (window.File && window.FileReader && window.FileList && window.Blob) {
+            // CODESC: Great success! All the File APIs are supported.
+            return true;
+        }
+    }
+
+    // CODESC: Read and populate the CSV content to the list box.
+    function UploadCSVFile(evt) {
+        var l_files = evt.target.files;
+        var l_file = l_files[0];
+        m_SCImportFileName = l_file.name;
+
+        var l_Filereader = new FileReader();
+        l_Filereader.readAsText(l_file);
+
+        l_Filereader.onload = function (event) {
+            var l_Split = event.target.result;
+            var l_str_array = l_Split.split(',');
+            for (var loop = 0; loop < l_str_array.length; loop++) {
+                var tempOpt = new Option(l_str_array[loop], l_str_array[loop]);
+                l_lstSmartcardSLNos.options.add(tempOpt);
+            }
+            l_lblTotalCount.innerText = "Total - " + l_lstSmartcardSLNos.childElementCount;
+            m_WebMessageLogger.UserMessage("eDNA Message:- " + l_lstSmartcardSLNos.childElementCount + " - " + " Smartcards Imported Successfully", 'Black');
+
+            //CODESC: Display Get status controls
+            $("#chkGetStatus").show();
+            $("#lblGetStatus").show();
+        };
+        m_WebMessageLogger.appendError("Unable to read " + l_file.fileName);
+    }
+</script>
+
+@*CODESC: Clear Smartcard Information on selection*@
+<script type="text/javascript">
+    document.getElementById('lstSmartcardSLNos').onchange = function () {
+        ClearSCInformation();
+        if (this.selectedOptions.length === 1) QuerySmartCard();
+    };
+</script>
+
+@*CODESC: Bind Smartcard serial list box control on Enter key press event.*@
+<script type="text/javascript">
+    $('#SerialNumber').keypress(function (event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13') {
+            event.preventDefault();
+            BindListBox();
+        }
+    });
+</script>

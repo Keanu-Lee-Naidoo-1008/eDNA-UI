@@ -1,0 +1,138 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+    var menuItems = (ViewBag.MenuTable as List<eDNA.CommonData.Classes.CData_Menu>) ?? new List<eDNA.CommonData.Classes.CData_Menu>();
+}
+
+<style>
+    .dropdown-submenu {
+        position: relative;
+    }
+
+        .dropdown-submenu .dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -1px;
+        }
+</style>
+
+@helper PrepareMenuStructure(List<eDNA.CommonData.Classes.CData_Menu> l_MenuItems, int level)
+    {
+        if (l_MenuItems != null)
+        {
+            foreach (var l_Menu in l_MenuItems.Where(x => x.Parent == level).OrderBy(x => x.DisplayIndex))
+            {
+                if (l_Menu.ControllerName == "None")
+                {
+                    <li class="dropdown">
+                        <div style="width:225px;">
+                            &nbsp;<img src="~/Content/Images/MenuIcons/@l_Menu.IconName" style="max-width:40px; max-height:40px;" />
+                            &nbsp;
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color:blue;">@l_Menu.Caption&nbsp;<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                @this.PrepareSubMenuStructure(l_MenuItems, l_Menu.MenuID)
+                            </ul>
+                        </div>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <div style="width:225px;">
+                            &nbsp;<img src="~/Content/Images/MenuIcons/@l_Menu.IconName" style="max-width:20px; max-height:20px;" />
+                            &nbsp;
+                            <a href="javascript:Redirect('@l_Menu.MenuID','@l_Menu.MVC_View')" style="color:blue;">@l_Menu.Caption</a>
+                        </div>
+                    </li>
+                }
+            }
+        }
+}
+
+@helper PrepareSubMenuStructure(List<eDNA.CommonData.Classes.CData_Menu> l_MenuItems, int level)
+    {
+        if (l_MenuItems != null)
+        {
+            foreach (var l_Menu in l_MenuItems.Where(x => x.Parent == level).OrderBy(x => x.DisplayIndex))
+            {
+                if (l_Menu.ControllerName == "None")
+                {
+                    <li class="dropdown-submenu">
+                        <div style="width:225px;">
+                            &nbsp;<img src="~/Content/Images/MenuIcons/@l_Menu.IconName" style="max-width:20px; max-height:20px;" />
+                            &nbsp;
+                            <a href="#" class="submenu-toggle" style="color:blue" data-toggle="tooltip" title="@l_Menu.ToolTip">@l_Menu.Caption &nbsp;<span class="caret caret-right"></span></a>
+                            <ul class="dropdown-menu">
+                                @this.PrepareSubMenuStructure(l_MenuItems, l_Menu.MenuID)
+                            </ul>
+                        </div>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <div style="width:225px;">
+                            &nbsp;<img src="~/Content/Images/MenuIcons/@l_Menu.IconName" style="max-width:20px; max-height:20px" />
+                            &nbsp;
+                            <a href="javascript:Redirect('@l_Menu.MenuID','@l_Menu.MVC_View')" style="color:blue;cursor:pointer;margin: 0 auto" id=@l_Menu.MenuID data-toggle="tooltip" title="@l_Menu.ToolTip">@l_Menu.Caption</a>
+                        </div>
+                    </li>
+                }
+            }
+        }
+}
+
+<nav class="navbar navbar-inverse navbar-default">
+    <div class="container">
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                @this.PrepareMenuStructure(menuItems, 1)
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.dropdown-submenu a.submenu-toggle').on("click", function (e) {
+            console.log("toggle");
+            $(this).next('ul').toggle();
+            e.stopPropagation();
+            e.preventDefault();
+        });
+    });
+</script>
+
+@*<script type="text/javascript">
+    function Redirect(p_iMenuID, p_strMVCView) {
+        if (p_strMVCView != 'None') {
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                traditional: true,
+                url: "/eDNA.WebPortal/Home/RedirectToSelectedPage",
+                data: JSON.stringify({ 'p_iMenuID': p_iMenuID, 'p_strMVCView': p_strMVCView }),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    ShowBusyProcessing();
+                    location = data;
+                }
+            });
+        }
+        else {
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                traditional: true,
+                url: "/eDNA.WebPortal/Base/HandleMessage",
+                data: JSON.stringify({ 'p_strMessage': '1' + ';16' + ';' + p_iMenuID, 'p_strOption': '64' }),
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    //CODESC: Display busy process.
+                    ShowBusyProcessing();
+                    //CODESC: Process WebSocket Request function with the passing values process.
+                    ProcessWebSocketRequest(data, m_CurrentController);
+                }
+            });
+        }
+    }
+</script>*@

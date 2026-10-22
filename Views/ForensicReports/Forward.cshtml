@@ -1,0 +1,79 @@
+@{
+    ViewBag.Title = "Forward forensic report";
+    int jobId = Convert.ToInt32(ViewBag.JobID);
+}
+<div class="panel panel-default" style="margin-bottom:80px">
+    <div class="panel-heading"><h3 class="panel-title">Forward signed report - job @jobId</h3></div>
+    <div class="panel-body">
+        <p>Grant another eDNA user access to the same signed PDF. This does not regenerate or re-sign the report. Your existing access remains.</p>
+        <label for="forwardSearch">Recipient eDNA ID</label>
+        <div class="input-group" style="max-width:420px">
+            <input id="forwardSearch" class="form-control" type="number" min="1" placeholder="Enter recipient eDNA ID" />
+            <span class="input-group-btn"><button id="forwardSearchButton" type="button" class="btn btn-default">Search recipient</button></span>
+        </div>
+        <div id="forwardRecipients" style="margin-top:15px"></div>
+        <form id="forwardForm">
+            @Html.AntiForgeryToken()
+            <div id="forwardSelection" class="alert alert-info" role="status">Search for and select a recipient.</div>
+            <p>Authentication uses the same biometric you used to log in.</p>
+            <p style="margin-top:15px"><label><input id="forwardConfirmed" type="checkbox" /> I confirm that the selected recipient may access this report.</label></p>
+            <div id="forwardError" class="alert alert-danger" role="alert" style="display:none"></div>
+            <p id="forwardProgress" role="status" aria-live="polite"></p>
+            <button id="forwardSubmit" class="btn btn-primary" type="submit" disabled>Authenticate forwarding</button>
+            <a class="btn btn-default" href="@Url.Action("Index", "AuditReport")">Back to reports</a>
+        </form>
+    </div>
+</div>
+<script>
+var forwardRecipient = 0, forwardBusy = false;
+function updateForwardButton() {
+    $('#forwardSearch, #forwardSearchButton, #forwardConfirmed, .forensic-recipient-select').prop('disabled', forwardBusy);
+    var biometric = $('#forwardBiometric').val();
+    $('#forwardSubmit').prop('disabled', forwardBusy || !forwardRecipient ||
+        !$('#forwardConfirmed').prop('checked'));
+}
+function ForensicForwardFailed(message) {
+    forwardBusy = false; updateForwardButton(); HideBusyProcessing();
+    $('#forwardProgress').text(''); $('#forwardError').text(message).show();
+}
+function ForensicForwardCompleted() {
+    forwardBusy = true; updateForwardButton(); HideBusyProcessing();
+    $('#forwardError').hide();
+    $('#forwardProgress').text('Forwarding completed. The selected recipient can sign in and retrieve the same signed report.');
+}
+function BindForensicRecipients() {
+    $('#forwardRecipients').load('@Url.Action("RecipientSearchResults", new { forwardJobId = jobId })', function (_, status) {
+        HideBusyProcessing();
+        if (status !== 'success') ForensicForwardFailed('Recipient results could not be loaded. Refresh the job list and try again.');
+    });
+}
+$('#forwardSearchButton').on('click', function () {
+    var value = $.trim($('#forwardSearch').val());
+    if (!/^[1-9][0-9]*$/.test(value)) { ForensicForwardFailed('Enter a valid eDNA ID.'); return; }
+    forwardRecipient = 0; $('#forwardConfirmed').prop('checked', false); updateForwardButton();
+    $('#forwardSelection').text('No recipient selected.'); $('#forwardRecipients').empty(); $('#forwardError').hide();
+    localStorage.setItem('forensicRecipientSearchPending', 'true'); ShowBusyProcessing();
+    $.ajax({ type: 'POST', url: '@Url.Action("HandleMessage", "Base")', dataType: 'json',
+        data: { p_strMessage: '1;16;eDNAUser;1;' + value, p_strOption: '148' },
+        success: function (request) { ProcessForensicAuthentication(request); },
+        error: function () { localStorage.removeItem('forensicRecipientSearchPending'); ForensicForwardFailed('Recipient search could not be started.'); }
+    });
+});
+$('#forwardRecipients').on('click', '.forensic-recipient-select', function () {
+    forwardRecipient = parseInt($(this).attr('data-user-id'), 10);
+    $('#forwardSelection').text('Selected recipient: ' + forwardRecipient + ' - ' + $(this).attr('data-user-name'));
+    $('#forwardConfirmed').prop('checked', false); updateForwardButton();
+});
+$('#forwardConfirmed').on('change', updateForwardButton);
+$('#forwardForm').on('submit', function (event) {
+    event.preventDefault(); updateForwardButton(); if ($('#forwardSubmit').prop('disabled')) return;
+    forwardBusy = true; updateForwardButton(); $('#forwardError').hide(); ShowBusyProcessing();
+    $('#forwardProgress').text('Complete the biometric prompt in the Authentication Application. Access has not yet been granted.');
+    $.ajax({ type: 'POST', url: '@Url.Action("BuildForwardRequest")',
+        data: { __RequestVerificationToken: $(this).find('[name=__RequestVerificationToken]').val(),
+            jobId: @jobId, recipientUserId: forwardRecipient, confirmed: true },
+        success: function (request) { ProcessForensicAuthentication(request); },
+        error: function (response) { ForensicForwardFailed((response.responseJSON || {}).error || 'Forwarding could not be started.'); }
+    });
+});
+</script>

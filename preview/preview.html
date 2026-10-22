@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eDNA Portal Preview</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
+<style>
+    :root {
+        /* ---- Brand tokens (PLACEHOLDERS: replace with the company design) ---- */
+        --ed-navy: #1b2a47;            /* header / dark surfaces (from the desktop capture app) */
+        --ed-navy-2: #26395e;
+        --ed-primary: #1f6fb2;         /* primary actions, links, active step */
+        --ed-primary-hover: #185a91;
+        --ed-primary-soft: #e8f1fa;
+        --ed-success: #16884a;         /* verified / complete (capture app "Process Face") */
+        --ed-success-soft: #e7f5ec;
+        --ed-warning: #a86400;
+        --ed-warning-soft: #fff4e0;
+        --ed-danger: #c0392b;
+        --ed-danger-soft: #fdecea;
+
+        /* ---- Neutrals ---- */
+        --ed-bg: #f3f5f8;
+        --ed-surface: #ffffff;
+        --ed-surface-2: #f7f9fb;
+        --ed-border: #dde3ea;
+        --ed-border-strong: #c3ccd6;
+        --ed-text: #1e2a38;
+        --ed-text-muted: #5b6b7c;
+        --ed-on-dark: #ffffff;
+        --ed-focus: #2b8fe0;
+
+        /* ---- Type ---- */
+        --ed-font: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+        --ed-font-mono: Consolas, "Cascadia Mono", Menlo, monospace;
+        --ed-fs-sm: 13px;
+        --ed-fs-base: 15px;
+        --ed-fs-lg: 18px;
+        --ed-fs-xl: 22px;
+        --ed-fs-2xl: 28px;
+
+        /* ---- Shape & space ---- */
+        --ed-radius-sm: 6px;
+        --ed-radius: 10px;
+        --ed-radius-lg: 14px;
+        --ed-shadow-sm: 0 1px 2px rgba(16, 32, 56, .06);
+        --ed-shadow: 0 2px 8px rgba(16, 32, 56, .08);
+        --ed-shadow-lg: 0 12px 32px rgba(16, 32, 56, .16);
+        --ed-space-1: 4px;
+        --ed-space-2: 8px;
+        --ed-space-3: 12px;
+        --ed-space-4: 16px;
+        --ed-space-5: 24px;
+        --ed-space-6: 32px;
+
+        /* ---- Shell sizes ---- */
+        --ed-topbar-h: 64px;
+        --ed-statusbar-h: 40px;
+        --ed-content-max: 1320px;
+    }
+
+    /* ================= Base ================= */
+    html, body {
+        background: var(--ed-bg) !important;
+        background-image: none !important;
+    }
+    body {
+        font-family: var(--ed-font);
+        font-size: var(--ed-fs-base);
+        line-height: 1.5;
+        color: var(--ed-text);
+        padding-top: var(--ed-topbar-h);
+        padding-bottom: var(--ed-statusbar-h);
+        min-height: 100vh;
+    }
+    h1, h2, h3, h4, h5 { font-family: var(--ed-font); color: var(--ed-text); font-weight: 600; }
+    a { color: var(--ed-primary); }
+    a:hover, a:focus { color: var(--ed-primary-hover); }
+    label { font-weight: 600; }
+    :focus-visible { outline: 3px solid var(--ed-focus); outline-offset: 2px; }
+    .text-muted { color: var(--ed-text-muted); }
+    .text-danger { color: var(--ed-danger); }
+    .ed-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+    /* ================= Shell: top bar ================= */
+    header.ed-header { position: relative; z-index: 1030; }
+    .navbar-fixed-top.ed-topbar {
+        display: flex;
+        align-items: center;
+        gap: var(--ed-space-4);
+        height: var(--ed-topbar-h);
+        min-height: 0;
+        margin: 0;
+        padding: 0 var(--ed-space-5);
+        background: var(--ed-navy);
+        border: 0;
+        border-radius: 0;
+        box-shadow: var(--ed-shadow);
+        color: var(--ed-on-dark);
+    }
+    .ed-topbar .ed-brand { display: flex; align-items: center; gap: var(--ed-space-3); min-width: 0; }
+    .ed-topbar .ed-brand img { height: 36px; width: auto; background: var(--ed-surface); border-radius: var(--ed-radius-sm); padding: 3px 6px; }
+    .ed-topbar .ed-page-title {
+        font-size: var(--ed-fs-lg);
+        font-weight: 600;
+        color: var(--ed-on-dark);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .ed-topbar .ed-topbar-actions { margin-left: auto; display: flex; align-items: center; gap: var(--ed-space-2); }
+    .ed-topbar .ed-topbar-actions > div { float: none; }
+    .ed-topbar .ed-topbar-link,
+    .ed-topbar .dropdown-toggle.ed-topbar-link {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--ed-space-2);
+        padding: 8px 12px;
+        border-radius: var(--ed-radius-sm);
+        color: var(--ed-on-dark);
+        font-size: var(--ed-fs-base);
+        font-weight: 500;
+        text-decoration: none;
+        background: transparent;
+        border: 0;
+        white-space: nowrap;
+    }
+    .ed-topbar .ed-topbar-link:hover,
+    .ed-topbar .ed-topbar-link:focus,
+    .ed-topbar .open > .ed-topbar-link { background: var(--ed-navy-2); color: var(--ed-on-dark); }
+    .ed-topbar .dropdown-menu {
+        right: 0;
+        left: auto;
+        min-width: 240px;
+        margin-top: 6px;
+        padding: var(--ed-space-1);
+        background: var(--ed-surface);
+        border: 1px solid var(--ed-border);
+        border-radius: var(--ed-radius);
+        box-shadow: var(--ed-shadow-lg);
+    }
+    .ed-topbar .dropdown-menu > li > a.list-group-item {
+        display: flex;
+        align-items: center;
+        gap: var(--ed-space-2);
+        width: auto;
+        margin: 0;
+        padding: 10px 12px;
+        border: 0;
+        border-radius: var(--ed-radius-sm);
+        color: var(--ed-text);
+        font-size: var(--ed-fs-base);
+        background: transparent;
+    }
+    .ed-topbar .dropdown-menu > li > a.list-group-item:hover,
+    .ed-topbar .dropdown-menu > li > a.list-group-item:focus { background: var(--ed-primary-soft); color: var(--ed-primary-hover); }
+    .ed-topbar .dropdown-menu > li:empty { display: none; }
+
+    /* ================= Shell: banners, breadcrumb, wizard ================= */
+    .ed-env-banner {
+        padding: 10px var(--ed-space-5);
+        background: var(--ed-warning-soft);
+        color: #533f03;
+        border-bottom: 1px solid #f0d9a8;
+        text-align: center;
+        font-weight: 500;
+    }
+    #MVCSiteMap .breadcrumb {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: var(--ed-space-1);
+        margin: 0;
+        padding: 10px var(--ed-space-5);
+        background: var(--ed-surface);
+        border-bottom: 1px solid var(--ed-border);
+        border-radius: 0;
+        font-size: var(--ed-fs-sm);
+        color: var(--ed-text-muted);
+    }
+    #MVCSiteMap .breadcrumb a { color: var(--ed-primary); }
+    #MVCSiteMap #dvClose { margin-left: auto; }
+    #MVCSiteMap #dvClose a {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        border-radius: var(--ed-radius-sm);
+        color: var(--ed-text-muted);
+        font-weight: 600;
+        text-decoration: none;
+    }
+    #MVCSiteMap #dvClose a:hover { background: var(--ed-surface-2); color: var(--ed-text); }
+
+    #UserEnromentWizard.breadcrumb {
+        margin: 0;
+        padding: var(--ed-space-4) var(--ed-space-5);
+        background: var(--ed-surface);
+        border-bottom: 1px solid var(--ed-border);
+        border-radius: 0;
+    }
+    .ed-wizard-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: var(--ed-space-4);
+        max-width: var(--ed-content-max);
+        margin: 0 auto;
+    }
+    .ed-wizard-heading { display: flex; flex-direction: column; min-width: 0; }
+    .ed-wizard-eyebrow {
+        font-size: var(--ed-fs-sm);
+        font-weight: 600;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+        color: var(--ed-text-muted);
+    }
+    #lblUserEnrolment { margin: 0; font-size: var(--ed-fs-lg); font-weight: 600; color: var(--ed-text); }
+    .ed-steps { display: flex; align-items: center; gap: var(--ed-space-2); margin: 0; padding: 0; list-style: none; flex-wrap: wrap; }
+    .ed-step { display: flex; align-items: center; gap: var(--ed-space-2); color: var(--ed-text-muted); font-size: var(--ed-fs-sm); font-weight: 600; }
+    .ed-step + .ed-step::before { content: ""; width: 28px; height: 2px; background: var(--ed-border-strong); margin-right: var(--ed-space-1); }
+    .ed-step-num {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        border: 2px solid var(--ed-border-strong);
+        background: var(--ed-surface);
+        font-size: var(--ed-fs-sm);
+    }
+    .ed-step.is-current { color: var(--ed-primary); }
+    .ed-step.is-current .ed-step-num { border-color: var(--ed-primary); background: var(--ed-primary); color: var(--ed-on-dark); }
+    .ed-step.is-done { color: var(--ed-success); }
+    .ed-step.is-done .ed-step-num { border-color: var(--ed-success); background: var(--ed-success-soft); color: var(--ed-success); }
+    .ed-step.is-done + .ed-step::before { background: var(--ed-success); }
+
+    /* ================= Shell: main + status bar ================= */
+    .ed-main { padding: var(--ed-space-5); }
+    .ed-main > * { max-width: var(--ed-content-max); margin-left: auto; margin-right: auto; }
+
+    footer.ed-statusbar {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1020;
+        height: var(--ed-statusbar-h);
+        background: var(--ed-surface);
+        border-top: 1px solid var(--ed-border);
+        font-size: var(--ed-fs-sm);
+        color: var(--ed-text-muted);
+    }
+    .ed-statusbar-inner { display: flex; align-items: center; gap: var(--ed-space-5); height: 100%; padding: 0 var(--ed-space-5); }
+    .ed-statusbar .messagePanel { display: flex; align-items: center; gap: var(--ed-space-2); }
+    .ed-statusbar .messagePanel img { width: 12px; height: 12px; }
+    .ed-statusbar #ApplicationInfo { color: var(--ed-text); font-weight: 600; }
+    .ed-statusbar-message { display: flex; align-items: center; gap: var(--ed-space-2); flex: 1; min-width: 0; }
+    .ed-statusbar-message img { width: 18px; height: 18px; }
+    .ed-statusbar #applicationMessage { font-size: var(--ed-fs-sm); color: var(--ed-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ed-statusbar-meta { display: flex; align-items: center; gap: var(--ed-space-4); margin-left: auto; white-space: nowrap; }
+    .ed-statusbar #clock { font-family: var(--ed-font-mono); color: var(--ed-text); }
+
+    /* ================= Busy overlay ================= */
+    #divLoading.ed-busy { position: fixed; inset: 0; z-index: 30001; background: rgba(243, 245, 248, .9); }
+    .ed-busy-card {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 480px;
+        max-width: 90%;
+        padding: 36px;
+        text-align: center;
+        background: var(--ed-surface);
+        border-radius: var(--ed-radius-lg);
+        box-shadow: var(--ed-shadow-lg);
+        color: var(--ed-text);
+    }
+    .ed-busy-card h3 { margin-top: 0; }
+    .edna-busy-spinner {
+        width: 48px;
+        height: 48px;
+        margin: 0 auto 24px;
+        border: 5px solid var(--ed-primary-soft);
+        border-top-color: var(--ed-primary);
+        border-radius: 50%;
+        animation: edna-busy-spin 1s linear infinite;
+    }
+    @keyframes edna-busy-spin { to { transform: rotate(360deg); } }
+    @media (prefers-reduced-motion: reduce) { .edna-busy-spinner { animation: none; } }
+
+    /* ================= Bootstrap 3 overrides ================= */
+    .btn {
+        border-radius: var(--ed-radius-sm);
+        font-weight: 600;
+        padding: 9px 18px;
+        font-size: var(--ed-fs-base);
+        transition: background-color .15s, border-color .15s, box-shadow .15s;
+    }
+    .btn .glyphicon { margin-right: 4px; top: 2px; }
+    .btn-lg { padding: 12px 24px; font-size: var(--ed-fs-lg); }
+    .btn-primary { background: var(--ed-primary); border-color: var(--ed-primary); color: var(--ed-on-dark); }
+    .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active { background: var(--ed-primary-hover); border-color: var(--ed-primary-hover); color: var(--ed-on-dark); }
+    .btn-default { background: var(--ed-surface); border-color: var(--ed-border-strong); color: var(--ed-text); }
+    .btn-default:hover, .btn-default:focus { background: var(--ed-surface-2); border-color: var(--ed-border-strong); color: var(--ed-text); }
+    /* Secondary look for buttons that must keep the btn-primary class. */
+    .btn.ed-btn-secondary { background: var(--ed-surface); border-color: var(--ed-border-strong); color: var(--ed-text); }
+    .btn.ed-btn-secondary:hover, .btn.ed-btn-secondary:focus { background: var(--ed-surface-2); color: var(--ed-text); }
+    .btn.ed-btn-success { background: var(--ed-success); border-color: var(--ed-success); color: var(--ed-on-dark); }
+    .btn.ed-btn-success:hover, .btn.ed-btn-success:focus { filter: brightness(.92); color: var(--ed-on-dark); }
+    .btn[disabled], .btn.disabled { opacity: .5; }
+
+    .form-control {
+        height: 40px;
+        padding: 8px 12px;
+        border: 1px solid var(--ed-border-strong);
+        border-radius: var(--ed-radius-sm);
+        box-shadow: none;
+        font-size: var(--ed-fs-base);
+        color: var(--ed-text);
+    }
+    textarea.form-control { height: auto; }
+    .form-control:focus { border-color: var(--ed-focus); box-shadow: 0 0 0 3px rgba(43, 143, 224, .2); }
+    .form-control[readonly] { background: var(--ed-surface-2); color: var(--ed-text-muted); }
+    select.dropdown, select.dropdown-btn { height: 40px; padding: 6px 10px; border: 1px solid var(--ed-border-strong); border-radius: var(--ed-radius-sm); background: var(--ed-surface); color: var(--ed-text); }
+
+    .table > thead > tr > th {
+        background: var(--ed-surface-2);
+        color: var(--ed-text-muted);
+        font-size: var(--ed-fs-sm);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: .03em;
+        border-bottom: 1px solid var(--ed-border);
+    }
+    .table > tbody > tr > td { border-top: 1px solid var(--ed-border); vertical-align: middle; }
+    .table-hover > tbody > tr:hover { background: var(--ed-primary-soft); }
+
+    .panel { border: 1px solid var(--ed-border); border-radius: var(--ed-radius); box-shadow: var(--ed-shadow-sm); }
+    .alert { border-radius: var(--ed-radius); border-width: 1px; }
+    .alert-info { background: var(--ed-primary-soft); border-color: #c9ddf0; color: #164e70; }
+    .alert-success { background: var(--ed-success-soft); border-color: #bfe3cc; color: #1d5b39; }
+
+    .tooltip-inner { background: var(--ed-navy); border-radius: var(--ed-radius-sm); padding: 6px 10px; }
+
+    /* ================= Modals ================= */
+    .modal-content { border: 0; border-radius: var(--ed-radius-lg); box-shadow: var(--ed-shadow-lg); }
+    .modal-header { padding: var(--ed-space-4) var(--ed-space-5); border-bottom: 1px solid var(--ed-border); }
+    .modal-header h4 { display: flex; align-items: center; gap: var(--ed-space-3); margin: 0; font-size: var(--ed-fs-lg); font-weight: 600; }
+    .modal-header h4 img { width: 28px; height: auto; }
+    .modal-body { padding: var(--ed-space-5); }
+    .modal-footer {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        gap: var(--ed-space-2);
+        padding: var(--ed-space-3) var(--ed-space-5);
+        border-top: 1px solid var(--ed-border);
+        background: var(--ed-surface-2);
+        border-radius: 0 0 var(--ed-radius-lg) var(--ed-radius-lg);
+    }
+    .modal-footer .btn + .btn { margin-left: 0; }
+    .modal-footer > img.pull-left { float: none !important; order: -1; margin-right: auto; height: 28px; width: auto; }
+    .modal-dialog.ed-modal-md { width: 600px; max-width: calc(100% - 20px); }
+    .modal-dialog.ed-modal-lg { width: 800px; max-width: calc(100% - 20px); }
+    .modal-dialog.ed-modal-xl { width: 960px; max-width: calc(100% - 20px); }
+
+    /* Message box */
+    .ed-message-body label { display: block; float: none !important; margin: 0 0 var(--ed-space-2); font-weight: 400; }
+    .ed-message-body #lblMessageHeader { font-size: var(--ed-fs-lg); font-weight: 600; }
+
+    /* Key/value lists (user info, report error) */
+    .ed-kv { display: grid; grid-template-columns: max-content 1fr; gap: var(--ed-space-2) var(--ed-space-5); margin: 0; }
+    .ed-kv dt { color: var(--ed-text-muted); font-weight: 600; }
+    .ed-kv dd { margin: 0; color: var(--ed-text); font-weight: 600; word-break: break-all; }
+    .ed-kv dd label { font-weight: inherit; margin: 0; }
+
+    /* Session countdown */
+    .ed-countdown { text-align: center; }
+    .ed-countdown #lblSessionTimer { display: block; font-size: var(--ed-fs-lg); font-weight: 500; margin-bottom: var(--ed-space-4); }
+    .ed-countdown .thumbnail.wraptocenter {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 160px;
+        height: 160px;
+        margin: 0 auto;
+        padding: 0;
+        border: 6px solid var(--ed-primary-soft);
+        border-radius: 50%;
+        background: var(--ed-surface);
+        box-shadow: none;
+    }
+    .ed-countdown #timespan { font-size: 48px; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+    /* Menu style chooser */
+    .ed-option-grid { display: flex; gap: var(--ed-space-4); justify-content: center; flex-wrap: wrap; }
+    .ed-option {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--ed-space-3);
+        flex: 1 1 220px;
+        padding: var(--ed-space-4);
+        border: 1px solid var(--ed-border);
+        border-radius: var(--ed-radius);
+        background: var(--ed-surface);
+        text-align: center;
+    }
+    .ed-option img { max-width: 100%; height: auto; border-radius: var(--ed-radius-sm); }
+    .ed-option-title { font-weight: 600; }
+
+    /* ================= Reusable page components ================= */
+    .ed-page { display: flex; flex-direction: column; gap: var(--ed-space-5); }
+    .panel-body.ed-page, .panel-body-details.ed-page { padding: 0; }
+    .ed-page-header { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: var(--ed-space-4); }
+    .ed-page-header h2, .ed-page-header h3 { margin: 0; font-size: var(--ed-fs-xl); }
+    .ed-page-header p { margin: 4px 0 0; color: var(--ed-text-muted); }
+
+    .ed-card {
+        background: var(--ed-surface);
+        border: 1px solid var(--ed-border);
+        border-radius: var(--ed-radius);
+        box-shadow: var(--ed-shadow-sm);
+    }
+    .ed-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--ed-space-3);
+        padding: var(--ed-space-4) var(--ed-space-5);
+        border-bottom: 1px solid var(--ed-border);
+    }
+    .ed-card-header h3, .ed-card-header h4 { margin: 0; font-size: var(--ed-fs-lg); }
+    .ed-card-body { padding: var(--ed-space-5); }
+    .ed-card-body-compact { padding: var(--ed-space-4); }
+
+    .ed-layout-split { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: var(--ed-space-5); align-items: start; }
+    .ed-grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--ed-space-5); align-items: start; }
+
+    .ed-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--ed-space-4) var(--ed-space-5); }
+    .ed-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+    .ed-field.ed-span-2 { grid-column: 1 / -1; }
+    .ed-field > label { margin: 0; font-size: var(--ed-fs-sm); color: var(--ed-text-muted); }
+    .ed-field .form-control, .ed-field select { width: 100% !important; }
+    .ed-field-inline { flex-direction: row; align-items: center; gap: var(--ed-space-3); }
+    .ed-field-inline input[type=checkbox] { width: 20px; height: 20px; margin: 0; }
+
+    /* Restyles legacy Bootstrap horizontal rows (incl. rows injected at runtime) as label-above-field. */
+    .ed-stacked-fields .form-group { display: flex; flex-direction: column; gap: 6px; margin: 0 0 var(--ed-space-4); }
+    .ed-stacked-fields .form-group::before, .ed-stacked-fields .form-group::after { display: none; }
+    .ed-stacked-fields .form-group > label { float: none; width: auto !important; margin: 0; padding: 0; text-align: left; font-size: var(--ed-fs-sm); color: var(--ed-text-muted); }
+    .ed-stacked-fields .form-group > [class*="col-"] { float: none; width: auto !important; padding: 0; }
+    .ed-stacked-fields .form-control { width: 100% !important; }
+    .ed-userstatus { margin-top: var(--ed-space-4); padding-top: var(--ed-space-4); border-top: 1px solid var(--ed-border); }
+    .ed-userform .ed-card { height: 100%; }
+
+    .ed-searchbar { display: flex; align-items: center; gap: var(--ed-space-3); flex-wrap: wrap; }
+    .ed-searchbar .form-group { margin: 0; }
+    .ed-searchbar .form-control { width: 320px !important; max-width: 100%; }
+
+    /* Sticky action bar for Cancel / Continue */
+    .panel-footer.ed-actionbar, .ed-actionbar {
+        position: sticky;
+        bottom: calc(var(--ed-statusbar-h) + var(--ed-space-3));
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: var(--ed-space-3);
+        margin-top: var(--ed-space-5);
+        padding: var(--ed-space-3) var(--ed-space-4);
+        background: var(--ed-surface);
+        border: 1px solid var(--ed-border);
+        border-radius: var(--ed-radius);
+        box-shadow: var(--ed-shadow);
+    }
+    .ed-actionbar-end { display: flex; align-items: center; gap: var(--ed-space-3); flex-wrap: wrap; }
+    .ed-actionbar .btn { width: auto !important; }
+
+    /* Side panel (Exceptions / Functions / Legend) */
+    .ed-sidepanel.list-group { margin: 0; overflow: hidden; background: var(--ed-surface); border: 1px solid var(--ed-border); border-radius: var(--ed-radius); box-shadow: var(--ed-shadow-sm); }
+    .ed-sidepanel .ed-section-title,
+    .ed-sidepanel .list-group-item.ed-section-title {
+        display: block;
+        width: 100%;
+        margin: 0;
+        padding: 10px var(--ed-space-4);
+        background: var(--ed-surface-2) !important;
+        border: 0;
+        border-top: 1px solid var(--ed-border);
+        border-bottom: 1px solid var(--ed-border);
+        border-radius: 0;
+        color: var(--ed-text-muted) !important;
+        font-size: var(--ed-fs-sm) !important;
+        font-weight: 600 !important;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+        text-align: left;
+    }
+    .ed-sidepanel > .ed-section-title:first-child { border-top: 0; }
+    .ed-sidepanel .list-group-item { margin: 0; padding: 10px var(--ed-space-4); border: 0; border-radius: 0; color: var(--ed-text); }
+    .ed-sidepanel a.list-group-item { display: flex; align-items: center; gap: var(--ed-space-2); font-weight: 500; }
+    .ed-sidepanel a.list-group-item:hover, .ed-sidepanel a.list-group-item:focus { background: var(--ed-primary-soft); color: var(--ed-primary-hover); }
+    .ed-sidepanel a.list-group-item .glyphicon { color: var(--ed-primary); }
+    .ed-sidepanel label.list-group-item { display: flex; align-items: center; gap: var(--ed-space-2); cursor: pointer; font-weight: 500; }
+    .ed-sidepanel div.list-group-item:not(.ed-section-title) { display: flex; align-items: center; gap: var(--ed-space-2); }
+    .ed-sidepanel div.list-group-item > label { margin: 0; font-weight: 500; cursor: pointer; }
+    .ed-sidepanel input[type=checkbox] { flex: none; width: 18px; height: 18px; margin: 0; }
+
+    .ed-legend { display: flex; flex-direction: column; gap: 2px; padding: var(--ed-space-2) var(--ed-space-4) var(--ed-space-3); }
+    .ed-legend-row { display: flex; flex-wrap: wrap; gap: var(--ed-space-4); }
+    .ed-legend .list-group-item-legend,
+    .ed-legend-row .list-group-item-legend { display: flex; align-items: center; gap: var(--ed-space-2); margin: 0; padding: 4px 0; font-size: var(--ed-fs-sm) !important; font-weight: 500; color: var(--ed-text); }
+    .ed-legend img.display-legend, .ed-legend-row img.display-legend { width: 18px; height: 18px; border-radius: 50%; }
+
+    /* Capture slots (fingerprint / face thumbnails) */
+    .ed-capture-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--ed-space-3); }
+    .ed-capture-hands { display: grid; grid-template-columns: 1fr 1fr; gap: var(--ed-space-5); }
+    .ed-hand { display: flex; flex-direction: column; align-items: center; gap: var(--ed-space-3); }
+    .ed-hand-title { margin: 0; font-size: var(--ed-fs-base); font-weight: 600; color: var(--ed-text-muted); text-transform: uppercase; letter-spacing: .04em; }
+    .ed-hand-image { width: 256px; height: 266px; }  /* fixed: <area> coords depend on this size */
+    .ed-capture-slot {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        padding: var(--ed-space-2);
+        border: 1px solid var(--ed-border);
+        border-radius: var(--ed-radius-sm);
+        background: var(--ed-surface);
+    }
+    .ed-capture-slot-label { font-size: 11px; font-weight: 600; color: var(--ed-text-muted); text-transform: uppercase; letter-spacing: .04em; }
+    /* Capture <img> keep their original inline border: the capture scripts may recolour it to show status.
+       The frame behind each image shows a placeholder until a capture arrives. */
+    .ed-capture-slot .ed-img-frame {
+        position: relative;
+        display: block;
+        width: 100%;
+        max-width: 71px;
+        aspect-ratio: 71 / 76;
+        border-radius: var(--ed-radius-sm);
+        background: var(--ed-surface-2) center / 28px no-repeat;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a3b1bf' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M12 11c0 3.5-1 6-2.5 8'/%3E%3Cpath d='M8.5 5.5A6 6 0 0 1 18 10c0 2.5-.3 4.6-1 6.5'/%3E%3Cpath d='M6 8.5A6 6 0 0 0 6 13c0 1.5-.3 2.8-1 4'/%3E%3Cpath d='M15 11c0 3-.6 5.5-1.6 7.5'/%3E%3Cpath d='M9 11a3 3 0 0 1 6 0'/%3E%3C/svg%3E");
+    }
+    .ed-capture-slot .ed-img-frame.ed-face-frame { max-width: 96px; aspect-ratio: 96 / 110; background-size: 40px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a3b1bf' stroke-width='1.5'%3E%3Ccircle cx='12' cy='9' r='4'/%3E%3Cpath d='M4.5 20a7.5 7.5 0 0 1 15 0'/%3E%3C/svg%3E"); }
+    .ed-capture-slot .ed-img-frame img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: var(--ed-radius-sm);
+        color: transparent;      /* hides alt text of a broken image */
+        font-size: 0;
+    }
+    /* Empty or failed image: draw a transparent pixel instead of the broken-image icon; the border stays visible. */
+    .ed-capture-slot img:not([src]), .ed-capture-slot img[src=""], .ed-capture-slot img.ed-img-empty {
+        content: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
+    }
+    .ed-capture-slot label[id^="lbl"] { margin: 0; font-size: var(--ed-fs-sm); font-variant-numeric: tabular-nums; color: var(--ed-text-muted); }
+    .ed-capture-slot a[id^="cmdClear"] { position: absolute; top: 4px; right: 4px; color: var(--ed-danger) !important; }
+    .ed-capture-pair { display: flex; flex-direction: column; gap: var(--ed-space-1); align-items: center; width: 100%; }
+    .ed-hand .ed-capture-grid { width: 100%; gap: var(--ed-space-2); }
+    .ed-hand .ed-capture-slot { padding: 6px 4px; }
+
+    /* Face capture (FaceEnrolment) */
+    .ed-face-capture { display: flex; align-items: flex-start; justify-content: center; gap: var(--ed-space-6); flex-wrap: wrap; }
+    .ed-face-slot { min-width: 160px; padding: var(--ed-space-4); }
+
+    /* Numbered step checklist */
+    .ed-page-intro { margin-bottom: var(--ed-space-4); }
+    .ed-hand { gap: var(--ed-space-2); }
+    .ed-checklist { display: flex; flex-wrap: wrap; gap: var(--ed-space-2) var(--ed-space-4); margin: 0; padding: 0; list-style: none; counter-reset: ed-check; }
+    .ed-checklist li { display: flex; align-items: center; gap: var(--ed-space-2); counter-increment: ed-check; font-size: var(--ed-fs-sm); color: var(--ed-text-muted); }
+    .ed-checklist li::before {
+        content: counter(ed-check);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: var(--ed-primary-soft);
+        color: var(--ed-primary);
+        font-weight: 700;
+        font-size: 12px;
+    }
+    .ed-checklist-wide { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--ed-space-3); }
+    .ed-checklist-wide li { align-items: flex-start; padding: var(--ed-space-3) var(--ed-space-4); background: var(--ed-surface); border: 1px solid var(--ed-border); border-radius: var(--ed-radius); color: var(--ed-text); }
+    .ed-checklist-wide li strong { color: var(--ed-text); }
+
+    /* Large choice buttons (modality selection) */
+    .ed-choice-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--ed-space-4); max-width: 800px; }
+    .btn.ed-choice {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--ed-space-2);
+        padding: var(--ed-space-5);
+        text-align: left;
+        white-space: normal;
+        background: var(--ed-surface);
+        color: var(--ed-text);
+        border: 1px solid var(--ed-border);
+        border-radius: var(--ed-radius-lg);
+        box-shadow: var(--ed-shadow-sm);
+    }
+    .btn.ed-choice:hover, .btn.ed-choice:focus { background: var(--ed-surface); color: var(--ed-text); border-color: var(--ed-primary); box-shadow: var(--ed-shadow); }
+    .ed-choice .ed-choice-icon { top: 0; margin: 0 0 var(--ed-space-2); font-size: 28px; color: var(--ed-primary); }
+    .ed-choice-title { font-size: var(--ed-fs-lg); font-weight: 600; }
+    .ed-choice-text { font-weight: 400; color: var(--ed-text-muted); }
+
+    /* Facial enrolment (BiometricEnrolment facial branch) */
+    .face-enrolment-panel .face-image-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--ed-space-4); }
+    .face-enrolment-panel .face-image-card {
+        display: flex;
+        flex-direction: column;
+        gap: var(--ed-space-2);
+        padding: var(--ed-space-4);
+        background: var(--ed-surface);
+        border: 1px solid var(--ed-border);
+        border-radius: var(--ed-radius);
+        box-shadow: var(--ed-shadow-sm);
+    }
+    .face-enrolment-panel .face-image-number { font-size: var(--ed-fs-sm); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--ed-text-muted); }
+    .face-enrolment-panel .face-capture-image {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 4 / 3;
+        background-color: var(--ed-surface-2);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        border-radius: var(--ed-radius-sm);
+    }
+    .face-enrolment-panel .face-image-quality { font-weight: 600; color: var(--ed-text-muted); }
+
+    /* ================= Logon ================= */
+    .ed-logon { display: flex; align-items: center; justify-content: center; min-height: calc(100vh - var(--ed-topbar-h) - var(--ed-statusbar-h) - 2 * var(--ed-space-5)); }
+    .ed-logon-card {
+        width: 440px;
+        max-width: 100%;
+        padding: var(--ed-space-6);
+        text-align: center;
+        background: var(--ed-surface);
+        border: 1px solid var(--ed-border);
+        border-radius: var(--ed-radius-lg);
+        box-shadow: var(--ed-shadow);
+    }
+    .ed-logon-brand { display: flex; align-items: center; justify-content: center; gap: var(--ed-space-4); margin-bottom: var(--ed-space-4); }
+    .ed-logon-brand img { max-height: 72px; width: auto; }
+    .ed-logon-title { margin: 0 0 var(--ed-space-1); font-size: var(--ed-fs-xl); }
+    .ed-logon-welcome { display: block; color: var(--ed-text-muted); }
+    .ed-logon-table { width: 100%; margin-top: var(--ed-space-5); }
+    .ed-logon-table td { padding: 0; }
+    .ed-logon .biometric-logon-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--ed-space-2);
+        margin-top: var(--ed-space-3);
+        padding: 14px 20px;
+        border-radius: var(--ed-radius);
+        background: var(--ed-primary);
+        color: var(--ed-on-dark);
+        font-size: var(--ed-fs-lg);
+        font-weight: 600;
+        text-decoration: none;
+    }
+    .ed-logon .biometric-logon-link:hover, .ed-logon .biometric-logon-link:focus { background: var(--ed-primary-hover); color: var(--ed-on-dark); }
+    .ed-logon .biometric-logon-message { padding: var(--ed-space-3); border-radius: var(--ed-radius-sm); background: var(--ed-warning-soft); color: #533f03; text-align: left; }
+    .ed-logon-hint { margin: var(--ed-space-5) 0 0; font-size: var(--ed-fs-sm); color: var(--ed-text-muted); }
+
+    /* ================= Responsive ================= */
+    @media (max-width: 1100px) {
+        .ed-layout-split { grid-template-columns: 1fr; }
+        .ed-capture-hands { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+        .ed-main { padding: var(--ed-space-4); }
+        .ed-checklist-wide, .face-enrolment-panel .face-image-grid { grid-template-columns: 1fr; }
+        .ed-grid-2, .ed-form-grid { grid-template-columns: 1fr; }
+        .ed-capture-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .ed-topbar .ed-topbar-link .ed-link-text { display: none; }
+        .ed-steps .ed-step-label { display: none; }
+        .ed-statusbar-meta .ed-version { display: none; }
+    }
+</style>
+<style>
+  /* Preview-only helpers: stand-ins for images that live in Content/ (not in this folder). */
+  .pv-img { display:flex; align-items:center; justify-content:center; background:repeating-linear-gradient(45deg,#f3f5f8,#f3f5f8 8px,#eaeef3 8px,#eaeef3 16px); border:1px dashed #c3ccd6; border-radius:8px; color:#5b6b7c; font-size:12px; text-align:center; }
+  .pv-logo { display:inline-flex; align-items:center; height:36px; padding:0 10px; background:#fff; border-radius:6px; color:#1b2a47; font-weight:800; font-size:20px; letter-spacing:-.02em; }
+  .pv-switch { position:fixed; left:50%; transform:translateX(-50%); bottom:2px; z-index:2000; display:flex; gap:6px; padding:3px; background:#1e2a38; border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,.2); }
+  .pv-switch button { border:0; background:transparent; color:#fff; padding:3px 10px; border-radius:6px; font-size:13px; }
+  .pv-switch button.on { background:#1f6fb2; }
+  .pv-screen { display:none; } .pv-screen.on { display:block; }
+  .legend-dot { display:inline-block; width:18px; height:18px; border-radius:50%; }
+</style>
+</head>
+<body>
+<header class="ed-header">
+  <nav class="navbar navbar-fixed-top ed-topbar">
+    <div class="ed-brand"><span class="pv-logo">eDNA</span><span class="ed-page-title" id="pvTitle">User Enrolment Details</span></div>
+    <div class="ed-topbar-actions">
+      <div class="btn-group"><a class="btn dropdown-header ed-topbar-link" href="#"><span class="glyphicon glyphicon-phone-alt"></span> <span class="ed-link-text">Help &amp; Support</span> <span class="caret"></span></a></div>
+      <div class="btn-group"><a class="btn dropdown-header ed-topbar-link" href="#"><span class="glyphicon glyphicon-user"></span> <span class="ed-link-text">Test New TSA1</span> <span class="caret"></span></a></div>
+    </div>
+  </nav>
+</header>
+
+<div id="UserEnromentWizard" class="breadcrumb ed-wizard">
+  <div class="ed-wizard-inner">
+    <div class="ed-wizard-heading"><span class="ed-wizard-eyebrow">User enrolment</span><label id="lblUserEnrolment">You are Enrolling User ID: 0, Name: Mphemba Godide</label></div>
+    <ol class="ed-steps" id="pvSteps"></ol>
+  </div>
+</div>
+
+<main class="ed-main">
+
+<!-- ===== Search ===== -->
+<section class="pv-screen" data-step="0" data-title="User Enrolment Details" data-name="Search">
+<div class="panel-body ed-page">
+  <div class="ed-page-header"><div><h2>Search eDNA User</h2><p>Find an existing user to update their enrolment, or create a new user to start one.</p></div></div>
+  <div class="ed-card"><div class="ed-card-body">
+    <form class="form-inline ed-searchbar" role="search">
+      <div class="form-group"><select class="dropdown-btn"><option>eDNA ID</option><option>Identification Number</option><option>Surname</option></select></div>
+      <input class="form-control" placeholder="Enter Search Value">
+      <a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search</a>
+      <a href="#" class="btn btn-primary ed-btn-success"><span class="glyphicon glyphicon-plus"></span> Create New User</a>
+    </form>
+  </div></div>
+  <div class="ed-card" style="overflow-y:auto">
+    <table class="table table-hover" style="margin:0">
+      <thead><tr><th>Name</th><th>Surname</th><th>ID Number</th><th>Entity</th><th>eDNA ID</th></tr></thead>
+      <tbody>
+        <tr><td>Mphemba</td><td>Godide</td><td>P35353454</td><td>KZN Treasury Branch One</td><td><a href="#">1042</a></td></tr>
+        <tr><td>Thandi</td><td>Mokoena</td><td>9001015009087</td><td>KZN Treasury Branch One</td><td><a href="#">1043</a></td></tr>
+        <tr><td>Johan</td><td>van Wyk</td><td>8507125800082</td><td>KZN Treasury Head Office</td><td><a href="#">1051</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ===== User details ===== -->
+<section class="pv-screen" data-step="1" data-title="User Enrolment Details" data-name="Details">
+<div class="panel-body-details ed-userform">
+  <div class="ed-grid-2">
+    <section class="ed-card">
+      <div class="ed-card-header"><h3>User Information</h3></div>
+      <div class="ed-card-body">
+        <div class="ed-form-grid">
+          <div class="ed-field"><label>User ID</label><input class="form-control" readonly value="0"></div>
+          <div class="ed-field"><label>Created on</label><input class="form-control" readonly value="2026/07/09 14:36:49"></div>
+          <div class="ed-field ed-span-2"><label>Entity</label><select class="dropdown"><option>KZN Treasury Branch One</option></select></div>
+          <div class="ed-field"><label>First name</label><input class="form-control" value="Mphemba"></div>
+          <div class="ed-field"><label>Last name</label><input class="form-control" value="Godide"></div>
+          <div class="ed-field ed-field-inline ed-span-2"><input type="checkbox" checked id="pvP"><label for="pvP">Identification is a passport</label></div>
+          <div class="ed-field"><label>Identification number</label><input class="form-control" value="P35353454"></div>
+        </div>
+        <div class="ed-form-grid ed-userstatus"><div class="ed-field"><label>User status</label><input class="form-control" readonly value="Created"></div></div>
+      </div>
+    </section>
+    <section class="ed-card">
+      <div class="ed-card-header"><h3>User Attributes</h3></div>
+      <div class="ed-card-body ed-stacked-fields">
+        <div class="form-group"><label class="col-sm-4">Persal Number</label><div class="col-sm-7"><input class="form-control" placeholder="Persal Number"></div></div>
+        <div class="form-group"><label class="col-sm-4">Department</label><div class="col-sm-7"><select class="form-control"><option>Treasury</option></select></div></div>
+        <div class="form-group"><label class="col-sm-4">Contact Number</label><div class="col-sm-7"><input class="form-control" placeholder="Contact Number"></div></div>
+      </div>
+    </section>
+  </div>
+</div>
+<div class="panel-footer ed-actionbar">
+  <a href="#" class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
+  <div class="ed-actionbar-end"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-circle-arrow-right"></span> Continue To Biometrics</button></div>
+</div>
+</section>
+
+<!-- ===== Fingerprint ===== -->
+<section class="pv-screen" data-step="2" data-title="Biometric Enrolment Details" data-name="Fingerprint">
+<div class="ed-page-header ed-page-intro">
+  <div><h2>Fingerprint enrolment</h2><p>Capture 4 different fingers, with two samples of each finger, then verify and sign to continue.</p></div>
+  <ol class="ed-checklist"><li>Click a finger to capture it twice</li><li>Verify all captured fingers</li><li>Sign and continue</li></ol>
+</div>
+<div class="panel-body-details">
+  <div class="ed-layout-split">
+    <section class="ed-card"><div class="ed-card-body ed-card-body-compact">
+        <div class="ed-capture-hands">
+          <div class="ed-hand"><h4 class="ed-hand-title">Left hand</h4><div class="ed-hand-image pv-img">HandLeftNumbered.png<br>(256 × 266)</div><div class="ed-capture-grid" data-slots="1-5"></div></div>
+          <div class="ed-hand"><h4 class="ed-hand-title">Right hand</h4><div class="ed-hand-image pv-img">HandRightNumbered.png<br>(256 × 266)</div><div class="ed-capture-grid" data-slots="6-10"></div></div>
+        </div>
+      </div>
+    </section>
+    <aside class="list-group ed-sidepanel">
+      <div class="list-group-item ed-section-title">Exceptions</div>
+      <div class="list-group-item"><input type="checkbox" id="pvL"><label for="pvL">Disable Left Hand</label></div>
+      <div class="list-group-item"><input type="checkbox" id="pvR"><label for="pvR">Disable Right Hand</label></div>
+      <div class="list-group-item ed-section-title">Functions</div>
+      <a href="#" class="list-group-item"><span class="glyphicon glyphicon-ok"></span> Verify All Captured Fingers</a>
+      <a href="#" class="list-group-item"><span class="glyphicon glyphicon-hand-up"></span> Set Default Finger</a>
+      <a href="#" class="list-group-item"><span class="glyphicon glyphicon-refresh"></span> Reset Captured Fingers</a>
+      <a href="#" class="list-group-item"><span class="glyphicon glyphicon-pencil"></span> Override Fingers</a>
+      <div class="list-group-item ed-section-title">Color Legend</div>
+      <div class="ed-legend">
+        <label class="list-group-item-legend"><span class="legend-dot" style="background:#9fd3f0"></span> Not Captured Fingers</label>
+        <label class="list-group-item-legend"><span class="legend-dot" style="background:#ffe14d"></span> Captured Fingers</label>
+        <label class="list-group-item-legend"><span class="legend-dot" style="background:#53ea1a"></span> Verified Fingers</label>
+        <label class="list-group-item-legend"><span class="legend-dot" style="background:#ff1800"></span> Default Finger</label>
+      </div>
+    </aside>
+  </div>
+</div>
+<div class="panel-footer ed-actionbar">
+  <a href="#" class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
+  <a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-hand-up"></span> Sign And Continue</a>
+</div>
+</section>
+
+<!-- ===== Facial ===== -->
+<section class="pv-screen" data-step="2" data-title="Biometric Enrolment Details" data-name="Facial">
+<div class="panel-body-details face-enrolment-panel ed-page">
+  <div class="face-enrolment-header ed-page-header">
+    <div><h3>Facial Enrolment</h3><p>Capture and verify three facial images using the secure Identity Management application.</p></div>
+    <div class="ed-actionbar-end">
+      <a href="#" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-refresh"></span> Reset</a>
+      <button type="button" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-camera"></span> Capture Face Images</button>
+    </div>
+  </div>
+  <ol class="ed-checklist ed-checklist-wide">
+    <li><span><strong>Capture</strong> opens the eDNA Facial Capture window. Position the face inside the oval guide.</span></li>
+    <li><span><strong>Process</strong> each image in the capture window so it is verified and returned here.</span></li>
+    <li><span><strong>Sign and continue</strong> once all three images show as captured.</span></li>
+  </ol>
+  <div class="face-image-grid">
+    <div class="face-image-card"><div class="face-image-number">Image 1</div><canvas class="face-capture-image" width="320" height="240"></canvas><div class="face-image-quality">Not captured</div></div>
+    <div class="face-image-card"><div class="face-image-number">Image 2</div><canvas class="face-capture-image" width="320" height="240"></canvas><div class="face-image-quality">Not captured</div></div>
+    <div class="face-image-card"><div class="face-image-number">Image 3</div><canvas class="face-capture-image" width="320" height="240"></canvas><div class="face-image-quality">Not captured</div></div>
+  </div>
+</div>
+<div class="panel-footer ed-actionbar">
+  <a href="#" class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
+  <a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-hand-up"></span> Sign And Continue</a>
+</div>
+</section>
+
+<!-- ===== Logon ===== -->
+<section class="pv-screen" data-step="0" data-title="Logon" data-name="Logon">
+<div class="logon-div ed-logon">
+  <div class="ed-logon-card">
+    <div class="ed-logon-brand"><span class="pv-logo" style="height:56px;font-size:30px">eDNA</span></div>
+    <h2 class="ed-logon-title">Sign in to the eDNA Web Portal</h2>
+    <span class="ed-logon-welcome">Welcome To The eDNA Web Portal. Logon To Explore The Features !</span>
+    <table class="ed-logon-table"><tr><td>
+      <a href="#" class="biometric-logon-link"><span class="glyphicon glyphicon-hand-up"></span>&nbsp;Fingerprint Login&nbsp;<span class="glyphicon glyphicon-log-in"></span></a>
+      <a href="#" class="biometric-logon-link"><span class="glyphicon glyphicon-user"></span>&nbsp;Face Login&nbsp;<span class="glyphicon glyphicon-log-in"></span></a>
+    </td></tr></table>
+    <p class="ed-logon-hint">Your biometric sign-in options appear above when the portal is ready.</p>
+  </div>
+</div>
+</section>
+
+</main>
+
+<footer class="ed-statusbar">
+  <div class="ed-statusbar-inner">
+    <div class="messagePanel"><span class="legend-dot" style="width:10px;height:10px;background:#16884a"></span><a id="ApplicationInfo" href="#">User Information</a></div>
+    <div class="ed-statusbar-message"><span id="applicationMessage">Connected to the eDNA capture service.</span></div>
+    <div class="ed-statusbar-meta"><span class="ed-version">&copy;2026 eDNA &middot; Version 3.0.0.0</span><div id="clock">14:41:45 - 09/07/2026</div></div>
+  </div>
+</footer>
+
+<div class="pv-switch" id="pvSwitch"></div>
+
+<script>
+  // Fingerprint slots, generated the same way as BiometricEnrolment/Index.cshtml.
+  document.querySelectorAll('[data-slots]').forEach(function (grid) {
+    var r = grid.dataset.slots.split('-').map(Number), html = '';
+    for (var i = r[0]; i <= r[1]; i++) {
+      var captured = i === 2 || i === 7, verified = i === 3;
+      var b = 'border:groove;border-color:' + (verified ? '#53ea1a' : captured ? '#ffe14d' : 'white') + ';object-fit:cover';
+      html += '<div class="ed-capture-slot"><span class="ed-capture-slot-label">Finger ' + i + '</span><div class="ed-capture-pair">' +
+        '<span class="ed-img-frame"><img alt="" style="' + b + '"' + (captured || verified ? ' src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 65 70%27%3E%3Crect width=%2765%27 height=%2770%27 fill=%27%23e9e4dc%27/%3E%3Cg fill=%27none%27 stroke=%27%236b5b4a%27 stroke-width=%271.4%27%3E%3Cellipse cx=%2732%27 cy=%2738%27 rx=%2722%27 ry=%2726%27/%3E%3Cellipse cx=%2732%27 cy=%2738%27 rx=%2716%27 ry=%2720%27/%3E%3Cellipse cx=%2732%27 cy=%2738%27 rx=%2710%27 ry=%2713%27/%3E%3Cellipse cx=%2732%27 cy=%2738%27 rx=%274%27 ry=%276%27/%3E%3C/g%3E%3C/svg%3E"' : '') + '></span>' +
+        '<label>' + (captured || verified ? (70 + i) : 0) + '</label>' +
+        '<span class="ed-img-frame"><img alt="" style="' + b + '"></span><label>0</label></div></div>';
+    }
+    grid.innerHTML = html;
+  });
+
+  var steps = ['User details', 'Biometrics', 'Transversal accounts', 'PKI & smartcard'];
+  var screens = [].slice.call(document.querySelectorAll('.pv-screen'));
+  var sw = document.getElementById('pvSwitch');
+  function show(n) {
+    screens.forEach(function (s, i) { s.classList.toggle('on', i === n); });
+    [].forEach.call(sw.children, function (b, i) { b.classList.toggle('on', i === n); });
+    var cur = +screens[n].dataset.step;
+    document.getElementById('pvTitle').textContent = screens[n].dataset.title;
+    document.getElementById('UserEnromentWizard').style.display = cur ? '' : 'none';
+    document.getElementById('pvSteps').innerHTML = steps.map(function (t, i) {
+      var k = i + 1, st = k < cur ? 'is-done' : k === cur ? 'is-current' : '';
+      return '<li class="ed-step ' + st + '"><span class="ed-step-num">' + (k < cur ? '✓' : k) + '</span><span class="ed-step-label">' + t + '</span></li>';
+    }).join('');
+    try { localStorage.setItem('pvScreen', n); } catch (e) {}
+  }
+  screens.forEach(function (s, i) {
+    var b = document.createElement('button'); b.textContent = s.dataset.name; b.onclick = function () { show(i); }; sw.appendChild(b);
+  });
+  var start = +(new URLSearchParams(location.search).get('s') || (function () { try { return localStorage.getItem('pvScreen'); } catch (e) { return 0; } })() || 0);
+  show(Math.min(start, screens.length - 1));
+</script>
+</body>
+</html>

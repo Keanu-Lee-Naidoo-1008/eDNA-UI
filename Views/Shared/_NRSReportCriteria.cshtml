@@ -1,0 +1,128 @@
+﻿@model eDNA.WebPortal.ViewModel.CReportViewModel
+@{
+    ViewBag.Title = "_ReportCriteria";
+}
+<div>
+    <div class="col-md-3" style="border-style:ridge;height:380px;width:36%">
+        <div>
+            <br />
+            <div class="form-group">
+                <label class="col-sm-4" for="exampleInputEmail1">Report Type</label>
+                <div class="col-sm-4">
+                    @Html.DropDownListFor(model => model.eDNAReportData.ReportType, (SelectList)ViewBag.NRSReportTypes, "[--Select A Report Type--]", new { @class = "dropdown", style = "width:300px" })
+                    @Html.ValidationMessageFor(model => model.eDNAReportData.ReportType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4" for="exampleInputEmail1">Transversal System Type</label>
+                <div class="col-sm-4">
+                    @Html.DropDownListFor(model => model.eDNAReportData.TransversalType, (SelectList)ViewBag.TransversalTypes, "[--Select A Transversal Type--]", new { @class = "dropdown", style = "width:300px" })
+                    @Html.ValidationMessageFor(model => model.eDNAReportData.TransversalType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4" for="exampleInputEmail1">Select User</label>
+                <div class="col-sm-4">
+                    <div class='input-group'>
+                        <input type="text" id="txtNRSeDNAUser" style="width:300px" class="form-control" readonly/>
+                        <span class="input-group-addon">
+                            <a href="javascript:SelectUser('NRS')" id="cmdNRSUSearch" ><span class="glyphicon glyphicon-search"></span></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4" for="exampleInputEmail1">Select Exception</label>
+                <div class="col-sm-4">
+                    @Html.DropDownListFor(model => model.eDNAReportData.TransversalType, (SelectList)ViewBag.TransversalTypes, "[--Select A Transversal Type--]", new { @class = "dropdown", style = "width:300px" })
+                    @Html.ValidationMessageFor(model => model.eDNAReportData.TransversalType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4" for="exampleInputEmail1">Select Filter</label>
+                <div class="col-sm-4">
+                    @Html.DropDownListFor(model => model.eDNAReportData.TransversalType, (SelectList)ViewBag.TransversalTypes, "[--Select A Transversal Type--]", new { @class = "dropdown", style = "width:300px" })
+                    @Html.ValidationMessageFor(model => model.eDNAReportData.TransversalType, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-4" for="exampleInputEmail1">Report Period</label>
+                <div class="col-sm-5">
+                    <label id="lblTotaDays" for="exampleInputEmail1">0-Days(s)</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3" style="border-style:ridge;height:380px;width:36%">
+        <br />
+        <div class="form-group">
+            <label class="col-sm-4">Date Range</label>
+            <div class="col-sm-5">
+                <label>
+                    <input id="rdUseDTime" name="rdNRSOption" type="radio" value="UseDateTime" /> Use Date Time</label>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <label>
+                    <input id="rdUseQuarter" name="rdNRSOption" type="radio" value="UseQuarter" /> Use Quarter</label>
+            </div>
+        </div>
+        <div class="form-group" id="dvDateRange" style="border-style:ridge;">
+            <br />
+            <label class="col-sm-4" for="exampleInputEmail1">Start Date Time</label>
+            <div class="col-sm-5">
+                <div class='input-group date' id='dtStartDateTime'>
+                    <input type='text' id="txtStartDateTime" style="width:300px" class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                <br />
+            </div>
+            <label class="col-sm-4" for="exampleInputEmail1">End Date Time</label>
+            <div class="col-sm-4">
+                <div class='input-group date' id='dtEndDateTime'>
+                    <input type='text' id="txtEndDateTime" style="width:300px" class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+                <br />
+            </div>
+        </div>
+        <div class="form-group" id="dvQuarter" style="border-style:ridge;">
+            <br />
+            <label class="col-sm-4" for="exampleInputEmail1">Select Quarter Year</label>
+            <div class="col-sm-5">
+                @Html.DropDownListFor(model => model.eDNAReportData.QuarterYear, (SelectList)ViewBag.ReportQuaterYear, "[--Select A Quarter Year--]", new { id = "ddlNRSQuarterYear", @class = "dropdown", style = "width:300px" })
+                @Html.ValidationMessageFor(model => model.eDNAReportData.QuarterYear, "", new { @class = "text-danger" })
+            </div>
+            <label class="col-sm-4" for="exampleInputEmail1">Select Quarter</label>
+            <div class="col-sm-8">
+                <label>QTR 1: <input id="optQuarter1" name="optQuarter" type="radio" value="UseQuarter" /></label>
+                &nbsp;&nbsp;
+                <label>QTR 2: <input id="optQuarter2" name="optQuarter" type="radio" value="UseQuarter" /></label>
+                &nbsp;&nbsp;
+                <label>QTR 3: <input id="optQuarter3" name="optQuarter" type="radio" value="UseQuarter" /></label>
+                &nbsp;&nbsp;
+                <label>QTR 4: <input id="optQuarter4" name="optQuarter" type="radio" value="UseQuarter" /></label>
+            </div>
+        </div>
+        <br />
+        <br />
+        @*<div class="form-group">
+            <table>
+                <tr>
+                    <td style="width:30%"></td>
+                    <td>
+                        <a href="#" class="btn btn-default" data-toggle="tooltip" title="Reset" style="width:140px;"><span class="glyphicon glyphicon-refresh"></span> Reset</a>
+                    </td>
+                    <td style="width:20%"></td>
+                    <td>
+                        <a href="#" class="btn btn-default" data-toggle="tooltip" title="Sign and Process"><span class="glyphicon glyphicon-hand-up"></span> Sign and Process</a>
+                    </td>
+                    <td style="width:30%"></td>
+                </tr>
+            </table>
+        </div>*@
+    </div>
+
+</div>

@@ -1,0 +1,13 @@
+@{ ViewBag.Title = "Forensic Audit Transaction Detail"; Guid auditId = (Guid)ViewBag.AuditID; }
+<div class="panel panel-default">
+    <div class="panel-heading"><h3 class="panel-title">Forensic Audit Transaction Detail</h3></div>
+    <div class="panel-body">
+        <p>Audit ID: <strong>@auditId</strong></p>
+        <a class="btn btn-info" href="@Url.Action("Request", new { auditId, generate = true, preview = true, returnToDetail = true })">Prepare draft preview</a>
+        <a class="btn btn-primary" href="@Url.Action("Request", new { auditId, generate = true, returnToDetail = true })">Generate forensic report</a>
+        <a class="btn btn-default" href="@Url.Action("Index", "SystemReports")">Back to audit reports</a>
+        <p>Draft preparation uses authenticated access. Final generation requires your review and separate biometric approval.</p>
+        <iframe title="Forensic Audit Transaction Detail" style="width:100%;height:720px;border:0"
+                src="@Url.Content("~/Reports/ReportTemplate.aspx")?ReportName=ForensicAuditTransactionDetail&amp;Height=720&amp;AuditID=@auditId"></iframe>
+    </div>
+</div>

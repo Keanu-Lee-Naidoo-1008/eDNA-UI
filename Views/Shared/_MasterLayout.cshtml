@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+@{
+    String l_strCurrentController = Convert.ToString(HttpContext.Current.Session["CurrentController"]);
+    bool l_blEnrolmentPage = new[] { "UserEnrolment", "UserEnrolmentDetails", "BiometricEnrolment", "FaceEnrolment", "TransversalEnrolment", "PKIEnrolment" }
+        .Any(controller => String.Equals(controller, l_strCurrentController, StringComparison.OrdinalIgnoreCase))
+        || (String.Equals(l_strCurrentController, "TransversalManagement", StringComparison.OrdinalIgnoreCase)
+            && (int)(ViewBag.ReturnToEnrolmentUserID ?? 0) > 0);
+
+    // Presentation only: which step of the enrolment stepper is current (0 = not an enrolment page).
+    String[] l_arEnrolmentSteps = { "User details", "Biometrics", "Transversal accounts", "PKI & smartcard" };
+    Int32 l_iEnrolmentStep = 0;
+    switch ((l_strCurrentController ?? "").ToLowerInvariant())
+    {
+        case "userenrolment":
+        case "userenrolmentdetails": l_iEnrolmentStep = 1; break;
+        case "biometricenrolment":
+        case "faceenrolment": l_iEnrolmentStep = 2; break;
+        case "transversalenrolment":
+        case "transversalmanagement": l_iEnrolmentStep = 3; break;
+        case "pkienrolment": l_iEnrolmentStep = 4; break;
+    }
+}
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - eDNA Web Portal</title>
+    <link rel="icon" type="image/png" href="~/Content/Images/eDNA.png" />
+    @Styles.Render("~/Content/css")
+    @Html.Partial("_ModernTheme")
+    @Scripts.Render("~/bundles/modernizr")
+    <!-- Scripts -->
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    @*CODESC: Start Web Socket Programming*@
+    <script type="text/javascript">
+       window.onload = function () {
+          InitializeWebSocketClient('@l_strCurrentController');
+
+          //CODESC: Hide controls dynamically
+          var l_CurrentController = '@l_strCurrentController';
+          if ((l_CurrentController == 'logon') || (l_CurrentController == 'Logon')){
+              $("#dvHeaderMenu").hide();
+              $("#dvSupport").hide();
+              $("#dvCDFinger").show();
+          }
+          else{
+              $("#dvCDFinger").hide();
+              $("#dvHeaderMenu").show();
+              $("#dvSupport").show();
+          }
+          if (l_CurrentController !='Home'){
+             $("#eDNACarousel").hide();
+           }
+       };
+    </script>
+
+    @*CODESC: IF Session Time out, Logout the User from the eDNA Web Portal.*@
+    <script type="text/javascript">
+        //CODESC: Get the current controller from session.
+        var l_CurrentController = '@l_strCurrentController';
+
+        var m_EnrolmentTimeoutPaused = @(l_blEnrolmentPage ? "true" : "false");
+        var m_EnrolmentKeepAlivePending = false;
+        function KeepEnrolmentSessionAlive() {
+            if (!m_EnrolmentTimeoutPaused || m_EnrolmentKeepAlivePending) return;
+            m_EnrolmentKeepAlivePending = true;
+            $.ajax({
+                url: '@Url.Action("EnrolmentKeepAlive", "Base")',
+                type: 'GET', dataType: 'json', cache: false, timeout: 15000,
+                complete: function () { m_EnrolmentKeepAlivePending = false; }
+            });
+        }
+        if (m_EnrolmentTimeoutPaused) {
+            $(document).ready(KeepEnrolmentSessionAlive);
+            window.addEventListener('pageshow', KeepEnrolmentSessionAlive);
+        }
+        //CODESC: Calculate the time interval.
+        m_TimeInterval = setInterval('SessionWarning()', 60000);
+
+        function SessionWarning() {
+            if (m_EnrolmentTimeoutPaused) { KeepEnrolmentSessionAlive(); return; }
+            m_SessionTimeOut--;
+            if (m_SessionTimeOut <= 1) {
+                if ((l_CurrentController == 'logon') || (l_CurrentController == 'Logon')) {
+                }
+                else {
+                    SessionTimeout();
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    @if (String.Equals(System.Configuration.ConfigurationManager.AppSettings["PkiMemoryOnly"], "true", StringComparison.OrdinalIgnoreCase))
+    {
+        <div role="status" class="ed-env-banner">
+            Local PKI test environment. Smartcard writes are disabled. Complete memory verification before using a blank card.
+        </div>
+    }
+    <header class="ed-header">
+        @Html.Partial("_Header")
+    </header>
+
+    <!-- Menu Selector Modal Pop up Window -->
+    <div class="modal fade" id="mdMenuSelector" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-placement="center" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog ed-modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4><img src="~/Content/Images/Information.png" width="45" height="40" alt="" /><Label ID="lblLastLoginDateTime">eDNA WebPortal - Menu Style Selection</Label></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="ed-option-grid">
+                        <div class="ed-option" style="display:none">
+                            <span class="ed-option-title">Rotate Wheel Menu Style</span>
+                            <img src="~/Content/Images/MenuIcons/WheelMenu.png" width="190" height="180" alt="Preview of the wheel menu style" />
+                            <button type="button" id="btnWheel" class="btn btn-primary" data-dismiss="modal" data-toggle="tooltip" title="Set Wheel Menu Style As Default on My Profile" data-placement="bottom">
+                                Set Wheel Menu Style&nbsp;<span class="glyphicon glyphicon-ok"></span>
+                            </button>
+                        </div>
+                        <div class="ed-option">
+                            <span class="ed-option-title">Fixed Grid Menu Style</span>
+                            <img src="~/Content/Images/MenuIcons/GridMenu.PNG" width="260" height="180" alt="Preview of the grid menu style" />
+                            <button type="button" id="btnGrid" class="btn btn-primary" data-dismiss="modal" data-toggle="tooltip" title="Set Grid Menu Style As Default on My Profile" data-placement="bottom">
+                                Set Grid Menu Style&nbsp;<span class="glyphicon glyphicon-ok"></span>
+                            </button>
+                        </div>
+                        <div class="ed-option">
+                            <span class="ed-option-title">Classic Menu Style</span>
+                            <img src="~/Content/Images/MenuIcons/ClassicMenu.PNG" width="290" height="180" alt="Preview of the classic menu style" />
+                            <button type="button" id="btnClassic" class="btn btn-primary" data-dismiss="modal" data-toggle="tooltip" title="Set Classic Menu Style As Default on My Profile" data-placement="bottom">
+                                Set Classic Menu Style&nbsp;<span class="glyphicon glyphicon-ok"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <img src="~/Content/Images/eDNA_logo.jpg" class="pull-left" height="45" />
+                    <button id="cmdMenuClose" type="button" class="btn btn-default" data-dismiss="modal" data-toggle="tooltip" title="Close" style="display:none">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Information Modal Pop up Window -->
+    <div class="modal fade" id="mdUserInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-placement="center" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4><img src="~/Content/Images/Information.png" width="45" height="40" alt="" /><Label ID="lblLastLoginDateTime">@HttpContext.Current.Session["LastLoginDateTime"]</Label></h4>
+                </div>
+                <div class="modal-body">
+                    <dl class="ed-kv">
+                        <dt>eDNA ID</dt>
+                        <dd><Label ID="lbleDNAID">@HttpContext.Current.Session["eDNAUserID"]</Label></dd>
+                        <dt>User name</dt>
+                        <dd><Label ID="lblUserName">@HttpContext.Current.Session["eDNAUserName"]</Label></dd>
+                        <dt>Smartcard serial</dt>
+                        <dd><Label ID="lblSCSerialNo">@HttpContext.Current.Session["eDNAUserSCSl"]</Label></dd>
+                        <dt>Smartcard applet</dt>
+                        <dd><Label ID="lblSCApplet">@HttpContext.Current.Session["eDNAUserSCApplet"]</Label></dd>
+                        <dt>Certificate serial</dt>
+                        <dd><Label ID="lblCertSerial">@HttpContext.Current.Session["eDNAUserCertSl"]</Label></dd>
+                    </dl>
+                </div>
+                <div class="modal-footer">
+                    <img src="~/Content/Images/eDNA_logo.jpg" class="pull-left" height="45" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="tooltip" title="Close">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MessageBox Modal Pop up Window -->
+    <div class="modal fade" id="mdMessageBox" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" data-placement="center" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="Icon_Error"><img src="~/Content/Images/Error.png" width="45" height="40" alt="Error" /><Label>eDNA WebPortal Message</Label></h4>
+                    <h4 id="Icon_Warning"><img src="~/Content/Images/Warning.png" width="45" height="40" alt="Warning" /><Label>eDNA WebPortal Message</Label></h4>
+                    <h4 id="Icon_Question"><img src="~/Content/Images/Question-Icon.jpg" width="45" height="40" alt="Question" /><Label>eDNA WebPortal Message</Label></h4>
+                    <h4 id="Icon_Information"><img src="~/Content/Images/Information.png" width="45" height="40" alt="Information" /><Label>eDNA WebPortal Message</Label></h4>
+                </div>
+                <div class="modal-body ed-message-body" aria-live="polite">
+                    <Label id="lblMessageHeader" class="pull-left">MessageHeader</Label>
+                    <Label ID="lblMessage"></Label>
+                    <Label ID="lblMessageBody"></Label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="tooltip" title="Close">Close</button>
+                    <img src="~/Content/Images/eDNA_logo.jpg" class="pull-left" height="45" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Session Timeout Modal Pop up Window -->
+    <div class="modal fade" id="mdSessionTimeOut" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-placement="center" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog ed-modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="Icon_Warning"><img src="~/Content/Images/Warning.png" width="45" height="40" alt="Warning" /><Label>eDNA WebPortal - Session Time Out!</Label></h4>
+                </div>
+                <div class="modal-body ed-countdown">
+                    <label id="lblSessionTimer">Your eDNA session is about to timeout...</label>
+                    <div class="thumbnail wraptocenter" role="timer" aria-label="Seconds until automatic logout">
+                        <span id="timespan"></span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="cmdSessionTimeout" class="btn btn-default" data-dismiss="modal" data-toggle="tooltip" title="Logout">Logout</button>
+                    <button type="button" id="cmdSessionContinue" class="btn btn-default" data-dismiss="modal" data-toggle="tooltip" title="Continue">Continue</button>
+                    <img src="~/Content/Images/eDNA_logo.jpg" class="pull-left" height="45" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Busy Processing (styles in _ModernTheme) -->
+    <div id="divLoading" class="ed-busy" style="display:none" role="status" aria-live="polite" aria-busy="true">
+        <div class="ed-busy-card">
+            <div class="edna-busy-spinner" aria-hidden="true"></div>
+            <h3 id="ednaBusyTitle">Processing</h3>
+            <p id="ednaBusyMessage">Please wait while eDNA completes your request.</p>
+        </div>
+    </div>
+
+    <!-- Change Default Finger Modal Pop up Window -->
+    <div class="modal fade" id="mdChangeDefaultFinger" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" data-placement="center" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog ed-modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="Icon_Information"><img src="~/Content/Images/Information.png" width="45" height="40" alt="" /><Label>Override Default Finger</Label></h4>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted">Select one of the highlighted enrolled fingers to make it the default finger.</p>
+                    <div class="ed-capture-hands">
+                        <div class="ed-hand">
+                            <h5 class="ed-hand-title">Left hand</h5>
+                            <div class="ed-hand-image">
+                                <img src="~/Content/Images/Enrolment/HandLeftNumbered.png" class="img_map" width="256" height="266" alt="Left hand, fingers 1 to 5" usemap="#Lefthandmap" />
+                            </div>
+                        </div>
+                        <div class="ed-hand">
+                            <h5 class="ed-hand-title">Right hand</h5>
+                            <div class="ed-hand-image">
+                                <img src="~/Content/Images/Enrolment/HandRightNumbered.png" class="img_map" width="256" height="266" alt="Right hand, fingers 6 to 10" usemap="#Righthandmap" />
+                            </div>
+                        </div>
+                    </div>
+                    <map name="Lefthandmap">
+                        <area shape="circle" coords="18,84,13,90" alt="Finger1" href="#" id="lnkFinger1">
+                        <area shape="circle" coords="58,42,14,55" alt="Finger2" href="#" id="lnkFinger2">
+                        <area shape="circle" coords="113,29,15,55" alt="Finger3" href="#" id="lnkFinger3">
+                        <area shape="circle" coords="175,42.5,14,65" alt="Finger4" href="#" id="lnkFinger4">
+                        <area shape="circle" coords="230,150,14,125" alt="Finger5" href="#" id="lnkFinger5">
+                    </map>
+                    <map name="Righthandmap">
+                        <area shape="circle" coords="20,150,14,124" alt="Finger6" href="#" id="lnkFinger6">
+                        <area shape="circle" coords="76,43.5,14,45" alt="Finger7" href="#" id="lnkFinger7">
+                        <area shape="circle" coords="137,30,15,50" alt="Finger8" href="#" id="lnkFinger8">
+                        <area shape="circle" coords="193,43,14,55" alt="Finger9" href="#" id="lnkFinger9">
+                        <area shape="circle" coords="234,84,13,83" alt="Finger10" href="#" id="lnkFinger10">
+                    </map>
+                </div>
+                <div class="modal-footer">
+                    <div class="ed-legend-row" style="margin-right:auto">
+                        <span class="list-group-item-legend">
+                            <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="display-legend color-legend-EnrolledFinger" width="22" height="22" alt="" />
+                            Enrolled fingers
+                        </span>
+                        <span class="list-group-item-legend">
+                            <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="display-legend color-legend-DefaultFinger" width="22" height="22" alt="" />
+                            Default finger
+                        </span>
+                    </div>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="tooltip" title="Cancel">Cancel</button>
+                    <button type="button" id="btnOverrideDF" class="btn btn-default" data-dismiss="modal" data-toggle="tooltip" title="Override Default Finger" data-placement="bottom">Override</button>
+                    <img src="~/Content/Images/eDNA_logo.jpg" class="pull-left" height="45" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Attributes Input Event Modal Pop up Window -->
+    <div class="modal fade" id="mdUserAttribute" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" data-placement="center" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="Icon_Information"><img src="~/Content/Images/Information.png" width="45" height="40" alt="" /><Label>System Information</Label></h4>
+                </div>
+                <div class="modal-body">
+                    <p><Label ID="lblUAMessage">Please Enter the user attribute value.</Label></p>
+                    <div class="ed-field">
+                        <Label id="lblUADescription" for="txtUAttribute">User Attribute Value</Label>
+                        <input id="txtUAttribute" type="text" class="form-control" placeholder="User Attribute Value" size="30">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <img src="~/Content/Images/eDNA_logo.jpg" class="pull-left" height="45" alt="eDNA" />
+                    <Label ID="lblErrorMessage" class="text-danger" role="alert"></Label>
+                    <button type="button" id="btnUAInputModalCancel" class="btn btn-default" data-dismiss="modal" data-toggle="tooltip" title="Cancel">Cancel</button>
+                    <button type="button" id="btnUAInputModalOK" class="btn btn-default" data-toggle="tooltip" title="Add the value to the User details" data-placement="bottom">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- eDNA Logs Modal Pop up Window -->
+    <div class="modal fade" id="mdeDNALogs" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-placement="center" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog ed-modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4><img src="~/Content/Images/Information.png" width="45" height="40" alt="" /><Label ID="lblLastLoginDateTime">eDNA WebPortal - eDNA Logs</Label></h4>
+                </div>
+                <div class="modal-body">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#first" aria-controls="first" role="tab" data-toggle="tab">eDNA Web Portal Logs</a></li>
+                        <li role="presentation"><a href="#second" aria-controls="second" role="tab" data-toggle="tab">Authentication Service Logs</a></li>
+                        <li role="presentation"><a href="#third" aria-controls="third" role="tab" data-toggle="tab">eDNA Web Service Logs</a></li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div style="padding-top:16px;text-align:center">
+                        @*@Html.ListBox("lsteDNALogs", new List<SelectListItem>(), new { style = "width:100%; height:360px;" })*@
+                        <img src="~/Content/Images/Underconstruction.jpg " height="400" width="480" alt="Under construction" style="max-width:100%;height:auto" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="tooltip" title="Close">Close</button>
+                    <img src="~/Content/Images/eDNA_logo.jpg" class="pull-left" height="45" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Report Error PopUp Window -->
+    <div class="modal fade" id="mdReportErrorPopUp" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" data-placement="center" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog ed-modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 id="Icon_Information"><img src="~/Content/Images/Error.png" width="45" height="40" alt="Error" /><Label>Report Job Error Details</Label></h4>
+                </div>
+                <div class="modal-body">
+                    <dl class="ed-kv">
+                        <dt>Job ID</dt>
+                        <dd><label id="lblRPTErrorJobID"></label></dd>
+                        <dt><label for="txtRPTErrorDetails">Error details</label></dt>
+                        <dd><textarea cols="60" id="txtRPTErrorDetails" rows="10" readonly="readonly" class="form-control"></textarea></dd>
+                        <dt>Action</dt>
+                        <dd>
+                            <a href="#" onclick="javascript:CopyToClipboard()" data-toggle="tooltip" title="Copy Error" data-placement="bottom">
+                                <span class="glyphicon glyphicon-copy"></span> Copy Error
+                            </a>
+                        </dd>
+                    </dl>
+                </div>
+                <div class="modal-footer">
+                    <img src="~/Content/Images/eDNA_logo.jpg" class="pull-left" height="45" alt="eDNA" />
+                    <label id="lblRPTErrorCopied" style="display:none" role="status"></label>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MVC SiteMap Div -->
+    <div id="MVCSiteMap" style="display:none" role="navigation" aria-label="Breadcrumb">
+        <ol class="breadcrumb">
+            @Html.MvcSiteMap().SiteMapPath()
+            <div id="dvClose" class="pull-right">
+                <a href="@Url.Action("Index", "Home" )" onclick="javascript:ShowBusyProcessing()" class="SpecialEffects" data-toggle="tooltip" title="Redirect to Home" data-placement="bottom">Close <span class="glyphicon glyphicon-remove"></span></a>
+            </div>
+        </ol>
+    </div>
+
+    <!-- User Enrolment div: progress stepper -->
+    <div id="UserEnromentWizard" class="breadcrumb ed-wizard" style="display:none">
+        <div class="ed-wizard-inner">
+            <div class="ed-wizard-heading">
+                <span class="ed-wizard-eyebrow">User enrolment</span>
+                <label id="lblUserEnrolment"> @HttpContext.Current.Session["lblEnrolmentHeading"]</label>
+            </div>
+            <ol class="ed-steps" aria-label="Enrolment progress">
+                @for (Int32 l_iStep = 1; l_iStep <= l_arEnrolmentSteps.Length; l_iStep++)
+                {
+                    String l_strStepState = l_iStep < l_iEnrolmentStep ? "is-done" : (l_iStep == l_iEnrolmentStep ? "is-current" : "");
+                    <li class="ed-step @l_strStepState" @(l_iStep == l_iEnrolmentStep ? Html.Raw("aria-current=\"step\"") : null)>
+                        <span class="ed-step-num">@(l_iStep < l_iEnrolmentStep ? "✓" : l_iStep.ToString())</span>
+                        <span class="ed-step-label">@l_arEnrolmentSteps[l_iStep - 1]</span>
+                    </li>
+                }
+            </ol>
+        </div>
+    </div>
+
+    <main class="ed-main">
+        @RenderBody()
+    </main>
+
+    <footer class="ed-statusbar">
+        @Html.Partial("_Footer")
+    </footer>
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/jquery.maphilight.js">
+    </script>
+
+    @*CODESC: Hide the message icons initial form load*@
+    <script type="text/javascript">
+        document.getElementById("Icon_Error").style.display = "none";
+        document.getElementById("Icon_Warning").style.display = "none";
+        document.getElementById("Icon_Question").style.display = "none";
+        document.getElementById("Icon_Information").style.display = "none";
+        //document.getElementById("UserEnromentWizard").style.display = "none";
+    </script>
+
+    @*CODESC: Change Default Finger.*@
+    <script type="text/javascript">
+        function ChangeDefaultFinger() {
+            var l_arFingerIndexes = [];
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                traditional: true,
+                url: "/eDNA.WebPortal/Logon/GetUserFingerIndexes",
+                data: JSON.stringify({ "": "" }),
+                contentType: "application/json; charset=utf-8",
+                success: function (l_strFingerIndexes) {
+                    if (l_strFingerIndexes != null && l_strFingerIndexes != "") {
+                        l_arFingerIndexes = l_strFingerIndexes.split(',');
+
+                        //CODESC: Highlight Registered and Default Finger.
+                        HighlightRegisteredFingers(l_arFingerIndexes);
+                    }
+                },
+                error: function (data) {
+                    m_Logger.appendError(data);
+                }
+            });
+
+            $('#mdChangeDefaultFinger').modal('show');
+
+            //CODESC: Change Default Finger Color only if one the Registered finger is clicked.
+            $("#lnkFinger1").click(function () {
+                if ($.inArray('1', l_arFingerIndexes) != -1) {
+                    l_arFingerIndexes[0] = 1;
+                    HighlightRegisteredFingers(l_arFingerIndexes)
+                }
+            });
+            $("#lnkFinger2").click(function () {
+                if ($.inArray('2', l_arFingerIndexes) != -1) {
+                    l_arFingerIndexes[0] = 2;
+                    HighlightRegisteredFingers(l_arFingerIndexes)
+                }
+            });
+            $("#lnkFinger3").click(function () {
+                if ($.inArray('3', l_arFingerIndexes) != -1) {
+                    l_arFingerIndexes[0] = 3;
+                    HighlightRegisteredFingers(l_arFingerIndexes)
+                }
+            });
+            $("#lnkFinger4").click(function () {
+                if ($.inArray('4', l_arFingerIndexes) != -1) {
+                    l_arFingerIndexes[0] = 4;
+                    HighlightRegisteredFingers(l_arFingerIndexes)
+                }
+            });
+            $("#lnkFinger5").click(function () {
+                if ($.inArray('5', l_arFingerIndexes) != -1) {
+                    l_arFingerIndexes[0] = 5;
+                    HighlightRegisteredFingers(l_arFingerIndexes)
+                }
+            });
+            $("#lnkFinger6").click(function () {
+                if ($.inArray('6', l_arFingerIndexes) != -1) {
+                    l_arFingerIndexes[0] = 6;
+                    HighlightRegisteredFingers(l_arFingerIndexes)
+                }
+            });
+            $("#lnkFinger7").click(function () {
+                if ($.inArray('7', l_arFingerIndexes) != -1) {
+                    l_arFingerIndexes[0] = 7;
+                    HighlightRegisteredFingers(l_arFingerIndexes)
+                }
+            });
+            $("#lnkFinger8").click(function () {
+                if ($.inArray('8', l_arFingerIndexes) != -1) {
+                    l_arFingerIndexes[0] = 8;
+                    HighlightRegisteredFingers(l_arFingerIndexes)
+                }
+            });
+            $("#lnkFinger9").click(function () {
+                if ($.inArray('9', l_arFingerIndexes) != -1) {
+                    l_arFingerIndexes[0] = 9;
+                    HighlightRegisteredFingers(l_arFingerIndexes)
+                }
+            });
+            $("#lnkFinger10").click(function () {
+                if ($.inArray('10', l_arFingerIndexes) != -1) {
+                    l_arFingerIndexes[0] = 10;
+                    HighlightRegisteredFingers(l_arFingerIndexes)
+                }
+            });
+
+            $("#btnOverrideDF").click(function () {
+
+                //Show Busy Processing
+                ShowBusyProcessing();
+                l_iDefaultFinger = l_arFingerIndexes[0];
+
+                if (l_iDefaultFinger != null && l_iDefaultFinger != "") {
+                    $.ajax({
+                        type: "POST",
+                        dataType: "json",
+                        traditional: true,
+                        url: "/eDNA.WebPortal/Base/HandleMessage",
+                        data: JSON.stringify({ 'p_strMessage': '1' + ';16', 'p_strOption': '25', "p_strJSonData": l_iDefaultFinger }),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            //CODESC: Display busy process.
+                            ShowBusyProcessing();
+                            //CODESC: Process WebSocket Request function with the passing values process.
+                            ProcessWebSocketRequest(data, m_CurrentController);
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+
+    @*CODESC: Highlight Registered and Default Finger.*@
+    <script type="text/javascript">
+        function HighlightRegisteredFingers(l_arFingerIndexes) {
+            $(function () {
+                $('.img_map').maphilight({
+                    fillColor: '53EA1A',
+                    strokeColor: '000000',
+                    fillOpacity: 0.7
+                });
+
+                //CODESC: Re-set finger selection
+                ResetFingers();
+
+                var l_RegisteredFingerStyle = $('#id').data('maphilight') || {};
+                l_RegisteredFingerStyle.alwaysOn = !l_RegisteredFingerStyle.alwaysOn;
+
+                //CODESC: Loop through the registered fringers and chnage the area color accordingly
+                //CODESC: Set the Default finger area color accordingly.
+                for (i = 0; i < l_arFingerIndexes.length; i++) {
+
+                    var l_DefaultFingerStyle = $('#id').data('maphilight') || {};
+                    l_DefaultFingerStyle.alwaysOn = true;
+                    l_DefaultFingerStyle.fillColor = 'FF1800';
+                    l_DefaultFingerStyle.strokeColor = '1116FF';
+
+                    if (l_arFingerIndexes[i] == 1) {
+                        if (l_arFingerIndexes[0] == 1) {
+                            $('#lnkFinger1').data('maphilight', l_DefaultFingerStyle).trigger('alwaysOn.maphilight');
+                        }
+                        else {
+                            $('#lnkFinger1').data('maphilight', l_RegisteredFingerStyle).trigger('alwaysOn.maphilight');
+                        }
+                    }
+                    if (l_arFingerIndexes[i] == 2) {
+                        if (l_arFingerIndexes[0] == 2) {
+                            $('#lnkFinger2').data('maphilight', l_DefaultFingerStyle).trigger('alwaysOn.maphilight');
+                        }
+                        else {
+                            $('#lnkFinger2').data('maphilight', l_RegisteredFingerStyle).trigger('alwaysOn.maphilight');
+                        }
+                    }
+                    if (l_arFingerIndexes[i] == 3) {
+                        if (l_arFingerIndexes[0] == 3) {
+                            $('#lnkFinger3').data('maphilight', l_DefaultFingerStyle).trigger('alwaysOn.maphilight');
+                        }
+                        else {
+                            $('#lnkFinger3').data('maphilight', l_RegisteredFingerStyle).trigger('alwaysOn.maphilight');
+                        }
+                    }
+                    if (l_arFingerIndexes[i] == 4) {
+                        if (l_arFingerIndexes[0] == 4) {
+                            $('#lnkFinger4').data('maphilight', l_DefaultFingerStyle).trigger('alwaysOn.maphilight');
+                        }
+                        else {
+                            $('#lnkFinger4').data('maphilight', l_RegisteredFingerStyle).trigger('alwaysOn.maphilight');
+                        }
+                    }
+                    if (l_arFingerIndexes[i] == 5) {
+                        if (l_arFingerIndexes[0] == 5) {
+                            $('#lnkFinger5').data('maphilight', l_DefaultFingerStyle).trigger('alwaysOn.maphilight');
+                        }
+                        else {
+                            $('#lnkFinger5').data('maphilight', l_RegisteredFingerStyle).trigger('alwaysOn.maphilight');
+                        }
+                    }
+                    if (l_arFingerIndexes[i] == 6) {
+                        if (l_arFingerIndexes[0] == 6) {
+                            $('#lnkFinger6').data('maphilight', l_DefaultFingerStyle).trigger('alwaysOn.maphilight');
+                        }
+                        else {
+                            $('#lnkFinger6').data('maphilight', l_RegisteredFingerStyle).trigger('alwaysOn.maphilight');
+                        }
+                    }
+                    if (l_arFingerIndexes[i] == 7) {
+                        if (l_arFingerIndexes[0] == 7) {
+                            $('#lnkFinger7').data('maphilight', l_DefaultFingerStyle).trigger('alwaysOn.maphilight');
+                        }
+                        else {
+                            $('#lnkFinger7').data('maphilight', l_RegisteredFingerStyle).trigger('alwaysOn.maphilight');
+                        }
+                    }
+                    if (l_arFingerIndexes[i] == 8) {
+                        if (l_arFingerIndexes[0] == 8) {
+                            $('#lnkFinger8').data('maphilight', l_DefaultFingerStyle).trigger('alwaysOn.maphilight');
+                        }
+                        else {
+                            $('#lnkFinger8').data('maphilight', l_RegisteredFingerStyle).trigger('alwaysOn.maphilight');
+                        }
+                    }
+                    if (l_arFingerIndexes[i] == 9) {
+                        if (l_arFingerIndexes[0] == 9) {
+                            $('#lnkFinger9').data('maphilight', l_DefaultFingerStyle).trigger('alwaysOn.maphilight');
+                        }
+                        else {
+                            $('#lnkFinger9').data('maphilight', l_RegisteredFingerStyle).trigger('alwaysOn.maphilight');
+                        }
+                    }
+                    if (l_arFingerIndexes[i] == 10) {
+                        if (l_arFingerIndexes[0] == 10) {
+                            $('#lnkFinger10').data('maphilight', l_DefaultFingerStyle).trigger('alwaysOn.maphilight');
+                        }
+                        else {
+                            $('#lnkFinger10').data('maphilight', l_RegisteredFingerStyle).trigger('alwaysOn.maphilight');
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+
+    @*CODESC: Re-set finger selection*@
+    <script type="text/javascript">
+        function ResetFingers() {
+            $('#lnkFinger1').data('maphilight', 'None').trigger('alwaysOn.maphilight');
+            $('#lnkFinger2').data('maphilight', 'None').trigger('alwaysOn.maphilight');
+            $('#lnkFinger3').data('maphilight', 'None').trigger('alwaysOn.maphilight');
+            $('#lnkFinger4').data('maphilight', 'None').trigger('alwaysOn.maphilight');
+            $('#lnkFinger5').data('maphilight', 'None').trigger('alwaysOn.maphilight');
+            $('#lnkFinger6').data('maphilight', 'None').trigger('alwaysOn.maphilight');
+            $('#lnkFinger7').data('maphilight', 'None').trigger('alwaysOn.maphilight');
+            $('#lnkFinger8').data('maphilight', 'None').trigger('alwaysOn.maphilight');
+            $('#lnkFinger9').data('maphilight', 'None').trigger('alwaysOn.maphilight');
+            $('#lnkFinger10').data('maphilight', 'None').trigger('alwaysOn.maphilight');
+        }
+    </script>
+
+    @*CODESC: Get the Web portal logs*@
+    <script type="text/javascript">
+        function DisplayApplicationLog() {
+            $('#mdeDNALogs').modal('show');
+            var fileDisplayArea = document.getElementById('lsteDNALogs');
+            function readTextFile(file) {
+                var rawFile = new XMLHttpRequest();
+                rawFile.open("GET", file, true);
+                rawFile.onreadystatechange = function () {
+                    if (rawFile.readyState === 4) {
+                        if (rawFile.status === 200 || rawFile.status == 0) {
+                            var allText = rawFile.responseText;
+                            fileDisplayArea.innerText = allText
+                        }
+                    }
+                }
+                rawFile.send(null);
+            }
+
+            readTextFile("file:///C:/eDNA/logs/HelloWorld.txt");
+        }
+    </script>
+
+</body>
+</html>
+
+@*CODESC: SessionTimeout Modal pop up.*@
+<script type="text/javascript">
+    function SessionTimeout() {
+        if (m_EnrolmentTimeoutPaused) return;
+        SwitchOnSessionTimer();
+        $('#mdSessionTimeOut').modal('show');
+        $("#cmdSessionTimeout").click(function () {
+            m_SessionTimeOut = '';
+            DoLogout();
+            $(this).unbind();
+        });
+        //CODESC: Re-intialize the SessionTimeOut,if user clicks the Continue button.
+        $("#cmdSessionContinue").click(function () {
+            m_SessionTimeOut = m_SessionContinue + 1;
+            PauseSessionTimer();
+        });
+    }
+</script>
+
+@*CODESC: Countdown for the session time out and auto log out the user from Web Portal.*@
+<script type="text/javascript">
+    var l_CountTime;
+    var l_TimeOut, l_TimeLeft;
+    var l_color = 'green';
+    var l_clMagenta = 'magenta';
+    var l_clOrangered = 'orangered';
+    var l_clRed = 'red';
+    var l_clGrey = 'grey';
+    var l_clBlue = 'blue';
+
+    //CODESC: SwitchOn/Off Timer
+    function SwitchOnSessionTimer() {
+        //CODESC: l_CountTime in seconds
+        l_CountTime = 60;
+        ResetSessionTimer();
+    }
+
+    //CODESC: Update display Time value
+    function UpdateSessionDisplay(p_Color) {
+        document.getElementById('timespan').innerHTML = l_TimeLeft;
+        document.getElementById('timespan').style.color = p_Color;
+    }
+
+    //CODESC: Start Countdown and chnage the timer value color accordingly.
+    function CountDownSessionTimeOut() {
+        if (m_EnrolmentTimeoutPaused) { PauseSessionTimer(); return; }
+        UpdateSessionDisplay(l_clBlue);
+        if (l_TimeLeft >= 0) {
+            if (l_TimeLeft > 55 && l_TimeLeft < 60) {
+                UpdateSessionDisplay(l_clRed);
+            }
+            if (l_TimeLeft > 45 && l_TimeLeft < 50) {
+                UpdateSessionDisplay(l_clOrangered);
+            }
+            if (l_TimeLeft > 35 && l_TimeLeft < 40) {
+                UpdateSessionDisplay(l_clMagenta);
+            }
+            if (l_TimeLeft > 25 && l_TimeLeft < 30) {
+                UpdateSessionDisplay(l_clBlue);
+            }
+            if (l_TimeLeft > 20 && l_TimeLeft < 25) {
+                UpdateSessionDisplay(l_clGrey);
+            }
+            if (l_TimeLeft > 15 && l_TimeLeft < 20) {
+                UpdateSessionDisplay(l_clRed);
+            }
+            if (l_TimeLeft > 10 && l_TimeLeft < 15) {
+                UpdateSessionDisplay(l_clOrangered);
+            }
+            if (l_TimeLeft > 5 && l_TimeLeft < 10) {
+                UpdateSessionDisplay(l_clMagenta);
+            }
+        }
+        if (l_TimeLeft === 1) {
+            DoLogout('True');
+        }
+        else {
+            l_TimeLeft--;
+            l_TimeOut = setTimeout(CountDownSessionTimeOut, 1000);
+        }
+    }
+
+    //CODESC: Pauses Countdown
+    function PauseSessionTimer() {
+        clearTimeout(l_TimeOut);
+    }
+
+    //CODESC: Reset Countdown
+    function ResetSessionTimer() {
+        PauseSessionTimer();
+        l_TimeLeft = l_CountTime;
+        UpdateSessionDisplay(l_clBlue);
+        CountDownSessionTimeOut();
+    }
+</script>

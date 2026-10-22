@@ -1,0 +1,69 @@
+﻿@if (System.Web.HttpContext.Current.Session["Certificate_List"] != null)
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered table-hover ">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayName("Certificate ID")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Certificate Type")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Subject")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Serial Number")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Valid From")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Valid To")
+                    </th>
+                    <th>
+                        @Html.DisplayName("CertificateStatus")
+                    </th>
+                    <th>@Html.DisplayName("Action")</th>
+                </tr>
+            </thead>
+            @*Binding Certificate Data to the table*@
+            @foreach (System.Data.DataRow dr in ((ViewBag.CertificateData as System.Data.DataTable) ?? new System.Data.DataTable()).Rows)
+            {
+
+                <tbody>
+                    <tr>
+
+                        <td>
+                            @dr["CertificateID"]
+                        </td>
+                        <td>
+                            @dr["CertificateType"]
+                        </td>
+                        <td>
+                            @dr["Subject"]
+                        </td>
+                        <td>
+                            @dr["SerialString"]
+                        </td>
+                        <td>
+                            @dr["ValidFrom"]
+                        </td>
+                        <td>
+                            @dr["ValidTo"]
+                        </td>
+                        <td>
+                            @dr["CertificateStatus"]
+                        </td>
+                        <td class="lalign">
+                            <a href="javascript:DisplayCertificateStatusModal('@dr["CertificateID"]','@dr["CertificateType"]','@dr["SerialString"]','@dr["CertificateStatus"]')" data-toggle="tooltip" title="Update Certificate Status" data-placement="bottom" style="color:blue;">Edit</a>
+                            <label>/</label>
+                            <a href="javascript:Certificate_Get(@dr["CertificateID"])" data-toggle="tooltip" title="View Certificate Details" data-placement="bottom" style="color:blue;">View</a>
+                        </td>
+                    </tr>
+                </tbody>
+            }
+        </table>
+    </div> 
+}

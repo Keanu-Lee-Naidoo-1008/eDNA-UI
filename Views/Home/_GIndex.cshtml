@@ -1,0 +1,74 @@
+﻿@{
+    ViewBag.Title = "Dashboard";
+}
+@model List<eDNA.WebPortal.Models.CMenuData>
+<div class="dashboard">
+    @if (Model != null && Model.Count != 0)
+    {
+        //CODESC: Define the size of the menu circles
+        var l_intMenuSize = 0;
+
+        if (Model.Count <= 3)
+        {
+            l_intMenuSize = 240;
+        }
+        else if (Model.Count > 3 && Model.Count < 7)
+        {
+            l_intMenuSize = 180;
+        }
+        else if (Model.Count >= 7 && Model.Count < 10)
+        {
+            l_intMenuSize = 160;
+        }
+        else if (Model.Count > 9)
+        {
+            l_intMenuSize = 140;
+        }
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-1" style="width:80px;">
+                </div>
+                <div class="col-md-7" style="margin: 0 auto;align-items:center;">
+                    @foreach (var l_Menu in ((ViewBag.MenuList as List<eDNA.CommonData.Classes.CData_Menu>) ?? new List<eDNA.CommonData.Classes.CData_Menu>()))
+                    {
+                        <div class="thumbnail col-sm-2" style="width:@(l_intMenuSize)px;height:180px;margin:15px;box-shadow:9px 9px 9px whitesmoke;border-color:white;
+                                border-radius:20px; background-color:transparent;">
+                            <a href="javascript:Redirect('@l_Menu.MenuID','@l_Menu.MVC_View','@l_Menu.Caption')" style="cursor:pointer;margin: 0 auto" id=@l_Menu.MenuID data-toggle="tooltip" title="@l_Menu.ToolTip">
+                                <div style="display:inline-block;text-align:center;">
+                                    <img src="~/Content/Images/MenuIcons/@l_Menu.IconName" width="105" height="95" />
+                                </div>
+                                <div class="caption">
+                                    <h4>@l_Menu.Caption</h4>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                </div>
+                <div class="pull-right col-md-3">
+                    <div class="list-group-item" style="background-color:steelblue">
+                        <center>
+                            <h4 style="width:230px;text-align:center">
+                                <font color="white">Menu</font>
+                            </h4>
+                        </center>
+                    </div>
+                    <div class="list-group">
+                        @foreach (var l_Menu in ((ViewBag.MenuList as List<eDNA.CommonData.Classes.CData_Menu>) ?? new List<eDNA.CommonData.Classes.CData_Menu>()))
+                        {
+                            <a href="javascript:Redirect('@l_Menu.MenuID','@l_Menu.MVC_View','@l_Menu.Caption')" class="list-group-item" id=@l_Menu.MenuID data-toggle="tooltip" data-placement="left" title="@l_Menu.ToolTip">
+                                <div>
+                                    <label style="cursor:pointer">
+                                        <img src="~/Content/Images/MenuIcons/@l_Menu.IconName" width="40" height="35" />
+                                        @l_Menu.Caption
+                                    </label>
+                                </div>
+                            </a>
+                        }
+                        <a href="#" class="list-group-item" data-placement="bottom" data-toggle="tooltip"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

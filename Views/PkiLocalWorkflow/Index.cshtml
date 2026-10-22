@@ -1,0 +1,39 @@
+﻿@{
+    Layout = null;
+    bool unavailable = ViewBag.Unavailable == true;
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>eDNA - Local PKI workflow</title>
+    <link rel="stylesheet" href="@Url.Content("~/Content/PkiLocalWorkflow.css")" />
+    <script src="@Url.Content("~/Scripts/Enrolment/PkiLocalWorkflow.js")" defer></script>
+</head>
+<body>
+    <main>
+        <p class="eyebrow">eDNA / Development PKI</p>
+        <h1>Resume certificate enrolment</h1>
+        <p class="intro">Continue the saved software-card test through the authentication client, PostOffice and PKI service.</p>
+        @if (unavailable)
+        {
+            <p role="alert">The local client registration is unavailable or expired. Start the saved portal test and refresh this page.</p>
+        }
+        else
+        {
+            <dl><dt>Local user</dt><dd>@ViewBag.UserId</dd><dt>Saved operation</dt><dd>@ViewBag.Operation</dd></dl>
+            <form id="pki-resume" method="post" action="@Url.Action("Resume")" data-result-url="@Url.Action("Result")">
+                @Html.AntiForgeryToken()
+                <button type="submit" id="resume">Resume saved operation</button>
+            </form>
+            <section id="result" role="status" aria-live="polite">
+                <h2 id="status-title">Ready to resume</h2>
+                <p id="status-detail">The client will recheck the saved certificate and any enabled software installation proof.</p>
+                <dl id="receipt" hidden><dt>CA queue</dt><dd id="queue"></dd><dt>Certificate</dt><dd id="certificate"></dd><dt>Certificate SHA-256</dt><dd id="hash"></dd></dl>
+            </section>
+        }
+        <p class="scope">Local software test / Certificate remains inactive / Physical-card writes disabled</p>
+    </main>
+</body>
+</html>

@@ -1,0 +1,384 @@
+﻿@{
+    ViewBag.Title = "Biometric Enrolment Details";
+}
+<input type="hidden" id="RequiredFingerprintCount" value="@ViewBag.RequiredFingerprintCount" />
+@if (Convert.ToString(HttpContext.Current.Session["Modality_Type"]) == "FingerPrint")
+{
+    <div class="ed-page-header ed-page-intro">
+        <div>
+            <h2>Fingerprint enrolment</h2>
+            <p>Capture @ViewBag.RequiredFingerprintCount different fingers, with two samples of each finger, then verify and sign to continue.</p>
+        </div>
+        <ol class="ed-checklist" aria-label="Fingerprint steps">
+            <li>Click a finger to capture it twice</li>
+            <li>Verify all captured fingers</li>
+            <li>Sign and continue</li>
+        </ol>
+    </div>
+}
+@if (Convert.ToString(HttpContext.Current.Session["Modality_Type"]) == "Selection")
+{
+    <div class="panel-body-details ed-page">
+        <div class="ed-page-header">
+            <div>
+                <h2>Select Biometric Enrolment Type</h2>
+                <p>Please select the biometric modality to enrol for this user.</p>
+            </div>
+        </div>
+        <div class="ed-choice-grid">
+            @if (ViewBag.FingerprintAvailable == true)
+            {
+                <a href="@Url.Action("Index", "BiometricEnrolment", new { p_strModality = "Fingerprint" })"
+                   class="btn btn-primary ed-choice"
+                   title="Continue to fingerprint enrolment">
+                    <span class="glyphicon glyphicon-hand-up ed-choice-icon"></span>
+                    <span class="ed-choice-title">Fingerprint Enrolment</span>
+                    <span class="ed-choice-text">Capture two samples of each required finger with the fingerprint scanner.</span>
+                </a>
+            }
+            @if (ViewBag.FacialAvailable == true)
+            {
+                <a href="@Url.Action("Index", "BiometricEnrolment", new { p_strModality = "Facial" })"
+                   class="btn btn-primary ed-choice"
+                   title="Continue to facial enrolment">
+                    <span class="glyphicon glyphicon-user ed-choice-icon"></span>
+                    <span class="ed-choice-title">Facial Enrolment</span>
+                    <span class="ed-choice-text">Capture and verify three face images with the camera.</span>
+                </a>
+            }
+        </div>
+    </div>
+    <div class="panel-footer ed-actionbar">
+        <a href="@Url.Action("Index", "UserEnrolment")" class="btn btn-primary ed-btn-secondary"
+           title="Cancel the enrolment process">
+            <span class="glyphicon glyphicon-remove"></span> Cancel
+        </a>
+    </div>
+}
+else if (Convert.ToString(HttpContext.Current.Session["Modality_Type"]) == "FingerPrint")
+{
+    <div class="panel-body-details">
+        <div class="ed-layout-split">
+            <section class="ed-card" aria-label="Capture fingerprints">
+                <div class="ed-card-body ed-card-body-compact">
+                    <div class="ed-capture-hands">
+                        <div class="ed-hand">
+                            <h4 class="ed-hand-title">Left hand</h4>
+                            <div class="ed-hand-image">
+                                <img src="~/Content/Images/Enrolment/HandLeftNumbered.png" width="256" height="266" class="img_map" alt="Left hand, fingers 1 to 5. Click a finger to capture it." usemap="#CaptureLefthandmap" />
+                            </div>
+                            <div class="ed-capture-grid">
+                                <div class="ed-capture-slot">
+                                    <span class="ed-capture-slot-label">Finger 1</span>
+                                    <a href="#" id="cmdClearFinger1" class="pull-right" style="display:none;color:red;font-weight:bold" data-placement="bottom" data-toggle="tooltip" title="Clear captured finger">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                    <div class="ed-capture-pair">
+                                        <span class="ed-img-frame"><img id="imgFinger1" width="65" height="70" alt="Finger 1, first sample" style="border:groove;border-color:white;object-fit:cover;background-repeat: no-repeat" /></span>
+                                        <label id="lblFingerImageQuality1">0</label>
+                                        <span class="ed-img-frame"><img id="imgFinger12ndCapture" width="65" height="70" alt="Finger 1, second sample" style="border:groove;border-color:white;object-fit:cover;background-repeat: no-repeat" /></span>
+                                        <label id="lblFingerImageQuality12">0</label>
+                                    </div>
+                                </div>
+                                <div class="ed-capture-slot">
+                                    <span class="ed-capture-slot-label">Finger 2</span>
+                                    <a href="#" id="cmdClearFinger2" class="pull-right" style="display:none;color:red;font-weight:bold" data-placement="bottom" data-toggle="tooltip" title="Clear captured finger">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                    <div class="ed-capture-pair">
+                                        <span class="ed-img-frame"><img id="imgFinger2" width="65" height="70" alt="Finger 2, first sample" style="border:groove;border-color:white;object-fit:cover;background-repeat: no-repeat" /></span>
+                                        <label id="lblFingerImageQuality2">0</label>
+                                        <span class="ed-img-frame"><img id="imgFinger22ndCapture" width="65" height="70" alt="Finger 2, second sample" style="border:groove;border-color:white;object-fit:cover;background-repeat: no-repeat" /></span>
+                                        <label id="lblFingerImageQuality22">0</label>
+                                    </div>
+                                </div>
+                                <div class="ed-capture-slot">
+                                    <span class="ed-capture-slot-label">Finger 3</span>
+                                    <a href="#" id="cmdClearFinger3" class="pull-right" style="display:none;color:red;font-weight:bold" data-placement="bottom" data-toggle="tooltip" title="Clear captured finger">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                    <div class="ed-capture-pair">
+                                        <span class="ed-img-frame"><img id="imgFinger3" width="65" height="70" alt="Finger 3, first sample" style="border:groove;border-color:white;object-fit:cover;background-repeat: no-repeat" /></span>
+                                        <label id="lblFingerImageQuality3">0</label>
+                                        <span class="ed-img-frame"><img id="imgFinger32ndCapture" width="65" height="70" alt="Finger 3, second sample" style="border:groove;border-color:white;object-fit:cover;background-repeat: no-repeat" /></span>
+                                        <label id="lblFingerImageQuality32">0</label>
+                                    </div>
+                                </div>
+                                <div class="ed-capture-slot">
+                                    <span class="ed-capture-slot-label">Finger 4</span>
+                                    <a href="#" id="cmdClearFinger4" class="pull-right" style="display:none;color:red;font-weight:bold" data-placement="bottom" data-toggle="tooltip" title="Clear captured finger">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                    <div class="ed-capture-pair">
+                                        <span class="ed-img-frame"><img id="imgFinger4" width="65" height="70" alt="Finger 4, first sample" style="border:groove;border-color:white;object-fit:cover;background-repeat: no-repeat" /></span>
+                                        <label id="lblFingerImageQuality4">0</label>
+                                        <span class="ed-img-frame"><img id="imgFinger42ndCapture" width="65" height="70" alt="Finger 4, second sample" style="border:groove;border-color:white;object-fit:cover;background-repeat: no-repeat" /></span>
+                                        <label id="lblFingerImageQuality42">0</label>
+                                    </div>
+                                </div>
+                                <div class="ed-capture-slot">
+                                    <span class="ed-capture-slot-label">Finger 5</span>
+                                    <a href="#" id="cmdClearFinger5" class="pull-right" style="display:none;color:red;font-weight:bold" data-placement="bottom" data-toggle="tooltip" title="Clear captured finger">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                    <div class="ed-capture-pair">
+                                        <span class="ed-img-frame"><img id="imgFinger5" width="65" height="70" alt="Finger 5, first sample" style="border:groove;border-color:white;object-fit:cover;background-repeat: no-repeat" /></span>
+                                        <label id="lblFingerImageQuality5">0</label>
+                                        <span class="ed-img-frame"><img id="imgFinger52ndCapture" width="65" height="70" alt="Finger 5, second sample" style="border:groove;border-color:white;object-fit:cover;background-repeat: no-repeat" /></span>
+                                        <label id="lblFingerImageQuality52">0</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ed-hand">
+                            <h4 class="ed-hand-title">Right hand</h4>
+                            <div class="ed-hand-image">
+                                <img src="~/Content/Images/Enrolment/HandRightNumbered.png" width="256" height="266" class="img_map" alt="Right hand, fingers 6 to 10. Click a finger to capture it." usemap="#CaptureRighthandmap" />
+                            </div>
+                            <div class="ed-capture-grid">
+                                <div class="ed-capture-slot">
+                                    <span class="ed-capture-slot-label">Finger 6</span>
+                                    <a href="#" id="cmdClearFinger6" class="pull-right" style="display:none;color:red;font-weight:bold" data-placement="bottom" data-toggle="tooltip" title="Clear captured finger">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                    <div class="ed-capture-pair">
+                                        <span class="ed-img-frame"><img id="imgFinger6" width="65" height="70" alt="Finger 6, first sample" style="border:groove;border-color:white;object-fit:cover;background-repeat: no-repeat" /></span>
+                                        <label id="lblFingerImageQuality6">0</label>
+                                        <span class="ed-img-frame"><img id="imgFinger62ndCapture" width="65" height="70" alt="Finger 6, second sample" style="border:groove;border-color:white;object-fit:cover;background-repeat: no-repeat" /></span>
+                                        <label id="lblFingerImageQuality62">0</label>
+                                    </div>
+                                </div>
+                                <div class="ed-capture-slot">
+                                    <span class="ed-capture-slot-label">Finger 7</span>
+                                    <a href="#" id="cmdClearFinger7" class="pull-right" style="display:none;color:red;font-weight:bold" data-placement="bottom" data-toggle="tooltip" title="Clear captured finger">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                    <div class="ed-capture-pair">
+                                        <span class="ed-img-frame"><img id="imgFinger7" width="65" height="70" alt="Finger 7, first sample" style="border:groove;border-color:white;object-fit:cover;background-repeat: no-repeat" /></span>
+                                        <label id="lblFingerImageQuality7">0</label>
+                                        <span class="ed-img-frame"><img id="imgFinger72ndCapture" width="65" height="70" alt="Finger 7, second sample" style="border:groove;border-color:white;object-fit:cover;background-repeat: no-repeat" /></span>
+                                        <label id="lblFingerImageQuality72">0</label>
+                                    </div>
+                                </div>
+                                <div class="ed-capture-slot">
+                                    <span class="ed-capture-slot-label">Finger 8</span>
+                                    <a href="#" id="cmdClearFinger8" class="pull-right" style="display:none;color:red;font-weight:bold" data-placement="bottom" data-toggle="tooltip" title="Clear captured finger">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                    <div class="ed-capture-pair">
+                                        <span class="ed-img-frame"><img id="imgFinger8" width="65" height="70" alt="Finger 8, first sample" style="border:groove;border-color:white;object-fit:cover;background-repeat: no-repeat" /></span>
+                                        <label id="lblFingerImageQuality8">0</label>
+                                        <span class="ed-img-frame"><img id="imgFinger82ndCapture" width="65" height="70" alt="Finger 8, second sample" style="border:groove;border-color:white;object-fit:cover;background-repeat: no-repeat" /></span>
+                                        <label id="lblFingerImageQuality82">0</label>
+                                    </div>
+                                </div>
+                                <div class="ed-capture-slot">
+                                    <span class="ed-capture-slot-label">Finger 9</span>
+                                    <a href="#" id="cmdClearFinger9" class="pull-right" style="display:none;color:red;font-weight:bold" data-placement="bottom" data-toggle="tooltip" title="Clear captured finger">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                    <div class="ed-capture-pair">
+                                        <span class="ed-img-frame"><img id="imgFinger9" width="65" height="70" alt="Finger 9, first sample" style="border:groove;border-color:white;object-fit:cover;background-repeat: no-repeat" /></span>
+                                        <label id="lblFingerImageQuality9">0</label>
+                                        <span class="ed-img-frame"><img id="imgFinger92ndCapture" width="65" height="70" alt="Finger 9, second sample" style="border:groove;border-color:white;object-fit:cover;background-repeat: no-repeat" /></span>
+                                        <label id="lblFingerImageQuality92">0</label>
+                                    </div>
+                                </div>
+                                <div class="ed-capture-slot">
+                                    <span class="ed-capture-slot-label">Finger 10</span>
+                                    <a href="#" id="cmdClearFinger10" class="pull-right" style="display:none;color:red;font-weight:bold" data-placement="bottom" data-toggle="tooltip" title="Clear captured finger">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </a>
+                                    <div class="ed-capture-pair">
+                                        <span class="ed-img-frame"><img id="imgFinger10" width="65" height="70" alt="Finger 10, first sample" style="border:groove;border-color:white;object-fit:cover;background-repeat: no-repeat" /></span>
+                                        <label id="lblFingerImageQuality10">0</label>
+                                        <span class="ed-img-frame"><img id="imgFinger102ndCapture" width="65" height="70" alt="Finger 10, second sample" style="border:groove;border-color:white;object-fit:cover;background-repeat: no-repeat" /></span>
+                                        <label id="lblFingerImageQuality102">0</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <map name="CaptureLefthandmap">
+                        <area shape="circle" coords="18,84,13,90" alt="Finger1" href="javascript:CaptureFinger('Finger1')" id="lnkCFinger1" data-placement="bottom" data-toggle="tooltip" title="Click to Capture Finger1">
+                        <area shape="circle" coords="58,42,14,55" alt="Finger2" href="javascript:CaptureFinger('Finger2')" id="lnkCFinger2" data-placement="bottom" data-toggle="tooltip" title="Click to Capture Finger2">
+                        <area shape="circle" coords="114,29,15,55" alt="Finger3" href="javascript:CaptureFinger('Finger3')" id="lnkCFinger3" data-placement="bottom" data-toggle="tooltip" title="Click to Capture Finger3">
+                        <area shape="circle" coords="175,42.5,14,65" alt="Finger4" href="javascript:CaptureFinger('Finger4')" id="lnkCFinger4" data-placement="bottom" data-toggle="tooltip" title="Click to Capture Finger4">
+                        <area shape="circle" coords="230,150,14,125" alt="Finger5" href="javascript:CaptureFinger('Finger5')" id="lnkCFinger5" data-placement="bottom" data-toggle="tooltip" title="Click to Capture Finger5">
+                    </map>
+                    <map name="CaptureRighthandmap">
+                        <area shape="circle" coords="20,150,14,124" alt="Finger6" href="javascript:CaptureFinger('Finger6')" id="lnkCFinger6" data-placement="bottom" data-toggle="tooltip" title="Click to Capture Finger6">
+                        <area shape="circle" coords="76,43.5,14,45" alt="Finger7" href="javascript:CaptureFinger('Finger7')" id="lnkCFinger7" data-placement="bottom" data-toggle="tooltip" title="Click to Capture Finger7">
+                        <area shape="circle" coords="136.5,30,15,50" alt="Finger8" href="javascript:CaptureFinger('Finger8')" id="lnkCFinger8" data-placement="bottom" data-toggle="tooltip" title="Click to Capture Finger8">
+                        <area shape="circle" coords="192,43,14,55" alt="Finger9" href="javascript:CaptureFinger('Finger9')" id="lnkCFinger9" data-placement="bottom" data-toggle="tooltip" title="Click to Capture Finger9">
+                        <area shape="circle" coords="232,84,13,83" alt="Finger10" href="javascript:CaptureFinger('Finger10')" id="lnkCFinger10" data-placement="bottom" data-toggle="tooltip" title="Click to Capture Finger10">
+                    </map>
+                </div>
+            </section>
+
+            <aside class="list-group ed-sidepanel">
+                <div class="list-group-item ed-section-title">Exceptions</div>
+                <div class="list-group-item" data-placement="bottom" data-toggle="tooltip">
+                    <input type="checkbox" id="chkLeftHand"><label for="chkLeftHand" data-placement="bottom" data-toggle="tooltip" title="Disable Left Hand">Disable Left Hand</label>
+                </div>
+                <div class="list-group-item" data-placement="bottom" data-toggle="tooltip">
+                    <input type="checkbox" id="chkRightHand"><label for="chkRightHand" data-placement="bottom" data-toggle="tooltip" title="Disable Right Hand">Disable Right Hand</label>
+                </div>
+
+                <div class="list-group-item ed-section-title">Functions</div>
+                <a href="javascript:VerifyAllFinger()" class="list-group-item" data-toggle="tooltip" data-placement="bottom" title="Verify all captured finger"><span class="glyphicon glyphicon-ok"></span> Verify All Captured Fingers</a>
+                <a href="javascript:SetDefaultFinger()" class="list-group-item" data-toggle="tooltip" data-placement="bottom" title="Set a default finger"><span class="glyphicon glyphicon-hand-up"></span> Set Default Finger</a>
+                <a href="javascript:ClearFingerPrints()" class="list-group-item" data-toggle="tooltip" data-placement="bottom" title="Clear all captured finger"><span class="glyphicon glyphicon-refresh"></span> Reset Captured Fingers</a>
+                <a href="javascript:OverrideFinger()" class="list-group-item" data-toggle="tooltip" data-placement="bottom" title="Override finger"><span class="glyphicon glyphicon-pencil"></span> Override Fingers</a>
+
+                <div class="list-group-item ed-section-title">Color Legend</div>
+                <div class="ed-legend">
+                    <label class="list-group-item-legend">
+                        <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="display-legend color-legend-NotCaptured" width="22" height="22" alt="" />
+                        Not Captured Fingers
+                    </label>
+                    @*<label class="list-group-item-legend" style="font-size: 12px;">
+                            <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="display-legend color-legend-EnrolledFinger" width="22" height="22" />
+                            &nbsp;Enrolled Fingers
+                        </label>*@
+                    <label class="list-group-item-legend">
+                        <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="display-legend color-legend-SecondCapture" width="22" height="22" alt="" />
+                        Captured Fingers
+                    </label>
+                    <label class="list-group-item-legend">
+                        <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="display-legend color-legend-Verified" width="22" height="22" alt="" />
+                        Verified Fingers
+                    </label>
+                    <label class="list-group-item-legend">
+                        <img src="~/Content/Images/Enrolment/EmptyCircle.png" class="display-legend color-legend-DefaultFinger" width="22" height="22" alt="" />
+                        Default Finger
+                    </label>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Select Default Finger Input Event Modal Pop up Window -->
+        <div class="modal fade" id="SetDefaultFingerModalPopUp" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" data-placement="center" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 id="Icon_Information"><img src="~/Content/Images/Information.png" width="45" height="40" alt="" /><Label>System Information</Label></h4>
+                    </div>
+                    <div class="modal-body">
+                        <p><Label>Please Select a Default Finger.</Label></p>
+                        <div class="ed-field">
+                            <Label for="DefaultFinger">Captured Fingers</Label>
+                            <select class="form-control" id="DefaultFinger"></select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <img src="~/Content/Images/eDNA_logo.jpg" class="pull-left" height="45" alt="eDNA" />
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" id="btnSaveDefault" class="btn btn-default" data-toggle="tooltip" title="Save Default FInger" data-placement="bottom">Save Default</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer ed-actionbar">
+        <a href="@Url.Action("Index", "UserEnrolment")" class="btn btn-primary ed-btn-secondary" data-toggle="tooltip" title="Cancel the Enrolment Process"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
+        <a href="javascript:BoimetricSave()" class="btn btn-primary" data-toggle="tooltip" title="Continue to Transversal Enrolment"><span class="glyphicon glyphicon-hand-up"></span> Sign And Continue</a>
+    </div>
+
+    <input type="hidden" id="FingerNo" />
+    <input type="hidden" id="Finger2ndCapture" />
+    <input type="hidden" id="DisableLeftHand" />
+    <input type="hidden" id="DisableRightHand" />
+
+}
+else
+{
+    <div class="panel-body-details face-enrolment-panel ed-page">
+        <div class="face-enrolment-header ed-page-header">
+            <div>
+                <h3>Facial Enrolment</h3>
+                <p>Capture and verify three facial images using the secure Identity Management application.</p>
+            </div>
+            <div class="ed-actionbar-end">
+                <a href="javascript:ClearFacePrints()" class="btn btn-default btn-lg" data-toggle="tooltip" title="Discard all captured face images">
+                    <span class="glyphicon glyphicon-refresh"></span> Reset
+                </a>
+                <button type="button" id="lnkCFace" class="btn btn-primary btn-lg face-capture-button"
+                        onclick="CaptureFace('Face')" data-toggle="tooltip" title="Open secure facial capture">
+                    <span class="glyphicon glyphicon-camera"></span> Capture Face Images
+                </button>
+            </div>
+        </div>
+
+        <ol class="ed-checklist ed-checklist-wide" aria-label="Facial enrolment steps">
+            <li><strong>Capture</strong> opens the eDNA Facial Capture window. Position the face inside the oval guide.</li>
+            <li><strong>Process</strong> each image in the capture window so it is verified and returned here.</li>
+            <li><strong>Sign and continue</strong> once all three images show as captured.</li>
+        </ol>
+
+        <div class="face-image-grid" aria-label="Captured facial images">
+            @for (Int32 l_iFaceImage = 1; l_iFaceImage <= 3; l_iFaceImage++)
+            {
+                <div class="face-image-card">
+                    <div class="face-image-number">Image @l_iFaceImage</div>
+                    <canvas id="@("imgFace" + l_iFaceImage)" class="face-capture-image"
+                            width="320" height="240"
+                            data-placeholder-src="@Url.Content("~/Content/Images/Enrolment/Facial.jpg")"
+                            style="background-image:url('@Url.Content("~/Content/Images/Enrolment/Facial.jpg")')"
+                            role="img" aria-label="@("Facial enrolment wireframe placeholder for image " + l_iFaceImage)"></canvas>
+                    <div id="@("lblFaceImageQuality" + l_iFaceImage)" class="face-image-quality">Not captured</div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="panel-footer ed-actionbar">
+        <a href="@Url.Action("Index","UserEnrolment")" class="btn btn-primary ed-btn-secondary" data-toggle="tooltip" title="Cancel the Enrolment Process"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
+        <a href="javascript:BiometricFacialSave()" class="btn btn-primary" data-toggle="tooltip" title="Sign the verified facial enrolment and continue"><span class="glyphicon glyphicon-hand-up"></span> Sign And Continue</a>
+    </div>
+
+    <input type="hidden" id="FaceNo" />
+
+}
+
+@*CODESC: Hide MVC SiteMap/Breadcrumb and display Enrolment div to not allow user clicks in the Sitemap while busy with enrolment process.*@
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        if ($('#FaceNo').length > 0) {
+            LogFacePreviewTrace('DocumentReady', 'Url=' + window.location.href + ';NavigationType=' +
+                (window.performance && window.performance.navigation ? window.performance.navigation.type : 'Unavailable'));
+
+            window.addEventListener('beforeunload', function () {
+                if (navigator.sendBeacon) {
+                    var l_FormData = new FormData();
+                    l_FormData.append('p_strEvent', 'BeforeUnload');
+                    l_FormData.append('p_strDetails', 'Url=' + window.location.href);
+                    navigator.sendBeacon('/eDNA.WebPortal/BiometricEnrolment/LogFacePreviewTrace', l_FormData);
+                }
+            });
+        }
+
+        var l_strFacialPreviewImages = sessionStorage.getItem('FacialPreviewImages');
+        if ($('#FaceNo').length > 0 && l_strFacialPreviewImages != null) {
+            try {
+                BindFaceImages(JSON.parse(l_strFacialPreviewImages));
+                $('#lnkCFace').prop('disabled', true).attr('aria-disabled', 'true');
+            }
+            catch (p_Exception) {
+                sessionStorage.removeItem('FacialPreviewImages');
+            }
+        }
+
+        //document.getElementById("MVCSiteMap").style.display = "none";
+        $("#UserEnromentWizard").show();
+        //To disable a link.
+        //$("#lnkCFinger1").hide();
+        //$('#lnkCFinger1').attr("href", "javascript: void(0)");
+        //$("#lnkCFinger6").hide();
+        //$('#lnkCFinger6').attr("href", "javascript: void(0)");
+
+        if (localStorage.getItem("m_isUserUpdate") == 'CrOrUpd') {
+            Notify("User Enrolment" + "<br>", "User details captured successfully. Continue with Biometric Enrolment.");
+        }
+    });
+</script>

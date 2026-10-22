@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>eDNA Portal Preview</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
+<!--THEME-->
+<style>
+  /* Preview-only helpers: stand-ins for images that live in Content/ (not in this folder). */
+  .pv-img { display:flex; align-items:center; justify-content:center; background:repeating-linear-gradient(45deg,#f3f5f8,#f3f5f8 8px,#eaeef3 8px,#eaeef3 16px); border:1px dashed #c3ccd6; border-radius:8px; color:#5b6b7c; font-size:12px; text-align:center; }
+  .pv-logo { display:inline-flex; align-items:center; height:36px; padding:0 10px; background:#fff; border-radius:6px; color:#1b2a47; font-weight:800; font-size:20px; letter-spacing:-.02em; }
+  .pv-switch { position:fixed; left:50%; transform:translateX(-50%); bottom:2px; z-index:2000; display:flex; gap:6px; padding:3px; background:#1e2a38; border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,.2); }
+  .pv-switch button { border:0; background:transparent; color:#fff; padding:3px 10px; border-radius:6px; font-size:13px; }
+  .pv-switch button.on { background:#1f6fb2; }
+  .pv-screen { display:none; } .pv-screen.on { display:block; }
+  .legend-dot { display:inline-block; width:18px; height:18px; border-radius:50%; }
+</style>
+</head>
+<body>
+<header class="ed-header">
+  <nav class="navbar navbar-fixed-top ed-topbar">
+    <div class="ed-brand"><span class="pv-logo">eDNA</span><span class="ed-page-title" id="pvTitle">User Enrolment Details</span></div>
+    <div class="ed-topbar-actions">
+      <div class="btn-group"><a class="btn dropdown-header ed-topbar-link" href="#"><span class="glyphicon glyphicon-phone-alt"></span> <span class="ed-link-text">Help &amp; Support</span> <span class="caret"></span></a></div>
+      <div class="btn-group"><a class="btn dropdown-header ed-topbar-link" href="#"><span class="glyphicon glyphicon-user"></span> <span class="ed-link-text">Test New TSA1</span> <span class="caret"></span></a></div>
+    </div>
+  </nav>
+</header>
+
+<div id="UserEnromentWizard" class="breadcrumb ed-wizard">
+  <div class="ed-wizard-inner">
+    <div class="ed-wizard-heading"><span class="ed-wizard-eyebrow">User enrolment</span><label id="lblUserEnrolment">You are Enrolling User ID: 0, Name: Mphemba Godide</label></div>
+    <ol class="ed-steps" id="pvSteps"></ol>
+  </div>
+</div>
+
+<main class="ed-main">
+
+<!-- ===== Search ===== -->
+<section class="pv-screen" data-step="0" data-title="User Enrolment Details" data-name="Search">
+<div class="panel-body ed-page">
+  <div class="ed-page-header"><div><h2>Search eDNA User</h2><p>Find an existing user to update their enrolment, or create a new user to start one.</p></div></div>
+  <div class="ed-card"><div class="ed-card-body">
+    <form class="form-inline ed-searchbar" role="search">
+      <div class="form-group"><select class="dropdown-btn"><option>eDNA ID</option><option>Identification Number</option><option>Surname</option></select></div>
+      <input class="form-control" placeholder="Enter Search Value">
+      <a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search</a>
+      <a href="#" class="btn btn-primary ed-btn-success"><span class="glyphicon glyphicon-plus"></span> Create New User</a>
+    </form>
+  </div></div>
+  <div class="ed-card" style="overflow-y:auto">
+    <table class="table table-hover" style="margin:0">
+      <thead><tr><th>Name</th><th>Surname</th><th>ID Number</th><th>Entity</th><th>eDNA ID</th></tr></thead>
+      <tbody>
+        <tr><td>Mphemba</td><td>Godide</td><td>P35353454</td><td>KZN Treasury Branch One</td><td><a href="#">1042</a></td></tr>
+        <tr><td>Thandi</td><td>Mokoena</td><td>9001015009087</td><td>KZN Treasury Branch One</td><td><a href="#">1043</a></td></tr>
+        <tr><td>Johan</td><td>van Wyk</td><td>8507125800082</td><td>KZN Treasury Head Office</td><td><a href="#">1051</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<!-- ===== User details ===== -->
+<section class="pv-screen" data-step="1" data-title="User Enrolment Details" data-name="Details">
+<div class="panel-body-details ed-userform">
+  <div class="ed-grid-2">
+    <section class="ed-card">
+      <div class="ed-card-header"><h3>User Information</h3></div>
+      <div class="ed-card-body">
+        <div class="ed-form-grid">
+          <div class="ed-field"><label>User ID</label><input class="form-control" readonly value="0"></div>
+          <div class="ed-field"><label>Created on</label><input class="form-control" readonly value="2026/07/09 14:36:49"></div>
+          <div class="ed-field ed-span-2"><label>Entity</label><select class="dropdown"><option>KZN Treasury Branch One</option></select></div>
+          <div class="ed-field"><label>First name</label><input class="form-control" value="Mphemba"></div>
+          <div class="ed-field"><label>Last name</label><input class="form-control" value="Godide"></div>
+          <div class="ed-field ed-field-inline ed-span-2"><input type="checkbox" checked id="pvP"><label for="pvP">Identification is a passport</label></div>
+          <div class="ed-field"><label>Identification number</label><input class="form-control" value="P35353454"></div>
+        </div>
+        <div class="ed-form-grid ed-userstatus"><div class="ed-field"><label>User status</label><input class="form-control" readonly value="Created"></div></div>
+      </div>
+    </section>
+    <section class="ed-card">
+      <div class="ed-card-header"><h3>User Attributes</h3></div>
+      <div class="ed-card-body ed-stacked-fields">
+        <div class="form-group"><label class="col-sm-4">Persal Number</label><div class="col-sm-7"><input class="form-control" placeholder="Persal Number"></div></div>
+        <div class="form-group"><label class="col-sm-4">Department</label><div class="col-sm-7"><select class="form-control"><option>Treasury</option></select></div></div>
+        <div class="form-group"><label class="col-sm-4">Contact Number</label><div class="col-sm-7"><input class="form-control" placeholder="Contact Number"></div></div>
+      </div>
+    </section>
+  </div>
+</div>
+<div class="panel-footer ed-actionbar">
+  <a href="#" class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
+  <div class="ed-actionbar-end"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-circle-arrow-right"></span> Continue To Biometrics</button></div>
+</div>
+</section>
+
+<!-- ===== Fingerprint ===== -->
+<section class="pv-screen" data-step="2" data-title="Biometric Enrolment Details" data-name="Fingerprint">
+<div class="ed-page-header ed-page-intro">
+  <div><h2>Fingerprint enrolment</h2><p>Capture 4 different fingers, with two samples of each finger, then verify and sign to continue.</p></div>
+  <ol class="ed-checklist"><li>Click a finger to capture it twice</li><li>Verify all captured fingers</li><li>Sign and continue</li></ol>
+</div>
+<div class="panel-body-details">
+  <div class="ed-layout-split">
+    <section class="ed-card"><div class="ed-card-body ed-card-body-compact">
+        <div class="ed-capture-hands">
+          <div class="ed-hand"><h4 class="ed-hand-title">Left hand</h4><div class="ed-hand-image pv-img">HandLeftNumbered.png<br>(256 × 266)</div><div class="ed-capture-grid" data-slots="1-5"></div></div>
+          <div class="ed-hand"><h4 class="ed-hand-title">Right hand</h4><div class="ed-hand-image pv-img">HandRightNumbered.png<br>(256 × 266)</div><div class="ed-capture-grid" data-slots="6-10"></div></div>
+        </div>
+      </div>
+    </section>
+    <aside class="list-group ed-sidepanel">
+      <div class="list-group-item ed-section-title">Exceptions</div>
+      <div class="list-group-item"><input type="checkbox" id="pvL"><label for="pvL">Disable Left Hand</label></div>
+      <div class="list-group-item"><input type="checkbox" id="pvR"><label for="pvR">Disable Right Hand</label></div>
+      <div class="list-group-item ed-section-title">Functions</div>
+      <a href="#" class="list-group-item"><span class="glyphicon glyphicon-ok"></span> Verify All Captured Fingers</a>
+      <a href="#" class="list-group-item"><span class="glyphicon glyphicon-hand-up"></span> Set Default Finger</a>
+      <a href="#" class="list-group-item"><span class="glyphicon glyphicon-refresh"></span> Reset Captured Fingers</a>
+      <a href="#" class="list-group-item"><span class="glyphicon glyphicon-pencil"></span> Override Fingers</a>
+      <div class="list-group-item ed-section-title">Color Legend</div>
+      <div class="ed-legend">
+        <label class="list-group-item-legend"><span class="legend-dot" style="background:#9fd3f0"></span> Not Captured Fingers</label>
+        <label class="list-group-item-legend"><span class="legend-dot" style="background:#ffe14d"></span> Captured Fingers</label>
+        <label class="list-group-item-legend"><span class="legend-dot" style="background:#53ea1a"></span> Verified Fingers</label>
+        <label class="list-group-item-legend"><span class="legend-dot" style="background:#ff1800"></span> Default Finger</label>
+      </div>
+    </aside>
+  </div>
+</div>
+<div class="panel-footer ed-actionbar">
+  <a href="#" class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
+  <a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-hand-up"></span> Sign And Continue</a>
+</div>
+</section>
+
+<!-- ===== Facial ===== -->
+<section class="pv-screen" data-step="2" data-title="Biometric Enrolment Details" data-name="Facial">
+<div class="panel-body-details face-enrolment-panel ed-page">
+  <div class="face-enrolment-header ed-page-header">
+    <div><h3>Facial Enrolment</h3><p>Capture and verify three facial images using the secure Identity Management application.</p></div>
+    <div class="ed-actionbar-end">
+      <a href="#" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-refresh"></span> Reset</a>
+      <button type="button" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-camera"></span> Capture Face Images</button>
+    </div>
+  </div>
+  <ol class="ed-checklist ed-checklist-wide">
+    <li><span><strong>Capture</strong> opens the eDNA Facial Capture window. Position the face inside the oval guide.</span></li>
+    <li><span><strong>Process</strong> each image in the capture window so it is verified and returned here.</span></li>
+    <li><span><strong>Sign and continue</strong> once all three images show as captured.</span></li>
+  </ol>
+  <div class="face-image-grid">
+    <div class="face-image-card"><div class="face-image-number">Image 1</div><canvas class="face-capture-image" width="320" height="240"></canvas><div class="face-image-quality">Not captured</div></div>
+    <div class="face-image-card"><div class="face-image-number">Image 2</div><canvas class="face-capture-image" width="320" height="240"></canvas><div class="face-image-quality">Not captured</div></div>
+    <div class="face-image-card"><div class="face-image-number">Image 3</div><canvas class="face-capture-image" width="320" height="240"></canvas><div class="face-image-quality">Not captured</div></div>
+  </div>
+</div>
+<div class="panel-footer ed-actionbar">
+  <a href="#" class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
+  <a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-hand-up"></span> Sign And Continue</a>
+</div>
+</section>
+
+<!-- ===== Logon ===== -->
+<section class="pv-screen" data-step="0" data-title="Logon" data-name="Logon">
+<div class="logon-div ed-logon">
+  <div class="ed-logon-card">
+    <div class="ed-logon-brand"><span class="pv-logo" style="height:56px;font-size:30px">eDNA</span></div>
+    <h2 class="ed-logon-title">Sign in to the eDNA Web Portal</h2>
+    <span class="ed-logon-welcome">Welcome To The eDNA Web Portal. Logon To Explore The Features !</span>
+    <table class="ed-logon-table"><tr><td>
+      <a href="#" class="biometric-logon-link"><span class="glyphicon glyphicon-hand-up"></span>&nbsp;Fingerprint Login&nbsp;<span class="glyphicon glyphicon-log-in"></span></a>
+      <a href="#" class="biometric-logon-link"><span class="glyphicon glyphicon-user"></span>&nbsp;Face Login&nbsp;<span class="glyphicon glyphicon-log-in"></span></a>
+    </td></tr></table>
+    <p class="ed-logon-hint">Your biometric sign-in options appear above when the portal is ready.</p>
+  </div>
+</div>
+</section>
+
+</main>
+
+<footer class="ed-statusbar">
+  <div class="ed-statusbar-inner">
+    <div class="messagePanel"><span class="legend-dot" style="width:10px;height:10px;background:#16884a"></span><a id="ApplicationInfo" href="#">User Information</a></div>
+    <div class="ed-statusbar-message"><span id="applicationMessage">Connected to the eDNA capture service.</span></div>
+    <div class="ed-statusbar-meta"><span class="ed-version">&copy;2026 eDNA &middot; Version 3.0.0.0</span><div id="clock">14:41:45 - 09/07/2026</div></div>
+  </div>
+</footer>
+
+<div class="pv-switch" id="pvSwitch"></div>
+
+<script>
+  // Fingerprint slots, generated the same way as BiometricEnrolment/Index.cshtml.
+  document.querySelectorAll('[data-slots]').forEach(function (grid) {
+    var r = grid.dataset.slots.split('-').map(Number), html = '';
+    for (var i = r[0]; i <= r[1]; i++) {
+      var captured = i === 2 || i === 7, verified = i === 3;
+      var b = 'border:groove;border-color:' + (verified ? '#53ea1a' : captured ? '#ffe14d' : 'white') + ';object-fit:cover';
+      html += '<div class="ed-capture-slot"><span class="ed-capture-slot-label">Finger ' + i + '</span><div class="ed-capture-pair">' +
+        '<span class="ed-img-frame"><img alt="" style="' + b + '"' + (captured || verified ? ' src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 65 70%27%3E%3Crect width=%2765%27 height=%2770%27 fill=%27%23e9e4dc%27/%3E%3Cg fill=%27none%27 stroke=%27%236b5b4a%27 stroke-width=%271.4%27%3E%3Cellipse cx=%2732%27 cy=%2738%27 rx=%2722%27 ry=%2726%27/%3E%3Cellipse cx=%2732%27 cy=%2738%27 rx=%2716%27 ry=%2720%27/%3E%3Cellipse cx=%2732%27 cy=%2738%27 rx=%2710%27 ry=%2713%27/%3E%3Cellipse cx=%2732%27 cy=%2738%27 rx=%274%27 ry=%276%27/%3E%3C/g%3E%3C/svg%3E"' : '') + '></span>' +
+        '<label>' + (captured || verified ? (70 + i) : 0) + '</label>' +
+        '<span class="ed-img-frame"><img alt="" style="' + b + '"></span><label>0</label></div></div>';
+    }
+    grid.innerHTML = html;
+  });
+
+  var steps = ['User details', 'Biometrics', 'Transversal accounts', 'PKI & smartcard'];
+  var screens = [].slice.call(document.querySelectorAll('.pv-screen'));
+  var sw = document.getElementById('pvSwitch');
+  function show(n) {
+    screens.forEach(function (s, i) { s.classList.toggle('on', i === n); });
+    [].forEach.call(sw.children, function (b, i) { b.classList.toggle('on', i === n); });
+    var cur = +screens[n].dataset.step;
+    document.getElementById('pvTitle').textContent = screens[n].dataset.title;
+    document.getElementById('UserEnromentWizard').style.display = cur ? '' : 'none';
+    document.getElementById('pvSteps').innerHTML = steps.map(function (t, i) {
+      var k = i + 1, st = k < cur ? 'is-done' : k === cur ? 'is-current' : '';
+      return '<li class="ed-step ' + st + '"><span class="ed-step-num">' + (k < cur ? '✓' : k) + '</span><span class="ed-step-label">' + t + '</span></li>';
+    }).join('');
+    try { localStorage.setItem('pvScreen', n); } catch (e) {}
+  }
+  screens.forEach(function (s, i) {
+    var b = document.createElement('button'); b.textContent = s.dataset.name; b.onclick = function () { show(i); }; sw.appendChild(b);
+  });
+  var start = +(new URLSearchParams(location.search).get('s') || (function () { try { return localStorage.getItem('pvScreen'); } catch (e) { return 0; } })() || 0);
+  show(Math.min(start, screens.length - 1));
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Update Manager";
+}
+
+<h2>UpdateManager Actions</h2>
+<h4 style="height:8px"></h4>
+<div style="width:250px">
+    <div class="list-group">
+        <center>
+            <div class="list-group-item" style="background-color:steelblue">
+                <label style="color:white;font-size:medium;">User Actions</label>
+            </div>
+        </center>
+        <a href="@Url.Action("UploadFile", "UnderConstruction")" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Upload Install Files"><span class="glyphicon glyphicon-import"></span> Upload Install Files</a>
+        <a href="@Url.Action("UpdateGroups", "UnderConstruction")" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Upload Install Files"><span class="glyphicon glyphicon-import"></span> Update Groups</a>
+        <a href="@Url.Action("LinkFileToGroups", "UnderConstruction")" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Upload Install Files"><span class="glyphicon glyphicon-import"></span> Link File To Groups</a>
+        <a href="@Url.Action("LinkComputersToGroups", "UnderConstruction")" class="list-group-item" data-placement="bottom" data-toggle="tooltip" title="Upload Install Files"><span class="glyphicon glyphicon-import"></span> Link Computers To Groups</a>
+        <a href="#" class="list-group-item" data-placement="bottom" data-toggle="tooltip"></a>
+    </div>
+</div>
+
+@*CODESC: Display MVC SiteMap*@
+<script type="text/javascript">
+   $(document).ready(function ($) {
+       $("#MVCSiteMap").show();
+   });
+</script>
+
+

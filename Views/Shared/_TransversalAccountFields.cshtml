@@ -1,0 +1,70 @@
+@model eDNA.CommonData.Classes.CData_TransversalAccount
+@* Keep the established field IDs used by the management and enrolment scripts. *@
+@{
+    var mode = (string)ViewData["TransversalFieldMode"];
+    var edit = mode == "Modal";
+    var add = mode == "Add";
+    var typeID = edit ? "EditTransversalID" : "TransversalID";
+    var userID = edit ? "EditSystemUserID" : add ? "TransversalSysUserID" : "TransversalSystemUserID";
+    var parentID = edit ? "EditParentUserID" : "TransversalParentUser";
+    var installID = edit ? "EditInstallID" : "InstallID";
+    var typeAttributes = new Dictionary<string, object> { { "class", "dropdown" }, { "Name", typeID }, { "id", typeID }, { "style", "width:90%" } };
+    if (!add) { typeAttributes.Add("disabled", "disabled"); }
+    var transversals = ViewBag.Transversals as SelectList ?? new SelectList(new List<SelectListItem>(), "Value", "Text");
+    var installIDs = ViewBag.InstallIDs as SelectList ?? new SelectList(new List<SelectListItem>(), "Value", "Text");
+}
+<div class="form-group">
+</div>
+<div class="form-group">
+   <label class="col-sm-4" for="exampleInputEmail1">Transversal Type</label>
+   <div class="col-sm-7">
+      @Html.DropDownListFor(model => model.TransversalID, transversals, "[--Select Transversal Type--]", typeAttributes)
+      @Html.ValidationMessageFor(model => model.TransversalID, "", new { @class = "text-danger" })
+      @if (add)
+      {
+          <a id="lnkRest" href="javascript:ResetTransversalControls()" data-toggle="tooltip" title="Reset Controls"><span class="glyphicon glyphicon-refresh"></span> Reset</a>
+      }
+   </div>
+</div>
+<div class="form-group">
+   <label class="col-sm-4" for="exampleInputEmail1">Transversal User ID</label>
+   <div class="col-sm-7">
+      @Html.TextBoxFor(model => model.TransversalSystemUserID, new { @class = "form-control", Name = userID, id = userID, placeholder = "TransversalUser ID", autocomplete = "off", style = "width:90%" })
+      @Html.ValidationMessageFor(model => model.TransversalSystemUserID, "", new { @class = "text-danger" })
+   </div>
+</div>
+<div id="@(edit ? "dvMainframeIDEdit" : "dvMainframeID")" class="form-group">
+   <label class="col-sm-4" for="exampleInputEmail1">Mainframe ID</label>
+   <div class="col-sm-7">
+      @Html.TextBoxFor(model => model.TransversalParentUser, new { @class = "form-control", Name = parentID, id = parentID, placeholder = "MainframeAccount ID", autocomplete = "off", style = "width:90%" })
+      @Html.ValidationMessageFor(model => model.TransversalParentUser, "", new { @class = "text-danger" })
+   </div>
+</div>
+<div id="@(edit ? "dvBASInstallIDEdit" : "dvBASInstallID")" class="form-group">
+   <label class="col-sm-4" for="exampleInputEmail1">BAS Install ID</label>
+   <div class="col-sm-7">
+      @Html.DropDownListFor(model => model.InstallID, installIDs, "[--Select BAS Install ID--]", new { @class = "dropdown", Name = installID, id = installID, style = "width:90%" })
+      @Html.ValidationMessageFor(model => model.InstallID, "", new { @class = "text-danger" })
+   </div>
+</div>
+<div class="form-group" id="@(edit ? "dvPassportAppUserEdit" : add ? "trPassportAppUser" : "dvPassportAppUser")">
+   <label class="col-sm-4" for="exampleInputEmail1">Is PassportApp User</label>
+   <div class="col-sm-7">
+      @Html.CheckBoxFor(model => model.IsPassportAppUser, new { Name = edit ? "IsPassportAppUserA" : "IsPassportAppUser", id = edit ? "IsPassportAppUserA" : "IsPassportAppUser" }) <br />
+   </div>
+</div>
+<div class="form-group" id="@(edit ? "dvIsControllerEdit" : add ? "trIsController" : "dvIsController")">
+   <label class="col-sm-4" for="exampleInputEmail1">Is Controller</label>
+   <div class="col-sm-7">
+      @Html.CheckBoxFor(model => model.IsController, new { Name = edit ? "IsControllerA" : "IsController", id = edit ? "IsControllerA" : "IsController" }) <br />
+   </div>
+</div>
+<div class="form-group" id="@(edit ? "dvControlDUserEdit" : add ? "trControlDUser" : "dvControlDUser")">
+   <label class="col-sm-4" for="exampleInputEmail1">Is Control-D User</label>
+   <div class="col-sm-7">
+      @Html.CheckBoxFor(model => model.IsControlDUser, new { Name = edit ? "IsControlDUserA" : "IsControlDUser", id = edit ? "IsControlDUserA" : "IsControlDUser" })
+   </div>
+</div>
+<div class="form-group">
+   <label class="col-sm-4" for="exampleInputEmail1" style="height:20px"></label>
+</div>

@@ -1,0 +1,32 @@
+@{
+    ViewBag.Title = "Review Forensic Report";
+    int jobId = Convert.ToInt32(ViewBag.JobID);
+}
+<div class="panel panel-default">
+    <div class="panel-heading"><h3 class="panel-title">Prepare forensic report review</h3></div>
+    <div class="panel-body">
+        @if (ViewBag.ReviewMessage != null)
+        {
+            <div class="alert alert-warning" role="alert">@ViewBag.ReviewMessage</div>
+        }
+        <p>The draft must be retrieved through an audited eDNA transaction.</p>
+        <a class="btn btn-default" href="@Url.Action("Index", "AuditReport")">Back to reports</a>
+        <button id="cmdLoadForensicDraft" class="btn btn-primary">Authenticate and open draft</button>
+    </div>
+</div>
+<script>
+$(function () {
+    $('#cmdLoadForensicDraft').on('click', function () {
+        localStorage.setItem('forensicDraftJobID', '@jobId');
+        ShowBusyProcessing();
+        $.ajax({
+            type: 'POST', dataType: 'json', traditional: true,
+            url: '/eDNA.WebPortal/Base/HandleMessage',
+            data: JSON.stringify({ p_strMessage: '1;16;@jobId', p_strOption: '193' }),
+            contentType: 'application/json; charset=utf-8',
+            success: function (request) { ProcessWebSocketRequest(request, m_CurrentController); },
+            error: function () { HideBusyProcessing(); Notify('Forensic draft', 'The draft could not be requested.'); }
+        });
+    });
+});
+</script>

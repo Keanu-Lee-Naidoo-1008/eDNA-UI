@@ -1,0 +1,39 @@
+﻿@model eDNA.CommonData.Classes.CData_User
+@{
+    ViewBag.Title = "User Enrolment Details";
+}
+<input type="hidden" id="ContinueToPki" value="@(ViewBag.ContinueToPki == true ? "true" : "false")" />
+
+@using (Html.BeginForm("", "", FormMethod.Post, new { id = "UserData" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Partial("_UserDetails", Model)
+    <div class="panel-footer ed-actionbar">
+        <a href="@Url.Action("Index", "UserEnrolment")" onclick="javascript:ShowBusyProcessing()" class="btn btn-primary ed-btn-secondary" data-toggle="tooltip" title="Cancel the Enrolment Process"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
+        <div class="ed-actionbar-end">
+            @if (Model != null && Model.UserID > 0 && !Model.IsSuspended)
+            {
+                <span id="SavedBiometricCheckStatus" class="text-muted" role="status">Checking saved biometrics…</span>
+            }
+            @if (Model != null && Model.UserID > 0 && !Model.IsSuspended)
+            {
+                <button type="button" id="btnIssueNewSmartcard" class="btn btn-primary ed-btn-secondary" style="display:none" disabled onclick="IssueNewSmartcard()"
+                        title="Use this user's saved biometrics and continue to card issuance">
+                    <span class="glyphicon glyphicon-credit-card"></span> Issue New Smartcard
+                </button>
+            }
+            <button type="button" id="btnContinueToBiometrics" onclick="CreateUser('UE')" class="btn btn-primary" disabled="@(Model != null && Model.UserID > 0 && !Model.IsSuspended ? "disabled" : null)" data-toggle="tooltip" title="Continue directly when unchanged, or sign any user-detail changes"><span class="glyphicon glyphicon-circle-arrow-right"></span> Continue To Biometrics</button>
+        </div>
+    </div>
+}
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+@*CODESC: Hide url display in bottom left on mouse over*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#UserEnromentWizard').show();
+    });
+</script>

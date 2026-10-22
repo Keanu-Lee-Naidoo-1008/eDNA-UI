@@ -1,0 +1,127 @@
+﻿@{
+   ViewBag.Title = "PKI Enrolment";
+}
+@model eDNA.CommonData.Classes.CData_User
+@if (ViewBag.UseExistingBiometrics == true && Model != null)
+{
+    <div class="alert alert-info" role="status">
+        <strong>Issue New Smartcard — @Model.FirstName @Model.Surname (eDNA ID @Model.UserID)</strong>
+        <p>@ViewBag.SavedBiometricCount saved, verified biometrics are available. No new biometric capture is required for this step.</p>
+        <p>Keep the officer card in the primary reader and the new card in the secondary reader. Follow the steps below to issue and activate the card.</p>
+    </div>
+}
+@using (Html.BeginForm("CheckPkiService", "PKIEnrolment", FormMethod.Post, new { id = "frmPkiEnrolment", onsubmit = "return false;" }))
+{
+   @Html.AntiForgeryToken()
+   <input type="hidden" id="PkiUserID" value="@(Model == null ? 0 : Model.UserID)" />
+   @Html.ValidationSummary(true)
+   <div class="pki-wizard panel panel-default">
+       <div class="panel-body">
+           <fieldset id="PkiDestination">
+               <legend>Card installation mode</legend>
+               <label class="pki-mode"><input type="radio" name="PkiMemoryMode" value="false" checked="checked" disabled="disabled" /> <strong>Physical Card</strong> — write files and activate the card</label>
+               <label class="pki-mode"><input type="radio" name="PkiMemoryMode" value="true" disabled="disabled" /> <strong>Memory Test</strong> — verify files without installing them</label>
+               <p id="PkiModePermission" role="status">Checking the officer’s permission to choose memory testing…</p>
+               <p>Both modes use a real card key and real CA/HSM services. Memory test verifies the final files in memory without installing enrolment files, verifying the recipient or activating the card.</p>
+           </fieldset>
+           <div id="PkiTiming" class="alert alert-info" role="timer" aria-label="CA and HSM processing time" style="font-size:1.25em;white-space:pre-line">CA: 00:00:00 | HSM: 00:00:00</div>
+           <div id="PkiMemoryComplete" class="alert alert-success" style="display:none" role="dialog" aria-label="Memory test complete">
+               <h3>Memory test complete</h3>
+               <p>The certificate, signatures and memory readback were verified. No enrolment files were written and no card was activated. Your operation is saved.</p>
+               <button type="button" class="btn btn-primary" onclick="PkiEnrolment_StartNewTest()">Start new process</button>
+               <a class="btn btn-default" href="@Url.Action("Index", "UserEnrolment")">Close</a>
+           </div>
+           <ol class="pki-steps" aria-label="Enrolment progress">
+               @foreach (var step in new[] { "Check cards", "Authorize officer", "Certificate", "Sign files", "Install card", "Verify recipient", "Activate" })
+               {
+                   <li>@step</li>
+               }
+           </ol>
+           <p id="PkiWizardProgress" class="text-muted" aria-live="polite">Step 1 of 7</p>
+           <h2 id="PkiWizardTitle">Check the cards and enrolment</h2>
+           <p id="PkiWizardHelp">Keep the officer card in the primary reader and the allocated blank card in the secondary reader. Its serial is read automatically; we check the officer allocation, selected user and saved biometrics.</p>
+           <p>Allocate the warehoused card to the enrolment officer in <a href="@Url.Action("Index", "SmartcardManagement")">Smartcard Management</a> before starting. The recipient is assigned when activation completes.</p>
+           <div id="PkiCardSelection" class="alert alert-success" role="status" style="display:none">
+               <strong>Card selection checked</strong>
+               <div>Secondary card: <span id="PkiSelectedCardSerial"></span></div>
+               <div>Enrolment officer: <span id="PkiSelectedOfficer"></span></div>
+               <p>Check the serial before authorizing. Keep the same cards in their selected readers.</p>
+           </div>
+           <div id="PkiWizardBusy" style="display:none" role="status"><img src="@Url.Content("~/Content/Images/ajax_loader_blue_512.gif")" width="48" height="48" alt="Busy" /> Please wait. Keep both cards inserted.</div>
+           <div id="PkiWizardMessage" class="alert alert-info" role="status" aria-live="polite">Ready to begin.</div>
+           <button type="button" id="btnPkiNext" class="btn btn-primary btn-lg" onclick="PkiEnrolment_Next()">Check cards and continue</button>
+           <a id="PkiWizardExit" onclick="return !PkiEnrolment_Busy();" href="@Url.Action("Index", "UserEnrolment")" class="btn btn-default">Leave wizard</a>
+           <p class="text-muted">Your operation is retained if you leave. Returning may require fresh officer authentication.</p>
+           <details id="PkiRecovery" class="pki-recovery">
+               <summary id="PkiRecoverySummary" onclick="return !PkiEnrolment_Busy();">Resume an enrolment or view details</summary>
+               <p>Operation: <span id="PkiOperationID">@ViewBag.PkiOperationID</span></p>
+               <label for="PkiSavedOperationID">Saved operation reference</label>
+               <input type="text" id="PkiSavedOperationID" class="form-control" maxlength="36" value="@ViewBag.PkiOperationID" />
+               <p>Resume the same operation after a restart or expired authorization. Keep the original cards and readers selected.</p>
+               <button type="button" id="btnRenewPki" class="btn btn-primary" onclick="PkiEnrolment_Renew()">Resume / Renew Authorization</button>
+               <button type="button" id="btnCompletePkiRecipient" class="btn btn-default" onclick="PkiEnrolment_CompleteRecipient()">Check saved activation</button>
+               <p>If activation was already attempted, check its saved result. Do not start a new enrolment.</p>
+               <label for="txtPKIProcessStatus">Service details</label>
+               @Html.TextArea("txtPKIProcessStatus", (string)ViewBag.PkiStatus, 5, 96, new { @readonly = "readonly", @class = "form-control", style = "width:100%;max-width:none" })
+           </details>
+       </div>
+   </div>
+}
+
+<div id="PkiInstallationDialog" role="dialog" aria-modal="true" aria-labelledby="PkiInstallationTitle" aria-describedby="PkiInstallationMessage"
+     style="display:none; position:fixed; inset:0; z-index:1050; background:rgba(0,0,0,.45);">
+    <div class="panel panel-default" style="max-width:560px; margin:15vh auto; padding:24px;">
+        <h3 id="PkiInstallationTitle"></h3>
+        <p id="PkiInstallationMessage" role="status" aria-live="polite"></p>
+        <div class="text-center"><img src="@Url.Content("~/Content/Images/ajax_loader_blue_512.gif")" width="100" height="100" alt="Busy" /></div>
+    </div>
+</div>
+
+<div id="PkiConfirmDialog" role="dialog" aria-modal="true" aria-labelledby="PkiConfirmTitle" aria-describedby="PkiConfirmMessage"
+     style="display:none;position:fixed;inset:0;z-index:1060;background:rgba(0,0,0,.45)"
+     onkeydown="if(event.key==='Escape'){PkiEnrolment_ConfirmAnswer(false);} if(event.key==='Tab'){event.preventDefault(); document.getElementById(document.activeElement.id==='PkiConfirmCancel'?'PkiConfirmContinue':'PkiConfirmCancel').focus();}">
+    <div class="panel panel-default" style="max-width:560px;margin:15vh auto;padding:24px">
+        <h3 id="PkiConfirmTitle">PKI Processing Confirmation</h3>
+        <p id="PkiConfirmMessage"></p>
+        <button id="PkiConfirmContinue" type="button" class="btn btn-primary" onclick="PkiEnrolment_ConfirmAnswer(true)">Continue</button>
+        <button id="PkiConfirmCancel" type="button" class="btn btn-default" onclick="PkiEnrolment_ConfirmAnswer(false)">Cancel</button>
+    </div>
+</div>
+
+@*CODESC: Hide url display in bottom left on mouse over*@
+<script type="text/javascript">
+   $(document).ready(function () {      
+      //CODESC: Hide MVC SiteMap/Breadcrumb and display Enrolment div to not allow user clicks in the Sitemap while busy with enrolment process.
+       $("#UserEnromentWizard").show();
+       PkiEnrolment_InitWizard();
+
+       @if (ViewBag.UseExistingBiometrics != true)
+       {
+           <text>Notify("User Enrolment" + "<br>", "Transversal enrolment completed successfully. Continue with PKI Enrolment.");</text>
+       }
+   });
+</script>
+
+<style>
+/* This view can exceed the viewport when recovery details are expanded. */
+body { overflow-y:auto; }
+/* Colours come from the theme tokens in Shared/_ModernTheme.cshtml. */
+#PkiDestination { border:1px solid var(--ed-border); border-radius:var(--ed-radius); padding:20px; margin-bottom:24px; background:var(--ed-surface-2); }
+#PkiDestination legend { width:auto; padding:0 10px; border:0; font-size:var(--ed-fs-lg); font-weight:600; }
+.pki-mode { display:block; padding:12px 16px; font-size:var(--ed-fs-base); font-weight:400; background:var(--ed-surface); border:1px solid var(--ed-border); border-radius:var(--ed-radius-sm); margin-bottom:10px; }
+.pki-mode input { width:20px; height:20px; margin-right:10px; vertical-align:middle; }
+[aria-disabled="true"] { opacity:.5; cursor:not-allowed !important; }
+#frmPkiEnrolment { padding-bottom:80px; }
+.pki-wizard { max-width:1100px; margin:0 auto 24px; background:var(--ed-surface); color:var(--ed-text); }
+.pki-wizard .panel-body { padding:28px; }
+.pki-steps { display:flex; flex-wrap:wrap; gap:8px; padding:0; list-style:none; counter-reset:pki-step; }
+.pki-steps li { flex:1 1 120px; padding:12px 8px; border-bottom:4px solid var(--ed-border); color:var(--ed-text-muted); font-size:var(--ed-fs-sm); counter-increment:pki-step; }
+.pki-steps li:before { content:counter(pki-step) ". "; font-weight:bold; }
+.pki-steps li.pki-current { border-color:var(--ed-primary); color:var(--ed-primary-hover); font-weight:bold; background:var(--ed-primary-soft); }
+.pki-steps li.pki-done { border-color:var(--ed-success); color:var(--ed-success); }
+.pki-recovery { margin-top:24px; border-top:1px solid var(--ed-border); padding-top:16px; }
+.pki-recovery summary { cursor:pointer; font-weight:bold; margin-bottom:16px; }
+.pki-recovery .btn { margin:8px 4px 8px 0; }
+#PkiWizardMessage { white-space:pre-line; margin-top:16px; }
+#PkiWizardExit { margin:8px; }
+</style>

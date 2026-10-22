@@ -1,0 +1,40 @@
+﻿@using eDNA.Common.Enumerables
+
+@{
+   ViewBag.Title = "Logon";
+}
+
+<div class="logon-div ed-logon">
+   <div class="ed-logon-card">
+      <div class="ed-logon-brand">
+         <img src="~/Content/Images/Logon.png" width="110" alt="" />
+         <img src="~/Content/Images/eDNA.png" alt="eDNA" />
+      </div>
+      <h2 class="ed-logon-title">Sign in to the eDNA Web Portal</h2>
+      @* Kept as <marquee> because scripts may target #mrqWelCome; scrollamount="0" keeps it still. *@
+      <marquee id="mrqWelCome" class="ed-logon-welcome" scrollamount="0">Welcome To The eDNA Web Portal. Logon To Explore The Features !</marquee>
+      <table class="ed-logon-table">
+         <tr>
+            <td colspan="2" id="lnkAuthenticateUser" style="display:none">
+               <div id="lblNoBiometrics" class="biometric-logon-message" style="display:none" role="alert">
+                  No fingerprint or facial biometrics are enrolled for this user. Please contact an enrolment administrator.
+               </div>
+               <a href="#" id="lnkFingerprintLogon" class="biometric-logon-link" data-logon-action="@((Int32)enum_Actions.LogonFinger)" data-toggle="tooltip" data-placement="bottom" title="Log in using fingerprint verification">
+                  <span class="glyphicon glyphicon-hand-up"></span>&nbsp;Fingerprint Login&nbsp;<span class="glyphicon glyphicon-log-in"></span>
+               </a>
+               <a href="#" id="lnkFaceLogon" class="biometric-logon-link" data-logon-action="@((Int32)enum_Actions.LogonFace)" data-toggle="tooltip" data-placement="bottom" title="Log in using face verification">
+                  <span class="glyphicon glyphicon-user"></span>&nbsp;Face Login&nbsp;<span class="glyphicon glyphicon-log-in"></span>
+               </a>
+            </td>
+         </tr>
+      </table>
+      <p class="ed-logon-hint">Your biometric sign-in options appear above when the portal is ready.</p>
+   </div>
+</div>
+
+@*CODESC: Hide url display in bottom left on mouse over*@
+<script type="text/javascript">
+   $(document).ready(function () {
+       $("#dvClose").hide();
+   });
+</script>

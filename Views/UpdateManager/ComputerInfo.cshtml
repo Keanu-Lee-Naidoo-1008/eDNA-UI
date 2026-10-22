@@ -1,0 +1,40 @@
+﻿
+@model List<eDNA.CommonData.Classes.CData_ComputerInfo>
+
+@*@{
+        ViewBag.Title = "ComputerInfo";
+    }*@
+
+<center><h2>ComputerInfo</h2></center>
+<table class="table table-bordered table-responsive table-hover">
+    <tr>
+        <th>ComputerID</th>
+        <th>ComputerInfoID</th>
+        <th>DateRecordedClient</th>
+        <th>Version_AuthenticationService</th>
+        <th>Version_ClientUpdateManagerGUI</th>
+    </tr>
+    @if (Model != null && Model.Count > 0)
+    {
+        foreach (var item in Model)
+        {
+
+            <tr>
+                @*<td>@item.ComputerID</td>*@
+                <td>@item.ComputerInfoID</td>
+                <td>@item.DateRecordedClient</td>
+                <td>@item.Version_AuthenticationService</td>
+                <td>@item.Version_ClientUpdateManagerGUI</td>
+            </tr>
+        }
+    }
+</table>
+
+
+@*CODESC: Display MVC SiteMap*@
+<script type="text/javascript">
+    $("#MVCSiteMap").show();
+
+</script>
+
+

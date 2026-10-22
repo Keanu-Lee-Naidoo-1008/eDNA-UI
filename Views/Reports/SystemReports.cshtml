@@ -1,0 +1,132 @@
+@using System
+@using System.Collections.Generic
+@model eDNA.WebPortal.ViewModel.CReportViewModel
+@{
+    ViewBag.Title = "Reports";
+    ICollection<eDNA.WebPortal.Models.CReportList> l_ReportCategories =
+        Model.ReportList ?? new List<eDNA.WebPortal.Models.CReportList>();
+    bool l_bReportsLoading = String.Equals(
+        Convert.ToString(HttpContext.Current.Session["isSysReportFormLoad"]),
+        "True",
+        StringComparison.OrdinalIgnoreCase);
+    int l_iCategoryIndex = 0;
+}
+
+@Html.AntiForgeryToken()
+
+<div class="panel-body-details report-page">
+    <div id="reportBrowser"
+         class="report-browser"
+         data-render-url="@Url.Action("GenerateSystemReport", "SystemReports")">
+        <aside class="report-browser-sidebar" aria-label="Report categories">
+            <header class="report-browser-heading">
+                <h3>Reports</h3>
+                <p>Select an authorised report to open it in the viewer.</p>
+            </header>
+
+            <div id="eDNAReportCategories" class="report-categories">
+                @if (l_ReportCategories.Count == 0)
+                {
+                    <div class="report-list-message" role="status">
+                        @if (l_bReportsLoading)
+                        {
+                            <span>Loading authorised reports&hellip;</span>
+                        }
+                        else
+                        {
+                            <span>No reports are allocated to your account.</span>
+                        }
+                    </div>
+                }
+                else
+                {
+                    foreach (var l_ReportCategory in l_ReportCategories)
+                    {
+                        bool l_bExpanded = l_iCategoryIndex == 0;
+                        string l_strCategoryID = "report-category-" + l_ReportCategory.ReportID;
+                        int l_iReportCount = l_ReportCategory.ReportList == null
+                            ? 0
+                            : l_ReportCategory.ReportList.Count;
+
+                        <section class="report-category" data-display-order="@l_ReportCategory.DisplayOrder">
+                            <button type="button"
+                                    class="report-category-toggle"
+                                    aria-expanded="@(l_bExpanded ? "true" : "false")"
+                                    aria-controls="@l_strCategoryID">
+                                <span class="glyphicon glyphicon-folder-open report-category-icon" aria-hidden="true"></span>
+                                <span class="report-category-name">@l_ReportCategory.Description</span>
+                                <span class="report-category-count">@l_iReportCount</span>
+                                <span class="glyphicon @(l_bExpanded ? "glyphicon-chevron-up" : "glyphicon-chevron-down") report-category-chevron" aria-hidden="true"></span>
+                            </button>
+
+                            <ul id="@l_strCategoryID"
+                                class="report-category-list @(l_bExpanded ? "" : "is-collapsed")">
+                                @foreach (var l_Report in l_ReportCategory.ReportList)
+                                {
+                                    <li>
+                                        <a href="#"
+                                           class="report-list-link"
+                                           data-report-name="@l_Report.ReportName"
+                                           data-report-description="@l_Report.Description">
+                                            <span class="glyphicon glyphicon-file" aria-hidden="true"></span>
+                                            <span>@l_Report.Description</span>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </section>
+
+                        l_iCategoryIndex++;
+                    }
+                }
+            </div>
+        </aside>
+
+        <main id="dvReportDetail" class="report-browser-viewer" aria-live="polite">
+            @Html.Partial("_ReportTemplate")
+        </main>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#MVCSiteMap").show();
+
+        $(".report-category-toggle").on("click", function () {
+            var toggle = $(this);
+            var categoryList = $("#" + toggle.attr("aria-controls"));
+            var isExpanded = toggle.attr("aria-expanded") === "true";
+
+            toggle.attr("aria-expanded", (!isExpanded).toString());
+            categoryList.toggleClass("is-collapsed", isExpanded);
+            toggle.find(".report-category-chevron")
+                .toggleClass("glyphicon-chevron-up", !isExpanded)
+                .toggleClass("glyphicon-chevron-down", isExpanded);
+        });
+
+        $(".report-list-link").on("click", function (event) {
+            event.preventDefault();
+
+            $(".report-list-link").removeClass("is-active").removeAttr("aria-current");
+            $(this).addClass("is-active").attr("aria-current", "page");
+
+            RenderReport(
+                $(this).attr("data-report-name"),
+                $(this).attr("data-report-description"),
+                100,
+                620);
+        });
+        var openReport = @Html.Raw(System.Web.Helpers.Json.Encode(Convert.ToString(ViewBag.OpenReportName)));
+        if (openReport) {
+            $('.report-list-link').filter(function () {
+                return $(this).attr('data-report-name') === openReport;
+            }).first().trigger('click');
+        }
+    });
+
+    $(window).on("load", function () {
+        if ('@HttpContext.Current.Session["isSysReportFormLoad"]' === 'True') {
+            GetSystemReportList('SysReport');
+        }
+    });
+</script>

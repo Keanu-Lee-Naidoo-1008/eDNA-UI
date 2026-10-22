@@ -1,0 +1,160 @@
+﻿@model IEnumerable<eDNA.CommonData.Classes.CData_TransversalAccount>
+@{
+    IEnumerable<eDNA.CommonData.Classes.CData_TransversalAccount> l_lstTransversalAccounts =
+        Model ?? new List<eDNA.CommonData.Classes.CData_TransversalAccount>();
+}
+
+<div id="dvTransversalList" class="col-md-8" style="display:none;width:65%;overflow-y:auto;height:500px">
+    <div class="col-md-1" style="float: left; display: inline; width: auto; word-break: break-all; word-wrap: break-word;">
+
+        <h4> <span class="pull-right"> @ViewBag.Firstname @ViewBag.LastName Transaversal Account(s) :  </span> </h4>
+    </div>
+    <table class="table scroll" id="tblMTransversals">
+        <thead style="background-color:steelblue;color:white;">
+            <tr>
+                <th>Account ID<span class="pull-right glyphicon glyphicon-sort"></span></th>
+                <th>Transversal Type<span class="pull-right glyphicon glyphicon-sort"></span></th>
+                <th>Mainframe ID<span class="pull-right glyphicon glyphicon-sort"></span></th>
+                <th>InstallID<span class="pull-right glyphicon glyphicon-sort"></span></th>
+                <th>PassportApp<span class="pull-right glyphicon glyphicon-sort"></span></th>
+                <th>Controller<span class="pull-right glyphicon glyphicon-sort"></span></th>
+                <th>Control-D User<span class="pull-right glyphicon glyphicon-sort"></span></th>
+                @*<th>FTP User<span class="pull-right glyphicon glyphicon-sort"></span></th>*@
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @*@if((List<eDNA.CommonData.Classes.CData_TransversalAccount>)ViewBag.TransversalAccounts == 0)
+                {
+                    MessageBox("eDNA Web Portal:- Transversal Management", ViewBag.ErrorMessage, "", m_MessageType.Error);
+                }*@
+
+            @foreach (var TransversalAccount in l_lstTransversalAccounts)
+            {
+                if (TransversalAccount == null)
+                {
+                    continue;
+                }
+
+                if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.Normal)
+                {
+                    <tr class="color-legend-normal">
+                        <td>@TransversalAccount.TransversalSystemUserID</td>
+                        <td>@TransversalAccount.TransversalID</td>
+                        <td>@TransversalAccount.TransversalParentUser</td>
+                        <td>@TransversalAccount.InstallDescription</td>
+                        <td>@TransversalAccount.IsPassportAppUser</td>
+                        <td>@TransversalAccount.IsController</td>
+                        <td>@TransversalAccount.IsControlDUser</td>
+                        @*<td>@TransversalAccount.IsFTPUser</td>*@
+                        <td><input type='checkbox' id="chkTSelect" name="chkTSelect" value='true' data-toggle="tooltip" title="Select"></td>
+                    </tr>
+                }
+                else if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.Suspended)
+                {
+                    <tr class="color-legend-suspended">
+                        <td>@TransversalAccount.TransversalSystemUserID</td>
+                        <td>@TransversalAccount.TransversalID</td>
+                        <td>@TransversalAccount.TransversalParentUser</td>
+                        <td>@TransversalAccount.InstallDescription</td>
+                        <td>@TransversalAccount.IsPassportAppUser</td>
+                        <td>@TransversalAccount.IsController</td>
+                        <td>@TransversalAccount.IsControlDUser</td>
+                        @*<td>@TransversalAccount.IsFTPUser</td>*@
+                        <td><input type='checkbox' id="chkTSelect" name="chkTSelect" value='true' data-toggle="tooltip" title="Select"></td>
+                    </tr>
+                }
+                if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.PreRelinquish)
+                {
+                    <tr class="color-legend-pre-relinquished-owner">
+                        <td>@TransversalAccount.TransversalSystemUserID</td>
+                        <td>@TransversalAccount.TransversalID</td>
+                        <td>@TransversalAccount.TransversalParentUser</td>
+                        <td>@TransversalAccount.InstallDescription</td>
+                        <td>@TransversalAccount.IsPassportAppUser</td>
+                        <td>@TransversalAccount.IsController</td>
+                        <td>@TransversalAccount.IsControlDUser</td>
+                        @*<td>@TransversalAccount.IsFTPUser</td>*@
+                        <td><input type='checkbox' id="chkTSelect" name="chkTSelect" value='true' data-toggle="tooltip" title="Select"></td>
+                    </tr>
+                }
+                else if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.Relinquished)
+                {
+                    <tr class="color-legend-relinquished-owner">
+                        <td>@TransversalAccount.TransversalSystemUserID</td>
+                        <td>@TransversalAccount.TransversalID</td>
+                        <td>@TransversalAccount.TransversalParentUser</td>
+                        <td>@TransversalAccount.InstallDescription</td>
+                        <td>@TransversalAccount.IsPassportAppUser</td>
+                        <td>@TransversalAccount.IsController</td>
+                        <td>@TransversalAccount.IsControlDUser</td>
+                        @*<td>@TransversalAccount.IsFTPUser</td>*@
+                        <td><input type='checkbox' id="chkTSelect" name="chkTSelect" value='true' data-toggle="tooltip" title="Select"></td>
+                    </tr>
+                }
+                else if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.Relinquished_Transferred)
+                {
+                    <tr class="color-legend-relinquished-transfer-owner">
+                        <td>@TransversalAccount.TransversalSystemUserID</td>
+                        <td>@TransversalAccount.TransversalID</td>
+                        <td>@TransversalAccount.TransversalParentUser</td>
+                        <td>@TransversalAccount.InstallDescription</td>
+                        <td>@TransversalAccount.IsPassportAppUser</td>
+                        <td>@TransversalAccount.IsController</td>
+                        <td>@TransversalAccount.IsControlDUser</td>
+                        @*<td>@TransversalAccount.IsFTPUser</td>*@
+                        <td><input type='checkbox' id="chkTSelect" name="chkTSelect" value='true' data-toggle="tooltip" title="Select"></td>
+                    </tr>
+                }
+                else if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.PreReturned)
+                {
+                    <tr class="color-legend-pre-returned-owner">
+                        <td>@TransversalAccount.TransversalSystemUserID</td>
+                        <td>@TransversalAccount.TransversalID</td>
+                        <td>@TransversalAccount.TransversalParentUser</td>
+                        <td>@TransversalAccount.InstallDescription</td>
+                        <td>@TransversalAccount.IsPassportAppUser</td>
+                        <td>@TransversalAccount.IsController</td>
+                        <td>@TransversalAccount.IsControlDUser</td>
+                        @*<td>@TransversalAccount.IsFTPUser</td>*@
+                        <td><input type='checkbox' id="chkTSelect" name="chkTSelect" value='true' data-toggle="tooltip" title="Select"></td>
+                    </tr>
+                }
+                else if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.Returned)
+                {
+                    <tr class="color-legend-returned">
+                        <td>@TransversalAccount.TransversalSystemUserID</td>
+                        <td>@TransversalAccount.TransversalID</td>
+                        <td>@TransversalAccount.TransversalParentUser</td>
+                        <td>@TransversalAccount.InstallDescription</td>
+                        <td>@TransversalAccount.IsPassportAppUser</td>
+                        <td>@TransversalAccount.IsController</td>
+                        <td>@TransversalAccount.IsControlDUser</td>
+                        @*<td>@TransversalAccount.IsFTPUser</td>*@
+                        <td><input type='checkbox' id="chkTSelect" name="chkTSelect" value='true' data-toggle="tooltip" title="Select"></td>
+                    </tr>
+                }
+                else if (@TransversalAccount.TransversalAccountStatusID == eDNA.Common.enum_TransversalAccountStatus.PreTransferred)
+                {
+                    <tr class="color-legend-pre-transfer">
+                        <td>@TransversalAccount.TransversalSystemUserID</td>
+                        <td>@TransversalAccount.TransversalID</td>
+                        <td>@TransversalAccount.TransversalParentUser</td>
+                        <td>@TransversalAccount.InstallDescription</td>
+                        <td>@TransversalAccount.IsPassportAppUser</td>
+                        <td>@TransversalAccount.IsController</td>
+                        <td>@TransversalAccount.IsControlDUser</td>
+                        @*<td>@TransversalAccount.IsFTPUser</td>*@
+                        <td><input type='checkbox' id="chkTSelect" name="chkTSelect" value='true' data-toggle="tooltip" title="Select"></td>
+                    </tr>
+                }
+            }
+        </tbody>
+        <tfoot style="background-color:steelblue;color:white">
+            <tr style="font-size:medium">
+                <td class="text-center" colspan="8">Transversal List</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+

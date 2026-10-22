@@ -1,0 +1,32 @@
+﻿
+@{
+   ViewBag.Title = "Index";
+}
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<div class="panel-heading">
+   <div class="row">
+      <div class="col-md-2">
+         <h4>System Status</h4>
+      </div>
+   </div>
+</div>
+<div class="panel-body">
+   <div class="row">
+      <div class="col-md-10">
+
+      </div>
+      <div class="col-md-2">
+         <div class="list-group">
+            <div class="list-group-item" style="background-color:steelblue">
+               <h4>
+                  <font color="white">Smartcard Functions</font>
+               </h4>
+            </div>
+            <a href="@Url.Action("Index", "UnderConstruction")" class="list-group-item gray-tooltip" data-toggle="tooltip" data-placement="left" title="sends a ping message to eDNA Web Service ">eDNA Service Status Check</a>
+            <a href="@Url.Action("Index", "UnderConstruction")" class="list-group-item gray-tooltip" data-toggle="tooltip" data-placement="left" title="sends a connect command to all eDNA databases">Database Connection Status Check</a>
+            <a href="@Url.Action("Index", "UnderConstruction")" class="list-group-item gray-tooltip" data-toggle="tooltip" data-placement="left" title="sends an test email to eDNA Support">Email Service Status Check</a>
+            <a href="@Url.Action("Index", "UnderConstruction")" class="list-group-item gray-tooltip" data-toggle="tooltip" data-placement="left" title="etc">Other Status Checks</a>
+         </div>
+      </div>
+   </div>
+</div>
