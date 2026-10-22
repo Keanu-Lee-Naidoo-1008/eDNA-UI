@@ -7,29 +7,32 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css">
 <style>
     :root {
-        /* ---- Brand tokens (PLACEHOLDERS: replace with the company design) ---- */
-        --ed-navy: #1b2a47;            /* header / dark surfaces (from the desktop capture app) */
-        --ed-navy-2: #26395e;
-        --ed-primary: #1f6fb2;         /* primary actions, links, active step */
-        --ed-primary-hover: #185a91;
-        --ed-primary-soft: #e8f1fa;
-        --ed-success: #16884a;         /* verified / complete (capture app "Process Face") */
-        --ed-success-soft: #e7f5ec;
-        --ed-warning: #a86400;
-        --ed-warning-soft: #fff4e0;
-        --ed-danger: #c0392b;
-        --ed-danger-soft: #fdecea;
+        color-scheme: light;
 
-        /* ---- Neutrals ---- */
-        --ed-bg: #f3f5f8;
-        --ed-surface: #ffffff;
-        --ed-surface-2: #f7f9fb;
-        --ed-border: #dde3ea;
-        --ed-border-strong: #c3ccd6;
-        --ed-text: #1e2a38;
-        --ed-text-muted: #5b6b7c;
-        --ed-on-dark: #ffffff;
-        --ed-focus: #2b8fe0;
+        /* ---- Colour: light mode (blue / white) ---- */
+        --ed-primary: #1e5bd8;         /* accent: primary buttons, links, active step, live finger, face ring */
+        --ed-primary-hover: #174ab3;
+        --ed-primary-soft: rgba(30, 91, 216, .08);   /* accent tint: selected or live tile */
+        --ed-on-accent: #ffffff;       /* text on accent and success fills */
+        --ed-success: #14996f;         /* ticks, captured, pass states */
+        --ed-success-soft: rgba(20, 153, 111, .1);
+        --ed-warning: #b97a0a;         /* low quality scores, queued or pending */
+        --ed-warning-soft: rgba(185, 122, 10, .1);
+        --ed-danger: #d23b3b;          /* errors, failed capture, clear/delete */
+        --ed-danger-soft: rgba(210, 59, 59, .08);
+
+        --ed-bg: #f4f7fb;              /* page background */
+        --ed-surface: #ffffff;         /* panels, cards, modals, top bar */
+        --ed-surface-2: #eef3fa;       /* raised: finger tiles, inputs, hover states */
+        --ed-border: #dae3ef;          /* card and input borders, dividers, empty stepper bars */
+        --ed-border-strong: var(--ed-border);
+        --ed-text: #0c1b33;
+        --ed-text-muted: #5a6a84;      /* labels, meta info, placeholders */
+        --ed-focus: var(--ed-primary);
+        --ed-focus-ring: rgba(30, 91, 216, .25);
+        --ed-overlay: rgba(244, 247, 251, .9);
+        --ed-logo-bg: transparent;     /* backdrop for the eDNA logo, which is drawn for light backgrounds */
+        --ed-shadow-rgb: 12, 27, 51;
 
         /* ---- Type ---- */
         --ed-font: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -44,9 +47,9 @@
         --ed-radius-sm: 6px;
         --ed-radius: 10px;
         --ed-radius-lg: 14px;
-        --ed-shadow-sm: 0 1px 2px rgba(16, 32, 56, .06);
-        --ed-shadow: 0 2px 8px rgba(16, 32, 56, .08);
-        --ed-shadow-lg: 0 12px 32px rgba(16, 32, 56, .16);
+        --ed-shadow-sm: 0 1px 2px rgba(var(--ed-shadow-rgb), .06);
+        --ed-shadow: 0 2px 8px rgba(var(--ed-shadow-rgb), .08);
+        --ed-shadow-lg: 0 12px 32px rgba(var(--ed-shadow-rgb), .16);
         --ed-space-1: 4px;
         --ed-space-2: 8px;
         --ed-space-3: 12px;
@@ -58,6 +61,56 @@
         --ed-topbar-h: 64px;
         --ed-statusbar-h: 40px;
         --ed-content-max: 1320px;
+    }
+
+    /* ---- Colour: dark mode (navy / turquoise). Keep both blocks identical. ---- */
+    @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+            color-scheme: dark;
+            --ed-primary: #5ee6d0;
+            --ed-primary-hover: #7befdc;
+            --ed-primary-soft: rgba(94, 230, 208, .12);
+            --ed-on-accent: #04201c;
+            --ed-success: #5ee6d0;
+            --ed-success-soft: rgba(94, 230, 208, .12);
+            --ed-warning: #f2b544;
+            --ed-warning-soft: rgba(242, 181, 68, .12);
+            --ed-danger: #f06c6c;
+            --ed-danger-soft: rgba(240, 108, 108, .12);
+            --ed-bg: #0a0f1c;
+            --ed-surface: #111a2b;
+            --ed-surface-2: #16213a;
+            --ed-border: #22304a;
+            --ed-text: #e7eef8;
+            --ed-text-muted: #8c9ab2;
+            --ed-focus-ring: rgba(94, 230, 208, .3);
+            --ed-overlay: rgba(10, 15, 28, .88);
+            --ed-logo-bg: #ffffff;
+            --ed-shadow-rgb: 0, 0, 0;
+        }
+    }
+    :root[data-theme="dark"] {
+        color-scheme: dark;
+        --ed-primary: #5ee6d0;
+        --ed-primary-hover: #7befdc;
+        --ed-primary-soft: rgba(94, 230, 208, .12);
+        --ed-on-accent: #04201c;
+        --ed-success: #5ee6d0;
+        --ed-success-soft: rgba(94, 230, 208, .12);
+        --ed-warning: #f2b544;
+        --ed-warning-soft: rgba(242, 181, 68, .12);
+        --ed-danger: #f06c6c;
+        --ed-danger-soft: rgba(240, 108, 108, .12);
+        --ed-bg: #0a0f1c;
+        --ed-surface: #111a2b;
+        --ed-surface-2: #16213a;
+        --ed-border: #22304a;
+        --ed-text: #e7eef8;
+        --ed-text-muted: #8c9ab2;
+        --ed-focus-ring: rgba(94, 230, 208, .3);
+        --ed-overlay: rgba(10, 15, 28, .88);
+        --ed-logo-bg: #ffffff;
+        --ed-shadow-rgb: 0, 0, 0;
     }
 
     /* ================= Base ================= */
@@ -93,18 +146,19 @@
         min-height: 0;
         margin: 0;
         padding: 0 var(--ed-space-5);
-        background: var(--ed-navy);
+        background: var(--ed-surface);
         border: 0;
+        border-bottom: 1px solid var(--ed-border);
         border-radius: 0;
-        box-shadow: var(--ed-shadow);
-        color: var(--ed-on-dark);
+        box-shadow: var(--ed-shadow-sm);
+        color: var(--ed-text);
     }
     .ed-topbar .ed-brand { display: flex; align-items: center; gap: var(--ed-space-3); min-width: 0; }
-    .ed-topbar .ed-brand img { height: 36px; width: auto; background: var(--ed-surface); border-radius: var(--ed-radius-sm); padding: 3px 6px; }
+    .ed-topbar .ed-brand img { height: 36px; width: auto; background: var(--ed-logo-bg); border-radius: var(--ed-radius-sm); padding: 3px 6px; }
     .ed-topbar .ed-page-title {
         font-size: var(--ed-fs-lg);
         font-weight: 600;
-        color: var(--ed-on-dark);
+        color: var(--ed-text);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -118,7 +172,7 @@
         gap: var(--ed-space-2);
         padding: 8px 12px;
         border-radius: var(--ed-radius-sm);
-        color: var(--ed-on-dark);
+        color: var(--ed-text);
         font-size: var(--ed-fs-base);
         font-weight: 500;
         text-decoration: none;
@@ -128,7 +182,11 @@
     }
     .ed-topbar .ed-topbar-link:hover,
     .ed-topbar .ed-topbar-link:focus,
-    .ed-topbar .open > .ed-topbar-link { background: var(--ed-navy-2); color: var(--ed-on-dark); }
+    .ed-topbar .open > .ed-topbar-link { background: var(--ed-surface-2); color: var(--ed-primary); }
+    .ed-topbar .ed-theme-toggle { cursor: pointer; }
+    .ed-topbar .ed-theme-toggle .ed-theme-icon-light { display: none; }
+    :root[data-ed-dark] .ed-topbar .ed-theme-toggle .ed-theme-icon-light { display: inline-block; }
+    :root[data-ed-dark] .ed-topbar .ed-theme-toggle .ed-theme-icon-dark { display: none; }
     .ed-topbar .dropdown-menu {
         right: 0;
         left: auto;
@@ -161,8 +219,8 @@
     .ed-env-banner {
         padding: 10px var(--ed-space-5);
         background: var(--ed-warning-soft);
-        color: #533f03;
-        border-bottom: 1px solid #f0d9a8;
+        color: var(--ed-text);
+        border-bottom: 2px solid var(--ed-warning);
         text-align: center;
         font-weight: 500;
     }
@@ -233,7 +291,7 @@
         font-size: var(--ed-fs-sm);
     }
     .ed-step.is-current { color: var(--ed-primary); }
-    .ed-step.is-current .ed-step-num { border-color: var(--ed-primary); background: var(--ed-primary); color: var(--ed-on-dark); }
+    .ed-step.is-current .ed-step-num { border-color: var(--ed-primary); background: var(--ed-primary); color: var(--ed-on-accent); }
     .ed-step.is-done { color: var(--ed-success); }
     .ed-step.is-done .ed-step-num { border-color: var(--ed-success); background: var(--ed-success-soft); color: var(--ed-success); }
     .ed-step.is-done + .ed-step::before { background: var(--ed-success); }
@@ -265,7 +323,7 @@
     .ed-statusbar #clock { font-family: var(--ed-font-mono); color: var(--ed-text); }
 
     /* ================= Busy overlay ================= */
-    #divLoading.ed-busy { position: fixed; inset: 0; z-index: 30001; background: rgba(243, 245, 248, .9); }
+    #divLoading.ed-busy { position: fixed; inset: 0; z-index: 30001; background: var(--ed-overlay); }
     .ed-busy-card {
         position: absolute;
         top: 50%;
@@ -303,15 +361,15 @@
     }
     .btn .glyphicon { margin-right: 4px; top: 2px; }
     .btn-lg { padding: 12px 24px; font-size: var(--ed-fs-lg); }
-    .btn-primary { background: var(--ed-primary); border-color: var(--ed-primary); color: var(--ed-on-dark); }
-    .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active { background: var(--ed-primary-hover); border-color: var(--ed-primary-hover); color: var(--ed-on-dark); }
+    .btn-primary { background: var(--ed-primary); border-color: var(--ed-primary); color: var(--ed-on-accent); }
+    .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active { background: var(--ed-primary-hover); border-color: var(--ed-primary-hover); color: var(--ed-on-accent); }
     .btn-default { background: var(--ed-surface); border-color: var(--ed-border-strong); color: var(--ed-text); }
     .btn-default:hover, .btn-default:focus { background: var(--ed-surface-2); border-color: var(--ed-border-strong); color: var(--ed-text); }
     /* Secondary look for buttons that must keep the btn-primary class. */
     .btn.ed-btn-secondary { background: var(--ed-surface); border-color: var(--ed-border-strong); color: var(--ed-text); }
     .btn.ed-btn-secondary:hover, .btn.ed-btn-secondary:focus { background: var(--ed-surface-2); color: var(--ed-text); }
-    .btn.ed-btn-success { background: var(--ed-success); border-color: var(--ed-success); color: var(--ed-on-dark); }
-    .btn.ed-btn-success:hover, .btn.ed-btn-success:focus { filter: brightness(.92); color: var(--ed-on-dark); }
+    .btn.ed-btn-success { background: var(--ed-success); border-color: var(--ed-success); color: var(--ed-on-accent); }
+    .btn.ed-btn-success:hover, .btn.ed-btn-success:focus { filter: brightness(.92); color: var(--ed-on-accent); }
     .btn[disabled], .btn.disabled { opacity: .5; }
 
     .form-control {
@@ -324,7 +382,7 @@
         color: var(--ed-text);
     }
     textarea.form-control { height: auto; }
-    .form-control:focus { border-color: var(--ed-focus); box-shadow: 0 0 0 3px rgba(43, 143, 224, .2); }
+    .form-control:focus { border-color: var(--ed-focus); box-shadow: 0 0 0 3px var(--ed-focus-ring); }
     .form-control[readonly] { background: var(--ed-surface-2); color: var(--ed-text-muted); }
     select.dropdown, select.dropdown-btn { height: 40px; padding: 6px 10px; border: 1px solid var(--ed-border-strong); border-radius: var(--ed-radius-sm); background: var(--ed-surface); color: var(--ed-text); }
 
@@ -340,15 +398,68 @@
     .table > tbody > tr > td { border-top: 1px solid var(--ed-border); vertical-align: middle; }
     .table-hover > tbody > tr:hover { background: var(--ed-primary-soft); }
 
-    .panel { border: 1px solid var(--ed-border); border-radius: var(--ed-radius); box-shadow: var(--ed-shadow-sm); }
-    .alert { border-radius: var(--ed-radius); border-width: 1px; }
-    .alert-info { background: var(--ed-primary-soft); border-color: #c9ddf0; color: #164e70; }
-    .alert-success { background: var(--ed-success-soft); border-color: #bfe3cc; color: #1d5b39; }
+    .table { background: transparent; color: var(--ed-text); }
+    .table-striped > tbody > tr:nth-of-type(odd) { background: var(--ed-surface-2); }
+    .table-bordered, .table-bordered > thead > tr > th, .table-bordered > tbody > tr > td { border-color: var(--ed-border); }
+    .form-control, select.dropdown, select.dropdown-btn { background-color: var(--ed-surface-2); }
+    .form-control::placeholder { color: var(--ed-text-muted); opacity: 1; }
+    .input-group-addon { background: var(--ed-surface-2); border-color: var(--ed-border); color: var(--ed-text-muted); }
+    .help-block { color: var(--ed-text-muted); }
+    .has-error .form-control { border-color: var(--ed-danger); }
+    .has-error .help-block, .has-error .control-label { color: var(--ed-danger); }
+    hr { border-top-color: var(--ed-border); }
+    fieldset, legend { border-color: var(--ed-border); color: var(--ed-text); }
 
-    .tooltip-inner { background: var(--ed-navy); border-radius: var(--ed-radius-sm); padding: 6px 10px; }
+    .panel { background: var(--ed-surface); border: 1px solid var(--ed-border); border-radius: var(--ed-radius); box-shadow: var(--ed-shadow-sm); color: var(--ed-text); }
+    .panel-default > .panel-heading { background: var(--ed-surface-2); border-color: var(--ed-border); color: var(--ed-text); }
+    .panel-footer { background: var(--ed-surface-2); border-top-color: var(--ed-border); }
+    .well, .thumbnail { background: var(--ed-surface-2); border-color: var(--ed-border); color: var(--ed-text); }
+    .list-group-item { background: var(--ed-surface); border-color: var(--ed-border); color: var(--ed-text); }
+    a.list-group-item:hover, a.list-group-item:focus, button.list-group-item:hover { background: var(--ed-surface-2); color: var(--ed-text); }
+    .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus { background: var(--ed-primary-soft); border-color: var(--ed-primary); color: var(--ed-primary); }
+    .dropdown-menu { background: var(--ed-surface); border-color: var(--ed-border); }
+    .dropdown-menu > li > a { color: var(--ed-text); }
+    .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus { background: var(--ed-primary-soft); color: var(--ed-primary); }
+    .dropdown-menu .divider { background: var(--ed-border); }
+    .nav-tabs { border-bottom-color: var(--ed-border); }
+    .nav-tabs > li > a { color: var(--ed-text-muted); }
+    .nav-tabs > li > a:hover { background: var(--ed-surface-2); border-color: transparent; }
+    .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus { background: var(--ed-surface); border-color: var(--ed-border) var(--ed-border) transparent; color: var(--ed-primary); }
+    .nav-pills > li.active > a, .nav-pills > li.active > a:hover { background: var(--ed-primary); color: var(--ed-on-accent); }
+    .pagination > li > a, .pagination > li > span { background: var(--ed-surface); border-color: var(--ed-border); color: var(--ed-primary); }
+    .pagination > .active > a, .pagination > .active > span { background: var(--ed-primary); border-color: var(--ed-primary); color: var(--ed-on-accent); }
+    .popover { background: var(--ed-surface); border-color: var(--ed-border); color: var(--ed-text); }
+    .close { color: var(--ed-text); text-shadow: none; }
+    .badge { background: var(--ed-surface-2); color: var(--ed-text); }
+    .text-success { color: var(--ed-success); }
+    .text-warning { color: var(--ed-warning); }
+    .text-primary, .btn-link { color: var(--ed-primary); }
+
+    .btn-danger { background: var(--ed-danger); border-color: var(--ed-danger); color: var(--ed-on-accent); }
+    .btn-danger:hover, .btn-danger:focus { filter: brightness(.92); background: var(--ed-danger); border-color: var(--ed-danger); color: var(--ed-on-accent); }
+    .btn-success { background: var(--ed-success); border-color: var(--ed-success); color: var(--ed-on-accent); }
+    .btn-success:hover, .btn-success:focus { filter: brightness(.92); background: var(--ed-success); border-color: var(--ed-success); color: var(--ed-on-accent); }
+    .btn-info { background: var(--ed-surface); border-color: var(--ed-primary); color: var(--ed-primary); }
+    .btn-info:hover, .btn-info:focus { background: var(--ed-primary-soft); border-color: var(--ed-primary); color: var(--ed-primary-hover); }
+    .btn-warning { background: var(--ed-warning); border-color: var(--ed-warning); color: var(--ed-on-accent); }
+
+    /* Alerts: tinted fill, coloured edge, body text in the normal text colour so both modes stay readable. */
+    .alert { border-radius: var(--ed-radius); border: 1px solid var(--ed-border); border-left-width: 4px; color: var(--ed-text); }
+    .alert-info { background: var(--ed-primary-soft); border-left-color: var(--ed-primary); }
+    .alert-success { background: var(--ed-success-soft); border-left-color: var(--ed-success); }
+    .alert-warning { background: var(--ed-warning-soft); border-left-color: var(--ed-warning); }
+    .alert-danger { background: var(--ed-danger-soft); border-left-color: var(--ed-danger); }
+    .alert .alert-link { color: var(--ed-primary); }
+
+    .tooltip-inner { background: var(--ed-text); color: var(--ed-surface); border-radius: var(--ed-radius-sm); padding: 6px 10px; }
+    .tooltip.bottom .tooltip-arrow { border-bottom-color: var(--ed-text); }
+    .tooltip.top .tooltip-arrow { border-top-color: var(--ed-text); }
+    .tooltip.left .tooltip-arrow { border-left-color: var(--ed-text); }
+    .tooltip.right .tooltip-arrow { border-right-color: var(--ed-text); }
 
     /* ================= Modals ================= */
-    .modal-content { border: 0; border-radius: var(--ed-radius-lg); box-shadow: var(--ed-shadow-lg); }
+    .modal-content { background: var(--ed-surface); color: var(--ed-text); border: 1px solid var(--ed-border); border-radius: var(--ed-radius-lg); box-shadow: var(--ed-shadow-lg); }
+    .modal-backdrop.in { opacity: .6; }
     .modal-header { padding: var(--ed-space-4) var(--ed-space-5); border-bottom: 1px solid var(--ed-border); }
     .modal-header h4 { display: flex; align-items: center; gap: var(--ed-space-3); margin: 0; font-size: var(--ed-fs-lg); font-weight: 600; }
     .modal-header h4 img { width: 28px; height: auto; }
@@ -673,14 +784,26 @@
         padding: 14px 20px;
         border-radius: var(--ed-radius);
         background: var(--ed-primary);
-        color: var(--ed-on-dark);
+        color: var(--ed-on-accent);
         font-size: var(--ed-fs-lg);
         font-weight: 600;
         text-decoration: none;
     }
-    .ed-logon .biometric-logon-link:hover, .ed-logon .biometric-logon-link:focus { background: var(--ed-primary-hover); color: var(--ed-on-dark); }
-    .ed-logon .biometric-logon-message { padding: var(--ed-space-3); border-radius: var(--ed-radius-sm); background: var(--ed-warning-soft); color: #533f03; text-align: left; }
+    .ed-logon .biometric-logon-link:hover, .ed-logon .biometric-logon-link:focus { background: var(--ed-primary-hover); color: var(--ed-on-accent); }
+    .ed-logon .biometric-logon-message { padding: var(--ed-space-3); border-radius: var(--ed-radius-sm); background: var(--ed-warning-soft); border-left: 4px solid var(--ed-warning); color: var(--ed-text); text-align: left; }
+    .ed-logon-brand img { background: var(--ed-logo-bg); border-radius: var(--ed-radius-sm); padding: 4px 8px; }
     .ed-logon-hint { margin: var(--ed-space-5) 0 0; font-size: var(--ed-fs-sm); color: var(--ed-text-muted); }
+
+    /* ================= Legacy inline colours =================
+       Older views still carry inline named colours. These map them onto the theme so they follow both modes
+       without editing the views. Capture <img> borders are left alone: the capture scripts recolour them. */
+    .list-group-item[style*="steelblue"] { background: var(--ed-surface-2) !important; border-color: var(--ed-border) !important; }
+    [style*="steelblue"] [style*="color:white"] { color: var(--ed-text-muted) !important; font-size: var(--ed-fs-sm) !important; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+    [style*="ghostwhite"] { background-color: var(--ed-surface-2) !important; }
+    [style*="color:black"] { color: var(--ed-text) !important; }
+    [style*="color:blue"] { color: var(--ed-primary) !important; }
+    a[style*="color:red"], label[style*="color:red"], span[style*="color:red"] { color: var(--ed-danger) !important; }
+    a[style*="background-color: white"], a[style*="background-color: lightskyblue"] { background-color: var(--ed-primary-soft) !important; }
 
     /* ================= Responsive ================= */
     @media (max-width: 1100px) {
@@ -697,13 +820,57 @@
         .ed-statusbar-meta .ed-version { display: none; }
     }
 </style>
+<script type="text/javascript">
+    // Presentation only: light / dark mode. A saved choice (localStorage "ed-theme") wins; otherwise the OS setting.
+    // data-ed-dark mirrors the mode in effect so the header toggle can show the right icon.
+    (function () {
+        var l_Root = document.documentElement;
+        var l_DarkQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+        function savedTheme() {
+            try { return localStorage.getItem('ed-theme'); } catch (e) { return null; }
+        }
+        function applyTheme() {
+            var l_Saved = savedTheme();
+            if (l_Saved === 'light' || l_Saved === 'dark') l_Root.setAttribute('data-theme', l_Saved);
+            else l_Root.removeAttribute('data-theme');
+            var l_IsDark = l_Saved ? l_Saved === 'dark' : !!(l_DarkQuery && l_DarkQuery.matches);
+            if (l_IsDark) l_Root.setAttribute('data-ed-dark', '');
+            else l_Root.removeAttribute('data-ed-dark');
+        }
+        window.EdToggleTheme = function () {
+            var l_Next = l_Root.hasAttribute('data-ed-dark') ? 'light' : 'dark';
+            try { localStorage.setItem('ed-theme', l_Next); } catch (e) { }
+            applyTheme();
+            if (!savedTheme()) {   // storage blocked: still switch for this page
+                l_Root.setAttribute('data-theme', l_Next);
+                if (l_Next === 'dark') l_Root.setAttribute('data-ed-dark', ''); else l_Root.removeAttribute('data-ed-dark');
+            }
+        };
+        if (l_DarkQuery && l_DarkQuery.addEventListener) l_DarkQuery.addEventListener('change', applyTheme);
+        applyTheme();
+    })();
+
+    // Presentation only: mark capture thumbnails whose image failed to load so the CSS
+    // placeholder shows instead of the browser's broken-image icon. No IDs or values change.
+    (function () {
+        function inSlot(p_Element) {
+            return p_Element && p_Element.tagName === 'IMG' && p_Element.closest && p_Element.closest('.ed-capture-slot');
+        }
+        document.addEventListener('error', function (p_Event) {
+            if (inSlot(p_Event.target)) p_Event.target.classList.add('ed-img-empty');
+        }, true);
+        document.addEventListener('load', function (p_Event) {
+            if (inSlot(p_Event.target)) p_Event.target.classList.remove('ed-img-empty');
+        }, true);
+    })();
+</script>
 <style>
   /* Preview-only helpers: stand-ins for images that live in Content/ (not in this folder). */
   .pv-img { display:flex; align-items:center; justify-content:center; background:repeating-linear-gradient(45deg,#f3f5f8,#f3f5f8 8px,#eaeef3 8px,#eaeef3 16px); border:1px dashed #c3ccd6; border-radius:8px; color:#5b6b7c; font-size:12px; text-align:center; }
   .pv-logo { display:inline-flex; align-items:center; height:36px; padding:0 10px; background:#fff; border-radius:6px; color:#1b2a47; font-weight:800; font-size:20px; letter-spacing:-.02em; }
   .pv-switch { position:fixed; left:50%; transform:translateX(-50%); bottom:2px; z-index:2000; display:flex; gap:6px; padding:3px; background:#1e2a38; border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,.2); }
   .pv-switch button { border:0; background:transparent; color:#fff; padding:3px 10px; border-radius:6px; font-size:13px; }
-  .pv-switch button.on { background:#1f6fb2; }
+  .pv-switch button.on { background:#1e5bd8; }
   .pv-screen { display:none; } .pv-screen.on { display:block; }
   .legend-dot { display:inline-block; width:18px; height:18px; border-radius:50%; }
 </style>
@@ -713,6 +880,7 @@
   <nav class="navbar navbar-fixed-top ed-topbar">
     <div class="ed-brand"><span class="pv-logo">eDNA</span><span class="ed-page-title" id="pvTitle">User Enrolment Details</span></div>
     <div class="ed-topbar-actions">
+      <div><a href="javascript:EdToggleTheme()" class="ed-topbar-link ed-theme-toggle" title="Switch light / dark mode" aria-label="Switch light or dark mode"><span class="glyphicon glyphicon-adjust ed-theme-icon-dark"></span><span class="glyphicon glyphicon-certificate ed-theme-icon-light"></span> <span class="ed-link-text">Theme</span></a></div>
       <div class="btn-group"><a class="btn dropdown-header ed-topbar-link" href="#"><span class="glyphicon glyphicon-phone-alt"></span> <span class="ed-link-text">Help &amp; Support</span> <span class="caret"></span></a></div>
       <div class="btn-group"><a class="btn dropdown-header ed-topbar-link" href="#"><span class="glyphicon glyphicon-user"></span> <span class="ed-link-text">Test New TSA1</span> <span class="caret"></span></a></div>
     </div>
@@ -736,17 +904,17 @@
     <form class="form-inline ed-searchbar" role="search">
       <div class="form-group"><select class="dropdown-btn"><option>eDNA ID</option><option>Identification Number</option><option>Surname</option></select></div>
       <input class="form-control" placeholder="Enter Search Value">
-      <a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search</a>
-      <a href="#" class="btn btn-primary ed-btn-success"><span class="glyphicon glyphicon-plus"></span> Create New User</a>
+      <a data-pv-go="Search" href="#" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search</a>
+      <a data-pv-go="Details" href="#" class="btn btn-primary ed-btn-success"><span class="glyphicon glyphicon-plus"></span> Create New User</a>
     </form>
   </div></div>
   <div class="ed-card" style="overflow-y:auto">
     <table class="table table-hover" style="margin:0">
       <thead><tr><th>Name</th><th>Surname</th><th>ID Number</th><th>Entity</th><th>eDNA ID</th></tr></thead>
       <tbody>
-        <tr><td>Mphemba</td><td>Godide</td><td>P35353454</td><td>KZN Treasury Branch One</td><td><a href="#">1042</a></td></tr>
-        <tr><td>Thandi</td><td>Mokoena</td><td>9001015009087</td><td>KZN Treasury Branch One</td><td><a href="#">1043</a></td></tr>
-        <tr><td>Johan</td><td>van Wyk</td><td>8507125800082</td><td>KZN Treasury Head Office</td><td><a href="#">1051</a></td></tr>
+        <tr><td>Mphemba</td><td>Godide</td><td>P35353454</td><td>KZN Treasury Branch One</td><td><a href="#" data-pv-go="Details">1042</a></td></tr>
+        <tr><td>Thandi</td><td>Mokoena</td><td>9001015009087</td><td>KZN Treasury Branch One</td><td><a href="#" data-pv-go="Details">1043</a></td></tr>
+        <tr><td>Johan</td><td>van Wyk</td><td>8507125800082</td><td>KZN Treasury Head Office</td><td><a href="#" data-pv-go="Details">1051</a></td></tr>
       </tbody>
     </table>
   </div>
@@ -783,8 +951,8 @@
   </div>
 </div>
 <div class="panel-footer ed-actionbar">
-  <a href="#" class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
-  <div class="ed-actionbar-end"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-circle-arrow-right"></span> Continue To Biometrics</button></div>
+  <a href="#" data-pv-go="Search" class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
+  <div class="ed-actionbar-end"><button type="button" data-pv-go="Fingerprint" class="btn btn-primary"><span class="glyphicon glyphicon-circle-arrow-right"></span> Continue To Biometrics</button></div>
 </div>
 </section>
 
@@ -823,8 +991,8 @@
   </div>
 </div>
 <div class="panel-footer ed-actionbar">
-  <a href="#" class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
-  <a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-hand-up"></span> Sign And Continue</a>
+  <a href="#" data-pv-go="Search" class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
+  <a data-pv-go="Facial" href="#" class="btn btn-primary"><span class="glyphicon glyphicon-hand-up"></span> Sign And Continue</a>
 </div>
 </section>
 
@@ -850,8 +1018,8 @@
   </div>
 </div>
 <div class="panel-footer ed-actionbar">
-  <a href="#" class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
-  <a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-hand-up"></span> Sign And Continue</a>
+  <a href="#" data-pv-go="Search" class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
+  <a data-pv-go="Search" data-pv-msg="Biometrics signed. Transversal accounts and PKI are not part of this preview." href="#" class="btn btn-primary"><span class="glyphicon glyphicon-hand-up"></span> Sign And Continue</a>
 </div>
 </section>
 
@@ -863,8 +1031,8 @@
     <h2 class="ed-logon-title">Sign in to the eDNA Web Portal</h2>
     <span class="ed-logon-welcome">Welcome To The eDNA Web Portal. Logon To Explore The Features !</span>
     <table class="ed-logon-table"><tr><td>
-      <a href="#" class="biometric-logon-link"><span class="glyphicon glyphicon-hand-up"></span>&nbsp;Fingerprint Login&nbsp;<span class="glyphicon glyphicon-log-in"></span></a>
-      <a href="#" class="biometric-logon-link"><span class="glyphicon glyphicon-user"></span>&nbsp;Face Login&nbsp;<span class="glyphicon glyphicon-log-in"></span></a>
+      <a href="#" data-pv-go="Search" class="biometric-logon-link"><span class="glyphicon glyphicon-hand-up"></span>&nbsp;Fingerprint Login&nbsp;<span class="glyphicon glyphicon-log-in"></span></a>
+      <a href="#" data-pv-go="Search" class="biometric-logon-link"><span class="glyphicon glyphicon-user"></span>&nbsp;Face Login&nbsp;<span class="glyphicon glyphicon-log-in"></span></a>
     </td></tr></table>
     <p class="ed-logon-hint">Your biometric sign-in options appear above when the portal is ready.</p>
   </div>
@@ -915,6 +1083,17 @@
   }
   screens.forEach(function (s, i) {
     var b = document.createElement('button'); b.textContent = s.dataset.name; b.onclick = function () { show(i); }; sw.appendChild(b);
+  });
+  // Flow buttons move between screens; any other "#" link does nothing instead of jumping to the top.
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href="#"], [data-pv-go]');
+    if (!a) return;
+    e.preventDefault();
+    var n = screens.map(function (s) { return s.dataset.name; }).indexOf(a.getAttribute('data-pv-go'));
+    if (n < 0) return;
+    show(n);
+    window.scrollTo(0, 0);
+    document.getElementById('applicationMessage').textContent = a.getAttribute('data-pv-msg') || 'Connected to the eDNA capture service.';
   });
   var start = +(new URLSearchParams(location.search).get('s') || (function () { try { return localStorage.getItem('pvScreen'); } catch (e) { return 0; } })() || 0);
   show(Math.min(start, screens.length - 1));

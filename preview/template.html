@@ -12,7 +12,7 @@
   .pv-logo { display:inline-flex; align-items:center; height:36px; padding:0 10px; background:#fff; border-radius:6px; color:#1b2a47; font-weight:800; font-size:20px; letter-spacing:-.02em; }
   .pv-switch { position:fixed; left:50%; transform:translateX(-50%); bottom:2px; z-index:2000; display:flex; gap:6px; padding:3px; background:#1e2a38; border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,.2); }
   .pv-switch button { border:0; background:transparent; color:#fff; padding:3px 10px; border-radius:6px; font-size:13px; }
-  .pv-switch button.on { background:#1f6fb2; }
+  .pv-switch button.on { background:#1e5bd8; }
   .pv-screen { display:none; } .pv-screen.on { display:block; }
   .legend-dot { display:inline-block; width:18px; height:18px; border-radius:50%; }
 </style>
@@ -22,6 +22,7 @@
   <nav class="navbar navbar-fixed-top ed-topbar">
     <div class="ed-brand"><span class="pv-logo">eDNA</span><span class="ed-page-title" id="pvTitle">User Enrolment Details</span></div>
     <div class="ed-topbar-actions">
+      <div><a href="javascript:EdToggleTheme()" class="ed-topbar-link ed-theme-toggle" title="Switch light / dark mode" aria-label="Switch light or dark mode"><span class="glyphicon glyphicon-adjust ed-theme-icon-dark"></span><span class="glyphicon glyphicon-certificate ed-theme-icon-light"></span> <span class="ed-link-text">Theme</span></a></div>
       <div class="btn-group"><a class="btn dropdown-header ed-topbar-link" href="#"><span class="glyphicon glyphicon-phone-alt"></span> <span class="ed-link-text">Help &amp; Support</span> <span class="caret"></span></a></div>
       <div class="btn-group"><a class="btn dropdown-header ed-topbar-link" href="#"><span class="glyphicon glyphicon-user"></span> <span class="ed-link-text">Test New TSA1</span> <span class="caret"></span></a></div>
     </div>
@@ -45,17 +46,17 @@
     <form class="form-inline ed-searchbar" role="search">
       <div class="form-group"><select class="dropdown-btn"><option>eDNA ID</option><option>Identification Number</option><option>Surname</option></select></div>
       <input class="form-control" placeholder="Enter Search Value">
-      <a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search</a>
-      <a href="#" class="btn btn-primary ed-btn-success"><span class="glyphicon glyphicon-plus"></span> Create New User</a>
+      <a data-pv-go="Search" href="#" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search</a>
+      <a data-pv-go="Details" href="#" class="btn btn-primary ed-btn-success"><span class="glyphicon glyphicon-plus"></span> Create New User</a>
     </form>
   </div></div>
   <div class="ed-card" style="overflow-y:auto">
     <table class="table table-hover" style="margin:0">
       <thead><tr><th>Name</th><th>Surname</th><th>ID Number</th><th>Entity</th><th>eDNA ID</th></tr></thead>
       <tbody>
-        <tr><td>Mphemba</td><td>Godide</td><td>P35353454</td><td>KZN Treasury Branch One</td><td><a href="#">1042</a></td></tr>
-        <tr><td>Thandi</td><td>Mokoena</td><td>9001015009087</td><td>KZN Treasury Branch One</td><td><a href="#">1043</a></td></tr>
-        <tr><td>Johan</td><td>van Wyk</td><td>8507125800082</td><td>KZN Treasury Head Office</td><td><a href="#">1051</a></td></tr>
+        <tr><td>Mphemba</td><td>Godide</td><td>P35353454</td><td>KZN Treasury Branch One</td><td><a href="#" data-pv-go="Details">1042</a></td></tr>
+        <tr><td>Thandi</td><td>Mokoena</td><td>9001015009087</td><td>KZN Treasury Branch One</td><td><a href="#" data-pv-go="Details">1043</a></td></tr>
+        <tr><td>Johan</td><td>van Wyk</td><td>8507125800082</td><td>KZN Treasury Head Office</td><td><a href="#" data-pv-go="Details">1051</a></td></tr>
       </tbody>
     </table>
   </div>
@@ -92,8 +93,8 @@
   </div>
 </div>
 <div class="panel-footer ed-actionbar">
-  <a href="#" class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
-  <div class="ed-actionbar-end"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-circle-arrow-right"></span> Continue To Biometrics</button></div>
+  <a href="#" data-pv-go="Search" class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
+  <div class="ed-actionbar-end"><button type="button" data-pv-go="Fingerprint" class="btn btn-primary"><span class="glyphicon glyphicon-circle-arrow-right"></span> Continue To Biometrics</button></div>
 </div>
 </section>
 
@@ -132,8 +133,8 @@
   </div>
 </div>
 <div class="panel-footer ed-actionbar">
-  <a href="#" class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
-  <a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-hand-up"></span> Sign And Continue</a>
+  <a href="#" data-pv-go="Search" class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
+  <a data-pv-go="Facial" href="#" class="btn btn-primary"><span class="glyphicon glyphicon-hand-up"></span> Sign And Continue</a>
 </div>
 </section>
 
@@ -159,8 +160,8 @@
   </div>
 </div>
 <div class="panel-footer ed-actionbar">
-  <a href="#" class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
-  <a href="#" class="btn btn-primary"><span class="glyphicon glyphicon-hand-up"></span> Sign And Continue</a>
+  <a href="#" data-pv-go="Search" class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
+  <a data-pv-go="Search" data-pv-msg="Biometrics signed. Transversal accounts and PKI are not part of this preview." href="#" class="btn btn-primary"><span class="glyphicon glyphicon-hand-up"></span> Sign And Continue</a>
 </div>
 </section>
 
@@ -172,8 +173,8 @@
     <h2 class="ed-logon-title">Sign in to the eDNA Web Portal</h2>
     <span class="ed-logon-welcome">Welcome To The eDNA Web Portal. Logon To Explore The Features !</span>
     <table class="ed-logon-table"><tr><td>
-      <a href="#" class="biometric-logon-link"><span class="glyphicon glyphicon-hand-up"></span>&nbsp;Fingerprint Login&nbsp;<span class="glyphicon glyphicon-log-in"></span></a>
-      <a href="#" class="biometric-logon-link"><span class="glyphicon glyphicon-user"></span>&nbsp;Face Login&nbsp;<span class="glyphicon glyphicon-log-in"></span></a>
+      <a href="#" data-pv-go="Search" class="biometric-logon-link"><span class="glyphicon glyphicon-hand-up"></span>&nbsp;Fingerprint Login&nbsp;<span class="glyphicon glyphicon-log-in"></span></a>
+      <a href="#" data-pv-go="Search" class="biometric-logon-link"><span class="glyphicon glyphicon-user"></span>&nbsp;Face Login&nbsp;<span class="glyphicon glyphicon-log-in"></span></a>
     </td></tr></table>
     <p class="ed-logon-hint">Your biometric sign-in options appear above when the portal is ready.</p>
   </div>
@@ -224,6 +225,17 @@
   }
   screens.forEach(function (s, i) {
     var b = document.createElement('button'); b.textContent = s.dataset.name; b.onclick = function () { show(i); }; sw.appendChild(b);
+  });
+  // Flow buttons move between screens; any other "#" link does nothing instead of jumping to the top.
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href="#"], [data-pv-go]');
+    if (!a) return;
+    e.preventDefault();
+    var n = screens.map(function (s) { return s.dataset.name; }).indexOf(a.getAttribute('data-pv-go'));
+    if (n < 0) return;
+    show(n);
+    window.scrollTo(0, 0);
+    document.getElementById('applicationMessage').textContent = a.getAttribute('data-pv-msg') || 'Connected to the eDNA capture service.';
   });
   var start = +(new URLSearchParams(location.search).get('s') || (function () { try { return localStorage.getItem('pvScreen'); } catch (e) { return 0; } })() || 0);
   show(Math.min(start, screens.length - 1));

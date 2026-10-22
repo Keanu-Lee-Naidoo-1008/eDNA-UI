@@ -6,6 +6,13 @@
         <span class="ed-page-title">@ViewBag.CurrentView</span>
     </div>
     <div class="ed-topbar-actions">
+        <div class="pull-right">
+            <a href="javascript:EdToggleTheme()" class="ed-topbar-link ed-theme-toggle" data-toggle="tooltip" data-placement="bottom" title="Switch light / dark mode" aria-label="Switch light or dark mode">
+                <span class="glyphicon glyphicon-adjust ed-theme-icon-dark"></span>
+                <span class="glyphicon glyphicon-certificate ed-theme-icon-light"></span>
+                <span class="ed-link-text">Theme</span>
+            </a>
+        </div>
         <div id="dvCDFinger" class="pull-right" style="display:none">
             <a href="javascript:ChangeDefaultFinger()" data-toggle="tooltip" data-placement="bottom" title="Override default finger" id="lnkDefaultFinger" class="ed-topbar-link">
                 <span class="glyphicon glyphicon-hand-up"></span>
