@@ -309,6 +309,27 @@
   </div>
 </footer>
 
+<!-- Verify fingers popup (styled like the System Information modals in BiometricEnrolment/_MasterLayout) -->
+<div id="pvVerifyModal" style="display:none">
+  <div class="modal-backdrop fade in"></div>
+  <div class="modal fade in" role="dialog" style="display:block">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header"><h4><span class="glyphicon glyphicon-info-sign" style="font-size:24px;color:var(--ed-primary)"></span>&nbsp;<label>System Information</label></h4></div>
+        <div class="modal-body">
+          <p><label id="pvVerifyMsg"></label></p>
+          <ul id="pvVerifyList" class="list-unstyled" style="margin:0"></ul>
+        </div>
+        <div class="modal-footer">
+          <span class="pv-logo" style="margin-right:auto">eDNA</span>
+          <button type="button" id="pvVerifyCancel" data-pv-act="fp-verify-cancel" class="btn btn-default">Cancel</button>
+          <button type="button" id="pvVerifyOk" data-pv-act="fp-verify-run" class="btn btn-default">Verify</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="pv-switch" id="pvSwitch"></div>
 
 <script>
@@ -326,7 +347,7 @@
   var state;
   function resetFlow() {
     state = { fingers: {}, defaultFinger: 0, faces: false, rows: [], pki: 0 };
-    renderFingers(); renderFaces(); renderRows(); renderPki(); closeModal();
+    renderFingers(); renderFaces(); renderRows(); renderPki(); closeModal(); closeVerify();
   }
   function msg(t) { document.getElementById('applicationMessage').textContent = t; }
 
@@ -344,6 +365,33 @@
       grid.innerHTML = html;
     });
   }
+  // Verify popup: lists the fingers, checks each one on the scanner, then OK applies the green highlight.
+  var verifyQueue = [], verifyTimer = 0;
+  function verifyItem(f, s) {
+    var icon = s === 'ok' ? '<span class="glyphicon glyphicon-ok" style="color:var(--ed-success)"></span>' : s === 'busy' ? '<span class="glyphicon glyphicon-hand-up" style="color:var(--ed-primary)"></span>' : '<span class="glyphicon glyphicon-option-horizontal" style="color:var(--ed-text-muted)"></span>';
+    return '<li style="padding:4px 0">' + icon + '&nbsp; Finger ' + f + (s === 'ok' ? ' — verified' : s === 'busy' ? ' — place finger on the scanner…' : '') + '</li>';
+  }
+  function openVerify() {
+    verifyQueue = Object.keys(state.fingers).filter(function (k) { return state.fingers[k] === 'captured'; }).map(Number).sort(function (a, b) { return a - b; });
+    if (!verifyQueue.length) return msg(countFingers() ? 'All captured fingers are already verified.' : 'Capture at least one finger before verifying.');
+    document.getElementById('pvVerifyMsg').textContent = 'Verify ' + verifyQueue.length + ' captured finger(s). Place each finger on the scanner when prompted.';
+    document.getElementById('pvVerifyList').innerHTML = verifyQueue.map(function (f) { return verifyItem(f); }).join('');
+    var ok = document.getElementById('pvVerifyOk');
+    ok.textContent = 'Verify'; ok.dataset.pvAct = 'fp-verify-run'; ok.disabled = false;
+    document.getElementById('pvVerifyCancel').style.display = '';
+    document.getElementById('pvVerifyModal').style.display = '';
+  }
+  function runVerify() {
+    var ok = document.getElementById('pvVerifyOk'), i = 0;
+    ok.disabled = true; document.getElementById('pvVerifyCancel').style.display = 'none';
+    (function step() {
+      document.getElementById('pvVerifyList').innerHTML = verifyQueue.map(function (f, n) { return verifyItem(f, n < i ? 'ok' : n === i ? 'busy' : ''); }).join('');
+      if (i++ < verifyQueue.length) { verifyTimer = setTimeout(step, 600); return; }
+      document.getElementById('pvVerifyMsg').textContent = 'Verification successful. ' + verifyQueue.length + ' finger(s) verified.';
+      ok.textContent = 'OK'; ok.dataset.pvAct = 'fp-verify-done'; ok.disabled = false;
+    })();
+  }
+  function closeVerify() { clearTimeout(verifyTimer); document.getElementById('pvVerifyModal').style.display = 'none'; }
   function countFingers(s) { return Object.keys(state.fingers).filter(function (k) { return !s || state.fingers[k] === s; }).length; }
 
   // Faces: drawn stand-ins for the images returned by the Facial Capture app.
@@ -405,10 +453,12 @@
 
   var ACTIONS = {
     'search': function () { msg('3 users found.'); },
-    'fp-verify': function () {
-      if (!countFingers()) return msg('Capture at least one finger before verifying.');
-      Object.keys(state.fingers).forEach(function (k) { state.fingers[k] = 'verified'; });
-      renderFingers(); msg(countFingers() + ' captured finger(s) verified.');
+    'fp-verify': openVerify,
+    'fp-verify-run': runVerify,
+    'fp-verify-cancel': function () { closeVerify(); msg('Finger verification cancelled.'); },
+    'fp-verify-done': function () {
+      verifyQueue.forEach(function (f) { state.fingers[f] = 'verified'; });
+      closeVerify(); renderFingers(); msg(verifyQueue.length + ' captured finger(s) verified.');
     },
     'fp-default': function () {
       var v = Object.keys(state.fingers).filter(function (k) { return state.fingers[k] === 'verified'; }).map(Number).sort(function (a, b) { return a - b; });
@@ -443,6 +493,7 @@
       return '<li class="ed-step ' + st + '"><span class="ed-step-num">' + (k < cur ? '✓' : k) + '</span><span class="ed-step-label">' + t + '</span></li>';
     }).join('');
     if (names[n] !== 'Transversal') closeModal();
+    closeVerify();
     try { localStorage.setItem('pvScreen', names[n]); } catch (e) {}
   }
   // Screen switcher; "Add Transversal" opens the Transversal screen with its modal, for screenshots.
