@@ -1,54 +1,57 @@
 @* Modern theme for the eDNA Web Portal.
    Rendered in _MasterLayout <head> after the original CSS bundle, so it overrides Bootstrap 3 and Site.css
-   without changing either. Colour values live only in the two colour blocks below (light in :root, dark after it);
+   without changing either. Colour values live only in the colour blocks below (light in :root, dark after it);
    every other rule uses them. Dark mode follows the OS setting; <html data-theme="light|dark"> overrides it
    (set by the toggle script at the end of this file).
+   Rules: flat colour only (no gradients, glows or shadows), one accent colour, two fonts (system fonts, so it
+   works offline), one corner radius, no decorative motion. Semantic colours are for real status only.
    Razor note: CSS at-rules must be written as @@media / @@keyframes in this file. *@
 <style>
     :root {
         color-scheme: light;
 
-        /* ---- Colour: light mode (blue / white) ---- */
-        --ed-primary: #1e5bd8;         /* accent: primary buttons, links, active step, live finger, face ring */
-        --ed-primary-hover: #174ab3;
-        --ed-primary-soft: rgba(30, 91, 216, .08);   /* accent tint: selected or live tile */
-        --ed-on-accent: #ffffff;       /* text on accent and success fills */
-        --ed-success: #14996f;         /* ticks, captured, pass states */
-        --ed-success-soft: rgba(20, 153, 111, .1);
-        --ed-warning: #b97a0a;         /* low quality scores, queued or pending */
-        --ed-warning-soft: rgba(185, 122, 10, .1);
-        --ed-danger: #d23b3b;          /* errors, failed capture, clear/delete */
-        --ed-danger-soft: rgba(210, 59, 59, .08);
+        /* ---- Colour: light mode ---- */
+        --ed-accent: #1e5bd8;          /* the one accent: primary buttons, links, active/selected, focus */
+        --ed-accent-hover: #174ab3;
+        --ed-accent-soft: #e8effc;     /* selected row / tile / menu item */
+        --ed-on-accent: #ffffff;       /* text on accent and status fills */
+        --ed-success: #1a7f4b;         /* real status only: verified, passed, card read OK */
+        --ed-success-hover: #146a3e;
+        --ed-success-soft: #e6f4ec;
+        --ed-warning: #a15c00;         /* low quality, pending, time running out */
+        --ed-warning-hover: #864d00;
+        --ed-warning-soft: #fbf0e0;
+        --ed-danger: #c62828;          /* failed capture, CA/HSM errors, validation, delete */
+        --ed-danger-hover: #a82121;
+        --ed-danger-soft: #fbe9e9;
 
-        --ed-bg: #f4f7fb;              /* page background */
+        --ed-bg: #f5f6f8;              /* page background */
         --ed-surface: #ffffff;         /* panels, cards, modals, top bar */
-        --ed-surface-2: #eef3fa;       /* raised: finger tiles, inputs, hover states */
-        --ed-border: #dae3ef;          /* card and input borders, dividers, empty stepper bars */
-        --ed-border-strong: var(--ed-border);
-        --ed-text: #0c1b33;
-        --ed-text-muted: #5a6a84;      /* labels, meta info, placeholders */
-        --ed-focus: var(--ed-primary);
-        --ed-focus-ring: rgba(30, 91, 216, .25);
-        --ed-overlay: rgba(244, 247, 251, .9);
+        --ed-surface-2: #eef0f3;       /* background shift: table heads, inputs, hover */
+        --ed-border: #d8dce2;          /* dividers and surface edges */
+        --ed-border-strong: #8b95a1;   /* form control edges (3:1 against the surface) */
+        --ed-text-muted: #5b6472;
+        --ed-text: #1f2933;
+        --ed-heading: #0f1720;
+        --ed-overlay: rgba(245, 246, 248, .92);   /* busy and dialog backdrops: flat, no blur */
         --ed-logo-bg: transparent;     /* backdrop for the eDNA logo, which is drawn for light backgrounds */
-        --ed-shadow-rgb: 12, 27, 51;
 
-        /* ---- Type ---- */
-        --ed-font: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
-        --ed-font-mono: Consolas, "Cascadia Mono", Menlo, monospace;
-        --ed-fs-sm: 13px;
-        --ed-fs-base: 15px;
-        --ed-fs-lg: 18px;
-        --ed-fs-xl: 22px;
-        --ed-fs-2xl: 28px;
+        /* ---- Type: two system fonts, 1.25 scale from a 14px base ---- */
+        --ed-font-display: "Segoe UI Variable Display", "Segoe UI Semibold", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        --ed-font-body: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        --ed-text-xs: 11px;
+        --ed-text-sm: 12.5px;
+        --ed-text-base: 14px;
+        --ed-text-lg: 17.5px;
+        --ed-text-xl: 22px;
+        --ed-text-2xl: 27px;
+        --ed-text-3xl: 34px;
+        --ed-leading-tight: 1.2;
+        --ed-leading: 1.5;
 
         /* ---- Shape & space ---- */
-        --ed-radius-sm: 6px;
-        --ed-radius: 10px;
-        --ed-radius-lg: 14px;
-        --ed-shadow-sm: 0 1px 2px rgba(var(--ed-shadow-rgb), .06);
-        --ed-shadow: 0 2px 8px rgba(var(--ed-shadow-rgb), .08);
-        --ed-shadow-lg: 0 12px 32px rgba(var(--ed-shadow-rgb), .16);
+        --ed-radius: 4px;
+        --ed-focus-outline: 2px solid var(--ed-accent);
         --ed-space-1: 4px;
         --ed-space-2: 8px;
         --ed-space-3: 12px;
@@ -60,56 +63,76 @@
         --ed-topbar-h: 64px;
         --ed-statusbar-h: 40px;
         --ed-content-max: 1320px;
+
+        /* ---- Older names, kept so view-level CSS (e.g. PKIEnrolment) keeps working ---- */
+        --ed-primary: var(--ed-accent);
+        --ed-primary-hover: var(--ed-accent-hover);
+        --ed-primary-soft: var(--ed-accent-soft);
+        --ed-focus: var(--ed-accent);
+        --ed-font: var(--ed-font-body);
+        --ed-fs-sm: var(--ed-text-sm);
+        --ed-fs-base: var(--ed-text-base);
+        --ed-fs-lg: var(--ed-text-lg);
+        --ed-fs-xl: var(--ed-text-xl);
+        --ed-fs-2xl: var(--ed-text-2xl);
+        --ed-radius-sm: var(--ed-radius);
+        --ed-radius-lg: var(--ed-radius);
     }
 
-    /* ---- Colour: dark mode (navy / turquoise). Keep both blocks identical. ---- */
+    /* ---- Colour: dark mode (navy surfaces, blue accent). Keep both blocks identical. ---- */
     @@media (prefers-color-scheme: dark) {
         :root:not([data-theme="light"]) {
             color-scheme: dark;
-            --ed-primary: #5ee6d0;
-            --ed-primary-hover: #7befdc;
-            --ed-primary-soft: rgba(94, 230, 208, .12);
-            --ed-on-accent: #04201c;
-            --ed-success: #5ee6d0;
-            --ed-success-soft: rgba(94, 230, 208, .12);
-            --ed-warning: #f2b544;
-            --ed-warning-soft: rgba(242, 181, 68, .12);
-            --ed-danger: #f06c6c;
-            --ed-danger-soft: rgba(240, 108, 108, .12);
+            --ed-accent: #7aa7ff;
+            --ed-accent-hover: #9bbcff;
+            --ed-accent-soft: #1a2a4a;
+            --ed-on-accent: #0a0f1c;
+            --ed-success: #4cc38a;
+            --ed-success-hover: #6dd3a1;
+            --ed-success-soft: #12302a;
+            --ed-warning: #e0a43a;
+            --ed-warning-hover: #ebb95f;
+            --ed-warning-soft: #33270f;
+            --ed-danger: #f07171;
+            --ed-danger-hover: #f49191;
+            --ed-danger-soft: #3a1a1f;
             --ed-bg: #0a0f1c;
             --ed-surface: #111a2b;
             --ed-surface-2: #16213a;
             --ed-border: #22304a;
-            --ed-text: #e7eef8;
+            --ed-border-strong: #4a5a78;
             --ed-text-muted: #8c9ab2;
-            --ed-focus-ring: rgba(94, 230, 208, .3);
-            --ed-overlay: rgba(10, 15, 28, .88);
+            --ed-text: #e7eef8;
+            --ed-heading: #f5f8fc;
+            --ed-overlay: rgba(10, 15, 28, .9);
             --ed-logo-bg: #ffffff;
-            --ed-shadow-rgb: 0, 0, 0;
         }
     }
     :root[data-theme="dark"] {
         color-scheme: dark;
-        --ed-primary: #5ee6d0;
-        --ed-primary-hover: #7befdc;
-        --ed-primary-soft: rgba(94, 230, 208, .12);
-        --ed-on-accent: #04201c;
-        --ed-success: #5ee6d0;
-        --ed-success-soft: rgba(94, 230, 208, .12);
-        --ed-warning: #f2b544;
-        --ed-warning-soft: rgba(242, 181, 68, .12);
-        --ed-danger: #f06c6c;
-        --ed-danger-soft: rgba(240, 108, 108, .12);
+        --ed-accent: #7aa7ff;
+        --ed-accent-hover: #9bbcff;
+        --ed-accent-soft: #1a2a4a;
+        --ed-on-accent: #0a0f1c;
+        --ed-success: #4cc38a;
+        --ed-success-hover: #6dd3a1;
+        --ed-success-soft: #12302a;
+        --ed-warning: #e0a43a;
+        --ed-warning-hover: #ebb95f;
+        --ed-warning-soft: #33270f;
+        --ed-danger: #f07171;
+        --ed-danger-hover: #f49191;
+        --ed-danger-soft: #3a1a1f;
         --ed-bg: #0a0f1c;
         --ed-surface: #111a2b;
         --ed-surface-2: #16213a;
         --ed-border: #22304a;
-        --ed-text: #e7eef8;
+        --ed-border-strong: #4a5a78;
         --ed-text-muted: #8c9ab2;
-        --ed-focus-ring: rgba(94, 230, 208, .3);
-        --ed-overlay: rgba(10, 15, 28, .88);
+        --ed-text: #e7eef8;
+        --ed-heading: #f5f8fc;
+        --ed-overlay: rgba(10, 15, 28, .9);
         --ed-logo-bg: #ffffff;
-        --ed-shadow-rgb: 0, 0, 0;
     }
 
     /* ================= Base ================= */
@@ -118,22 +141,78 @@
         background-image: none !important;
     }
     body {
-        font-family: var(--ed-font);
-        font-size: var(--ed-fs-base);
-        line-height: 1.5;
+        font-family: var(--ed-font-body);
+        font-size: var(--ed-text-base);
+        line-height: var(--ed-leading);
         color: var(--ed-text);
         padding-top: var(--ed-topbar-h);
         padding-bottom: var(--ed-statusbar-h);
         min-height: 100vh;
     }
-    h1, h2, h3, h4, h5 { font-family: var(--ed-font); color: var(--ed-text); font-weight: 600; }
-    a { color: var(--ed-primary); }
-    a:hover, a:focus { color: var(--ed-primary-hover); }
-    label { font-weight: 600; }
-    :focus-visible { outline: 3px solid var(--ed-focus); outline-offset: 2px; }
+    /* Bootstrap names its own font on these; the Glyphicons font keeps its own .glyphicon rule. */
+    input, button, select, textarea, .btn, .form-control, .table, .tooltip, .popover, .label, .badge { font-family: var(--ed-font-body); }
+
+    /* Type scale */
+    h1, h2, h3, h4, .h1, .h2, .h3, .h4 { font-family: var(--ed-font-display); color: var(--ed-heading); font-weight: 600; line-height: var(--ed-leading-tight); }
+    h5, h6, .h5, .h6 { font-family: var(--ed-font-body); color: var(--ed-heading); font-weight: 600; line-height: var(--ed-leading-tight); }
+    h1, .h1 { font-size: var(--ed-text-3xl); }
+    h2, .h2 { font-size: var(--ed-text-2xl); }
+    h3, .h3 { font-size: var(--ed-text-xl); }
+    h4, .h4 { font-size: var(--ed-text-lg); }
+    h5, .h5 { font-size: var(--ed-text-base); }
+    h6, .h6 { font-size: var(--ed-text-sm); }
+    .lead { font-size: var(--ed-text-lg); line-height: var(--ed-leading); }
+    small, .small, .help-block { font-size: var(--ed-text-sm); }
+    p, li, td, th, label, .btn, .form-control { line-height: var(--ed-leading); }
+    label { font-size: var(--ed-text-base); font-weight: 600; }
+    .modal-title, .panel-title { font-family: var(--ed-font-display); color: var(--ed-heading); }
+    .panel-title { font-size: var(--ed-text-lg); }
+
+    a { color: var(--ed-accent); }
+    a:hover, a:focus { color: var(--ed-accent-hover); }
+
+    /* Focus: a solid accent outline everywhere, in place of Bootstrap's glows. */
+    :focus { outline: none; }
+    :focus-visible, a:focus-visible, .btn:focus-visible { outline: var(--ed-focus-outline); outline-offset: 2px; }
     .text-muted { color: var(--ed-text-muted); }
     .text-danger { color: var(--ed-danger); }
     .ed-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+    /* ================= Flat: no gradients, glows, shadows or decorative motion =================
+       Neutralises Bootstrap 3 (and bootstrap-theme.css, if the bundle includes it). */
+    .btn, .btn:active, .btn.active, .open > .dropdown-toggle.btn,
+    .form-control, .input-group, .input-group-addon,
+    .dropdown-menu, .modal-content, .panel, .panel-heading, .well, .thumbnail, .img-thumbnail,
+    .navbar, .navbar-default, .navbar-inverse, .navbar-nav > .open > a, .navbar-nav > .active > a,
+    .progress, .progress-bar, .alert, .list-group, .list-group-item, .popover, .jumbotron, .breadcrumb,
+    .has-error .form-control, .has-warning .form-control, .has-success .form-control,
+    .has-error .form-control:focus, .has-warning .form-control:focus, .has-success .form-control:focus,
+    .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus, .dropdown-menu > .active > a {
+        box-shadow: none;
+        background-image: none;
+        filter: none;
+        text-shadow: none;
+    }
+    .progress-bar-striped, .progress-striped .progress-bar, .progress.active .progress-bar { background-image: none; animation: none; }
+    .btn, .form-control, a, .list-group-item, .nav > li > a { transition: none; }
+    .fade, .modal.fade .modal-dialog { transition: none; transform: none; }   /* modals appear without slide-in */
+
+    /* ================= One corner radius ================= */
+    .btn, .btn-lg, .btn-sm, .btn-xs, .btn-group-lg > .btn, .btn-group-sm > .btn, .btn-group-xs > .btn,
+    .form-control, .input-lg, .input-sm, .input-group-addon, select.dropdown, select.dropdown-btn,
+    .panel, .well, .well-lg, .well-sm, .modal-content, .dropdown-menu, .alert, .label, .badge,
+    .progress, .thumbnail, .img-thumbnail, .img-rounded, .tooltip-inner, .popover, .jumbotron, .breadcrumb,
+    .pager li > a, .pager li > span, .navbar { border-radius: var(--ed-radius); }
+    .navbar-fixed-top, .navbar-static-top, .navbar-fixed-bottom { border-radius: 0; }
+    .panel > .panel-heading { border-radius: var(--ed-radius) var(--ed-radius) 0 0; }
+    .panel > .panel-footer { border-radius: 0 0 var(--ed-radius) var(--ed-radius); }
+    .nav-tabs > li > a { border-radius: var(--ed-radius) var(--ed-radius) 0 0; }
+    .nav-pills > li > a { border-radius: var(--ed-radius); }
+    .pagination > li:first-child > a, .pagination > li:first-child > span { border-radius: var(--ed-radius) 0 0 var(--ed-radius); }
+    .pagination > li:last-child > a, .pagination > li:last-child > span { border-radius: 0 var(--ed-radius) var(--ed-radius) 0; }
+    .list-group-item:first-child { border-top-left-radius: var(--ed-radius); border-top-right-radius: var(--ed-radius); }
+    .list-group-item:last-child { border-bottom-left-radius: var(--ed-radius); border-bottom-right-radius: var(--ed-radius); }
+    .img-circle { border-radius: 50%; }   /* avatars stay round */
 
     /* ================= Shell: top bar ================= */
     header.ed-header { position: relative; z-index: 1030; }
@@ -149,15 +228,15 @@
         border: 0;
         border-bottom: 1px solid var(--ed-border);
         border-radius: 0;
-        box-shadow: var(--ed-shadow-sm);
         color: var(--ed-text);
     }
     .ed-topbar .ed-brand { display: flex; align-items: center; gap: var(--ed-space-3); min-width: 0; }
-    .ed-topbar .ed-brand img { height: 36px; width: auto; background: var(--ed-logo-bg); border-radius: var(--ed-radius-sm); padding: 3px 6px; }
+    .ed-topbar .ed-brand img { height: 36px; width: auto; background: var(--ed-logo-bg); border-radius: var(--ed-radius); padding: 3px 6px; }
     .ed-topbar .ed-page-title {
-        font-size: var(--ed-fs-lg);
+        font-family: var(--ed-font-display);
+        font-size: var(--ed-text-lg);
         font-weight: 600;
-        color: var(--ed-text);
+        color: var(--ed-heading);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -170,9 +249,9 @@
         align-items: center;
         gap: var(--ed-space-2);
         padding: 8px 12px;
-        border-radius: var(--ed-radius-sm);
+        border-radius: var(--ed-radius);
         color: var(--ed-text);
-        font-size: var(--ed-fs-base);
+        font-size: var(--ed-text-base);
         font-weight: 500;
         text-decoration: none;
         background: transparent;
@@ -181,7 +260,7 @@
     }
     .ed-topbar .ed-topbar-link:hover,
     .ed-topbar .ed-topbar-link:focus,
-    .ed-topbar .open > .ed-topbar-link { background: var(--ed-surface-2); color: var(--ed-primary); }
+    .ed-topbar .open > .ed-topbar-link { background: var(--ed-surface-2); color: var(--ed-accent); }
     .ed-topbar .ed-theme-toggle { cursor: pointer; }
     .ed-topbar .ed-theme-toggle .ed-theme-icon-light { display: none; }
     :root[data-ed-dark] .ed-topbar .ed-theme-toggle .ed-theme-icon-light { display: inline-block; }
@@ -195,7 +274,6 @@
         background: var(--ed-surface);
         border: 1px solid var(--ed-border);
         border-radius: var(--ed-radius);
-        box-shadow: var(--ed-shadow-lg);
     }
     .ed-topbar .dropdown-menu > li > a.list-group-item {
         display: flex;
@@ -205,13 +283,13 @@
         margin: 0;
         padding: 10px 12px;
         border: 0;
-        border-radius: var(--ed-radius-sm);
+        border-radius: var(--ed-radius);
         color: var(--ed-text);
-        font-size: var(--ed-fs-base);
+        font-size: var(--ed-text-base);
         background: transparent;
     }
     .ed-topbar .dropdown-menu > li > a.list-group-item:hover,
-    .ed-topbar .dropdown-menu > li > a.list-group-item:focus { background: var(--ed-primary-soft); color: var(--ed-primary-hover); }
+    .ed-topbar .dropdown-menu > li > a.list-group-item:focus { background: var(--ed-accent-soft); color: var(--ed-accent-hover); }
     .ed-topbar .dropdown-menu > li:empty { display: none; }
 
     /* ================= Shell: banners, breadcrumb, wizard ================= */
@@ -220,7 +298,6 @@
         background: var(--ed-warning-soft);
         color: var(--ed-text);
         border-bottom: 2px solid var(--ed-warning);
-        text-align: center;
         font-weight: 500;
     }
     #MVCSiteMap .breadcrumb {
@@ -233,17 +310,17 @@
         background: var(--ed-surface);
         border-bottom: 1px solid var(--ed-border);
         border-radius: 0;
-        font-size: var(--ed-fs-sm);
+        font-size: var(--ed-text-sm);
         color: var(--ed-text-muted);
     }
-    #MVCSiteMap .breadcrumb a { color: var(--ed-primary); }
+    #MVCSiteMap .breadcrumb a { color: var(--ed-accent); }
     #MVCSiteMap #dvClose { margin-left: auto; }
     #MVCSiteMap #dvClose a {
         display: inline-flex;
         align-items: center;
         gap: 6px;
         padding: 4px 10px;
-        border-radius: var(--ed-radius-sm);
+        border-radius: var(--ed-radius);
         color: var(--ed-text-muted);
         font-weight: 600;
         text-decoration: none;
@@ -268,16 +345,17 @@
     }
     .ed-wizard-heading { display: flex; flex-direction: column; min-width: 0; }
     .ed-wizard-eyebrow {
-        font-size: var(--ed-fs-sm);
+        font-size: var(--ed-text-sm);
         font-weight: 600;
         letter-spacing: .04em;
         text-transform: uppercase;
         color: var(--ed-text-muted);
     }
-    #lblUserEnrolment { margin: 0; font-size: var(--ed-fs-lg); font-weight: 600; color: var(--ed-text); }
+    #lblUserEnrolment { margin: 0; font-family: var(--ed-font-display); font-size: var(--ed-text-lg); font-weight: 600; color: var(--ed-heading); }
     .ed-steps { display: flex; align-items: center; gap: var(--ed-space-2); margin: 0; padding: 0; list-style: none; flex-wrap: wrap; }
-    .ed-step { display: flex; align-items: center; gap: var(--ed-space-2); color: var(--ed-text-muted); font-size: var(--ed-fs-sm); font-weight: 600; }
-    .ed-step + .ed-step::before { content: ""; width: 28px; height: 2px; background: var(--ed-border-strong); margin-right: var(--ed-space-1); }
+    .ed-step { display: flex; align-items: center; gap: var(--ed-space-2); color: var(--ed-text-muted); font-size: var(--ed-text-sm); font-weight: 600; }
+    .ed-step-label { font-family: var(--ed-font-display); }
+    .ed-step + .ed-step::before { content: ""; width: 28px; height: 2px; background: var(--ed-border); margin-right: var(--ed-space-1); }   /* connector: shows progress */
     .ed-step-num {
         display: inline-flex;
         align-items: center;
@@ -287,10 +365,10 @@
         border-radius: 50%;
         border: 2px solid var(--ed-border-strong);
         background: var(--ed-surface);
-        font-size: var(--ed-fs-sm);
+        font-size: var(--ed-text-sm);
     }
-    .ed-step.is-current { color: var(--ed-primary); }
-    .ed-step.is-current .ed-step-num { border-color: var(--ed-primary); background: var(--ed-primary); color: var(--ed-on-accent); }
+    .ed-step.is-current { color: var(--ed-accent); }
+    .ed-step.is-current .ed-step-num { border-color: var(--ed-accent); background: var(--ed-accent); color: var(--ed-on-accent); }
     .ed-step.is-done { color: var(--ed-success); }
     .ed-step.is-done .ed-step-num { border-color: var(--ed-success); background: var(--ed-success-soft); color: var(--ed-success); }
     .ed-step.is-done + .ed-step::before { background: var(--ed-success); }
@@ -308,7 +386,7 @@
         height: var(--ed-statusbar-h);
         background: var(--ed-surface);
         border-top: 1px solid var(--ed-border);
-        font-size: var(--ed-fs-sm);
+        font-size: var(--ed-text-sm);
         color: var(--ed-text-muted);
     }
     .ed-statusbar-inner { display: flex; align-items: center; gap: var(--ed-space-5); height: 100%; padding: 0 var(--ed-space-5); }
@@ -317,33 +395,33 @@
     .ed-statusbar #ApplicationInfo { color: var(--ed-text); font-weight: 600; }
     .ed-statusbar-message { display: flex; align-items: center; gap: var(--ed-space-2); flex: 1; min-width: 0; }
     .ed-statusbar-message img { width: 18px; height: 18px; }
-    .ed-statusbar #applicationMessage { font-size: var(--ed-fs-sm); color: var(--ed-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ed-statusbar #applicationMessage { font-size: var(--ed-text-sm); color: var(--ed-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .ed-statusbar-meta { display: flex; align-items: center; gap: var(--ed-space-4); margin-left: auto; white-space: nowrap; }
-    .ed-statusbar #clock { font-family: var(--ed-font-mono); color: var(--ed-text); }
+    .ed-statusbar #clock { font-family: var(--ed-font-body); font-variant-numeric: tabular-nums; color: var(--ed-text); }
 
     /* ================= Busy overlay ================= */
     #divLoading.ed-busy { position: fixed; inset: 0; z-index: 30001; background: var(--ed-overlay); }
     .ed-busy-card {
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        inset: 0;
         width: 480px;
         max-width: 90%;
+        height: fit-content;
+        margin: auto;
         padding: 36px;
-        text-align: center;
+        text-align: center;   /* a confirmation-style dialog */
         background: var(--ed-surface);
-        border-radius: var(--ed-radius-lg);
-        box-shadow: var(--ed-shadow-lg);
+        border: 1px solid var(--ed-border);
+        border-radius: var(--ed-radius);
         color: var(--ed-text);
     }
     .ed-busy-card h3 { margin-top: 0; }
-    .edna-busy-spinner {
+    .edna-busy-spinner {   /* functional: shows work in progress */
         width: 48px;
         height: 48px;
         margin: 0 auto 24px;
-        border: 5px solid var(--ed-primary-soft);
-        border-top-color: var(--ed-primary);
+        border: 5px solid var(--ed-accent-soft);
+        border-top-color: var(--ed-accent);
         border-radius: 50%;
         animation: edna-busy-spin 1s linear infinite;
     }
@@ -352,115 +430,135 @@
 
     /* ================= Bootstrap 3 overrides ================= */
     .btn {
-        border-radius: var(--ed-radius-sm);
         font-weight: 600;
         padding: 9px 18px;
-        font-size: var(--ed-fs-base);
-        transition: background-color .15s, border-color .15s, box-shadow .15s;
+        font-size: var(--ed-text-base);
     }
+    .btn:focus, .btn.focus, .btn:active:focus { outline: none; }
     .btn .glyphicon { margin-right: 4px; top: 2px; }
-    .btn-lg { padding: 12px 24px; font-size: var(--ed-fs-lg); }
-    .btn-primary { background: var(--ed-primary); border-color: var(--ed-primary); color: var(--ed-on-accent); }
-    .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active { background: var(--ed-primary-hover); border-color: var(--ed-primary-hover); color: var(--ed-on-accent); }
+    .btn-lg { padding: 12px 24px; font-size: var(--ed-text-lg); }
+    .btn-sm { font-size: var(--ed-text-sm); }
+    .btn-xs { font-size: var(--ed-text-xs); }
+    .btn-primary { background: var(--ed-accent); border-color: var(--ed-accent); color: var(--ed-on-accent); }
+    .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active { background: var(--ed-accent-hover); border-color: var(--ed-accent-hover); color: var(--ed-on-accent); }
     .btn-default { background: var(--ed-surface); border-color: var(--ed-border-strong); color: var(--ed-text); }
-    .btn-default:hover, .btn-default:focus { background: var(--ed-surface-2); border-color: var(--ed-border-strong); color: var(--ed-text); }
+    .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active { background: var(--ed-surface-2); border-color: var(--ed-border-strong); color: var(--ed-text); }
     /* Secondary look for buttons that must keep the btn-primary class. */
     .btn.ed-btn-secondary { background: var(--ed-surface); border-color: var(--ed-border-strong); color: var(--ed-text); }
     .btn.ed-btn-secondary:hover, .btn.ed-btn-secondary:focus { background: var(--ed-surface-2); color: var(--ed-text); }
-    .btn.ed-btn-success { background: var(--ed-success); border-color: var(--ed-success); color: var(--ed-on-accent); }
-    .btn.ed-btn-success:hover, .btn.ed-btn-success:focus { filter: brightness(.92); color: var(--ed-on-accent); }
+    /* "Create" actions use the accent too: one accent colour, success is kept for status. */
+    .btn.ed-btn-success { background: var(--ed-accent); border-color: var(--ed-accent); color: var(--ed-on-accent); }
+    .btn.ed-btn-success:hover, .btn.ed-btn-success:focus { background: var(--ed-accent-hover); border-color: var(--ed-accent-hover); color: var(--ed-on-accent); }
     .btn[disabled], .btn.disabled { opacity: .5; }
 
     .form-control {
         height: 40px;
         padding: 8px 12px;
         border: 1px solid var(--ed-border-strong);
-        border-radius: var(--ed-radius-sm);
-        box-shadow: none;
-        font-size: var(--ed-fs-base);
+        font-size: var(--ed-text-base);
         color: var(--ed-text);
     }
     textarea.form-control { height: auto; }
-    .form-control:focus { border-color: var(--ed-focus); box-shadow: 0 0 0 3px var(--ed-focus-ring); }
-    .form-control[readonly] { background: var(--ed-surface-2); color: var(--ed-text-muted); }
-    select.dropdown, select.dropdown-btn { height: 40px; padding: 6px 10px; border: 1px solid var(--ed-border-strong); border-radius: var(--ed-radius-sm); background: var(--ed-surface); color: var(--ed-text); }
+    .form-control:focus, select.dropdown:focus, select.dropdown-btn:focus { border-color: var(--ed-accent); outline: var(--ed-focus-outline); outline-offset: 0; }
+    .form-control[readonly] { background: var(--ed-surface-2); border-color: var(--ed-border); color: var(--ed-text-muted); }
+    select.dropdown, select.dropdown-btn { height: 40px; padding: 6px 10px; border: 1px solid var(--ed-border-strong); color: var(--ed-text); }
+    .form-control, select.dropdown, select.dropdown-btn { background-color: var(--ed-surface); }
+    .form-control::placeholder { color: var(--ed-text-muted); opacity: 1; }
+    .input-group-addon { background: var(--ed-surface-2); border-color: var(--ed-border-strong); color: var(--ed-text-muted); }
+    .help-block { color: var(--ed-text-muted); }
+    .has-error .form-control { border-color: var(--ed-danger); }
+    .has-error .help-block, .has-error .control-label, .field-validation-error { color: var(--ed-danger); }
+    .has-success .form-control { border-color: var(--ed-success); }
+    .has-warning .form-control { border-color: var(--ed-warning); }
+    hr { border-top-color: var(--ed-border); }
+    fieldset, legend { border-color: var(--ed-border); color: var(--ed-text); }
 
+    .table { background: transparent; color: var(--ed-text); font-size: var(--ed-text-base); }
     .table > thead > tr > th {
         background: var(--ed-surface-2);
         color: var(--ed-text-muted);
-        font-size: var(--ed-fs-sm);
+        font-size: var(--ed-text-sm);
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: .03em;
         border-bottom: 1px solid var(--ed-border);
     }
     .table > tbody > tr > td { border-top: 1px solid var(--ed-border); vertical-align: middle; }
-    .table-hover > tbody > tr:hover { background: var(--ed-primary-soft); }
-
-    .table { background: transparent; color: var(--ed-text); }
+    .table-hover > tbody > tr:hover { background: var(--ed-accent-soft); }
     .table-striped > tbody > tr:nth-of-type(odd) { background: var(--ed-surface-2); }
     .table-bordered, .table-bordered > thead > tr > th, .table-bordered > tbody > tr > td { border-color: var(--ed-border); }
-    .form-control, select.dropdown, select.dropdown-btn { background-color: var(--ed-surface-2); }
-    .form-control::placeholder { color: var(--ed-text-muted); opacity: 1; }
-    .input-group-addon { background: var(--ed-surface-2); border-color: var(--ed-border); color: var(--ed-text-muted); }
-    .help-block { color: var(--ed-text-muted); }
-    .has-error .form-control { border-color: var(--ed-danger); }
-    .has-error .help-block, .has-error .control-label { color: var(--ed-danger); }
-    hr { border-top-color: var(--ed-border); }
-    fieldset, legend { border-color: var(--ed-border); color: var(--ed-text); }
+    /* tablesorter headers are clickable: plain colour change, no motion. */
+    .table > thead > tr > th.header, .table > thead > tr > th.tablesorter-header { cursor: pointer; }
+    .table > thead > tr > th.header:hover, .table > thead > tr > th.tablesorter-header:hover { color: var(--ed-accent); }
 
-    .panel { background: var(--ed-surface); border: 1px solid var(--ed-border); border-radius: var(--ed-radius); box-shadow: var(--ed-shadow-sm); color: var(--ed-text); }
+    .panel { background: var(--ed-surface); border: 1px solid var(--ed-border); color: var(--ed-text); }
     .panel-default > .panel-heading { background: var(--ed-surface-2); border-color: var(--ed-border); color: var(--ed-text); }
     .panel-footer { background: var(--ed-surface-2); border-top-color: var(--ed-border); }
     .well, .thumbnail { background: var(--ed-surface-2); border-color: var(--ed-border); color: var(--ed-text); }
     .list-group-item { background: var(--ed-surface); border-color: var(--ed-border); color: var(--ed-text); }
     a.list-group-item:hover, a.list-group-item:focus, button.list-group-item:hover { background: var(--ed-surface-2); color: var(--ed-text); }
-    .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus { background: var(--ed-primary-soft); border-color: var(--ed-primary); color: var(--ed-primary); }
+    .list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus { background: var(--ed-accent-soft); border-color: var(--ed-accent); color: var(--ed-accent); }
     .dropdown-menu { background: var(--ed-surface); border-color: var(--ed-border); }
     .dropdown-menu > li > a { color: var(--ed-text); }
-    .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus { background: var(--ed-primary-soft); color: var(--ed-primary); }
+    .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus { background: var(--ed-accent-soft); color: var(--ed-accent); }
     .dropdown-menu .divider { background: var(--ed-border); }
     .nav-tabs { border-bottom-color: var(--ed-border); }
     .nav-tabs > li > a { color: var(--ed-text-muted); }
     .nav-tabs > li > a:hover { background: var(--ed-surface-2); border-color: transparent; }
-    .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus { background: var(--ed-surface); border-color: var(--ed-border) var(--ed-border) transparent; color: var(--ed-primary); }
-    .nav-pills > li.active > a, .nav-pills > li.active > a:hover { background: var(--ed-primary); color: var(--ed-on-accent); }
-    .pagination > li > a, .pagination > li > span { background: var(--ed-surface); border-color: var(--ed-border); color: var(--ed-primary); }
-    .pagination > .active > a, .pagination > .active > span { background: var(--ed-primary); border-color: var(--ed-primary); color: var(--ed-on-accent); }
+    .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus { background: var(--ed-surface); border-color: var(--ed-border) var(--ed-border) transparent; color: var(--ed-accent); }
+    .nav-pills > li.active > a, .nav-pills > li.active > a:hover { background: var(--ed-accent); color: var(--ed-on-accent); }
+    .pagination > li > a, .pagination > li > span { background: var(--ed-surface); border-color: var(--ed-border); color: var(--ed-accent); }
+    .pagination > .active > a, .pagination > .active > span { background: var(--ed-accent); border-color: var(--ed-accent); color: var(--ed-on-accent); }
+    .progress { background: var(--ed-surface-2); }
+    .progress-bar { background-color: var(--ed-accent); color: var(--ed-on-accent); }
+    .progress-bar-success { background-color: var(--ed-success); }
+    .progress-bar-warning { background-color: var(--ed-warning); }
+    .progress-bar-danger { background-color: var(--ed-danger); }
+    .progress-bar-info { background-color: var(--ed-text-muted); }
     .popover { background: var(--ed-surface); border-color: var(--ed-border); color: var(--ed-text); }
-    .close { color: var(--ed-text); text-shadow: none; }
+    .close { color: var(--ed-text); opacity: .6; }
+    .close:hover, .close:focus { color: var(--ed-text); opacity: 1; }
+    .label, .badge { font-size: var(--ed-text-xs); font-weight: 600; }
     .badge { background: var(--ed-surface-2); color: var(--ed-text); }
+    .label-default, .label-info { background: var(--ed-surface-2); color: var(--ed-text); }
+    .label-primary { background: var(--ed-accent); color: var(--ed-on-accent); }
+    .label-success { background: var(--ed-success); color: var(--ed-on-accent); }
+    .label-warning { background: var(--ed-warning); color: var(--ed-on-accent); }
+    .label-danger { background: var(--ed-danger); color: var(--ed-on-accent); }
     .text-success { color: var(--ed-success); }
     .text-warning { color: var(--ed-warning); }
-    .text-primary, .btn-link { color: var(--ed-primary); }
+    .text-info { color: var(--ed-text-muted); }
+    .text-primary, .btn-link { color: var(--ed-accent); }
 
     .btn-danger { background: var(--ed-danger); border-color: var(--ed-danger); color: var(--ed-on-accent); }
-    .btn-danger:hover, .btn-danger:focus { filter: brightness(.92); background: var(--ed-danger); border-color: var(--ed-danger); color: var(--ed-on-accent); }
+    .btn-danger:hover, .btn-danger:focus, .btn-danger:active { background: var(--ed-danger-hover); border-color: var(--ed-danger-hover); color: var(--ed-on-accent); }
     .btn-success { background: var(--ed-success); border-color: var(--ed-success); color: var(--ed-on-accent); }
-    .btn-success:hover, .btn-success:focus { filter: brightness(.92); background: var(--ed-success); border-color: var(--ed-success); color: var(--ed-on-accent); }
-    .btn-info { background: var(--ed-surface); border-color: var(--ed-primary); color: var(--ed-primary); }
-    .btn-info:hover, .btn-info:focus { background: var(--ed-primary-soft); border-color: var(--ed-primary); color: var(--ed-primary-hover); }
+    .btn-success:hover, .btn-success:focus, .btn-success:active { background: var(--ed-success-hover); border-color: var(--ed-success-hover); color: var(--ed-on-accent); }
+    .btn-info { background: var(--ed-surface); border-color: var(--ed-accent); color: var(--ed-accent); }
+    .btn-info:hover, .btn-info:focus, .btn-info:active { background: var(--ed-accent-soft); border-color: var(--ed-accent); color: var(--ed-accent-hover); }
     .btn-warning { background: var(--ed-warning); border-color: var(--ed-warning); color: var(--ed-on-accent); }
+    .btn-warning:hover, .btn-warning:focus, .btn-warning:active { background: var(--ed-warning-hover); border-color: var(--ed-warning-hover); color: var(--ed-on-accent); }
 
-    /* Alerts: tinted fill, coloured edge, body text in the normal text colour so both modes stay readable. */
-    .alert { border-radius: var(--ed-radius); border: 1px solid var(--ed-border); border-left-width: 4px; color: var(--ed-text); }
-    .alert-info { background: var(--ed-primary-soft); border-left-color: var(--ed-primary); }
+    /* Alerts: status alerts keep their colour; info is neutral (it is not a status). */
+    .alert { border: 1px solid var(--ed-border); border-left-width: 4px; color: var(--ed-text); }
+    .alert-info { background: var(--ed-surface-2); border-left-color: var(--ed-text-muted); }
     .alert-success { background: var(--ed-success-soft); border-left-color: var(--ed-success); }
     .alert-warning { background: var(--ed-warning-soft); border-left-color: var(--ed-warning); }
     .alert-danger { background: var(--ed-danger-soft); border-left-color: var(--ed-danger); }
-    .alert .alert-link { color: var(--ed-primary); }
+    .alert .alert-link { color: var(--ed-accent); }
 
-    .tooltip-inner { background: var(--ed-text); color: var(--ed-surface); border-radius: var(--ed-radius-sm); padding: 6px 10px; }
+    .tooltip-inner { background: var(--ed-text); color: var(--ed-surface); padding: 6px 10px; font-size: var(--ed-text-sm); }
     .tooltip.bottom .tooltip-arrow { border-bottom-color: var(--ed-text); }
     .tooltip.top .tooltip-arrow { border-top-color: var(--ed-text); }
     .tooltip.left .tooltip-arrow { border-left-color: var(--ed-text); }
     .tooltip.right .tooltip-arrow { border-right-color: var(--ed-text); }
 
     /* ================= Modals ================= */
-    .modal-content { background: var(--ed-surface); color: var(--ed-text); border: 1px solid var(--ed-border); border-radius: var(--ed-radius-lg); box-shadow: var(--ed-shadow-lg); }
-    .modal-backdrop.in { opacity: .6; }
+    .modal-content { background: var(--ed-surface); color: var(--ed-text); border: 1px solid var(--ed-border); }
+    .modal-backdrop { background: var(--ed-bg); }
+    .modal-backdrop.in { opacity: .85; }
     .modal-header { padding: var(--ed-space-4) var(--ed-space-5); border-bottom: 1px solid var(--ed-border); }
-    .modal-header h4 { display: flex; align-items: center; gap: var(--ed-space-3); margin: 0; font-size: var(--ed-fs-lg); font-weight: 600; }
+    .modal-header h4 { display: flex; align-items: center; gap: var(--ed-space-3); margin: 0; font-size: var(--ed-text-lg); font-weight: 600; }
     .modal-header h4 img { width: 28px; height: auto; }
     .modal-body { padding: var(--ed-space-5); }
     .modal-footer {
@@ -472,7 +570,7 @@
         padding: var(--ed-space-3) var(--ed-space-5);
         border-top: 1px solid var(--ed-border);
         background: var(--ed-surface-2);
-        border-radius: 0 0 var(--ed-radius-lg) var(--ed-radius-lg);
+        border-radius: 0 0 var(--ed-radius) var(--ed-radius);
     }
     .modal-footer .btn + .btn { margin-left: 0; }
     .modal-footer > img.pull-left { float: none !important; order: -1; margin-right: auto; height: 28px; width: auto; }
@@ -482,7 +580,7 @@
 
     /* Message box */
     .ed-message-body label { display: block; float: none !important; margin: 0 0 var(--ed-space-2); font-weight: 400; }
-    .ed-message-body #lblMessageHeader { font-size: var(--ed-fs-lg); font-weight: 600; }
+    .ed-message-body #lblMessageHeader { font-size: var(--ed-text-lg); font-weight: 600; }
 
     /* Key/value lists (user info, report error) */
     .ed-kv { display: grid; grid-template-columns: max-content 1fr; gap: var(--ed-space-2) var(--ed-space-5); margin: 0; }
@@ -490,25 +588,28 @@
     .ed-kv dd { margin: 0; color: var(--ed-text); font-weight: 600; word-break: break-all; }
     .ed-kv dd label { font-weight: inherit; margin: 0; }
 
-    /* Session countdown */
+    /* Session countdown (a modal confirmation, so centred) */
     .ed-countdown { text-align: center; }
-    .ed-countdown #lblSessionTimer { display: block; font-size: var(--ed-fs-lg); font-weight: 500; margin-bottom: var(--ed-space-4); }
+    .ed-countdown #lblSessionTimer { display: block; font-size: var(--ed-text-lg); font-weight: 500; margin-bottom: var(--ed-space-4); }
     .ed-countdown .thumbnail.wraptocenter {
         display: flex;
         align-items: center;
         justify-content: center;
         width: 160px;
-        height: 160px;
+        height: 120px;
         margin: 0 auto;
         padding: 0;
-        border: 6px solid var(--ed-primary-soft);
-        border-radius: 50%;
-        background: var(--ed-surface);
-        box-shadow: none;
+        border: 1px solid var(--ed-border);
+        background: var(--ed-surface-2);
     }
-    .ed-countdown #timespan { font-size: 48px; font-weight: 700; font-variant-numeric: tabular-nums; }
+    .ed-countdown #timespan { font-size: var(--ed-text-3xl); font-weight: 700; font-variant-numeric: tabular-nums; }
+    /* Countdown colour is set by script as a named colour: map it onto the status colours. */
+    #timespan[style*="blue"] { color: var(--ed-text) !important; }
+    #timespan[style*="grey"] { color: var(--ed-text-muted) !important; }
+    #timespan[style*="magenta"], #timespan[style*="orangered"] { color: var(--ed-warning) !important; }
+    #timespan[style*="color: red"], #timespan[style*="color:red"] { color: var(--ed-danger) !important; }
 
-    /* Menu style chooser */
+    /* Menu style chooser (in a modal) */
     .ed-option-grid { display: flex; gap: var(--ed-space-4); justify-content: center; flex-wrap: wrap; }
     .ed-option {
         display: flex;
@@ -522,21 +623,21 @@
         background: var(--ed-surface);
         text-align: center;
     }
-    .ed-option img { max-width: 100%; height: auto; border-radius: var(--ed-radius-sm); }
+    .ed-option img { max-width: 100%; height: auto; border-radius: var(--ed-radius); }
     .ed-option-title { font-weight: 600; }
 
     /* ================= Reusable page components ================= */
     .ed-page { display: flex; flex-direction: column; gap: var(--ed-space-5); }
     .panel-body.ed-page, .panel-body-details.ed-page { padding: 0; }
     .ed-page-header { display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: var(--ed-space-4); }
-    .ed-page-header h2, .ed-page-header h3 { margin: 0; font-size: var(--ed-fs-xl); }
+    .ed-page-header h2, .ed-page-header h3 { margin: 0; font-size: var(--ed-text-xl); }
+    .ed-page-intro h2 { font-size: var(--ed-text-2xl); }
     .ed-page-header p { margin: 4px 0 0; color: var(--ed-text-muted); }
 
     .ed-card {
         background: var(--ed-surface);
         border: 1px solid var(--ed-border);
         border-radius: var(--ed-radius);
-        box-shadow: var(--ed-shadow-sm);
     }
     .ed-card-header {
         display: flex;
@@ -546,7 +647,7 @@
         padding: var(--ed-space-4) var(--ed-space-5);
         border-bottom: 1px solid var(--ed-border);
     }
-    .ed-card-header h3, .ed-card-header h4 { margin: 0; font-size: var(--ed-fs-lg); }
+    .ed-card-header h3, .ed-card-header h4 { margin: 0; font-size: var(--ed-text-lg); }
     .ed-card-body { padding: var(--ed-space-5); }
     .ed-card-body-compact { padding: var(--ed-space-4); }
 
@@ -556,7 +657,7 @@
     .ed-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--ed-space-4) var(--ed-space-5); }
     .ed-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
     .ed-field.ed-span-2 { grid-column: 1 / -1; }
-    .ed-field > label { margin: 0; font-size: var(--ed-fs-sm); color: var(--ed-text-muted); }
+    .ed-field > label { margin: 0; font-size: var(--ed-text-sm); color: var(--ed-text-muted); }
     .ed-field .form-control, .ed-field select { width: 100% !important; }
     .ed-field-inline { flex-direction: row; align-items: center; gap: var(--ed-space-3); }
     .ed-field-inline input[type=checkbox] { width: 20px; height: 20px; margin: 0; }
@@ -564,7 +665,7 @@
     /* Restyles legacy Bootstrap horizontal rows (incl. rows injected at runtime) as label-above-field. */
     .ed-stacked-fields .form-group { display: flex; flex-direction: column; gap: 6px; margin: 0 0 var(--ed-space-4); }
     .ed-stacked-fields .form-group::before, .ed-stacked-fields .form-group::after { display: none; }
-    .ed-stacked-fields .form-group > label { float: none; width: auto !important; margin: 0; padding: 0; text-align: left; font-size: var(--ed-fs-sm); color: var(--ed-text-muted); }
+    .ed-stacked-fields .form-group > label { float: none; width: auto !important; margin: 0; padding: 0; text-align: left; font-size: var(--ed-text-sm); color: var(--ed-text-muted); }
     .ed-stacked-fields .form-group > [class*="col-"] { float: none; width: auto !important; padding: 0; }
     .ed-stacked-fields .form-control { width: 100% !important; }
     .ed-userstatus { margin-top: var(--ed-space-4); padding-top: var(--ed-space-4); border-top: 1px solid var(--ed-border); }
@@ -589,13 +690,12 @@
         background: var(--ed-surface);
         border: 1px solid var(--ed-border);
         border-radius: var(--ed-radius);
-        box-shadow: var(--ed-shadow);
     }
     .ed-actionbar-end { display: flex; align-items: center; gap: var(--ed-space-3); flex-wrap: wrap; }
     .ed-actionbar .btn { width: auto !important; }
 
     /* Side panel (Exceptions / Functions / Legend) */
-    .ed-sidepanel.list-group { margin: 0; overflow: hidden; background: var(--ed-surface); border: 1px solid var(--ed-border); border-radius: var(--ed-radius); box-shadow: var(--ed-shadow-sm); }
+    .ed-sidepanel.list-group { margin: 0; overflow: hidden; background: var(--ed-surface); border: 1px solid var(--ed-border); border-radius: var(--ed-radius); }
     .ed-sidepanel .ed-section-title,
     .ed-sidepanel .list-group-item.ed-section-title {
         display: block;
@@ -608,7 +708,7 @@
         border-bottom: 1px solid var(--ed-border);
         border-radius: 0;
         color: var(--ed-text-muted) !important;
-        font-size: var(--ed-fs-sm) !important;
+        font-size: var(--ed-text-sm) !important;
         font-weight: 600 !important;
         letter-spacing: .04em;
         text-transform: uppercase;
@@ -617,8 +717,8 @@
     .ed-sidepanel > .ed-section-title:first-child { border-top: 0; }
     .ed-sidepanel .list-group-item { margin: 0; padding: 10px var(--ed-space-4); border: 0; border-radius: 0; color: var(--ed-text); }
     .ed-sidepanel a.list-group-item { display: flex; align-items: center; gap: var(--ed-space-2); font-weight: 500; }
-    .ed-sidepanel a.list-group-item:hover, .ed-sidepanel a.list-group-item:focus { background: var(--ed-primary-soft); color: var(--ed-primary-hover); }
-    .ed-sidepanel a.list-group-item .glyphicon { color: var(--ed-primary); }
+    .ed-sidepanel a.list-group-item:hover, .ed-sidepanel a.list-group-item:focus { background: var(--ed-accent-soft); color: var(--ed-accent-hover); }
+    .ed-sidepanel a.list-group-item .glyphicon { color: var(--ed-accent); }
     .ed-sidepanel label.list-group-item { display: flex; align-items: center; gap: var(--ed-space-2); cursor: pointer; font-weight: 500; }
     .ed-sidepanel div.list-group-item:not(.ed-section-title) { display: flex; align-items: center; gap: var(--ed-space-2); }
     .ed-sidepanel div.list-group-item > label { margin: 0; font-weight: 500; cursor: pointer; }
@@ -627,14 +727,15 @@
     .ed-legend { display: flex; flex-direction: column; gap: 2px; padding: var(--ed-space-2) var(--ed-space-4) var(--ed-space-3); }
     .ed-legend-row { display: flex; flex-wrap: wrap; gap: var(--ed-space-4); }
     .ed-legend .list-group-item-legend,
-    .ed-legend-row .list-group-item-legend { display: flex; align-items: center; gap: var(--ed-space-2); margin: 0; padding: 4px 0; font-size: var(--ed-fs-sm) !important; font-weight: 500; color: var(--ed-text); }
-    .ed-legend img.display-legend, .ed-legend-row img.display-legend { width: 18px; height: 18px; border-radius: 50%; }
+    .ed-legend-row .list-group-item-legend { display: flex; align-items: center; gap: var(--ed-space-2); margin: 0; padding: 4px 0; font-size: var(--ed-text-sm) !important; font-weight: 500; color: var(--ed-text); }
+    .ed-legend img.display-legend, .ed-legend-row img.display-legend { width: 18px; height: 18px; border-radius: 50%; }   /* status dots */
 
     /* Capture slots (fingerprint / face thumbnails) */
     .ed-capture-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--ed-space-3); }
     .ed-capture-hands { display: grid; grid-template-columns: 1fr 1fr; gap: var(--ed-space-5); }
-    .ed-hand { display: flex; flex-direction: column; align-items: center; gap: var(--ed-space-3); }
-    .ed-hand-title { margin: 0; font-size: var(--ed-fs-base); font-weight: 600; color: var(--ed-text-muted); text-transform: uppercase; letter-spacing: .04em; }
+    /* The hand diagram stays centred over its row of finger slots: its <area> map lines up with them. */
+    .ed-hand { display: flex; flex-direction: column; align-items: center; gap: var(--ed-space-2); }
+    .ed-hand-title { margin: 0; align-self: flex-start; font-size: var(--ed-text-base); font-weight: 600; color: var(--ed-text-muted); text-transform: uppercase; letter-spacing: .04em; }
     .ed-hand-image { width: 256px; height: 266px; }  /* fixed: <area> coords depend on this size */
     .ed-capture-slot {
         position: relative;
@@ -644,11 +745,13 @@
         gap: 4px;
         padding: var(--ed-space-2);
         border: 1px solid var(--ed-border);
-        border-radius: var(--ed-radius-sm);
+        border-radius: var(--ed-radius);
         background: var(--ed-surface);
     }
-    .ed-capture-slot-label { font-size: 11px; font-weight: 600; color: var(--ed-text-muted); text-transform: uppercase; letter-spacing: .04em; }
-    /* Capture <img> keep their original inline border: the capture scripts may recolour it to show status.
+    .ed-capture-slot:hover { background: var(--ed-surface-2); }
+    .ed-capture-slot-label { font-size: var(--ed-text-xs); font-weight: 600; color: var(--ed-text-muted); text-transform: uppercase; letter-spacing: .04em; }
+    /* Capture <img> keep their original inline border: the capture scripts recolour it to show status
+       (captured / verified / failed / default), so those colours are functional and left alone.
        The frame behind each image shows a placeholder until a capture arrives. */
     .ed-capture-slot .ed-img-frame {
         position: relative;
@@ -656,7 +759,7 @@
         width: 100%;
         max-width: 71px;
         aspect-ratio: 71 / 76;
-        border-radius: var(--ed-radius-sm);
+        border-radius: var(--ed-radius);
         background: var(--ed-surface-2) center / 28px no-repeat;
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a3b1bf' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M12 11c0 3.5-1 6-2.5 8'/%3E%3Cpath d='M8.5 5.5A6 6 0 0 1 18 10c0 2.5-.3 4.6-1 6.5'/%3E%3Cpath d='M6 8.5A6 6 0 0 0 6 13c0 1.5-.3 2.8-1 4'/%3E%3Cpath d='M15 11c0 3-.6 5.5-1.6 7.5'/%3E%3Cpath d='M9 11a3 3 0 0 1 6 0'/%3E%3C/svg%3E");
     }
@@ -668,7 +771,7 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        border-radius: var(--ed-radius-sm);
+        border-radius: var(--ed-radius);
         color: transparent;      /* hides alt text of a broken image */
         font-size: 0;
     }
@@ -676,21 +779,20 @@
     .ed-capture-slot img:not([src]), .ed-capture-slot img[src=""], .ed-capture-slot img.ed-img-empty {
         content: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
     }
-    .ed-capture-slot label[id^="lbl"] { margin: 0; font-size: var(--ed-fs-sm); font-variant-numeric: tabular-nums; color: var(--ed-text-muted); }
+    .ed-capture-slot label[id^="lbl"] { margin: 0; font-size: var(--ed-text-sm); font-variant-numeric: tabular-nums; color: var(--ed-text-muted); }
     .ed-capture-slot a[id^="cmdClear"] { position: absolute; top: 4px; right: 4px; color: var(--ed-danger) !important; }
     .ed-capture-pair { display: flex; flex-direction: column; gap: var(--ed-space-1); align-items: center; width: 100%; }
     .ed-hand .ed-capture-grid { width: 100%; gap: var(--ed-space-2); }
     .ed-hand .ed-capture-slot { padding: 6px 4px; }
 
     /* Face capture (FaceEnrolment) */
-    .ed-face-capture { display: flex; align-items: flex-start; justify-content: center; gap: var(--ed-space-6); flex-wrap: wrap; }
+    .ed-face-capture { display: flex; align-items: flex-start; justify-content: flex-start; gap: var(--ed-space-6); flex-wrap: wrap; }
     .ed-face-slot { min-width: 160px; padding: var(--ed-space-4); }
 
-    /* Numbered step checklist */
+    /* Numbered step checklist (the numbers are step indicators, so they stay round) */
     .ed-page-intro { margin-bottom: var(--ed-space-4); }
-    .ed-hand { gap: var(--ed-space-2); }
     .ed-checklist { display: flex; flex-wrap: wrap; gap: var(--ed-space-2) var(--ed-space-4); margin: 0; padding: 0; list-style: none; counter-reset: ed-check; }
-    .ed-checklist li { display: flex; align-items: center; gap: var(--ed-space-2); counter-increment: ed-check; font-size: var(--ed-fs-sm); color: var(--ed-text-muted); }
+    .ed-checklist li { display: flex; align-items: center; gap: var(--ed-space-2); counter-increment: ed-check; font-size: var(--ed-text-sm); color: var(--ed-text-muted); }
     .ed-checklist li::before {
         content: counter(ed-check);
         display: inline-flex;
@@ -700,10 +802,11 @@
         width: 24px;
         height: 24px;
         border-radius: 50%;
-        background: var(--ed-primary-soft);
-        color: var(--ed-primary);
+        border: 1px solid var(--ed-border-strong);
+        background: var(--ed-surface);
+        color: var(--ed-text);
         font-weight: 700;
-        font-size: 12px;
+        font-size: var(--ed-text-xs);
     }
     .ed-checklist-wide { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--ed-space-3); }
     .ed-checklist-wide li { align-items: flex-start; padding: var(--ed-space-3) var(--ed-space-4); background: var(--ed-surface); border: 1px solid var(--ed-border); border-radius: var(--ed-radius); color: var(--ed-text); }
@@ -722,12 +825,10 @@
         background: var(--ed-surface);
         color: var(--ed-text);
         border: 1px solid var(--ed-border);
-        border-radius: var(--ed-radius-lg);
-        box-shadow: var(--ed-shadow-sm);
     }
-    .btn.ed-choice:hover, .btn.ed-choice:focus { background: var(--ed-surface); color: var(--ed-text); border-color: var(--ed-primary); box-shadow: var(--ed-shadow); }
-    .ed-choice .ed-choice-icon { top: 0; margin: 0 0 var(--ed-space-2); font-size: 28px; color: var(--ed-primary); }
-    .ed-choice-title { font-size: var(--ed-fs-lg); font-weight: 600; }
+    .btn.ed-choice:hover, .btn.ed-choice:focus { background: var(--ed-surface-2); color: var(--ed-text); border-color: var(--ed-accent); }
+    .ed-choice .ed-choice-icon { top: 0; margin: 0 0 var(--ed-space-2); font-size: var(--ed-text-2xl); color: var(--ed-accent); }
+    .ed-choice-title { font-family: var(--ed-font-display); font-size: var(--ed-text-lg); font-weight: 600; color: var(--ed-heading); }
     .ed-choice-text { font-weight: 400; color: var(--ed-text-muted); }
 
     /* Facial enrolment (BiometricEnrolment facial branch) */
@@ -740,9 +841,8 @@
         background: var(--ed-surface);
         border: 1px solid var(--ed-border);
         border-radius: var(--ed-radius);
-        box-shadow: var(--ed-shadow-sm);
     }
-    .face-enrolment-panel .face-image-number { font-size: var(--ed-fs-sm); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--ed-text-muted); }
+    .face-enrolment-panel .face-image-number { font-size: var(--ed-text-sm); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--ed-text-muted); }
     .face-enrolment-panel .face-capture-image {
         display: block;
         width: 100%;
@@ -752,11 +852,11 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: contain;
-        border-radius: var(--ed-radius-sm);
+        border-radius: var(--ed-radius);
     }
     .face-enrolment-panel .face-image-quality { font-weight: 600; color: var(--ed-text-muted); }
 
-    /* ================= Logon ================= */
+    /* ================= Logon (centred) ================= */
     .ed-logon { display: flex; align-items: center; justify-content: center; min-height: calc(100vh - var(--ed-topbar-h) - var(--ed-statusbar-h) - 2 * var(--ed-space-5)); }
     .ed-logon-card {
         width: 440px;
@@ -765,12 +865,11 @@
         text-align: center;
         background: var(--ed-surface);
         border: 1px solid var(--ed-border);
-        border-radius: var(--ed-radius-lg);
-        box-shadow: var(--ed-shadow);
+        border-radius: var(--ed-radius);
     }
     .ed-logon-brand { display: flex; align-items: center; justify-content: center; gap: var(--ed-space-4); margin-bottom: var(--ed-space-4); }
-    .ed-logon-brand img { max-height: 72px; width: auto; }
-    .ed-logon-title { margin: 0 0 var(--ed-space-1); font-size: var(--ed-fs-xl); }
+    .ed-logon-brand img { max-height: 72px; width: auto; background: var(--ed-logo-bg); border-radius: var(--ed-radius); padding: 4px 8px; }
+    .ed-logon-title { margin: 0 0 var(--ed-space-1); font-size: var(--ed-text-xl); }
     .ed-logon-welcome { display: block; color: var(--ed-text-muted); }
     .ed-logon-table { width: 100%; margin-top: var(--ed-space-5); }
     .ed-logon-table td { padding: 0; }
@@ -782,27 +881,62 @@
         margin-top: var(--ed-space-3);
         padding: 14px 20px;
         border-radius: var(--ed-radius);
-        background: var(--ed-primary);
+        background: var(--ed-accent);
         color: var(--ed-on-accent);
-        font-size: var(--ed-fs-lg);
+        font-size: var(--ed-text-lg);
         font-weight: 600;
         text-decoration: none;
     }
-    .ed-logon .biometric-logon-link:hover, .ed-logon .biometric-logon-link:focus { background: var(--ed-primary-hover); color: var(--ed-on-accent); }
-    .ed-logon .biometric-logon-message { padding: var(--ed-space-3); border-radius: var(--ed-radius-sm); background: var(--ed-warning-soft); border-left: 4px solid var(--ed-warning); color: var(--ed-text); text-align: left; }
-    .ed-logon-brand img { background: var(--ed-logo-bg); border-radius: var(--ed-radius-sm); padding: 4px 8px; }
-    .ed-logon-hint { margin: var(--ed-space-5) 0 0; font-size: var(--ed-fs-sm); color: var(--ed-text-muted); }
+    .ed-logon .biometric-logon-link:hover, .ed-logon .biometric-logon-link:focus { background: var(--ed-accent-hover); color: var(--ed-on-accent); }
+    .ed-logon .biometric-logon-message { padding: var(--ed-space-3); border-radius: var(--ed-radius); background: var(--ed-warning-soft); border-left: 4px solid var(--ed-warning); color: var(--ed-text); text-align: left; }
+    .ed-logon-hint { margin: var(--ed-space-5) 0 0; font-size: var(--ed-text-sm); color: var(--ed-text-muted); }
 
-    /* ================= Legacy inline colours =================
-       Older views still carry inline named colours. These map them onto the theme so they follow both modes
-       without editing the views. Capture <img> borders are left alone: the capture scripts recolour them. */
-    .list-group-item[style*="steelblue"] { background: var(--ed-surface-2) !important; border-color: var(--ed-border) !important; }
-    [style*="steelblue"] [style*="color:white"] { color: var(--ed-text-muted) !important; font-size: var(--ed-fs-sm) !important; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
-    [style*="ghostwhite"] { background-color: var(--ed-surface-2) !important; }
+    /* ================= Alignment =================
+       Body text, labels, tables, panels and wizard content read from the left. Only the logon screen,
+       empty states and modal confirmations are centred. Done here so no markup classes change. */
+    .ed-main center { display: block; text-align: left; }
+    .ed-main [style*="text-align:center"], .ed-main [style*="text-align: center"] { text-align: left !important; }
+    .ed-main .table .text-center { text-align: left; }
+    .ed-main .modal center, .ed-main .modal [style*="text-align:center"], .ed-main .modal [style*="text-align: center"] { text-align: center !important; }
+
+    /* ================= Legacy inline styles =================
+       Older views carry inline colours, sizes, borders and shadows. These map them onto the tokens so they
+       follow both modes and the rules above, without editing the views. Capture <img> borders
+       (border:groove + border-color) are left alone: the capture scripts recolour them to show status. */
+    [style*="background-color:steelblue"], [style*="background-color: steelblue"], [style*="background-color:sandybrown"] {
+        background-color: var(--ed-surface-2) !important;
+        border-color: var(--ed-border) !important;
+        color: var(--ed-text-muted) !important;
+    }
+    [style*="steelblue"] [style*="color:white"], [style*="steelblue"][style*="color:white"], [style*="steelblue"] font[color="white"] {
+        color: var(--ed-text-muted) !important;
+        font-size: var(--ed-text-sm) !important;
+        font-weight: 600;
+        letter-spacing: .04em;
+        text-transform: uppercase;
+    }
+    font[color="white"] { color: inherit; }
+    font[size="5"] { font-family: var(--ed-font-display); font-size: var(--ed-text-xl); color: var(--ed-heading); }
+    [style*="ghostwhite"], [style*="whitesmoke"] { background-color: var(--ed-surface-2) !important; }
     [style*="color:black"] { color: var(--ed-text) !important; }
-    [style*="color:blue"] { color: var(--ed-primary) !important; }
+    [style*="color:blue"] { color: var(--ed-accent) !important; }
+    [style*="color:#1f4e79"] { color: var(--ed-heading) !important; }
     a[style*="color:red"], label[style*="color:red"], span[style*="color:red"] { color: var(--ed-danger) !important; }
-    a[style*="background-color: white"], a[style*="background-color: lightskyblue"] { background-color: var(--ed-primary-soft) !important; }
+    /* Row selection set by script (.css("backgroundColor", ...)): selected = accent tint. */
+    a[style*="background-color: white"], a[style*="background-color: lightskyblue"] { background-color: var(--ed-accent-soft) !important; }
+    [style*="box-shadow"] { box-shadow: none !important; }
+    [style*="border-radius"]:not(.wheel_icon) { border-radius: var(--ed-radius) !important; }
+    [style*="border:ridge"]:not(.wheel_icon), [style*="border: 1px solid #000000"] { border: 1px solid var(--ed-border) !important; border-radius: var(--ed-radius); }
+    [style*="font-size:medium"], [style*="font-size:12pt"], [style*="font-size:16px"] { font-size: var(--ed-text-base) !important; }
+    [style*="font-size:12px"] { font-size: var(--ed-text-sm) !important; }
+    [style*="font-size:large"], [style*="font-size:18px"], [style*="font-size:1.25em"] { font-size: var(--ed-text-lg) !important; }
+    [style*="font-size:x-large"] { font-size: var(--ed-text-xl) !important; }
+    /* PKI dialog backdrops are inline rgba: use the theme overlay. */
+    #PkiInstallationDialog, #PkiConfirmDialog { background: var(--ed-overlay) !important; }
+    /* Forensic review page carries its own <style> block (later in the page, so these need extra weight). */
+    body #forensicReview .approval-panel { background: var(--ed-surface-2); border: 1px solid var(--ed-border); border-radius: var(--ed-radius); }
+    body #forensicReview .review-confirmation { background: var(--ed-surface); border-color: var(--ed-border-strong); border-radius: var(--ed-radius); font-size: var(--ed-text-base); }
+    body #forensicReview #reviewConfirmed:focus { outline: var(--ed-focus-outline); }
 
     /* ================= Responsive ================= */
     @@media (max-width: 1100px) {
@@ -818,83 +952,6 @@
         .ed-steps .ed-step-label { display: none; }
         .ed-statusbar-meta .ed-version { display: none; }
     }
-
-    /* eDNA · Look B "Soft + spotlight"
-       Load AFTER _ModernTheme (or paste at the end of its <style> block).
-       CSS only: no markup, id, name or script-hook changes. Uses existing --ed-* tokens. */
-
-    /* ---- Page + shell ---- */
-    body{background:var(--ed-surface-2)}
-    body .ed-topbar{border-bottom-color:transparent}
-    body .ed-topbar-actions{display:flex;align-items:center;gap:8px}
-    body .ed-topbar-link{display:inline-flex!important;align-items:center;gap:6px;height:34px;padding:0 14px!important;border:0!important;border-radius:999px!important;background:var(--ed-surface-2);font-size:13px!important;transition:background .15s,color .15s}
-    body .ed-topbar-link:hover,body .ed-topbar-link:focus{background:var(--ed-primary-soft);color:var(--ed-primary)!important}
-    body .ed-wizard,body #UserEnromentWizard.ed-wizard,body .breadcrumb.ed-wizard{background:transparent;border-bottom:0;padding-top:20px}
-    body .ed-steps{gap:6px}
-    body .ed-step+.ed-step::before{display:none}
-    body .ed-step{padding:4px 14px 4px 4px;border-radius:999px;background:var(--ed-surface)}
-    body .ed-step.is-current{background:var(--ed-primary-soft);color:var(--ed-primary)}
-    body .ed-statusbar{border-top-color:transparent}
-
-    /* ---- Buttons ---- */
-    body .btn{border-radius:999px;padding-left:18px;padding-right:18px;transition:background .15s,border-color .15s,color .15s,box-shadow .15s}
-    body .btn-primary:not(.ed-btn-secondary):not(.ed-btn-success){box-shadow:0 4px 16px var(--ed-focus-ring)}
-
-    /* ---- Page headers (soft spotlight behind the title) ---- */
-    body .ed-page-header{position:relative;isolation:isolate}
-    body .ed-page-header::before{content:"";position:absolute;z-index:-1;left:-60px;top:-50px;width:520px;max-width:100%;height:220px;background:radial-gradient(ellipse at 30% 50%,var(--ed-primary-soft) 0,transparent 65%);pointer-events:none}
-    body .ed-page-header h2,body .ed-page-header h3{letter-spacing:-.02em;font-weight:700}
-    body .ed-page-intro h2{font-size:30px}
-    body .ed-page-intro h2::before,body .face-enrolment-header h3::before{content:"( Biometrics )";display:block;margin-bottom:8px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ed-primary)}
-    body .ed-checklist li{padding:6px 14px 6px 6px;border-radius:999px;background:var(--ed-surface)}
-    body .ed-checklist-wide li{border-radius:18px;padding:12px 16px 12px 8px}
-
-    /* ---- Cards, panels, action bar ---- */
-    body .ed-card,body .ed-sidepanel,body .ed-actionbar{border:0;border-radius:22px;box-shadow:0 2px 8px rgba(var(--ed-shadow-rgb),.06)}
-    body .ed-card-header{border-bottom:0;padding-bottom:4px}
-    body .ed-card-header h3{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ed-text-muted)}
-    body .ed-actionbar{padding:12px 14px}
-
-    /* ---- Form controls ---- */
-    body .form-control,body select.dropdown,body select.dropdown-btn{border-color:transparent;border-radius:12px;background-color:var(--ed-surface-2);box-shadow:none}
-    body .form-control:focus,body select.dropdown:focus,body select.dropdown-btn:focus{border-color:var(--ed-primary);background-color:var(--ed-surface);box-shadow:0 0 0 3px var(--ed-focus-ring)}
-    body .form-control[readonly]{background-color:transparent;border-color:var(--ed-border)}
-
-    /* ---- Tables (density kept) ---- */
-    body .ed-card .table{border-collapse:separate;border-spacing:0}
-    body .ed-card .table>thead>tr>th{border:0;background:transparent;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ed-text-muted)}
-    body .ed-card .table>tbody>tr>td{border-top:1px solid var(--ed-border)}
-    body .ed-card .table-hover>tbody>tr:hover>td{background:var(--ed-primary-soft)}
-    body .ed-card .table>thead>tr>th:first-child,body .ed-card .table>tbody>tr>td:first-child{padding-left:24px}
-
-    /* ---- Fingerprint: spotlight behind each hand ---- */
-    body .ed-layout-split>.ed-card{background:radial-gradient(ellipse 34% 48% at 25% 42%,var(--ed-primary-soft) 0,transparent 70%),radial-gradient(ellipse 34% 48% at 75% 42%,var(--ed-primary-soft) 0,transparent 70%),var(--ed-surface)}
-    body .ed-layout-split>.ed-card .ed-card-body{padding:28px 24px}
-    body .ed-hand-image{position:relative;border:0;border-radius:18px;background-color:transparent;margin-bottom:20px}
-    body .ed-hand-image::after{content:"";position:absolute;left:-12%;right:-12%;bottom:-14px;height:28px;border:1px solid var(--ed-primary);border-radius:50%;opacity:.3}
-    body .ed-capture-slot{border:0;border-radius:14px;background:var(--ed-surface-2);transition:background .15s}
-    body .ed-capture-slot:hover{background:var(--ed-primary-soft)}
-    body .ed-sidepanel{padding:8px;background:radial-gradient(ellipse 90% 30% at 50% 0,var(--ed-primary-soft) 0,transparent 100%),var(--ed-surface)}
-    body .ed-sidepanel .list-group-item{border:0;border-radius:12px!important;background:transparent}
-    body .ed-sidepanel .ed-section-title{padding:14px 14px 4px;font-size:12px;letter-spacing:.08em}
-    body .ed-sidepanel a.list-group-item{color:var(--ed-text)}
-    body .ed-sidepanel a.list-group-item:hover{background:var(--ed-primary-soft)}
-
-    /* ---- Facial: spotlight inside each image card ---- */
-    body .face-image-card{border:0;border-radius:22px;background:radial-gradient(ellipse 60% 55% at 50% 50%,var(--ed-primary-soft) 0,transparent 75%),var(--ed-surface);box-shadow:0 2px 8px rgba(var(--ed-shadow-rgb),.06)}
-    body .face-capture-image{border-radius:14px}
-    body .face-image-quality{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--ed-surface-2)}
-
-    /* ---- Logon: card sits in a spotlight ---- */
-    body .ed-logon{background:radial-gradient(ellipse 45% 55% at 50% 45%,var(--ed-primary-soft) 0,transparent 70%)}
-    body .ed-logon-card{border:0;border-radius:24px;box-shadow:0 12px 32px rgba(var(--ed-shadow-rgb),.10)}
-    body .biometric-logon-link{border-radius:999px!important}
-
-    /* ---- Modals + busy ---- */
-    body .modal-content{border:0;border-radius:22px}
-    body .modal-header{border-bottom:0}
-    body .modal-footer{border-top:0;border-radius:0 0 22px 22px}
-    body .ed-busy-card{border:0;border-radius:24px;background:radial-gradient(circle at 50% 30%,var(--ed-primary-soft) 0,transparent 45%),var(--ed-surface)}
 </style>
 <script type="text/javascript">
     // Presentation only: light / dark mode. A saved choice (localStorage "ed-theme") wins; otherwise the OS setting.
@@ -927,7 +984,7 @@
     })();
 
     // Presentation only: mark capture thumbnails whose image failed to load so the CSS
-    // placeholder shows instead of the browser's broken-image icon. No IDs or values change.
+    // placeholder shows instead of the broken-image icon. No IDs or values change.
     (function () {
         function inSlot(p_Element) {
             return p_Element && p_Element.tagName === 'IMG' && p_Element.closest && p_Element.closest('.ed-capture-slot');
