@@ -388,7 +388,7 @@
                 {
                     String l_strStepState = l_iStep < l_iEnrolmentStep ? "is-done" : (l_iStep == l_iEnrolmentStep ? "is-current" : "");
                     <li class="ed-step @l_strStepState" @(l_iStep == l_iEnrolmentStep ? Html.Raw("aria-current=\"step\"") : null)>
-                        <span class="ed-step-num">@(l_iStep < l_iEnrolmentStep ? "✓" : l_iStep.ToString())</span>
+                        <span class="ed-step-num">@if (l_iStep < l_iEnrolmentStep) {<span class="glyphicon glyphicon-ok" aria-hidden="true"></span><span class="ed-sr-only">Done:</span>} else {<text>@l_iStep</text>}</span>
                         <span class="ed-step-label">@l_arEnrolmentSteps[l_iStep - 1]</span>
                     </li>
                 }

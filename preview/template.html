@@ -10,8 +10,9 @@
   /* Preview-only helpers: stand-ins for images that live in Content/ (not in this folder). */
   .pv-img { display:flex; align-items:center; justify-content:center; background:repeating-linear-gradient(45deg,#f3f5f8,#f3f5f8 8px,#eaeef3 8px,#eaeef3 16px); border:1px dashed #c3ccd6; border-radius:8px; color:#5b6b7c; font-size:12px; text-align:center; }
   .pv-logo { display:inline-flex; align-items:center; height:36px; padding:0 10px; background:#fff; border-radius:6px; color:#1b2a47; font-weight:800; font-size:20px; letter-spacing:-.02em; }
-  .pv-switch { position:fixed; left:50%; transform:translateX(-50%); bottom:2px; z-index:2000; display:flex; gap:6px; padding:3px; background:#1e2a38; border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,.2); }
+  .pv-switch { position:fixed; left:50%; transform:translateX(-50%); bottom:2px; z-index:2000; display:flex; gap:6px; padding:3px; background:#1e2a38; border-radius:4px; }
   .pv-switch button { border:0; background:transparent; color:#fff; padding:3px 10px; border-radius:6px; font-size:13px; }
+  .pv-switch button { border-radius:4px; }
   .pv-switch button.on { background:#1e5bd8; }
   .pv-screen { display:none; } .pv-screen.on { display:block; }
   .legend-dot { display:inline-block; width:18px; height:18px; border-radius:50%; }
@@ -414,7 +415,7 @@
   function renderRows() {
     document.getElementById('pvTRows').innerHTML = state.rows.length ? state.rows.map(function (r, i) {
       return '<tr><td>' + r.join('</td><td>') + '</td><td><a href="#" data-pv-act="t-del" data-row="' + i + '" style="color:var(--ed-primary)"><span class="glyphicon glyphicon-remove"></span> Delete</a></td></tr>';
-    }).join('') : '<tr><td colspan="8" class="text-muted">No transversal accounts added yet. Use Add to add one.</td></tr>';
+    }).join('') : '<tr class="ed-empty-row"><td colspan="8"><div class="ed-empty-state" role="status"><h4 class="ed-empty-state-heading">No transversal accounts</h4><p class="ed-empty-state-text">This user has no transversal accounts yet. Use Add to add one.</p></div></td></tr>';
   }
   function openModal() { resetModal(); document.getElementById('pvTModal').style.display = ''; document.getElementById('pvTType').focus(); }
   function closeModal() { document.getElementById('pvTModal').style.display = 'none'; }
@@ -490,7 +491,7 @@
     document.getElementById('UserEnromentWizard').style.display = cur ? '' : 'none';
     document.getElementById('pvSteps').innerHTML = steps.map(function (t, i) {
       var k = i + 1, st = k < cur ? 'is-done' : k === cur ? 'is-current' : '';
-      return '<li class="ed-step ' + st + '"><span class="ed-step-num">' + (k < cur ? '✓' : k) + '</span><span class="ed-step-label">' + t + '</span></li>';
+      return '<li class="ed-step ' + st + '"><span class="ed-step-num">' + (k < cur ? '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span><span class="ed-sr-only">Done:</span>' : k) + '</span><span class="ed-step-label">' + t + '</span></li>';
     }).join('');
     if (names[n] !== 'Transversal') closeModal();
     closeVerify();

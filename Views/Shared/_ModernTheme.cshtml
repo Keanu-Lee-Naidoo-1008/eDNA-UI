@@ -779,6 +779,9 @@
     .ed-capture-slot img:not([src]), .ed-capture-slot img[src=""], .ed-capture-slot img.ed-img-empty {
         content: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
     }
+    /* Not-yet-captured images start with an inline white border, which glares in dark mode. This matches only while
+       the attribute still says white; once a script sets a status colour the selector stops matching. */
+    .ed-capture-slot img[style*="border-color:white"], .ed-capture-slot img[style*="border-color: white"] { border-color: var(--ed-border-strong) !important; }
     .ed-capture-slot label[id^="lbl"] { margin: 0; font-size: var(--ed-text-sm); font-variant-numeric: tabular-nums; color: var(--ed-text-muted); }
     .ed-capture-slot a[id^="cmdClear"] { position: absolute; top: 4px; right: 4px; color: var(--ed-danger) !important; }
     .ed-capture-pair { display: flex; flex-direction: column; gap: var(--ed-space-1); align-items: center; width: 100%; }
