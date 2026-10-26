@@ -19,7 +19,8 @@
   body .ed-layout-split > .ed-card.pv-plain-card { background:var(--ed-surface); }  /* no hand spotlights behind a table */
   /* Copied from the <style> block in PKIEnrolment/Index.cshtml (view-level, not in the theme). */
   #PkiDestination { border:1px solid var(--ed-border); border-radius:var(--ed-radius); padding:20px; margin-bottom:24px; background:var(--ed-surface-2); }
-  #PkiDestination legend { width:auto; padding:0 10px; border:0; font-size:var(--ed-fs-lg); font-weight:600; }
+  #PkiDestination legend { float:left; width:100%; padding:0; margin:0 0 16px; border:0; font-size:var(--ed-fs-lg); font-weight:600; }
+  #PkiDestination legend + * { clear:both; }
   .pki-mode { display:block; padding:12px 16px; font-size:var(--ed-fs-base); font-weight:400; background:var(--ed-surface); border:1px solid var(--ed-border); border-radius:var(--ed-radius-sm); margin-bottom:10px; }
   .pki-mode input { width:20px; height:20px; margin-right:10px; vertical-align:middle; }
   .pki-wizard { max-width:1100px; margin:0 auto 24px; background:var(--ed-surface); color:var(--ed-text); }
