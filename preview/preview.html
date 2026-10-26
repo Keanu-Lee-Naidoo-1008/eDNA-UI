@@ -950,6 +950,7 @@
   .pv-switch button.on { background:#1e5bd8; }
   .pv-screen { display:none; } .pv-screen.on { display:block; }
   .legend-dot { display:inline-block; width:18px; height:18px; border-radius:50%; }
+  .ed-capture-slot { cursor:pointer; }
   body .ed-layout-split > .ed-card.pv-plain-card { background:var(--ed-surface); }  /* no hand spotlights behind a table */
   /* Copied from the <style> block in PKIEnrolment/Index.cshtml (view-level, not in the theme). */
   #PkiDestination { border:1px solid var(--ed-border); border-radius:var(--ed-radius); padding:20px; margin-bottom:24px; background:var(--ed-surface-2); }
@@ -976,7 +977,7 @@
     <div class="ed-topbar-actions">
       <div><a href="javascript:EdToggleTheme()" class="ed-topbar-link ed-theme-toggle" title="Switch light / dark mode" aria-label="Switch light or dark mode"><span class="glyphicon glyphicon-adjust ed-theme-icon-dark"></span><span class="glyphicon glyphicon-certificate ed-theme-icon-light"></span> <span class="ed-link-text">Theme</span></a></div>
       <div class="btn-group"><a class="btn dropdown-header ed-topbar-link" href="#"><span class="glyphicon glyphicon-phone-alt"></span> <span class="ed-link-text">Help &amp; Support</span> <span class="caret"></span></a></div>
-      <div class="btn-group"><a class="btn dropdown-header ed-topbar-link" href="#"><span class="glyphicon glyphicon-user"></span> <span class="ed-link-text">Test New TSA1</span> <span class="caret"></span></a></div>
+      <div class="btn-group"><a class="btn dropdown-header ed-topbar-link" href="#" data-pv-go="Logon" data-pv-reset data-pv-msg="Signed out."><span class="glyphicon glyphicon-user"></span> <span class="ed-link-text">Test New TSA1</span> <span class="caret"></span></a></div>
     </div>
   </nav>
 </header>
@@ -990,25 +991,41 @@
 
 <main class="ed-main">
 
+<!-- ===== Logon ===== -->
+<section class="pv-screen" data-step="0" data-title="Logon" data-name="Logon">
+<div class="logon-div ed-logon">
+  <div class="ed-logon-card">
+    <div class="ed-logon-brand"><span class="pv-logo" style="height:56px;font-size:30px">eDNA</span></div>
+    <h2 class="ed-logon-title">Sign in to the eDNA Web Portal</h2>
+    <span class="ed-logon-welcome">Welcome To The eDNA Web Portal. Logon To Explore The Features !</span>
+    <table class="ed-logon-table"><tr><td>
+      <a href="#" data-pv-go="Search" data-pv-msg="Signed in as Test New TSA1." class="biometric-logon-link"><span class="glyphicon glyphicon-hand-up"></span>&nbsp;Fingerprint Login&nbsp;<span class="glyphicon glyphicon-log-in"></span></a>
+      <a href="#" data-pv-go="Search" data-pv-msg="Signed in as Test New TSA1." class="biometric-logon-link"><span class="glyphicon glyphicon-user"></span>&nbsp;Face Login&nbsp;<span class="glyphicon glyphicon-log-in"></span></a>
+    </td></tr></table>
+    <p class="ed-logon-hint">Your biometric sign-in options appear above when the portal is ready.</p>
+  </div>
+</div>
+</section>
+
 <!-- ===== Search ===== -->
 <section class="pv-screen" data-step="0" data-title="User Enrolment Details" data-name="Search">
 <div class="panel-body ed-page">
   <div class="ed-page-header"><div><h2>Search eDNA User</h2><p>Find an existing user to update their enrolment, or create a new user to start one.</p></div></div>
   <div class="ed-card"><div class="ed-card-body">
-    <form class="form-inline ed-searchbar" role="search">
+    <form class="form-inline ed-searchbar" role="search" onsubmit="return false">
       <div class="form-group"><select class="dropdown-btn"><option>eDNA ID</option><option>Identification Number</option><option>Surname</option></select></div>
       <input class="form-control" placeholder="Enter Search Value">
-      <a data-pv-go="Search" href="#" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search</a>
-      <a data-pv-go="Details" href="#" class="btn btn-primary ed-btn-success"><span class="glyphicon glyphicon-plus"></span> Create New User</a>
+      <a data-pv-act="search" href="#" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Search</a>
+      <a data-pv-go="Details" data-pv-reset data-pv-msg="You are enrolling a new user." href="#" class="btn btn-primary ed-btn-success"><span class="glyphicon glyphicon-plus"></span> Create New User</a>
     </form>
   </div></div>
   <div class="ed-card" style="overflow-y:auto">
     <table class="table table-hover" style="margin:0">
       <thead><tr><th>Name</th><th>Surname</th><th>ID Number</th><th>Entity</th><th>eDNA ID</th></tr></thead>
       <tbody>
-        <tr><td>Mphemba</td><td>Godide</td><td>P35353454</td><td>KZN Treasury Branch One</td><td><a href="#" data-pv-go="Details">1042</a></td></tr>
-        <tr><td>Thandi</td><td>Mokoena</td><td>9001015009087</td><td>KZN Treasury Branch One</td><td><a href="#" data-pv-go="Details">1043</a></td></tr>
-        <tr><td>Johan</td><td>van Wyk</td><td>8507125800082</td><td>KZN Treasury Head Office</td><td><a href="#" data-pv-go="Details">1051</a></td></tr>
+        <tr><td>Mphemba</td><td>Godide</td><td>P35353454</td><td>KZN Treasury Branch One</td><td><a href="#" data-pv-go="Details" data-pv-reset>1042</a></td></tr>
+        <tr><td>Thandi</td><td>Mokoena</td><td>9001015009087</td><td>KZN Treasury Branch One</td><td><a href="#" data-pv-go="Details" data-pv-reset>1043</a></td></tr>
+        <tr><td>Johan</td><td>van Wyk</td><td>8507125800082</td><td>KZN Treasury Head Office</td><td><a href="#" data-pv-go="Details" data-pv-reset>1051</a></td></tr>
       </tbody>
     </table>
   </div>
@@ -1045,8 +1062,8 @@
   </div>
 </div>
 <div class="panel-footer ed-actionbar">
-  <a href="#" data-pv-go="Search" class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
-  <div class="ed-actionbar-end"><button type="button" data-pv-go="Fingerprint" class="btn btn-primary"><span class="glyphicon glyphicon-circle-arrow-right"></span> Continue To Biometrics</button></div>
+  <a href="#" data-pv-go="Search" data-pv-reset class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
+  <div class="ed-actionbar-end"><button type="button" data-pv-go="Fingerprint" data-pv-msg="User details saved. Continue with biometric enrolment." class="btn btn-primary"><span class="glyphicon glyphicon-circle-arrow-right"></span> Continue To Biometrics</button></div>
 </div>
 </section>
 
@@ -1070,9 +1087,9 @@
       <div class="list-group-item"><input type="checkbox" id="pvL"><label for="pvL">Disable Left Hand</label></div>
       <div class="list-group-item"><input type="checkbox" id="pvR"><label for="pvR">Disable Right Hand</label></div>
       <div class="list-group-item ed-section-title">Functions</div>
-      <a href="#" class="list-group-item"><span class="glyphicon glyphicon-ok"></span> Verify All Captured Fingers</a>
-      <a href="#" class="list-group-item"><span class="glyphicon glyphicon-hand-up"></span> Set Default Finger</a>
-      <a href="#" class="list-group-item"><span class="glyphicon glyphicon-refresh"></span> Reset Captured Fingers</a>
+      <a href="#" data-pv-act="fp-verify" class="list-group-item"><span class="glyphicon glyphicon-ok"></span> Verify All Captured Fingers</a>
+      <a href="#" data-pv-act="fp-default" class="list-group-item"><span class="glyphicon glyphicon-hand-up"></span> Set Default Finger</a>
+      <a href="#" data-pv-act="fp-reset" class="list-group-item"><span class="glyphicon glyphicon-refresh"></span> Reset Captured Fingers</a>
       <a href="#" class="list-group-item"><span class="glyphicon glyphicon-pencil"></span> Override Fingers</a>
       <div class="list-group-item ed-section-title">Color Legend</div>
       <div class="ed-legend">
@@ -1085,8 +1102,8 @@
   </div>
 </div>
 <div class="panel-footer ed-actionbar">
-  <a href="#" data-pv-go="Search" class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
-  <a data-pv-go="Facial" href="#" class="btn btn-primary"><span class="glyphicon glyphicon-hand-up"></span> Sign And Continue</a>
+  <a href="#" data-pv-go="Search" data-pv-reset class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
+  <a data-pv-go="Facial" data-pv-need="fingers" data-pv-msg="Fingerprints signed. Continue with facial enrolment." href="#" class="btn btn-primary"><span class="glyphicon glyphicon-hand-up"></span> Sign And Continue</a>
 </div>
 </section>
 
@@ -1096,8 +1113,8 @@
   <div class="face-enrolment-header ed-page-header">
     <div><h3>Facial Enrolment</h3><p>Capture and verify three facial images using the secure Identity Management application.</p></div>
     <div class="ed-actionbar-end">
-      <a href="#" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-refresh"></span> Reset</a>
-      <button type="button" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-camera"></span> Capture Face Images</button>
+      <a href="#" data-pv-act="face-reset" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-refresh"></span> Reset</a>
+      <button type="button" data-pv-act="face-capture" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-camera"></span> Capture Face Images</button>
     </div>
   </div>
   <ol class="ed-checklist ed-checklist-wide">
@@ -1112,8 +1129,8 @@
   </div>
 </div>
 <div class="panel-footer ed-actionbar">
-  <a href="#" data-pv-go="Search" class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
-  <a data-pv-go="Transversal" data-pv-msg="Biometric data saved. Continue with transversal enrolment." href="#" class="btn btn-primary"><span class="glyphicon glyphicon-hand-up"></span> Sign And Continue</a>
+  <a href="#" data-pv-go="Search" data-pv-reset class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
+  <a data-pv-go="Transversal" data-pv-need="faces" data-pv-msg="Biometric data saved. Continue with transversal enrolment." href="#" class="btn btn-primary"><span class="glyphicon glyphicon-hand-up"></span> Sign And Continue</a>
 </div>
 </section>
 
@@ -1125,53 +1142,51 @@
     <section class="ed-card pv-plain-card" style="overflow-x:auto">
       <table class="table table-hover" style="margin:0">
         <thead><tr><th>Account ID</th><th>Type</th><th>Mainframe ID</th><th>InstallID</th><th>PassportApp</th><th>Controller</th><th>Control-D</th><th>Select</th></tr></thead>
-        <tbody>
-          <tr><td>MGODIDE01</td><td>BAS</td><td>MF20431</td><td>KZN-BAS-01</td><td>False</td><td>False</td><td>False</td><td><a href="#" style="color:var(--ed-primary)"><span class="glyphicon glyphicon-remove"></span> Delete</a></td></tr>
-          <tr><td>MGODIDE02</td><td>PERSAL</td><td>MF20431</td><td></td><td>True</td><td>False</td><td>True</td><td><a href="#" style="color:var(--ed-primary)"><span class="glyphicon glyphicon-remove"></span> Delete</a></td></tr>
-        </tbody>
+        <tbody id="pvTRows"></tbody>
       </table>
     </section>
     <aside class="list-group ed-sidepanel">
       <div class="list-group-item ed-section-title">Transversal Functions</div>
-      <a href="#" data-pv-go="Add Transversal" class="list-group-item"><span class="glyphicon glyphicon-plus"></span> Add</a>
-      <a href="#" class="list-group-item"><span class="glyphicon glyphicon-trash" style="color:var(--ed-danger)"></span> Clear All</a>
+      <a href="#" data-pv-act="t-open" class="list-group-item"><span class="glyphicon glyphicon-plus"></span> Add</a>
+      <a href="#" data-pv-act="t-clear" class="list-group-item"><span class="glyphicon glyphicon-trash" style="color:var(--ed-danger)"></span> Clear All</a>
     </aside>
   </div>
 </div>
 <div class="panel-footer ed-actionbar">
-  <a href="#" data-pv-go="Search" class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
+  <a href="#" data-pv-go="Search" data-pv-reset class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
   <a data-pv-go="PKI" data-pv-msg="Transversal enrolment completed successfully. Continue with PKI Enrolment." href="#" class="btn btn-primary"><span class="glyphicon glyphicon-hand-up"></span> Sign And Continue</a>
 </div>
-</section>
 
-<!-- ===== Add Transversal: the Transversal screen with the modal from Shared/_TransversalManagement + _TransversalAccountFields open ===== -->
-<section class="pv-screen" data-step="3" data-title="Transversal Enrolment Details" data-name="Add Transversal" data-clone="Transversal">
-<div class="modal-backdrop fade in"></div>
-<div class="modal fade in" role="dialog" style="display:block">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header"><h4><span class="glyphicon glyphicon-info-sign" style="font-size:24px;color:var(--ed-primary)"></span>&nbsp;<label>Transversal Details</label></h4></div>
-      <div class="modal-body form-horizontal">
-        <label>Please Select a Transversal.</label><br><br>
-        <div class="form-group"><label class="col-sm-4">Transversal Type</label><div class="col-sm-7"><select class="dropdown" style="width:90%"><option>[--Select Transversal Type--]</option><option>BAS</option><option>PERSAL</option><option>LOGIS</option></select> <a href="#"><span class="glyphicon glyphicon-refresh"></span> Reset</a></div></div>
-        <div class="form-group"><label class="col-sm-4">Transversal User ID</label><div class="col-sm-7"><input class="form-control" placeholder="TransversalUser ID" style="width:90%"></div></div>
-        <div class="form-group"><label class="col-sm-4">Mainframe ID</label><div class="col-sm-7"><input class="form-control" placeholder="MainframeAccount ID" style="width:90%"></div></div>
-        <div class="form-group"><label class="col-sm-4">BAS Install ID</label><div class="col-sm-7"><select class="dropdown" style="width:90%"><option>[--Select BAS Install ID--]</option><option>KZN-BAS-01</option></select></div></div>
-        <div class="form-group"><label class="col-sm-4" for="pvTPA">Is PassportApp User</label><div class="col-sm-7"><input type="checkbox" id="pvTPA"></div></div>
-        <div class="form-group"><label class="col-sm-4" for="pvTC">Is Controller</label><div class="col-sm-7"><input type="checkbox" id="pvTC"></div></div>
-        <div class="form-group"><label class="col-sm-4" for="pvTD">Is Control-D User</label><div class="col-sm-7"><input type="checkbox" id="pvTD"></div></div>
-      </div>
-      <div class="modal-footer">
-        <span class="pv-logo" style="margin-right:auto">eDNA</span>
-        <button type="button" data-pv-go="Transversal" class="btn btn-default">Cancel</button>
-        <button type="button" data-pv-go="Transversal" data-pv-msg="Transversal added to the list." class="btn btn-default">Add Transversal</button>
+<!-- Add Transversal modal (Shared/_TransversalManagement + _TransversalAccountFields) -->
+<div id="pvTModal" style="display:none">
+  <div class="modal-backdrop fade in"></div>
+  <div class="modal fade in" role="dialog" style="display:block">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header"><h4><span class="glyphicon glyphicon-info-sign" style="font-size:24px;color:var(--ed-primary)"></span>&nbsp;<label>Transversal Details</label></h4></div>
+        <div class="modal-body form-horizontal">
+          <label>Please Select a Transversal.</label><br><br>
+          <div class="form-group"><label class="col-sm-4" for="pvTType">Transversal Type</label><div class="col-sm-7"><select id="pvTType" class="dropdown" style="width:90%"><option value="">[--Select Transversal Type--]</option><option>BAS</option><option>PERSAL</option><option>LOGIS</option></select> <a href="#" data-pv-act="t-reset"><span class="glyphicon glyphicon-refresh"></span> Reset</a></div></div>
+          <div class="form-group"><label class="col-sm-4" for="pvTUser">Transversal User ID</label><div class="col-sm-7"><input id="pvTUser" class="form-control" placeholder="TransversalUser ID" autocomplete="off" style="width:90%"></div></div>
+          <div class="form-group"><label class="col-sm-4" for="pvTMain">Mainframe ID</label><div class="col-sm-7"><input id="pvTMain" class="form-control" placeholder="MainframeAccount ID" autocomplete="off" style="width:90%"></div></div>
+          <div class="form-group"><label class="col-sm-4" for="pvTInstall">BAS Install ID</label><div class="col-sm-7"><select id="pvTInstall" class="dropdown" style="width:90%"><option value="">[--Select BAS Install ID--]</option><option>KZN-BAS-01</option><option>KZN-BAS-02</option></select></div></div>
+          <div class="form-group"><label class="col-sm-4" for="pvTPA">Is PassportApp User</label><div class="col-sm-7"><input type="checkbox" id="pvTPA"></div></div>
+          <div class="form-group"><label class="col-sm-4" for="pvTC">Is Controller</label><div class="col-sm-7"><input type="checkbox" id="pvTC"></div></div>
+          <div class="form-group"><label class="col-sm-4" for="pvTD">Is Control-D User</label><div class="col-sm-7"><input type="checkbox" id="pvTD"></div></div>
+          <p id="pvTErr" class="text-danger" style="margin:0"></p>
+        </div>
+        <div class="modal-footer">
+          <span class="pv-logo" style="margin-right:auto">eDNA</span>
+          <button type="button" data-pv-act="t-close" class="btn btn-default">Cancel</button>
+          <button type="button" data-pv-act="t-add" class="btn btn-default">Add Transversal</button>
+        </div>
       </div>
     </div>
   </div>
 </div>
 </section>
 
-<!-- ===== PKI (from PKIEnrolment/Index.cshtml) ===== -->
+<!-- ===== PKI (from PKIEnrolment/Index.cshtml; step text written for the preview) ===== -->
 <section class="pv-screen" data-step="4" data-title="PKI Enrolment" data-name="PKI">
 <div class="pki-wizard panel panel-default">
   <div class="panel-body">
@@ -1182,18 +1197,26 @@
       <p role="status">Memory testing is not enabled for this officer.</p>
       <p>Both modes use a real card key and real CA/HSM services. Memory test verifies the final files in memory without installing enrolment files, verifying the recipient or activating the card.</p>
     </fieldset>
-    <div class="alert alert-info" style="font-size:1.25em;white-space:pre-line">CA: 00:00:00 | HSM: 00:00:00</div>
-    <ol class="pki-steps" aria-label="Enrolment progress">
-      <li class="pki-current">Check cards</li><li>Authorize officer</li><li>Certificate</li><li>Sign files</li><li>Install card</li><li>Verify recipient</li><li>Activate</li>
-    </ol>
-    <p class="text-muted">Step 1 of 7</p>
-    <h2>Check the cards and enrolment</h2>
-    <p>Keep the officer card in the primary reader and the allocated blank card in the secondary reader. Its serial is read automatically; we check the officer allocation, selected user and saved biometrics.</p>
-    <p>Allocate the warehoused card to the enrolment officer in <a href="#">Smartcard Management</a> before starting. The recipient is assigned when activation completes.</p>
-    <div id="PkiWizardMessage" class="alert alert-info" role="status">Ready to begin.</div>
-    <button type="button" class="btn btn-primary btn-lg">Check cards and continue</button>
-    <a href="#" data-pv-go="Search" class="btn btn-default" style="margin:8px">Leave wizard</a>
-    <p class="text-muted">Your operation is retained if you leave. Returning may require fresh officer authentication.</p>
+    <div id="pvPkiTiming" class="alert alert-info" style="font-size:1.25em;white-space:pre-line">CA: 00:00:00 | HSM: 00:00:00</div>
+    <div id="pvPkiDone" class="alert alert-success" style="display:none" role="dialog" aria-label="Enrolment complete">
+      <h3>Enrolment complete</h3>
+      <p>The smartcard is activated and assigned to Mphemba Godide. Biometrics, transversal accounts and the PKI certificate are saved.</p>
+      <a href="#" data-pv-go="Search" data-pv-reset data-pv-msg="User enrolment completed." class="btn btn-primary">Start new enrolment</a>
+      <a href="#" data-pv-go="Search" data-pv-reset class="btn btn-default">Close</a>
+    </div>
+    <div id="pvPkiWizard">
+      <ol class="pki-steps" id="pvPkiSteps" aria-label="Enrolment progress">
+        <li>Check cards</li><li>Authorize officer</li><li>Certificate</li><li>Sign files</li><li>Install card</li><li>Verify recipient</li><li>Activate</li>
+      </ol>
+      <p id="pvPkiProgress" class="text-muted">Step 1 of 7</p>
+      <h2 id="pvPkiTitle"></h2>
+      <p id="pvPkiHelp"></p>
+      <p>Allocate the warehoused card to the enrolment officer in <a href="#">Smartcard Management</a> before starting. The recipient is assigned when activation completes.</p>
+      <div id="PkiWizardMessage" class="alert alert-info" role="status">Ready to begin.</div>
+      <button type="button" id="pvPkiNext" data-pv-act="pki-next" class="btn btn-primary btn-lg"></button>
+      <a href="#" data-pv-go="Search" data-pv-reset class="btn btn-default" style="margin:8px">Leave wizard</a>
+      <p class="text-muted">Your operation is retained if you leave. Returning may require fresh officer authentication.</p>
+    </div>
     <details class="pki-recovery" open>
       <summary>Resume an enrolment or view details</summary>
       <p>Operation: 3f6c2a1e-8b4d-4c7a-9e21-5d0b7a9c4e10</p>
@@ -1204,26 +1227,8 @@
       <button type="button" class="btn btn-default">Check saved activation</button>
       <p>If activation was already attempted, check its saved result. Do not start a new enrolment.</p>
       <label for="pvPkiStatus">Service details</label>
-      <textarea id="pvPkiStatus" class="form-control" rows="5" readonly style="width:100%;max-width:none">PKI service: connected
-Primary reader: officer card detected
-Secondary reader: waiting for card</textarea>
+      <textarea id="pvPkiStatus" class="form-control" rows="5" readonly style="width:100%;max-width:none"></textarea>
     </details>
-  </div>
-</div>
-</section>
-
-<!-- ===== Logon ===== -->
-<section class="pv-screen" data-step="0" data-title="Logon" data-name="Logon">
-<div class="logon-div ed-logon">
-  <div class="ed-logon-card">
-    <div class="ed-logon-brand"><span class="pv-logo" style="height:56px;font-size:30px">eDNA</span></div>
-    <h2 class="ed-logon-title">Sign in to the eDNA Web Portal</h2>
-    <span class="ed-logon-welcome">Welcome To The eDNA Web Portal. Logon To Explore The Features !</span>
-    <table class="ed-logon-table"><tr><td>
-      <a href="#" data-pv-go="Search" class="biometric-logon-link"><span class="glyphicon glyphicon-hand-up"></span>&nbsp;Fingerprint Login&nbsp;<span class="glyphicon glyphicon-log-in"></span></a>
-      <a href="#" data-pv-go="Search" class="biometric-logon-link"><span class="glyphicon glyphicon-user"></span>&nbsp;Face Login&nbsp;<span class="glyphicon glyphicon-log-in"></span></a>
-    </td></tr></table>
-    <p class="ed-logon-hint">Your biometric sign-in options appear above when the portal is ready.</p>
   </div>
 </div>
 </section>
@@ -1241,31 +1246,129 @@ Secondary reader: waiting for card</textarea>
 <div class="pv-switch" id="pvSwitch"></div>
 
 <script>
-  // Screens with data-clone start with a copy of another screen (e.g. a modal shown over it).
-  document.querySelectorAll('[data-clone]').forEach(function (s) {
-    s.insertAdjacentHTML('afterbegin', document.querySelector('.pv-screen[data-name="' + s.dataset.clone + '"]').innerHTML);
-  });
+  // Preview-only simulation of the enrolment flow. Nothing here talks to a server.
+  var FP_IMG = 'data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 65 70%27%3E%3Crect width=%2765%27 height=%2770%27 fill=%27%23e9e4dc%27/%3E%3Cg fill=%27none%27 stroke=%27%236b5b4a%27 stroke-width=%271.4%27%3E%3Cellipse cx=%2732%27 cy=%2738%27 rx=%2722%27 ry=%2726%27/%3E%3Cellipse cx=%2732%27 cy=%2738%27 rx=%2716%27 ry=%2720%27/%3E%3Cellipse cx=%2732%27 cy=%2738%27 rx=%2710%27 ry=%2713%27/%3E%3Cellipse cx=%2732%27 cy=%2738%27 rx=%274%27 ry=%276%27/%3E%3C/g%3E%3C/svg%3E';
+  var PKI_STEPS = [
+    ['Check the cards and enrolment', 'Keep the officer card in the primary reader and the allocated blank card in the secondary reader. Its serial is read automatically; we check the officer allocation, selected user and saved biometrics.', 'Check cards and continue', 'Card selection checked. Secondary card: 04A1-77F2-19C3.'],
+    ['Authorize the enrolment officer', 'Enter the officer card PIN when prompted so the CA accepts requests for this enrolment.', 'Authorize officer', 'Officer Test New TSA1 authorized.'],
+    ['Request the certificate', 'The CA issues the user certificate for the key generated on the new card.', 'Request certificate', 'Certificate issued by the eDNA CA.'],
+    ['Sign the enrolment files', 'The HSM signs the biometric and transversal enrolment files for the card.', 'Sign files', 'Enrolment files signed by the HSM.'],
+    ['Install the card', 'The signed files are written to the card in the secondary reader. Keep both cards inserted.', 'Install card', 'Files written to the card and read back.'],
+    ['Verify the recipient', 'Ask Mphemba Godide to place a verified finger on the scanner to confirm they hold the card.', 'Verify recipient', 'Recipient verified against the card.'],
+    ['Activate the card', 'Activation assigns the card to the recipient and completes the enrolment.', 'Activate card', 'Card activated.']
+  ];
+  var state;
+  function resetFlow() {
+    state = { fingers: {}, defaultFinger: 0, faces: false, rows: [], pki: 0 };
+    renderFingers(); renderFaces(); renderRows(); renderPki(); closeModal();
+  }
+  function msg(t) { document.getElementById('applicationMessage').textContent = t; }
 
-  // Fingerprint slots, generated the same way as BiometricEnrolment/Index.cshtml.
-  document.querySelectorAll('[data-slots]').forEach(function (grid) {
-    var r = grid.dataset.slots.split('-').map(Number), html = '';
-    for (var i = r[0]; i <= r[1]; i++) {
-      var captured = i === 2 || i === 7, verified = i === 3;
-      var b = 'border:groove;border-color:' + (verified ? '#53ea1a' : captured ? '#ffe14d' : 'white') + ';object-fit:cover';
-      html += '<div class="ed-capture-slot"><span class="ed-capture-slot-label">Finger ' + i + '</span><div class="ed-capture-pair">' +
-        '<span class="ed-img-frame"><img alt="" style="' + b + '"' + (captured || verified ? ' src="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 65 70%27%3E%3Crect width=%2765%27 height=%2770%27 fill=%27%23e9e4dc%27/%3E%3Cg fill=%27none%27 stroke=%27%236b5b4a%27 stroke-width=%271.4%27%3E%3Cellipse cx=%2732%27 cy=%2738%27 rx=%2722%27 ry=%2726%27/%3E%3Cellipse cx=%2732%27 cy=%2738%27 rx=%2716%27 ry=%2720%27/%3E%3Cellipse cx=%2732%27 cy=%2738%27 rx=%2710%27 ry=%2713%27/%3E%3Cellipse cx=%2732%27 cy=%2738%27 rx=%274%27 ry=%276%27/%3E%3C/g%3E%3C/svg%3E"' : '') + '></span>' +
-        '<label>' + (captured || verified ? (70 + i) : 0) + '</label>' +
-        '<span class="ed-img-frame"><img alt="" style="' + b + '"></span><label>0</label></div></div>';
-    }
-    grid.innerHTML = html;
-  });
+  // Fingerprints: click a slot to capture both samples, then verify.
+  function renderFingers() {
+    document.querySelectorAll('[data-slots]').forEach(function (grid) {
+      var r = grid.dataset.slots.split('-').map(Number), html = '';
+      for (var i = r[0]; i <= r[1]; i++) {
+        var st = state.fingers[i];
+        var colour = i === state.defaultFinger ? '#ff1800' : st === 'verified' ? '#53ea1a' : st ? '#ffe14d' : 'white';
+        var img = '<span class="ed-img-frame"><img alt="" style="border:groove;border-color:' + colour + ';object-fit:cover"' + (st ? ' src="' + FP_IMG + '"' : '') + '></span>';
+        html += '<div class="ed-capture-slot" data-finger="' + i + '" title="Click to capture finger ' + i + '"><span class="ed-capture-slot-label">Finger ' + i + '</span><div class="ed-capture-pair">' +
+          img + '<label>' + (st ? 70 + i : 0) + '</label>' + img + '<label>' + (st ? 68 + i : 0) + '</label></div></div>';
+      }
+      grid.innerHTML = html;
+    });
+  }
+  function countFingers(s) { return Object.keys(state.fingers).filter(function (k) { return !s || state.fingers[k] === s; }).length; }
+
+  // Faces: drawn stand-ins for the images returned by the Facial Capture app.
+  function renderFaces() {
+    document.querySelectorAll('.face-image-card').forEach(function (card, n) {
+      var c = card.querySelector('canvas'), x = c.getContext('2d'), w = c.width, h = c.height;
+      x.clearRect(0, 0, w, h);
+      card.querySelector('.face-image-quality').textContent = state.faces ? 'Quality ' + [94, 91, 96][n] + '% · Verified' : 'Not captured';
+      if (!state.faces) return;
+      var g = x.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#e4eaf1'); g.addColorStop(1, '#b8c5d3');
+      x.fillStyle = g; x.fillRect(0, 0, w, h);
+      x.fillStyle = '#2b3a55'; x.beginPath(); x.ellipse(w / 2, h + 30, 120, 100, 0, Math.PI, 0); x.fill();
+      x.fillStyle = '#7a4e33'; x.beginPath(); x.ellipse(w / 2 + (n - 1) * 8, h * 0.44, 50, 64, 0, 0, Math.PI * 2); x.fill();
+      x.strokeStyle = 'rgba(255,255,255,.8)'; x.setLineDash([6, 5]); x.lineWidth = 2;
+      x.beginPath(); x.ellipse(w / 2, h * 0.46, 78, 98, 0, 0, Math.PI * 2); x.stroke(); x.setLineDash([]);
+    });
+  }
+
+  // Transversal accounts.
+  function renderRows() {
+    document.getElementById('pvTRows').innerHTML = state.rows.length ? state.rows.map(function (r, i) {
+      return '<tr><td>' + r.join('</td><td>') + '</td><td><a href="#" data-pv-act="t-del" data-row="' + i + '" style="color:var(--ed-primary)"><span class="glyphicon glyphicon-remove"></span> Delete</a></td></tr>';
+    }).join('') : '<tr><td colspan="8" class="text-muted">No transversal accounts added yet. Use Add to add one.</td></tr>';
+  }
+  function openModal() { resetModal(); document.getElementById('pvTModal').style.display = ''; document.getElementById('pvTType').focus(); }
+  function closeModal() { document.getElementById('pvTModal').style.display = 'none'; }
+  function resetModal() {
+    ['pvTType', 'pvTUser', 'pvTMain', 'pvTInstall'].forEach(function (id) { document.getElementById(id).value = ''; });
+    ['pvTPA', 'pvTC', 'pvTD'].forEach(function (id) { document.getElementById(id).checked = false; });
+    document.getElementById('pvTErr').textContent = '';
+  }
+  function addRow() {
+    var v = function (id) { return document.getElementById(id).value.trim(); };
+    var b = function (id) { return document.getElementById(id).checked ? 'True' : 'False'; };
+    if (!v('pvTType') || !v('pvTUser')) { document.getElementById('pvTErr').textContent = 'Select a transversal type and enter the transversal user ID.'; return; }
+    state.rows.push([v('pvTUser').toUpperCase(), v('pvTType'), v('pvTMain').toUpperCase(), v('pvTInstall'), b('pvTPA'), b('pvTC'), b('pvTD')]);
+    renderRows(); closeModal(); msg('Transversal added to the list.');
+  }
+
+  // PKI wizard.
+  function renderPki() {
+    var k = state.pki, done = k >= PKI_STEPS.length;
+    document.querySelectorAll('#pvPkiSteps li').forEach(function (li, i) {
+      li.className = i < k ? 'pki-done' : i === k ? 'pki-current' : '';
+    });
+    document.getElementById('pvPkiWizard').style.display = done ? 'none' : '';
+    document.getElementById('pvPkiDone').style.display = done ? '' : 'none';
+    var secs = function (n) { return '00:00:' + ('0' + n).slice(-2); };
+    document.getElementById('pvPkiTiming').textContent = 'CA: ' + secs(Math.min(k, 3) * 4) + ' | HSM: ' + secs(Math.max(0, k - 2) * 3);
+    document.getElementById('pvPkiStatus').value = ['PKI service: connected', 'Primary reader: officer card detected', 'Secondary reader: ' + (k ? 'card 04A1-77F2-19C3' : 'waiting for card')]
+      .concat(PKI_STEPS.slice(0, k).map(function (s) { return s[3]; })).join('\n');
+    if (done) return;
+    document.getElementById('pvPkiProgress').textContent = 'Step ' + (k + 1) + ' of ' + PKI_STEPS.length;
+    document.getElementById('pvPkiTitle').textContent = PKI_STEPS[k][0];
+    document.getElementById('pvPkiHelp').textContent = PKI_STEPS[k][1];
+    document.getElementById('pvPkiNext').textContent = PKI_STEPS[k][2];
+    document.getElementById('PkiWizardMessage').textContent = k ? PKI_STEPS[k - 1][3] : 'Ready to begin.';
+  }
+
+  var ACTIONS = {
+    'search': function () { msg('3 users found.'); },
+    'fp-verify': function () {
+      if (!countFingers()) return msg('Capture at least one finger before verifying.');
+      Object.keys(state.fingers).forEach(function (k) { state.fingers[k] = 'verified'; });
+      renderFingers(); msg(countFingers() + ' captured finger(s) verified.');
+    },
+    'fp-default': function () {
+      var v = Object.keys(state.fingers).filter(function (k) { return state.fingers[k] === 'verified'; }).map(Number).sort(function (a, b) { return a - b; });
+      if (!v.length) return msg('Verify a finger before setting the default.');
+      state.defaultFinger = v[0]; renderFingers(); msg('Finger ' + v[0] + ' set as the default finger.');
+    },
+    'fp-reset': function () { state.fingers = {}; state.defaultFinger = 0; renderFingers(); msg('Captured fingers reset.'); },
+    'face-capture': function () { state.faces = true; renderFaces(); msg('Face captured successfully. 3 images processed and verified.'); },
+    'face-reset': function () { state.faces = false; renderFaces(); msg('Captured face images reset.'); },
+    't-open': openModal, 't-close': closeModal, 't-reset': resetModal, 't-add': addRow,
+    't-clear': function () { state.rows = []; renderRows(); msg('All new transversals cleared.'); },
+    't-del': function (a) { state.rows.splice(+a.dataset.row, 1); renderRows(); msg('Transversal removed from the list.'); },
+    'pki-next': function () { state.pki++; renderPki(); if (state.pki >= PKI_STEPS.length) msg('PKI enrolment completed successfully.'); }
+  };
+  var NEEDS = {
+    fingers: function () { return countFingers('verified') >= 4 || 'Capture and verify 4 fingers before signing.'; },
+    faces: function () { return state.faces || 'Capture and verify the face images before signing.'; }
+  };
 
   var steps = ['User details', 'Biometrics', 'Transversal accounts', 'PKI & smartcard'];
   var screens = [].slice.call(document.querySelectorAll('.pv-screen'));
+  var names = screens.map(function (s) { return s.dataset.name; });
   var sw = document.getElementById('pvSwitch');
   function show(n) {
     screens.forEach(function (s, i) { s.classList.toggle('on', i === n); });
-    [].forEach.call(sw.children, function (b, i) { b.classList.toggle('on', i === n); });
+    [].forEach.call(sw.children, function (b) { b.classList.toggle('on', b.dataset.name === names[n]); });
     var cur = +screens[n].dataset.step;
     document.getElementById('pvTitle').textContent = screens[n].dataset.title;
     document.getElementById('UserEnromentWizard').style.display = cur ? '' : 'none';
@@ -1273,24 +1376,45 @@ Secondary reader: waiting for card</textarea>
       var k = i + 1, st = k < cur ? 'is-done' : k === cur ? 'is-current' : '';
       return '<li class="ed-step ' + st + '"><span class="ed-step-num">' + (k < cur ? '✓' : k) + '</span><span class="ed-step-label">' + t + '</span></li>';
     }).join('');
-    try { localStorage.setItem('pvScreen', n); } catch (e) {}
+    if (names[n] !== 'Transversal') closeModal();
+    try { localStorage.setItem('pvScreen', names[n]); } catch (e) {}
   }
-  screens.forEach(function (s, i) {
-    var b = document.createElement('button'); b.textContent = s.dataset.name; b.onclick = function () { show(i); }; sw.appendChild(b);
+  // Screen switcher; "Add Transversal" opens the Transversal screen with its modal, for screenshots.
+  var switchNames = names.slice(); switchNames.splice(names.indexOf('Transversal') + 1, 0, 'Add Transversal');
+  switchNames.forEach(function (name) {
+    var b = document.createElement('button'); b.textContent = name; b.dataset.name = name;
+    b.onclick = function () { go(name); }; sw.appendChild(b);
   });
-  // Flow buttons move between screens; any other "#" link does nothing instead of jumping to the top.
+  function go(name) {
+    if (name === 'Add Transversal') { show(names.indexOf('Transversal')); openModal(); sw.querySelector('[data-name="Add Transversal"]').classList.add('on'); sw.querySelector('[data-name="Transversal"]').classList.remove('on'); return; }
+    var n = names.indexOf(name); if (n >= 0) show(n);
+  }
+
   document.addEventListener('click', function (e) {
-    var a = e.target.closest('a[href="#"], [data-pv-go]');
+    var slot = e.target.closest('.ed-capture-slot');
+    if (slot) {
+      var f = +slot.dataset.finger;
+      if (!state.fingers[f]) { state.fingers[f] = 'captured'; renderFingers(); msg('Finger ' + f + ' captured (2 samples). ' + countFingers() + ' finger(s) captured.'); }
+      return;
+    }
+    var a = e.target.closest('a[href="#"], [data-pv-go], [data-pv-act]');
     if (!a) return;
     e.preventDefault();
-    var n = screens.map(function (s) { return s.dataset.name; }).indexOf(a.getAttribute('data-pv-go'));
-    if (n < 0) return;
-    show(n);
+    if (a.dataset.pvAct) return ACTIONS[a.dataset.pvAct](a);
+    var target = a.getAttribute('data-pv-go');
+    if (!target) return;
+    var need = a.dataset.pvNeed && NEEDS[a.dataset.pvNeed]();
+    if (need && need !== true) return msg(need);
+    if (a.hasAttribute('data-pv-reset')) resetFlow();
+    go(target);
     window.scrollTo(0, 0);
-    document.getElementById('applicationMessage').textContent = a.getAttribute('data-pv-msg') || 'Connected to the eDNA capture service.';
+    msg(a.getAttribute('data-pv-msg') || 'Connected to the eDNA capture service.');
   });
-  var start = +(new URLSearchParams(location.search).get('s') || (function () { try { return localStorage.getItem('pvScreen'); } catch (e) { return 0; } })() || 0);
-  show(Math.min(start, screens.length - 1));
+
+  resetFlow();
+  // ?s= takes a screen name (e.g. ?s=PKI) or number; otherwise the last screen viewed, else Logon.
+  var start = new URLSearchParams(location.search).get('s') || (function () { try { return localStorage.getItem('pvScreen'); } catch (e) { return null; } })() || 'Logon';
+  go(/^\d+$/.test(start) ? names[Math.min(+start, names.length - 1)] : (start === 'Add Transversal' || names.indexOf(start) >= 0 ? start : 'Logon'));
 </script>
 </body>
 </html>
