@@ -819,6 +819,83 @@
         .ed-steps .ed-step-label { display: none; }
         .ed-statusbar-meta .ed-version { display: none; }
     }
+
+    /* eDNA · Look B "Soft + spotlight"
+       Load AFTER _ModernTheme (or paste at the end of its <style> block).
+       CSS only: no markup, id, name or script-hook changes. Uses existing --ed-* tokens. */
+
+    /* ---- Page + shell ---- */
+    body{background:var(--ed-surface-2)}
+    body .ed-topbar{border-bottom-color:transparent}
+    body .ed-topbar-actions{display:flex;align-items:center;gap:8px}
+    body .ed-topbar-link{display:inline-flex!important;align-items:center;gap:6px;height:34px;padding:0 14px!important;border:0!important;border-radius:999px!important;background:var(--ed-surface-2);font-size:13px!important;transition:background .15s,color .15s}
+    body .ed-topbar-link:hover,body .ed-topbar-link:focus{background:var(--ed-primary-soft);color:var(--ed-primary)!important}
+    body .ed-wizard,body #UserEnromentWizard.ed-wizard,body .breadcrumb.ed-wizard{background:transparent;border-bottom:0;padding-top:20px}
+    body .ed-steps{gap:6px}
+    body .ed-step+.ed-step::before{display:none}
+    body .ed-step{padding:4px 14px 4px 4px;border-radius:999px;background:var(--ed-surface)}
+    body .ed-step.is-current{background:var(--ed-primary-soft);color:var(--ed-primary)}
+    body .ed-statusbar{border-top-color:transparent}
+
+    /* ---- Buttons ---- */
+    body .btn{border-radius:999px;padding-left:18px;padding-right:18px;transition:background .15s,border-color .15s,color .15s,box-shadow .15s}
+    body .btn-primary:not(.ed-btn-secondary):not(.ed-btn-success){box-shadow:0 4px 16px var(--ed-focus-ring)}
+
+    /* ---- Page headers (soft spotlight behind the title) ---- */
+    body .ed-page-header{position:relative;isolation:isolate}
+    body .ed-page-header::before{content:"";position:absolute;z-index:-1;left:-60px;top:-50px;width:520px;max-width:100%;height:220px;background:radial-gradient(ellipse at 30% 50%,var(--ed-primary-soft) 0,transparent 65%);pointer-events:none}
+    body .ed-page-header h2,body .ed-page-header h3{letter-spacing:-.02em;font-weight:700}
+    body .ed-page-intro h2{font-size:30px}
+    body .ed-page-intro h2::before,body .face-enrolment-header h3::before{content:"( Biometrics )";display:block;margin-bottom:8px;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ed-primary)}
+    body .ed-checklist li{padding:6px 14px 6px 6px;border-radius:999px;background:var(--ed-surface)}
+    body .ed-checklist-wide li{border-radius:18px;padding:12px 16px 12px 8px}
+
+    /* ---- Cards, panels, action bar ---- */
+    body .ed-card,body .ed-sidepanel,body .ed-actionbar{border:0;border-radius:22px;box-shadow:0 2px 8px rgba(var(--ed-shadow-rgb),.06)}
+    body .ed-card-header{border-bottom:0;padding-bottom:4px}
+    body .ed-card-header h3{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ed-text-muted)}
+    body .ed-actionbar{padding:12px 14px}
+
+    /* ---- Form controls ---- */
+    body .form-control,body select.dropdown,body select.dropdown-btn{border-color:transparent;border-radius:12px;background-color:var(--ed-surface-2);box-shadow:none}
+    body .form-control:focus,body select.dropdown:focus,body select.dropdown-btn:focus{border-color:var(--ed-primary);background-color:var(--ed-surface);box-shadow:0 0 0 3px var(--ed-focus-ring)}
+    body .form-control[readonly]{background-color:transparent;border-color:var(--ed-border)}
+
+    /* ---- Tables (density kept) ---- */
+    body .ed-card .table{border-collapse:separate;border-spacing:0}
+    body .ed-card .table>thead>tr>th{border:0;background:transparent;font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ed-text-muted)}
+    body .ed-card .table>tbody>tr>td{border-top:1px solid var(--ed-border)}
+    body .ed-card .table-hover>tbody>tr:hover>td{background:var(--ed-primary-soft)}
+    body .ed-card .table>thead>tr>th:first-child,body .ed-card .table>tbody>tr>td:first-child{padding-left:24px}
+
+    /* ---- Fingerprint: spotlight behind each hand ---- */
+    body .ed-layout-split>.ed-card{background:radial-gradient(ellipse 34% 48% at 25% 42%,var(--ed-primary-soft) 0,transparent 70%),radial-gradient(ellipse 34% 48% at 75% 42%,var(--ed-primary-soft) 0,transparent 70%),var(--ed-surface)}
+    body .ed-layout-split>.ed-card .ed-card-body{padding:28px 24px}
+    body .ed-hand-image{position:relative;border:0;border-radius:18px;background-color:transparent;margin-bottom:20px}
+    body .ed-hand-image::after{content:"";position:absolute;left:-12%;right:-12%;bottom:-14px;height:28px;border:1px solid var(--ed-primary);border-radius:50%;opacity:.3}
+    body .ed-capture-slot{border:0;border-radius:14px;background:var(--ed-surface-2);transition:background .15s}
+    body .ed-capture-slot:hover{background:var(--ed-primary-soft)}
+    body .ed-sidepanel{padding:8px;background:radial-gradient(ellipse 90% 30% at 50% 0,var(--ed-primary-soft) 0,transparent 100%),var(--ed-surface)}
+    body .ed-sidepanel .list-group-item{border:0;border-radius:12px!important;background:transparent}
+    body .ed-sidepanel .ed-section-title{padding:14px 14px 4px;font-size:12px;letter-spacing:.08em}
+    body .ed-sidepanel a.list-group-item{color:var(--ed-text)}
+    body .ed-sidepanel a.list-group-item:hover{background:var(--ed-primary-soft)}
+
+    /* ---- Facial: spotlight inside each image card ---- */
+    body .face-image-card{border:0;border-radius:22px;background:radial-gradient(ellipse 60% 55% at 50% 50%,var(--ed-primary-soft) 0,transparent 75%),var(--ed-surface);box-shadow:0 2px 8px rgba(var(--ed-shadow-rgb),.06)}
+    body .face-capture-image{border-radius:14px}
+    body .face-image-quality{display:inline-block;padding:2px 10px;border-radius:999px;background:var(--ed-surface-2)}
+
+    /* ---- Logon: card sits in a spotlight ---- */
+    body .ed-logon{background:radial-gradient(ellipse 45% 55% at 50% 45%,var(--ed-primary-soft) 0,transparent 70%)}
+    body .ed-logon-card{border:0;border-radius:24px;box-shadow:0 12px 32px rgba(var(--ed-shadow-rgb),.10)}
+    body .biometric-logon-link{border-radius:999px!important}
+
+    /* ---- Modals + busy ---- */
+    body .modal-content{border:0;border-radius:22px}
+    body .modal-header{border-bottom:0}
+    body .modal-footer{border-top:0;border-radius:0 0 22px 22px}
+    body .ed-busy-card{border:0;border-radius:24px;background:radial-gradient(circle at 50% 30%,var(--ed-primary-soft) 0,transparent 45%),var(--ed-surface)}
 </style>
 <script type="text/javascript">
     // Presentation only: light / dark mode. A saved choice (localStorage "ed-theme") wins; otherwise the OS setting.
@@ -873,6 +950,23 @@
   .pv-switch button.on { background:#1e5bd8; }
   .pv-screen { display:none; } .pv-screen.on { display:block; }
   .legend-dot { display:inline-block; width:18px; height:18px; border-radius:50%; }
+  body .ed-layout-split > .ed-card.pv-plain-card { background:var(--ed-surface); }  /* no hand spotlights behind a table */
+  /* Copied from the <style> block in PKIEnrolment/Index.cshtml (view-level, not in the theme). */
+  #PkiDestination { border:1px solid var(--ed-border); border-radius:var(--ed-radius); padding:20px; margin-bottom:24px; background:var(--ed-surface-2); }
+  #PkiDestination legend { width:auto; padding:0 10px; border:0; font-size:var(--ed-fs-lg); font-weight:600; }
+  .pki-mode { display:block; padding:12px 16px; font-size:var(--ed-fs-base); font-weight:400; background:var(--ed-surface); border:1px solid var(--ed-border); border-radius:var(--ed-radius-sm); margin-bottom:10px; }
+  .pki-mode input { width:20px; height:20px; margin-right:10px; vertical-align:middle; }
+  .pki-wizard { max-width:1100px; margin:0 auto 24px; background:var(--ed-surface); color:var(--ed-text); }
+  .pki-wizard .panel-body { padding:28px; }
+  .pki-steps { display:flex; flex-wrap:wrap; gap:8px; padding:0; list-style:none; counter-reset:pki-step; }
+  .pki-steps li { flex:1 1 120px; padding:12px 8px; border-bottom:4px solid var(--ed-border); color:var(--ed-text-muted); font-size:var(--ed-fs-sm); counter-increment:pki-step; }
+  .pki-steps li:before { content:counter(pki-step) ". "; font-weight:bold; }
+  .pki-steps li.pki-current { border-color:var(--ed-primary); color:var(--ed-primary-hover); font-weight:bold; background:var(--ed-primary-soft); }
+  .pki-steps li.pki-done { border-color:var(--ed-success); color:var(--ed-success); }
+  .pki-recovery { margin-top:24px; border-top:1px solid var(--ed-border); padding-top:16px; }
+  .pki-recovery summary { cursor:pointer; font-weight:bold; margin-bottom:16px; }
+  .pki-recovery .btn { margin:8px 4px 8px 0; }
+  #PkiWizardMessage { white-space:pre-line; margin-top:16px; }
 </style>
 </head>
 <body>
@@ -1019,7 +1113,102 @@
 </div>
 <div class="panel-footer ed-actionbar">
   <a href="#" data-pv-go="Search" class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
-  <a data-pv-go="Search" data-pv-msg="Biometrics signed. Transversal accounts and PKI are not part of this preview." href="#" class="btn btn-primary"><span class="glyphicon glyphicon-hand-up"></span> Sign And Continue</a>
+  <a data-pv-go="Transversal" data-pv-msg="Biometric data saved. Continue with transversal enrolment." href="#" class="btn btn-primary"><span class="glyphicon glyphicon-hand-up"></span> Sign And Continue</a>
+</div>
+</section>
+
+<!-- ===== Transversal (TransversalEnrolment is not in this repo: built from the enrolment flow screenshots) ===== -->
+<section class="pv-screen" data-step="3" data-title="Transversal Enrolment Details" data-name="Transversal">
+<div class="panel-body-details ed-page">
+  <div class="ed-page-header"><div><h3>Transversal accounts</h3><p>Add the transversal system accounts this user needs, then sign and continue to PKI enrolment.</p></div></div>
+  <div class="ed-layout-split">
+    <section class="ed-card pv-plain-card" style="overflow-x:auto">
+      <table class="table table-hover" style="margin:0">
+        <thead><tr><th>Account ID</th><th>Type</th><th>Mainframe ID</th><th>InstallID</th><th>PassportApp</th><th>Controller</th><th>Control-D</th><th>Select</th></tr></thead>
+        <tbody>
+          <tr><td>MGODIDE01</td><td>BAS</td><td>MF20431</td><td>KZN-BAS-01</td><td>False</td><td>False</td><td>False</td><td><a href="#" style="color:var(--ed-primary)"><span class="glyphicon glyphicon-remove"></span> Delete</a></td></tr>
+          <tr><td>MGODIDE02</td><td>PERSAL</td><td>MF20431</td><td></td><td>True</td><td>False</td><td>True</td><td><a href="#" style="color:var(--ed-primary)"><span class="glyphicon glyphicon-remove"></span> Delete</a></td></tr>
+        </tbody>
+      </table>
+    </section>
+    <aside class="list-group ed-sidepanel">
+      <div class="list-group-item ed-section-title">Transversal Functions</div>
+      <a href="#" data-pv-go="Add Transversal" class="list-group-item"><span class="glyphicon glyphicon-plus"></span> Add</a>
+      <a href="#" class="list-group-item"><span class="glyphicon glyphicon-trash" style="color:var(--ed-danger)"></span> Clear All</a>
+    </aside>
+  </div>
+</div>
+<div class="panel-footer ed-actionbar">
+  <a href="#" data-pv-go="Search" class="btn btn-primary ed-btn-secondary"><span class="glyphicon glyphicon-remove"></span> Cancel</a>
+  <a data-pv-go="PKI" data-pv-msg="Transversal enrolment completed successfully. Continue with PKI Enrolment." href="#" class="btn btn-primary"><span class="glyphicon glyphicon-hand-up"></span> Sign And Continue</a>
+</div>
+</section>
+
+<!-- ===== Add Transversal: the Transversal screen with the modal from Shared/_TransversalManagement + _TransversalAccountFields open ===== -->
+<section class="pv-screen" data-step="3" data-title="Transversal Enrolment Details" data-name="Add Transversal" data-clone="Transversal">
+<div class="modal-backdrop fade in"></div>
+<div class="modal fade in" role="dialog" style="display:block">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header"><h4><span class="glyphicon glyphicon-info-sign" style="font-size:24px;color:var(--ed-primary)"></span>&nbsp;<label>Transversal Details</label></h4></div>
+      <div class="modal-body form-horizontal">
+        <label>Please Select a Transversal.</label><br><br>
+        <div class="form-group"><label class="col-sm-4">Transversal Type</label><div class="col-sm-7"><select class="dropdown" style="width:90%"><option>[--Select Transversal Type--]</option><option>BAS</option><option>PERSAL</option><option>LOGIS</option></select> <a href="#"><span class="glyphicon glyphicon-refresh"></span> Reset</a></div></div>
+        <div class="form-group"><label class="col-sm-4">Transversal User ID</label><div class="col-sm-7"><input class="form-control" placeholder="TransversalUser ID" style="width:90%"></div></div>
+        <div class="form-group"><label class="col-sm-4">Mainframe ID</label><div class="col-sm-7"><input class="form-control" placeholder="MainframeAccount ID" style="width:90%"></div></div>
+        <div class="form-group"><label class="col-sm-4">BAS Install ID</label><div class="col-sm-7"><select class="dropdown" style="width:90%"><option>[--Select BAS Install ID--]</option><option>KZN-BAS-01</option></select></div></div>
+        <div class="form-group"><label class="col-sm-4" for="pvTPA">Is PassportApp User</label><div class="col-sm-7"><input type="checkbox" id="pvTPA"></div></div>
+        <div class="form-group"><label class="col-sm-4" for="pvTC">Is Controller</label><div class="col-sm-7"><input type="checkbox" id="pvTC"></div></div>
+        <div class="form-group"><label class="col-sm-4" for="pvTD">Is Control-D User</label><div class="col-sm-7"><input type="checkbox" id="pvTD"></div></div>
+      </div>
+      <div class="modal-footer">
+        <span class="pv-logo" style="margin-right:auto">eDNA</span>
+        <button type="button" data-pv-go="Transversal" class="btn btn-default">Cancel</button>
+        <button type="button" data-pv-go="Transversal" data-pv-msg="Transversal added to the list." class="btn btn-default">Add Transversal</button>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ===== PKI (from PKIEnrolment/Index.cshtml) ===== -->
+<section class="pv-screen" data-step="4" data-title="PKI Enrolment" data-name="PKI">
+<div class="pki-wizard panel panel-default">
+  <div class="panel-body">
+    <fieldset id="PkiDestination">
+      <legend>Card installation mode</legend>
+      <label class="pki-mode"><input type="radio" name="pvPkiMode" checked disabled> <strong>Physical Card</strong> — write files and activate the card</label>
+      <label class="pki-mode"><input type="radio" name="pvPkiMode" disabled> <strong>Memory Test</strong> — verify files without installing them</label>
+      <p role="status">Memory testing is not enabled for this officer.</p>
+      <p>Both modes use a real card key and real CA/HSM services. Memory test verifies the final files in memory without installing enrolment files, verifying the recipient or activating the card.</p>
+    </fieldset>
+    <div class="alert alert-info" style="font-size:1.25em;white-space:pre-line">CA: 00:00:00 | HSM: 00:00:00</div>
+    <ol class="pki-steps" aria-label="Enrolment progress">
+      <li class="pki-current">Check cards</li><li>Authorize officer</li><li>Certificate</li><li>Sign files</li><li>Install card</li><li>Verify recipient</li><li>Activate</li>
+    </ol>
+    <p class="text-muted">Step 1 of 7</p>
+    <h2>Check the cards and enrolment</h2>
+    <p>Keep the officer card in the primary reader and the allocated blank card in the secondary reader. Its serial is read automatically; we check the officer allocation, selected user and saved biometrics.</p>
+    <p>Allocate the warehoused card to the enrolment officer in <a href="#">Smartcard Management</a> before starting. The recipient is assigned when activation completes.</p>
+    <div id="PkiWizardMessage" class="alert alert-info" role="status">Ready to begin.</div>
+    <button type="button" class="btn btn-primary btn-lg">Check cards and continue</button>
+    <a href="#" data-pv-go="Search" class="btn btn-default" style="margin:8px">Leave wizard</a>
+    <p class="text-muted">Your operation is retained if you leave. Returning may require fresh officer authentication.</p>
+    <details class="pki-recovery" open>
+      <summary>Resume an enrolment or view details</summary>
+      <p>Operation: 3f6c2a1e-8b4d-4c7a-9e21-5d0b7a9c4e10</p>
+      <label for="pvPkiOp">Saved operation reference</label>
+      <input type="text" id="pvPkiOp" class="form-control" maxlength="36" value="3f6c2a1e-8b4d-4c7a-9e21-5d0b7a9c4e10">
+      <p>Resume the same operation after a restart or expired authorization. Keep the original cards and readers selected.</p>
+      <button type="button" class="btn btn-primary">Resume / Renew Authorization</button>
+      <button type="button" class="btn btn-default">Check saved activation</button>
+      <p>If activation was already attempted, check its saved result. Do not start a new enrolment.</p>
+      <label for="pvPkiStatus">Service details</label>
+      <textarea id="pvPkiStatus" class="form-control" rows="5" readonly style="width:100%;max-width:none">PKI service: connected
+Primary reader: officer card detected
+Secondary reader: waiting for card</textarea>
+    </details>
+  </div>
 </div>
 </section>
 
@@ -1052,6 +1241,11 @@
 <div class="pv-switch" id="pvSwitch"></div>
 
 <script>
+  // Screens with data-clone start with a copy of another screen (e.g. a modal shown over it).
+  document.querySelectorAll('[data-clone]').forEach(function (s) {
+    s.insertAdjacentHTML('afterbegin', document.querySelector('.pv-screen[data-name="' + s.dataset.clone + '"]').innerHTML);
+  });
+
   // Fingerprint slots, generated the same way as BiometricEnrolment/Index.cshtml.
   document.querySelectorAll('[data-slots]').forEach(function (grid) {
     var r = grid.dataset.slots.split('-').map(Number), html = '';
