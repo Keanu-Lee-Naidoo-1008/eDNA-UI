@@ -296,7 +296,7 @@
         padding: 10px var(--ed-space-5);
         background: var(--ed-warning-soft);
         color: var(--ed-text);
-        border-bottom: 2px solid var(--ed-warning);
+        border-bottom: 1px solid var(--ed-warning);
         font-weight: 500;
     }
     #MVCSiteMap .breadcrumb {
@@ -538,12 +538,12 @@
     .btn-warning { background: var(--ed-warning); border-color: var(--ed-warning); color: var(--ed-on-accent); }
     .btn-warning:hover, .btn-warning:focus, .btn-warning:active { background: var(--ed-warning-hover); border-color: var(--ed-warning-hover); color: var(--ed-on-accent); }
 
-    /* Alerts: status alerts keep their colour; info is neutral (it is not a status). */
-    .alert { border: 1px solid var(--ed-border); border-left-width: 4px; color: var(--ed-text); }
-    .alert-info { background: var(--ed-surface-2); border-left-color: var(--ed-text-muted); }
-    .alert-success { background: var(--ed-success-soft); border-left-color: var(--ed-success); }
-    .alert-warning { background: var(--ed-warning-soft); border-left-color: var(--ed-warning); }
-    .alert-danger { background: var(--ed-danger-soft); border-left-color: var(--ed-danger); }
+    /* Alerts: an even 1px edge all round, no side bar. Status alerts keep their colour; info is neutral (it is not a status). */
+    .alert { border: 1px solid var(--ed-border); color: var(--ed-text); }
+    .alert-info { background: var(--ed-surface-2); border-color: var(--ed-border); }
+    .alert-success { background: var(--ed-success-soft); border-color: var(--ed-success); }
+    .alert-warning { background: var(--ed-warning-soft); border-color: var(--ed-warning); }
+    .alert-danger { background: var(--ed-danger-soft); border-color: var(--ed-danger); }
     .alert .alert-link { color: var(--ed-accent); }
 
     .tooltip-inner { background: var(--ed-text); color: var(--ed-surface); padding: 6px 10px; font-size: var(--ed-text-sm); }
@@ -901,7 +901,7 @@
         text-decoration: none;
     }
     .ed-logon .biometric-logon-link:hover, .ed-logon .biometric-logon-link:focus { background: var(--ed-accent-hover); color: var(--ed-on-accent); }
-    .ed-logon .biometric-logon-message { padding: var(--ed-space-3); border-radius: var(--ed-radius); background: var(--ed-warning-soft); border-left: 4px solid var(--ed-warning); color: var(--ed-text); text-align: left; }
+    .ed-logon .biometric-logon-message { padding: var(--ed-space-3); border-radius: var(--ed-radius); background: var(--ed-warning-soft); border: 1px solid var(--ed-warning); color: var(--ed-text); text-align: left; }
     .ed-logon-hint { margin: var(--ed-space-5) 0 0; font-size: var(--ed-text-sm); color: var(--ed-text-muted); }
 
     /* ================= Alignment =================
