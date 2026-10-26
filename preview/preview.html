@@ -24,10 +24,10 @@
         --ed-danger-hover: #a82121;
         --ed-danger-soft: #fbe9e9;
 
-        --ed-bg: #eef2f8;              /* page background: neutral with a slight cool tint */
+        --ed-bg: #f5f6f8;              /* page background */
         --ed-surface: #ffffff;         /* panels, cards, modals, top bar */
-        --ed-surface-2: #e6ebf3;       /* background shift: table heads, inputs, hover */
-        --ed-border: #d5dce7;          /* dividers and surface edges */
+        --ed-surface-2: #eef0f3;       /* background shift: table heads, inputs, hover */
+        --ed-border: #d8dce2;          /* dividers and surface edges */
         --ed-border-strong: #8b95a1;   /* form control edges (3:1 against the surface) */
         --ed-text-muted: #5b6472;
         --ed-text: #1f2933;
@@ -944,6 +944,8 @@
     [style*="font-size:12px"] { font-size: var(--ed-text-sm) !important; }
     [style*="font-size:large"], [style*="font-size:18px"], [style*="font-size:1.25em"] { font-size: var(--ed-text-lg) !important; }
     [style*="font-size:x-large"] { font-size: var(--ed-text-xl) !important; }
+    /* PKI wizard: its view caps it at 1100px and centres it; use the same content width as every other screen. */
+    body .pki-wizard { max-width: none; margin: 0 0 var(--ed-space-5); }
     /* PKI dialog backdrops are inline rgba: use the theme overlay. */
     #PkiInstallationDialog, #PkiConfirmDialog { background: var(--ed-overlay) !important; }
     /* Forensic review page carries its own <style> block (later in the page, so these need extra weight). */
