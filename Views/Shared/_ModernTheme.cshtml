@@ -856,6 +856,17 @@
     }
     .face-enrolment-panel .face-image-quality { font-weight: 600; color: var(--ed-text-muted); }
 
+    /* ================= Empty states (Shared/_EmptyState.cshtml, centred) ================= */
+    .ed-empty-state { display: flex; flex-direction: column; align-items: center; gap: var(--ed-space-2); padding: var(--ed-space-6) var(--ed-space-4); text-align: center; color: var(--ed-text-muted); }
+    .ed-empty-state-heading { margin: 0; font-size: var(--ed-text-lg); color: var(--ed-heading); }
+    .ed-empty-state-text { margin: 0; max-width: 480px; }
+    .ed-empty-state .btn { margin-top: var(--ed-space-2); }
+    .table > tbody > tr.ed-empty-row > td { padding: 0; background: var(--ed-surface); }
+    .table-hover > tbody > tr.ed-empty-row:hover { background: transparent; }
+    .ed-main .table tr.ed-empty-row td, .ed-main .ed-empty-state { text-align: center; }
+    /* Rows or fields added later (by script or a re-render) replace the empty state. */
+    tbody > tr.ed-empty-row:not(:only-child), .ed-empty-state:not(:only-child) { display: none; }
+
     /* ================= Logon (centred) ================= */
     .ed-logon { display: flex; align-items: center; justify-content: center; min-height: calc(100vh - var(--ed-topbar-h) - var(--ed-statusbar-h) - 2 * var(--ed-space-5)); }
     .ed-logon-card {

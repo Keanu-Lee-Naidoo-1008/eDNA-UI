@@ -1,0 +1,21 @@
+@* Reusable empty state for lists and tables that have nothing to show.
+   Values come through ViewData so callers stay one line:
+     @Html.Partial("_EmptyState", new ViewDataDictionary { { "EmptyHeading", "No users found" }, { "EmptyText", "Try another search value." } })
+   EmptyHeading is required; EmptyText is one line of explanation; EmptyActionText + EmptyActionUrl add an optional link.
+   In a table, wrap it in <tr class="ed-empty-row"><td colspan="N">: the theme hides that row once any other row exists,
+   so rows added later by script replace it without extra code. *@
+@{
+    string l_strActionText = ViewData["EmptyActionText"] as string;
+    string l_strActionUrl = ViewData["EmptyActionUrl"] as string;
+}
+<div class="ed-empty-state" role="status">
+    <h4 class="ed-empty-state-heading">@ViewData["EmptyHeading"]</h4>
+    @if (ViewData["EmptyText"] != null)
+    {
+        <p class="ed-empty-state-text">@ViewData["EmptyText"]</p>
+    }
+    @if (!string.IsNullOrEmpty(l_strActionText) && !string.IsNullOrEmpty(l_strActionUrl))
+    {
+        <a class="btn btn-default" href="@l_strActionUrl">@l_strActionText</a>
+    }
+</div>

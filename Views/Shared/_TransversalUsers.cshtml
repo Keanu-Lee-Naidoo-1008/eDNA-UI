@@ -24,6 +24,10 @@
                 </td>
             </tr>
         }
+        @if (((ViewBag.TUsers as List<eDNA.WebPortal.Models.CTransversalUser>) ?? new List<eDNA.WebPortal.Models.CTransversalUser>()).Count == 0)
+        {
+            <tr class="ed-empty-row"><td colspan="6">@Html.Partial("_EmptyState", new ViewDataDictionary { { "EmptyHeading", "No transversal users found" }, { "EmptyText", "No transversal account matches that search." } })</td></tr>
+        }
     </tbody>
     <tfoot style="border-style:groove"></tfoot>
 </table>

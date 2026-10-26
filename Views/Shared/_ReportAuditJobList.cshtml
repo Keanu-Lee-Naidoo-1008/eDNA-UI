@@ -112,6 +112,10 @@
                     </tr>
                 }
             }
+            @if (((ViewBag.JobList as List<eDNA.WebPortal.Models.CReportJobInfoData>) ?? new List<eDNA.WebPortal.Models.CReportJobInfoData>()).Count == 0)
+            {
+                <tr class="ed-empty-row"><td colspan="8">@Html.Partial("_EmptyState", new ViewDataDictionary { { "EmptyHeading", "No report jobs" }, { "EmptyText", "Reports you request are listed here with their status." } })</td></tr>
+            }
         </tbody>
         <tfoot style="background-color:steelblue;color:white">
             <tr style="font-size:medium">
