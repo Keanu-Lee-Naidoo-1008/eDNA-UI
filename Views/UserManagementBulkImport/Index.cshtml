@@ -37,6 +37,10 @@
                             <td class="lalign col-xs-4" style="width:18%">@eDNAUser.Entity</td>
                         </tr>
                     }
+                    @if (((ViewBag.eDNAUsers as List<eDNA.CommonData.Classes.CData_User>) ?? new List<eDNA.CommonData.Classes.CData_User>()).Count == 0)
+                    {
+                        <tr class="ed-empty-row"><td colspan="5">@Html.Partial("_EmptyState", new ViewDataDictionary { { "EmptyHeading", "No users to import" }, { "EmptyText", "Users read from the import file are listed here." } })</td></tr>
+                    }
                 </tbody>
                 <tfoot style="background-color:steelblue;color:white">
                     <tr style="font-size:medium">

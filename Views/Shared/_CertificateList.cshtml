@@ -64,6 +64,12 @@
                     </tr>
                 </tbody>
             }
+            @if (((ViewBag.CertificateData as System.Data.DataTable) ?? new System.Data.DataTable()).Rows.Count == 0)
+            {
+                <tbody>
+                    <tr class="ed-empty-row"><td colspan="8">@Html.Partial("_EmptyState", new ViewDataDictionary { { "EmptyHeading", "No certificates found" }, { "EmptyText", "No certificates match the search criteria." } })</td></tr>
+                </tbody>
+            }
         </table>
     </div> 
 }

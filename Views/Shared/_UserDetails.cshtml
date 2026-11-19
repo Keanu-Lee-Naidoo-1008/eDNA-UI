@@ -118,6 +118,10 @@
                                                 </div>
 
                                         }
+                        @if (!(Model.User_Attributes ?? new List<eDNA.CommonData.Classes.CData_User_Attribute>()).Any())
+                        {
+                            @Html.Partial("_EmptyState", new ViewDataDictionary { { "EmptyHeading", "No user attributes" }, { "EmptyText", "No extra attributes are set up for this user." } })
+                        }
                     </div>
                 </div>
             </section>

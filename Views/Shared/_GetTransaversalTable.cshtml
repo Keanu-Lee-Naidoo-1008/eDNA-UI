@@ -149,6 +149,10 @@
                     </tr>
                 }
             }
+            @if (!l_lstTransversalAccounts.Any(a => a != null))
+            {
+                <tr class="ed-empty-row"><td colspan="8">@Html.Partial("_EmptyState", new ViewDataDictionary { { "EmptyHeading", "No transversal accounts" }, { "EmptyText", "This user has no transversal accounts yet." } })</td></tr>
+            }
         </tbody>
         <tfoot style="background-color:steelblue;color:white">
             <tr style="font-size:medium">

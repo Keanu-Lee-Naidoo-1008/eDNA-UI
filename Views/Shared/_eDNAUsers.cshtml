@@ -22,6 +22,10 @@
                 </td>
             </tr>
         }
+        @if (((ViewBag.eDNAUsers as List<eDNA.WebPortal.Models.CUser>) ?? new List<eDNA.WebPortal.Models.CUser>()).Count == 0)
+        {
+            <tr class="ed-empty-row"><td colspan="5">@Html.Partial("_EmptyState", new ViewDataDictionary { { "EmptyHeading", "No users found" }, { "EmptyText", "No eDNA user matches that search." } })</td></tr>
+        }
     </tbody>
     <tfoot style="border-style:groove"></tfoot>
 </table>

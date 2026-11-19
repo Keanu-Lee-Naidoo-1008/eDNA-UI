@@ -50,6 +50,10 @@
                             </td>
                         </tr>
                     }
+                    @if (((ViewBag.eDNAUsers as List<eDNA.CommonData.Classes.CData_User>) ?? new List<eDNA.CommonData.Classes.CData_User>()).Count == 0)
+                    {
+                        <tr class="ed-empty-row"><td colspan="5">@Html.Partial("_EmptyState", new ViewDataDictionary { { "EmptyHeading", "No users found" }, { "EmptyText", "No eDNA user matches that search. Check the value, or create a new user." } })</td></tr>
+                    }
                 </tbody>
             </table>
         </div>
